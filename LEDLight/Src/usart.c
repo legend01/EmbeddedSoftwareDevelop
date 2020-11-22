@@ -197,6 +197,9 @@ short Uart2_DMA_Sent(char * Sendbuff, short Bufflens)
   * @return {*}
   * @TODO:设置一个发送flag标志，用户只需要每次将数据塞进一个循环链表中，在发送数据的Task中一直检查这个发送flag
   * 如果为需要发送，就直接推送出去。
+  * 1.创建一个结构体，存放每次队列的首地址和标志位
+  * 2.创建入链表函数和出链表函数
+  * 3.封装供用户使用
   */ 
 	short l_val = Bufflens > UART_BUFFSIZE ? UART_BUFFSIZE : Bufflens;
 	int ret = 0x00;
