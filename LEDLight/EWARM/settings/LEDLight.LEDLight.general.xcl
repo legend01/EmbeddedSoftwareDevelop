@@ -1,0 +1,15 @@
+"C:\EmbeddedSoftwareSetup\IAR\arm\bin\armproc.dll" 
+
+"C:\EmbeddedSoftwareSetup\IAR\arm\bin\armJET.dll" 
+
+"C:\EmbeddedSoftwareWorkSpace\LEDLight\EWARM\LEDLight\Exe\LEDLight.out" 
+
+--plugin="C:\EmbeddedSoftwareSetup\IAR\arm\bin\armbat.dll" 
+
+--device_macro="C:\EmbeddedSoftwareSetup\IAR\arm\config\debugger\ST\STM32F1xx.dmac" 
+
+--flash_loader="C:\EmbeddedSoftwareSetup\IAR\arm\config\flashloader\ST\FlashSTM32F10xx8.board" 
+
+
+
+
