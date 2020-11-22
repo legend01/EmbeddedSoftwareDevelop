@@ -18,9 +18,9 @@
 
 "--jet_probe=cmsisdap" 
 
-"--jet_standard_reset=9,0,0" 
+"--jet_standard_reset=0,0,0" 
 
-"--reset_style=\"0,-,0,Disabled__no_reset_\"" 
+"--reset_style=\"0,-,1,Disabled__no_reset_\"" 
 
 "--reset_style=\"1,SoftwareReset,0,Software\"" 
 
@@ -30,7 +30,7 @@
 
 "--reset_style=\"4,SystemReset,0,System\"" 
 
-"--reset_style=\"9,ConnectUnderReset,1,Connect_during_reset\"" 
+"--reset_style=\"9,ConnectUnderReset,0,Connect_during_reset\"" 
 
 "--drv_interface=SWD" 
 

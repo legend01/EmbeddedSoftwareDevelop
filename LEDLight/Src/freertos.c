@@ -203,13 +203,16 @@ void StartUSART2Task(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    char str_buffer[] = {"1234567889hello\n"};
-    char str2_buffer[] = {"2323fefd\n"};
+    char str_buffer[] = {"1234567889hello\r\n"};
+    char str2_buffer[] = {"2323fefd\r\n"};
+    char receive_buf[200];
+    memset(receive_buf, 0, sizeof(receive_buf)/sizeof(receive_buf[0]));
  
     Uart2_DMA_Sent(str_buffer, strlen(str_buffer));
     osDelay(1000);
     Uart2_DMA_Sent(str2_buffer, strlen(str2_buffer));
     osDelay(1000);
+    Uart2_DMA_Sent(receive_buf, Get_Uart_Data(USART2, receive_buf, sizeof(receive_buf)/sizeof(receive_buf[0])));
   }
   /* USER CODE END StartUSART2Task */
 }

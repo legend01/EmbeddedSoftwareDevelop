@@ -61,7 +61,7 @@
 #define UART_BUFFSIZE    200   // 定义缓冲区的大小
 typedef struct
 {
-	short Uart_SendLens;  //待发送数据长�?
+	short Uart_SendLens;  //待发送数据长�??
 	short Uart_RecvLens;  //接收到的数据长度
 	short RecvQue_Head;   //新接收数据环形队列头指针
 	short RecvQue_Tail;   //新接收数据环形队列尾指针
@@ -90,6 +90,7 @@ void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN Prototypes */
 short Uart2_DMA_Sent(char * Sendbuff, short Bufflens);
 short Get_Uart_Data(USART_TypeDef* Uartx,char * RcvBuff, short RevLen);
+void IRQ_USART2_IRQHandler(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

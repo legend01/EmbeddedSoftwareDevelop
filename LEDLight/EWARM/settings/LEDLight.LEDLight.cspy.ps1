@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\EmbeddedSoftwareSetup\IAR\common\bin\cspybat" -f "C:\EmbeddedSoftwareWorkSpace\LEDLight\EWARM\settings\LEDLight.LEDLight.general.xcl" --backend -f "C:\EmbeddedSoftwareWorkSpace\LEDLight\EWARM\settings\LEDLight.LEDLight.driver.xcl" 
+& "C:\EmbeddedSoftwareSetup\IAR\common\bin\cspybat" -f "C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM\settings\LEDLight.LEDLight.general.xcl" --backend -f "C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM\settings\LEDLight.LEDLight.driver.xcl" 
 }
 else
 {
-& "C:\EmbeddedSoftwareSetup\IAR\common\bin\cspybat" -f "C:\EmbeddedSoftwareWorkSpace\LEDLight\EWARM\settings\LEDLight.LEDLight.general.xcl" --debug_file=$debugfile --backend -f "C:\EmbeddedSoftwareWorkSpace\LEDLight\EWARM\settings\LEDLight.LEDLight.driver.xcl" 
+& "C:\EmbeddedSoftwareSetup\IAR\common\bin\cspybat" -f "C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM\settings\LEDLight.LEDLight.general.xcl" --debug_file=$debugfile --backend -f "C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM\settings\LEDLight.LEDLight.driver.xcl" 
 }

@@ -62,7 +62,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+extern UART_STR   Uart1_Str,Uart2_Str,Uart3_Str;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -110,7 +110,12 @@ int main(void)
   MX_DMA_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  
+	 __HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE); // �?启空闲中�?
+    // 接收DMA通道关联缓冲�?
+	HAL_UART_Receive_DMA(&huart2, Uart2_Str.Uart_RecvBuff, UART_BUFFSIZE); 
+    // 以下这两个中断最好关掉，不然debug的时候会莫名其妙进中断，DMA发�?�不�?
+	__HAL_UART_DISABLE_IT(&huart2, UART_IT_ERR);
+  __HAL_UART_DISABLE_IT(&huart2, UART_IT_PE);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */

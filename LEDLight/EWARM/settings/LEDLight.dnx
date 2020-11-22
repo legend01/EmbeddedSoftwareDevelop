@@ -18,20 +18,20 @@
         <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </StLinkDriver>
     <Jet>
+        <JetConnSerialNo>Fire CMSIS-DAP:FS-00000385</JetConnSerialNo>
+        <JetConnFoundProbes />
+        <PrevWtdReset>Disabled (no reset)</PrevWtdReset>
         <DisableInterrupts>0</DisableInterrupts>
         <LeaveRunning>0</LeaveRunning>
         <MultiCoreRunAll>0</MultiCoreRunAll>
         <OnlineReset>Software</OnlineReset>
-        <JetConnSerialNo>Fire CMSIS-DAP:FS-00000385</JetConnSerialNo>
-        <JetConnFoundProbes />
-        <PrevWtdReset>Connect during reset</PrevWtdReset>
     </Jet>
     <PlDriver>
-        <MemConfigValue>C:\EmbeddedSoftwareSetup\IAR\arm\CONFIG\debugger\ST\STM32F103C8.ddf</MemConfigValue>
         <FirstRun>0</FirstRun>
+        <MemConfigValue>C:\EmbeddedSoftwareSetup\IAR\arm\CONFIG\debugger\ST\STM32F103C8.ddf</MemConfigValue>
     </PlDriver>
     <DebugChecksum>
-        <Checksum>721946657</Checksum>
+        <Checksum>853207389</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -59,6 +59,19 @@
     <ArmDriver>
         <EnableCache>1</EnableCache>
     </ArmDriver>
+    <JLinkDriver>
+        <CStepIntDis>_ 0</CStepIntDis>
+        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
+    </JLinkDriver>
+    <MSPFETDriver>
+        <mspfetResetStyle>0</mspfetResetStyle>
+        <mspfetResetStrategy>0</mspfetResetStrategy>
+        <CStepIntDis>_ 0</CStepIntDis>
+        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
+    </MSPFETDriver>
+    <Breakpoints>
+        <Count>0</Count>
+    </Breakpoints>
     <Trace1>
         <Enabled>0</Enabled>
         <ShowSource>1</ShowSource>
@@ -95,17 +108,20 @@
     <Breakpoints2>
         <Count>0</Count>
     </Breakpoints2>
+    <TermIOLog>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+    </TermIOLog>
     <LogFile>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
         <Category>_ 0</Category>
     </LogFile>
-    <TermIOLog>
-        <LoggingEnabled>_ 0</LoggingEnabled>
-        <LogFile>_ ""</LogFile>
-    </TermIOLog>
     <Aliases>
-        <Count>0</Count>
+        <A0>_ "C:\EmbeddedSoftwareWorkSpace\LEDLight\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_dma.c" ""</A0>
+        <A1>_ "C:\EmbeddedSoftwareWorkSpace\LEDLight\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_gpio.c" ""</A1>
+        <A2>_ "C:\EmbeddedSoftwareWorkSpace\LEDLight\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_uart.c" ""</A2>
+        <Count>3</Count>
         <SuppressDialog>0</SuppressDialog>
     </Aliases>
 </settings>

@@ -2,7 +2,7 @@
 
 "C:\EmbeddedSoftwareSetup\IAR\arm\bin\armJET.dll" 
 
-"C:\EmbeddedSoftwareWorkSpace\LEDLight\EWARM\LEDLight\Exe\LEDLight.out" 
+"C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM\LEDLight\Exe\LEDLight.out" 
 
 --plugin="C:\EmbeddedSoftwareSetup\IAR\arm\bin\armbat.dll" 
 

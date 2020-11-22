@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\EmbeddedSoftwareSetup\IAR\common\bin\cspybat" -f "C:\EmbeddedSoftwareWorkSpace\LEDLight\EWARM\settings\LEDLight.LEDLight.general.xcl" --backend -f "C:\EmbeddedSoftwareWorkSpace\LEDLight\EWARM\settings\LEDLight.LEDLight.driver.xcl" 
+"C:\EmbeddedSoftwareSetup\IAR\common\bin\cspybat" -f "C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM\settings\LEDLight.LEDLight.general.xcl" --backend -f "C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM\settings\LEDLight.LEDLight.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\EmbeddedSoftwareSetup\IAR\common\bin\cspybat" -f "C:\EmbeddedSoftwareWorkSpace\LEDLight\EWARM\settings\LEDLight.LEDLight.general.xcl" "--debug_file=%~1" --backend -f "C:\EmbeddedSoftwareWorkSpace\LEDLight\EWARM\settings\LEDLight.LEDLight.driver.xcl" 
+"C:\EmbeddedSoftwareSetup\IAR\common\bin\cspybat" -f "C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM\settings\LEDLight.LEDLight.general.xcl" "--debug_file=%~1" --backend -f "C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM\settings\LEDLight.LEDLight.driver.xcl" 
 
 @echo off 
 :end

@@ -946,7 +946,7 @@ HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, uint8_t *pDat
     /* Enable the DMA transfer for transmit request by setting the DMAT bit
        in the UART CR3 register */
     SET_BIT(huart->Instance->CR3, USART_CR3_DMAT);
-    
+
     return HAL_OK;
   }
   else

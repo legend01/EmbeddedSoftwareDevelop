@@ -141,6 +141,9 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
 
     __HAL_LINKDMA(uartHandle,hdmatx,hdma_usart2_tx);
 
+    /* USART2 interrupt Init */
+    HAL_NVIC_SetPriority(USART2_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(USART2_IRQn);
   /* USER CODE BEGIN USART2_MspInit 1 */
 
   /* USER CODE END USART2_MspInit 1 */
@@ -167,6 +170,9 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     /* USART2 DMA DeInit */
     HAL_DMA_DeInit(uartHandle->hdmarx);
     HAL_DMA_DeInit(uartHandle->hdmatx);
+
+    /* USART2 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(USART2_IRQn);
   /* USER CODE BEGIN USART2_MspDeInit 1 */
 
   /* USER CODE END USART2_MspDeInit 1 */
@@ -183,9 +189,9 @@ static int HAL_UART_Transision_DMA(UART_HandleTypeDef *huart, char* buf, short b
   return ret;
 }
 /*
-函数功能：串�?2DMA数据发�??
-函数形参：Sendbuff ：缓冲数�?
-          Bufflens ：数据长�?
+函数功能：串�??2DMA数据发�??
+函数形参：Sendbuff ：缓冲数�??
+          Bufflens ：数据长�??
 函数返回值：数据长度
 备注：无
 */
@@ -195,11 +201,11 @@ short Uart2_DMA_Sent(char * Sendbuff, short Bufflens)
   * @description: 
   * @param {*}
   * @return {*}
-  * @TODO:设置一个发送flag标志，用户只需要每次将数据塞进一个循环链表中，在发送数据的Task中一直检查这个发送flag
-  * 如果为需要发送，就直接推送出去。
-  * 1.创建一个结构体，存放每次队列的首地址和标志位
-  * 2.创建入链表函数和出链表函数
-  * 3.封装供用户使用
+  * @TODO:设置�?个发送flag标志，用户只�?要每次将数据塞进�?个循环链表中，在发�?�数据的Task中一直检查这个发送flag
+  * 如果为需要发送，就直接推送出去�??
+  * 1.创建�?个结构体，存放每次队列的首地�?和标志位
+  * 2.创建入链表函数和出链表函�?
+  * 3.封装供用户使�?
   */ 
 	short l_val = Bufflens > UART_BUFFSIZE ? UART_BUFFSIZE : Bufflens;
 	int ret = 0x00;
@@ -207,7 +213,7 @@ short Uart2_DMA_Sent(char * Sendbuff, short Bufflens)
 	{
 		return 0;
 	}
-	while(__HAL_DMA_GET_COUNTER(&hdma_usart2_tx));//�?测DMA发�?��?�道内还有没有数�?
+	while(__HAL_DMA_GET_COUNTER(&hdma_usart2_tx));//�??测DMA发�?��?�道内还有没有数�??
 	if(Sendbuff)
 	{
 		memcpy(Uart2_Str.Uart_SentBuff, Sendbuff, l_val);
@@ -217,14 +223,18 @@ short Uart2_DMA_Sent(char * Sendbuff, short Bufflens)
 }
 
 /*
-*函数功能：串�?1接收中断函数
+*函数功能：串�?2接收中断函数
 */
-void USART2_IRQHandler(void)
+void IRQ_USART2_IRQHandler(void)
 {
 	if(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_IDLE) != RESET)
 	{
 		short l_val;
-		l_val = UART_BUFFSIZE - DMA1_Channel6->CNDTR; // 通过DMA接收指针计算接收的字节数
+		/* 清除状�?�寄存器和串口数据寄存器 */
+    __HAL_UART_CLEAR_IDLEFLAG(&huart2);
+    /* 失能DMA接收 */
+    HAL_UART_DMAStop(&huart2);
+    l_val = UART_BUFFSIZE - DMA1_Channel6->CNDTR; // 通过DMA接收指针计算接收的字节数
 		if(l_val > Uart2_Str.RecvQue_Tail)
 		{
 			Uart2_Str.Uart_RecvLens += l_val - Uart2_Str.RecvQue_Tail;
@@ -235,13 +245,13 @@ void USART2_IRQHandler(void)
 		}
 		Uart2_Str.RecvQue_Tail = l_val;
 		Uart2_Str.Uart_RecvLens %= UART_BUFFSIZE;
+    HAL_UART_Receive_DMA(&huart2, Uart2_Str.Uart_RecvBuff, UART_BUFFSIZE);
 		__HAL_UART_CLEAR_IDLEFLAG(&huart2);
 	}
-	HAL_UART_IRQHandler(&huart2); // 这一条保留就行了  
 }
 /*
-函数功能：接收数据函�?
-函数形参�?* Uart_Str �? 串口数据缓冲结构地址
+函数功能：接收数据函�??
+函数形参�??* Uart_Str �?? 串口数据缓冲结构地址
 	    RcvBuff ：接收数据缓冲区  
 	    RevLen  ：接收缓冲区长度
 函数返回值：接收数据长度
@@ -249,14 +259,14 @@ void USART2_IRQHandler(void)
 */
 static short Uart_Receive_Data(UART_STR * Uart_Str, char * RcvBuff, short RevLen)
 {
-	short l_val = 0;            // �?部变�?   此次能拷贝的数据个数
+	short l_val = 0;            // �??部变�??   此次能拷贝的数据个数
 	if(!RevLen || !Uart_Str->Uart_RecvLens)
 	{
 		return 0;
 	}
 	l_val = Uart_Str->Uart_RecvLens;
 	
-	if(l_val > RevLen)  // 缓冲区的数据数量比传进来的缓冲区容量�?
+	if(l_val > RevLen)  // 缓冲区的数据数量比传进来的缓冲区容量�??
 	{
 		l_val = RevLen;
 	}
@@ -283,8 +293,8 @@ static short Uart_Receive_Data(UART_STR * Uart_Str, char * RcvBuff, short RevLen
 }
 /*
 函数功能：从串口获取数据
-函数形参�?* Uartx ：串口地�?
-         RcvBuff ：接收缓冲指�?
+函数形参�??* Uartx ：串口地�??
+         RcvBuff ：接收缓冲指�??
          RevLen  ：接收缓冲区大小
 函数返回值：接收数据长度
 备注：无
