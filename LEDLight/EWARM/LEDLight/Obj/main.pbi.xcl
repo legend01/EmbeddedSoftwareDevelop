@@ -21,6 +21,8 @@ C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM/../Middlewar
 -I
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM/../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS
 -I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\APP\W5500\Inc
+-I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\Core\Include
 -I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\DSP\Include
@@ -44,6 +46,8 @@ C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\Middlewares\Third_
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\Middlewares\Third_Party\FreeRTOS\Source\include
 -I
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\APP\W5500\Inc
 -I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\Core\Include
 -I

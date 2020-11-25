@@ -81,16 +81,16 @@
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 osThreadId LED2TaskHandle;
-osThreadId USART2TaskHandle;
+osThreadId USART3TaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-   
+osThreadId W5500ManageTaskHandle;
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const * argument);
 void StartLED2Task(void const * argument);
-void StartUSART2Task(void const * argument);
+void StartUSART3Task(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -139,9 +139,9 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(LED2Task, StartLED2Task, osPriorityIdle, 0, 128);
   LED2TaskHandle = osThreadCreate(osThread(LED2Task), NULL);
 
-  /* definition and creation of USART2Task */
-  osThreadDef(USART2Task, StartUSART2Task, osPriorityIdle, 0, 128);
-  USART2TaskHandle = osThreadCreate(osThread(USART2Task), NULL);
+  /* definition and creation of USART3Task */
+  osThreadDef(USART3Task, StartUSART3Task, osPriorityIdle, 0, 128);
+  USART3TaskHandle = osThreadCreate(osThread(USART3Task), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -166,6 +166,8 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
+    osThreadDef(W5500ScheduleTask, StartDefaultTask, osPriorityNormal, 0, 128);
+    W5500ManageTaskHandle = osThreadCreate(osThread(W5500ScheduleTask), NULL);
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
@@ -186,35 +188,30 @@ void StartLED2Task(void const * argument)
   {
     HAL_GPIO_TogglePin(LED2_Light_GPIO_Port, LED2_Light_Pin);
     HAL_Delay(1000);
+    char receive_buf[200];
+    memset(receive_buf, 0, sizeof(receive_buf)/sizeof(receive_buf[0]));
+ 
+    Uart2_DMA_Sent(receive_buf, Get_Uart_Data(USART2, receive_buf, sizeof(receive_buf)/sizeof(receive_buf[0])));
   }
   /* USER CODE END StartLED2Task */
 }
 
-/* USER CODE BEGIN Header_StartUSART2Task */
+/* USER CODE BEGIN Header_StartUSART3Task */
 /**
-* @brief Function implementing the USART2Task thread.
+* @brief Function implementing the USART3Task thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_StartUSART2Task */
-void StartUSART2Task(void const * argument)
+/* USER CODE END Header_StartUSART3Task */
+void StartUSART3Task(void const * argument)
 {
-  /* USER CODE BEGIN StartUSART2Task */
+  /* USER CODE BEGIN StartUSART3Task */
   /* Infinite loop */
   for(;;)
   {
-    char str_buffer[] = {"1234567889hello\r\n"};
-    char str2_buffer[] = {"2323fefd\r\n"};
-    char receive_buf[200];
-    memset(receive_buf, 0, sizeof(receive_buf)/sizeof(receive_buf[0]));
- 
-    Uart2_DMA_Sent(str_buffer, strlen(str_buffer));
-    osDelay(1000);
-    Uart2_DMA_Sent(str2_buffer, strlen(str2_buffer));
-    osDelay(1000);
-    Uart2_DMA_Sent(receive_buf, Get_Uart_Data(USART2, receive_buf, sizeof(receive_buf)/sizeof(receive_buf[0])));
+    osDelay(1);
   }
-  /* USER CODE END StartUSART2Task */
+  /* USER CODE END StartUSART3Task */
 }
 
 /* Private application code --------------------------------------------------*/

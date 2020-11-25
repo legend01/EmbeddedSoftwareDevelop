@@ -58,24 +58,24 @@ UART_STR   Uart1_Str,Uart2_Str,Uart3_Str;  // 定义串口发�?�接收缓冲
 
 /* USER CODE END 0 */
 
-UART_HandleTypeDef huart2;
-DMA_HandleTypeDef hdma_usart2_rx;
-DMA_HandleTypeDef hdma_usart2_tx;
+UART_HandleTypeDef huart3;
+DMA_HandleTypeDef hdma_usart3_rx;
+DMA_HandleTypeDef hdma_usart3_tx;
 
-/* USART2 init function */
+/* USART3 init function */
 
-void MX_USART2_UART_Init(void)
+void MX_USART3_UART_Init(void)
 {
 
-  huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
-  huart2.Init.WordLength = UART_WORDLENGTH_8B;
-  huart2.Init.StopBits = UART_STOPBITS_1;
-  huart2.Init.Parity = UART_PARITY_NONE;
-  huart2.Init.Mode = UART_MODE_TX_RX;
-  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart2) != HAL_OK)
+  huart3.Instance = USART3;
+  huart3.Init.BaudRate = 115200;
+  huart3.Init.WordLength = UART_WORDLENGTH_8B;
+  huart3.Init.StopBits = UART_STOPBITS_1;
+  huart3.Init.Parity = UART_PARITY_NONE;
+  huart3.Init.Mode = UART_MODE_TX_RX;
+  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart3) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -86,96 +86,96 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
 {
 
   GPIO_InitTypeDef GPIO_InitStruct;
-  if(uartHandle->Instance==USART2)
+  if(uartHandle->Instance==USART3)
   {
-  /* USER CODE BEGIN USART2_MspInit 0 */
+  /* USER CODE BEGIN USART3_MspInit 0 */
 
-  /* USER CODE END USART2_MspInit 0 */
-    /* USART2 clock enable */
-    __HAL_RCC_USART2_CLK_ENABLE();
+  /* USER CODE END USART3_MspInit 0 */
+    /* USART3 clock enable */
+    __HAL_RCC_USART3_CLK_ENABLE();
   
-    /**USART2 GPIO Configuration    
-    PA2     ------> USART2_TX
-    PA3     ------> USART2_RX 
+    /**USART3 GPIO Configuration    
+    PB10     ------> USART3_TX
+    PB11     ------> USART3_RX 
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_2;
+    GPIO_InitStruct.Pin = GPIO_PIN_10;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_3;
+    GPIO_InitStruct.Pin = GPIO_PIN_11;
     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-    /* USART2 DMA Init */
-    /* USART2_RX Init */
-    hdma_usart2_rx.Instance = DMA1_Channel6;
-    hdma_usart2_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
-    hdma_usart2_rx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_usart2_rx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_usart2_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_usart2_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_usart2_rx.Init.Mode = DMA_NORMAL;
-    hdma_usart2_rx.Init.Priority = DMA_PRIORITY_LOW;
-    if (HAL_DMA_Init(&hdma_usart2_rx) != HAL_OK)
+    /* USART3 DMA Init */
+    /* USART3_RX Init */
+    hdma_usart3_rx.Instance = DMA1_Channel3;
+    hdma_usart3_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
+    hdma_usart3_rx.Init.PeriphInc = DMA_PINC_DISABLE;
+    hdma_usart3_rx.Init.MemInc = DMA_MINC_ENABLE;
+    hdma_usart3_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+    hdma_usart3_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+    hdma_usart3_rx.Init.Mode = DMA_NORMAL;
+    hdma_usart3_rx.Init.Priority = DMA_PRIORITY_MEDIUM;
+    if (HAL_DMA_Init(&hdma_usart3_rx) != HAL_OK)
     {
       _Error_Handler(__FILE__, __LINE__);
     }
 
-    __HAL_LINKDMA(uartHandle,hdmarx,hdma_usart2_rx);
+    __HAL_LINKDMA(uartHandle,hdmarx,hdma_usart3_rx);
 
-    /* USART2_TX Init */
-    hdma_usart2_tx.Instance = DMA1_Channel7;
-    hdma_usart2_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
-    hdma_usart2_tx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_usart2_tx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_usart2_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_usart2_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_usart2_tx.Init.Mode = DMA_NORMAL;
-    hdma_usart2_tx.Init.Priority = DMA_PRIORITY_LOW;
-    if (HAL_DMA_Init(&hdma_usart2_tx) != HAL_OK)
+    /* USART3_TX Init */
+    hdma_usart3_tx.Instance = DMA1_Channel2;
+    hdma_usart3_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
+    hdma_usart3_tx.Init.PeriphInc = DMA_PINC_DISABLE;
+    hdma_usart3_tx.Init.MemInc = DMA_MINC_ENABLE;
+    hdma_usart3_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+    hdma_usart3_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+    hdma_usart3_tx.Init.Mode = DMA_NORMAL;
+    hdma_usart3_tx.Init.Priority = DMA_PRIORITY_MEDIUM;
+    if (HAL_DMA_Init(&hdma_usart3_tx) != HAL_OK)
     {
       _Error_Handler(__FILE__, __LINE__);
     }
 
-    __HAL_LINKDMA(uartHandle,hdmatx,hdma_usart2_tx);
+    __HAL_LINKDMA(uartHandle,hdmatx,hdma_usart3_tx);
 
-    /* USART2 interrupt Init */
-    HAL_NVIC_SetPriority(USART2_IRQn, 5, 0);
-    HAL_NVIC_EnableIRQ(USART2_IRQn);
-  /* USER CODE BEGIN USART2_MspInit 1 */
+    /* USART3 interrupt Init */
+    HAL_NVIC_SetPriority(USART3_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(USART3_IRQn);
+  /* USER CODE BEGIN USART3_MspInit 1 */
 
-  /* USER CODE END USART2_MspInit 1 */
+  /* USER CODE END USART3_MspInit 1 */
   }
 }
 
 void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 {
 
-  if(uartHandle->Instance==USART2)
+  if(uartHandle->Instance==USART3)
   {
-  /* USER CODE BEGIN USART2_MspDeInit 0 */
+  /* USER CODE BEGIN USART3_MspDeInit 0 */
 
-  /* USER CODE END USART2_MspDeInit 0 */
+  /* USER CODE END USART3_MspDeInit 0 */
     /* Peripheral clock disable */
-    __HAL_RCC_USART2_CLK_DISABLE();
+    __HAL_RCC_USART3_CLK_DISABLE();
   
-    /**USART2 GPIO Configuration    
-    PA2     ------> USART2_TX
-    PA3     ------> USART2_RX 
+    /**USART3 GPIO Configuration    
+    PB10     ------> USART3_TX
+    PB11     ------> USART3_RX 
     */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_2|GPIO_PIN_3);
+    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_10|GPIO_PIN_11);
 
-    /* USART2 DMA DeInit */
+    /* USART3 DMA DeInit */
     HAL_DMA_DeInit(uartHandle->hdmarx);
     HAL_DMA_DeInit(uartHandle->hdmatx);
 
-    /* USART2 interrupt Deinit */
-    HAL_NVIC_DisableIRQ(USART2_IRQn);
-  /* USER CODE BEGIN USART2_MspDeInit 1 */
+    /* USART3 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(USART3_IRQn);
+  /* USER CODE BEGIN USART3_MspDeInit 1 */
 
-  /* USER CODE END USART2_MspDeInit 1 */
+  /* USER CODE END USART3_MspDeInit 1 */
   }
 } 
 
@@ -189,23 +189,23 @@ static int HAL_UART_Transision_DMA(UART_HandleTypeDef *huart, char* buf, short b
   return ret;
 }
 /*
-函数功能：串�??2DMA数据发�??
-函数形参：Sendbuff ：缓冲数�??
-          Bufflens ：数据长�??
+函数功能：串口3DMA data send
+函数形参：Sendbuff ：data send buffer
+          Bufflens: data length
 函数返回值：数据长度
 备注：无
 */
-short Uart2_DMA_Sent(char * Sendbuff, short Bufflens)
+short Uart3_DMA_Sent(char * Sendbuff, short Bufflens)
 {
  /**
   * @description: 
   * @param {*}
   * @return {*}
-  * @TODO:设置�?个发送flag标志，用户只�?要每次将数据塞进�?个循环链表中，在发�?�数据的Task中一直检查这个发送flag
+  * @TODO:设置�??个发送flag标志，用户只�??要每次将数据塞进�??个循环链表中，在发�?�数据的Task中一直检查这个发送flag
   * 如果为需要发送，就直接推送出去�??
-  * 1.创建�?个结构体，存放每次队列的首地�?和标志位
-  * 2.创建入链表函数和出链表函�?
-  * 3.封装供用户使�?
+  * 1.创建�??个结构体，存放每次队列的首地�??和标志位
+  * 2.创建入链表函数和出链表函�??
+  * 3.封装供用户使�??
   */ 
 	short l_val = Bufflens > UART_BUFFSIZE ? UART_BUFFSIZE : Bufflens;
 	int ret = 0x00;
@@ -213,45 +213,35 @@ short Uart2_DMA_Sent(char * Sendbuff, short Bufflens)
 	{
 		return 0;
 	}
-	while(__HAL_DMA_GET_COUNTER(&hdma_usart2_tx));//�??测DMA发�?��?�道内还有没有数�??
+	while(__HAL_DMA_GET_COUNTER(&hdma_usart3_tx));//�???测DMA发�?��?�道内还有没有数�???
 	if(Sendbuff)
 	{
-		memcpy(Uart2_Str.Uart_SentBuff, Sendbuff, l_val);
+		memcpy(Uart3_Str.Uart_SentBuff, Sendbuff, l_val);
 	}
-  ret = HAL_UART_Transision_DMA(&huart2, Uart2_Str.Uart_SentBuff, l_val);
+  ret = HAL_UART_Transision_DMA(&huart3, Uart3_Str.Uart_SentBuff, l_val);
   return l_val;
 }
 
 /*
-*函数功能：串�?2接收中断函数
+*函数功能：serial port 3 reseive exit function
 */
-void IRQ_USART2_IRQHandler(void)
+void IRQ_USART3_IRQHandler(void)
 {
-	if(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_IDLE) != RESET)
+	if(__HAL_UART_GET_FLAG(&huart3, UART_FLAG_IDLE) != RESET)
 	{
-		short l_val;
 		/* 清除状�?�寄存器和串口数据寄存器 */
-    __HAL_UART_CLEAR_IDLEFLAG(&huart2);
+    __HAL_UART_CLEAR_IDLEFLAG(&huart3);
     /* 失能DMA接收 */
-    HAL_UART_DMAStop(&huart2);
-    l_val = UART_BUFFSIZE - DMA1_Channel6->CNDTR; // 通过DMA接收指针计算接收的字节数
-		if(l_val > Uart2_Str.RecvQue_Tail)
-		{
-			Uart2_Str.Uart_RecvLens += l_val - Uart2_Str.RecvQue_Tail;
-		}
-		else
-		{
-			Uart2_Str.Uart_RecvLens += UART_BUFFSIZE - Uart2_Str.RecvQue_Tail + l_val;
-		}
-		Uart2_Str.RecvQue_Tail = l_val;
-		Uart2_Str.Uart_RecvLens %= UART_BUFFSIZE;
-    HAL_UART_Receive_DMA(&huart2, Uart2_Str.Uart_RecvBuff, UART_BUFFSIZE);
-		__HAL_UART_CLEAR_IDLEFLAG(&huart2);
+    HAL_UART_DMAStop(&huart3);
+    Uart3_Str.Uart_RecvLens  = UART_BUFFSIZE - DMA1_Channel3->CNDTR; // 通过DMA接收指针计算接收的字节数
+		Uart3_Str.Receive_flag = 1;
+    HAL_UART_Receive_DMA(&huart3, Uart3_Str.Uart_RecvBuff, UART_BUFFSIZE);
+		__HAL_UART_CLEAR_IDLEFLAG(&huart3);
 	}
 }
 /*
-函数功能：接收数据函�??
-函数形参�??* Uart_Str �?? 串口数据缓冲结构地址
+函数功能：receive data functions
+函数形参�???* Uart_Str �??? 串口数据缓冲结构地址
 	    RcvBuff ：接收数据缓冲区  
 	    RevLen  ：接收缓冲区长度
 函数返回值：接收数据长度
@@ -259,42 +249,24 @@ void IRQ_USART2_IRQHandler(void)
 */
 static short Uart_Receive_Data(UART_STR * Uart_Str, char * RcvBuff, short RevLen)
 {
-	short l_val = 0;            // �??部变�??   此次能拷贝的数据个数
-	if(!RevLen || !Uart_Str->Uart_RecvLens)
-	{
-		return 0;
-	}
-	l_val = Uart_Str->Uart_RecvLens;
-	
-	if(l_val > RevLen)  // 缓冲区的数据数量比传进来的缓冲区容量�??
-	{
-		l_val = RevLen;
-	}
-	if(Uart_Str->RecvQue_Tail > Uart_Str->RecvQue_Head)
-	{
-		memcpy(RcvBuff, Uart_Str->Uart_RecvBuff + Uart_Str->RecvQue_Head, l_val);
-	}
-	else
-	{
-		if((UART_BUFFSIZE - Uart_Str->RecvQue_Head) >= l_val)
-		{
-			memcpy(RcvBuff, Uart_Str->Uart_RecvBuff + Uart_Str->RecvQue_Head, l_val);
-		}
-		else
-		{
-			memcpy(RcvBuff, Uart_Str->Uart_RecvBuff + Uart_Str->RecvQue_Head, UART_BUFFSIZE - Uart_Str->RecvQue_Head);
-			memcpy(RcvBuff + (UART_BUFFSIZE - Uart_Str->RecvQue_Head), Uart_Str->Uart_RecvBuff, l_val - (UART_BUFFSIZE - Uart_Str->RecvQue_Head));
-		}
-	}
-	Uart_Str->Uart_RecvLens -= l_val;
-	Uart_Str->RecvQue_Head += l_val;
-	Uart_Str->RecvQue_Head %= UART_BUFFSIZE;
-	return l_val;
+  if (Uart_Str->Receive_flag)
+  {
+    if(Uart_Str->Uart_RecvLens > UART_BUFFSIZE){
+      memcpy(RcvBuff, Uart_Str->Uart_RecvBuff, UART_BUFFSIZE);
+      Uart_Str->Receive_flag = 0;
+      return UART_BUFFSIZE;
+    }else{
+      memcpy(RcvBuff, Uart_Str->Uart_RecvBuff, Uart_Str->Uart_RecvLens);
+      Uart_Str->Receive_flag = 0;
+      return Uart_Str->Uart_RecvLens;
+    }
+  }
+  
 }
 /*
 函数功能：从串口获取数据
-函数形参�??* Uartx ：串口地�??
-         RcvBuff ：接收缓冲指�??
+函数形参�???* Uartx ：串口地�???
+         RcvBuff ：接收缓冲指�???
          RevLen  ：接收缓冲区大小
 函数返回值：接收数据长度
 备注：无

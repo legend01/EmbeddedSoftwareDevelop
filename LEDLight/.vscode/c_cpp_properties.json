@@ -15,7 +15,8 @@
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\LEDLight\\Drivers\\CMSIS\\Include",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\LEDLight\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\IAR\\ARM_CM3",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\LEDLight\\Middlewares\\Third_Party\\FreeRTOS\\Source\\include",
-                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\LEDLight\\Middlewares\\Third_Party\\FreeRTOS\\Source\\CMSIS_RTOS"
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\LEDLight\\Middlewares\\Third_Party\\FreeRTOS\\Source\\CMSIS_RTOS",
+                "C:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\LEDLight\\APP\\W5500\\Inc"
             ],
             "forcedInclude": [],
             "cStandard": "c11",
