@@ -37,7 +37,9 @@
 #include "cmsis_os.h"
 
 /* USER CODE BEGIN 0 */
-
+extern volatile int W5500_Interrupt;
+extern volatile unsigned int Timer2_Counter;
+extern volatile unsigned int W5500_Send_Delay_Counter;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -172,6 +174,20 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
+* @brief This function handles EXTI line1 interrupt.
+*/
+void EXTI1_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI1_IRQn 0 */ 
+	W5500_Interrupt = 1;
+  /* USER CODE END EXTI1_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
+  /* USER CODE BEGIN EXTI1_IRQn 1 */
+
+  /* USER CODE END EXTI1_IRQn 1 */
+}
+
+/**
 * @brief This function handles DMA1 channel2 global interrupt.
 */
 void DMA1_Channel2_IRQHandler(void)
@@ -205,7 +221,8 @@ void DMA1_Channel3_IRQHandler(void)
 void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
-
+  Timer2_Counter ++;
+  W5500_Send_Delay_Counter++;
   /* USER CODE END TIM2_IRQn 0 */
   HAL_TIM_IRQHandler(&htim2);
   /* USER CODE BEGIN TIM2_IRQn 1 */

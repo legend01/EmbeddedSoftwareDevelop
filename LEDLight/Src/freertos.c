@@ -62,7 +62,8 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+volatile unsigned int Timer2_Counter=0; //Timer2定时器计数变量(ms)
+volatile unsigned int W5500_Send_Delay_Counter=0; //W5500发送延时计数变量(ms)
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -191,7 +192,7 @@ void StartLED2Task(void const * argument)
     char receive_buf[200];
     memset(receive_buf, 0, sizeof(receive_buf)/sizeof(receive_buf[0]));
  
-    Uart2_DMA_Sent(receive_buf, Get_Uart_Data(USART2, receive_buf, sizeof(receive_buf)/sizeof(receive_buf[0])));
+    Uart3_DMA_Sent(receive_buf, Get_Uart_Data(USART2, receive_buf, sizeof(receive_buf)/sizeof(receive_buf[0])));
   }
   /* USER CODE END StartLED2Task */
 }

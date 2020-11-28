@@ -204,12 +204,12 @@
 #define S_TX_SIZE	2048  	/*定义Socket发送缓冲区的大小，可以根据W5500_TMSR的设置修改 */
 
 /***************----- W5500 GPIO定义 -----***************/
-#define W5500_SCS		GPIO_Pin_4	//定义W5500的CS引脚	 
+#define W5500_SCS		GPIO_PIN_4	//定义W5500的CS引脚	 
 #define W5500_SCS_PORT	GPIOA
 	
 // #define W5500_RST		GPIO_Pin_5	//定义W5500的RST引脚 Previous definition
 // #define W5500_RST_PORT	GPIOC
-#define W5500_RST       GPIO_Pin_15 /* define w5500 RST pin PC_15 */
+#define W5500_RST       GPIO_PIN_15 /* define w5500 RST pin PC_15 */
 #define W5500_RST_PORT	GPIOC
 
 // #define W5500_INT		GPIO_Pin_4	//定义W5500的INT引脚 Previous definition
@@ -249,7 +249,7 @@ extern unsigned char S0_Data;		//端口0接收和发送数据的状态,1:端口�
 extern unsigned char Rx_Buffer[2048];	//端口接收数据缓冲区 
 extern unsigned char Tx_Buffer[2048];	//端口发送数据缓冲区 
 
-extern unsigned char W5500_Interrupt;	//W5500中断标志(0:无中断,1:有中断)
+extern volatile int W5500_Interrupt;	//W5500中断标志(0:无中断,1:有中断)
 typedef unsigned char SOCKET;			//自定义端口号数据类型
 
 extern void Delay(unsigned int d);//延时函数(ms)
