@@ -129,24 +129,13 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 } 
 
 /* USER CODE BEGIN 1 */
-// HAL_TIM_Base_Start_IT(&htim1); //使用定时器的时�?�调用这个函数启�??
-
-// HAL_TIM_Base_Stop_IT(&htim1);  //停止定时器的时�?�调用这个函数关�??
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  if(htim->Instance == TIM1){
-  //编写回调逻辑，即定时�??1定时1MS后的逻辑
-    Timer1_Counter++;
-  }
-}
 /*******************************************************************************
-* 函数�????  : Delay
+* 函数�?????  : Delay
 * 描述    : 延时函数(ms)
 * 输入    : d:延时系数，单位为毫秒
-* 输出    : �????
-* 返回    : �???? 
-* 说明    : 延时是利用Timer1定时器产生的1毫秒的计数来实现�????
+* 输出    : �?????
+* 返回    : �????? 
+* 说明    : 延时是利用Timer1定时器产生的1毫秒的计数来实现�?????
 *******************************************************************************/
 void Delay(unsigned int d)
 {

@@ -61,16 +61,18 @@
 
 #define LED2_Light_Pin GPIO_PIN_13
 #define LED2_Light_GPIO_Port GPIOC
-#define API1_SCS_Pin GPIO_PIN_1
-#define API1_SCS_GPIO_Port GPIOA
-#define SPI1_RESET_Pin GPIO_PIN_4
+#define SPI1_RESET_Pin GPIO_PIN_1
 #define SPI1_RESET_GPIO_Port GPIOA
+#define SPI1_SCS_Pin GPIO_PIN_4
+#define SPI1_SCS_GPIO_Port GPIOA
 #define SPI1_SCK_Pin GPIO_PIN_5
 #define SPI1_SCK_GPIO_Port GPIOA
 #define SPI1_MISO_Pin GPIO_PIN_6
 #define SPI1_MISO_GPIO_Port GPIOA
 #define SPI1_MOSI_Pin GPIO_PIN_7
 #define SPI1_MOSI_GPIO_Port GPIOA
+#define W5500_INIT_Pin GPIO_PIN_1
+#define W5500_INIT_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**

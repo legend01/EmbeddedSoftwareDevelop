@@ -60,7 +60,7 @@ void Load_Net_Parameters(void)
 	S0_DIP[2]=0;
 	S0_DIP[3]=101;
 	
-	S0_DPort[0] = 0x17;//加载端口0的目的端口号8086
+	S0_DPort[0] = 0x17;//加载端口0的目的端口号6000
 	S0_DPort[1] = 0x70;
 
 	S0_Mode=TCP_CLIENT;//加载端口0的工作模式,TCP客户端模式

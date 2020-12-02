@@ -78,7 +78,7 @@ void MX_FREERTOS_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-
+volatile unsigned int Timer1_Counter=0; //Timer1定时器计数变�??????(ms)
 /* USER CODE END 0 */
 
 /**
@@ -116,10 +116,10 @@ int main(void)
   MX_IWDG_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-	 __HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE); /* �???启空闲中�??? */
-    // 接收DMA通道关联缓冲�?????
+	 __HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE); /* �????启空闲中�???? */
+    // 接收DMA通道关联缓冲�??????
 	HAL_UART_Receive_DMA(&huart3, Uart3_Str.Uart_RecvBuff, UART_BUFFSIZE); 
-    // 以下这两个中断最好关掉，不然debug的时候会莫名其妙进中断，DMA发�?�不�?????
+    // 以下这两个中断最好关掉，不然debug的时候会莫名其妙进中断，DMA发�?�不�??????
 	__HAL_UART_DISABLE_IT(&huart3, UART_IT_ERR);
   __HAL_UART_DISABLE_IT(&huart3, UART_IT_PE);
   HAL_TIM_Base_Start_IT(&htim1);
@@ -204,6 +204,32 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM4 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+  // HAL_TIM_Base_Start_IT(&htim1); //使用定时器的时�?�调用这个函数启�???
+  // HAL_TIM_Base_Stop_IT(&htim1);  //停止定时器的时�?�调用这个函数关�???
+    if(htim->Instance == TIM1){
+    //编写回调逻辑，即定时�???1定时1MS后的逻辑
+    Timer1_Counter++;
+  }
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM4) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.

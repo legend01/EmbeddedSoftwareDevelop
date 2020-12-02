@@ -64,7 +64,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-volatile unsigned int Timer1_Counter=0; //Timer1定时器计数变�????(ms)
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -211,7 +211,7 @@ void StartUSART3Task(void const * argument)
   for(;;)
   {
     char data_buf[] = {"hello world test \r\n"};
-    Uart3_DMA_Sent(data_buf, sizeof(data_buf)/sizeof(data_buf[0]));
+    // Uart3_DMA_Sent(data_buf, sizeof(data_buf)/sizeof(data_buf[0]));
     HAL_IWDG_Refresh(&hiwdg);/* 喂狗 */
     HAL_Delay(1);
   }

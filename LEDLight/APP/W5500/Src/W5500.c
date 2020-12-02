@@ -38,6 +38,7 @@ unsigned char S0_Data;	//端口0接收和发送数据的状态,1:端口接收到
 #define S_RECEIVE 0x01	//端口接收到一个数据包
 #define S_TRANSMITOK 0x02 //端口发送一个数据包完成
 
+#define SPI1_WAIT_TIMEOUT 1000	//SPI1接收数据等待时间
 /***************----- 端口数据缓冲区 -----***************/
 unsigned char Rx_Buffer[2048]; //端口接收数据缓冲区
 unsigned char Tx_Buffer[2048]; //端口发送数据缓冲区
@@ -54,8 +55,8 @@ volatile int W5500_Interrupt; //W5500中断标志(0:无中断,1:有中断)
 *******************************************************************************/
 void SPI1_Send_Byte(unsigned char dat)
 {
-	HAL_SPI_Transmit(&hspi1,&dat,1,0xffff);
-	while(HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_BUSY_RX);
+	HAL_SPI_Transmit(&hspi1,&dat,1,SPI1_WAIT_TIMEOUT);
+	while(HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_BUSY);
 	// HAL_SPI_Transmit_IT(&hspi1, (uint8_t *)&dat, 1);
 	// while (HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_READY); //等待数据寄存器空
 }
@@ -217,11 +218,11 @@ unsigned char Read_W5500_1Byte(unsigned short reg)
 
 	//i = SPI_I2S_ReceiveData(SPI1);
         // HAL_SPI_Receive_IT(&hspi1, &i, 1);
-		HAL_SPI_Receive(&hspi1,&i,1,0XFFFF);
+		HAL_SPI_Receive(&hspi1,&i,1,SPI1_WAIT_TIMEOUT);
 	SPI1_Send_Byte(0x00);		   //发送一个哑数据
 	//i = SPI_I2S_ReceiveData(&hspi1); //读取1个字节数据
         // HAL_SPI_Receive_IT(&hspi1, &i, 1);
-		HAL_SPI_Receive(&hspi1,&i,1,0XFFFF);
+		HAL_SPI_Receive(&hspi1,&i,1,SPI1_WAIT_TIMEOUT);
 
 	GPIO_SetBits(W5500_SCS_PORT, W5500_SCS); //置W5500的SCS为高电平
 	return i;								 //返回读取到的寄存器数据
@@ -443,7 +444,7 @@ void W5500_Hardware_Reset(void)
 	Delay(50);
 	GPIO_SetBits(W5500_RST_PORT, W5500_RST); //复位引脚拉高
 	Delay(200);
-	while ((Read_W5500_1Byte(PHYCFGR) & LINK) == 0); //等待以太网连接完成
+	while ((Read_W5500_1Byte(PHYCFGR) & LINK) != 0); //等待以太网连接完成
 }
 
 /*******************************************************************************
@@ -684,6 +685,18 @@ unsigned char Socket_UDP(SOCKET s)
 	//至此完成了Socket的打开和UDP模式设置,在这种模式下它不需要与远程主机建立连接
 	//因为Socket不需要建立连接,所以在发送数据前都可以设置目的主机IP和目的Socket的端口号
 	//如果目的主机IP和目的Socket的端口号是固定的,在运行过程中没有改变,那么也可以在这里设置
+}
+/**
+  * @brief EXTI line detection callbacks
+  * @param GPIO_Pin: Specifies the pins connected EXTI line
+  * @retval None
+  */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if(GPIO_Pin == GPIO_PIN_1)
+	{
+		W5500_Interrupt=1;
+	} 
 }
 
 /*******************************************************************************
