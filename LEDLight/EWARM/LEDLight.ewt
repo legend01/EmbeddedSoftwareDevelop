@@ -1201,6 +1201,9 @@
             <group>
                 <name>Src</name>
                 <file>
+                    <name>$PROJ_DIR$\..\APP\W5500\Src\ProcessMessage.c</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\APP\W5500\Src\sys_stdlib.c</name>
                 </file>
                 <file>
@@ -1229,10 +1232,16 @@
                 <name>$PROJ_DIR$\..\Src\main.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\Src\spi.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Src\stm32f1xx_hal_msp.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\stm32f1xx_it.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\tim.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\usart.c</name>
@@ -1278,6 +1287,12 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rcc_ex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_spi.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_spi_ex.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_tim.c</name>

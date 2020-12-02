@@ -51,6 +51,7 @@
 #include "stm32f1xx_hal.h"
 #include "cmsis_os.h"
 #include "dma.h"
+#include "iwdg.h"
 #include "spi.h"
 #include "tim.h"
 #include "usart.h"
@@ -111,15 +112,20 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_SPI1_Init();
-  MX_TIM2_Init();
   MX_USART3_UART_Init();
+  MX_IWDG_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-	 __HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE); /* �?启空闲中�? */
-    // 接收DMA通道关联缓冲�???
+	 __HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE); /* �???启空闲中�??? */
+    // 接收DMA通道关联缓冲�?????
 	HAL_UART_Receive_DMA(&huart3, Uart3_Str.Uart_RecvBuff, UART_BUFFSIZE); 
-    // 以下这两个中断最好关掉，不然debug的时候会莫名其妙进中断，DMA发�?�不�???
+    // 以下这两个中断最好关掉，不然debug的时候会莫名其妙进中断，DMA发�?�不�?????
 	__HAL_UART_DISABLE_IT(&huart3, UART_IT_ERR);
   __HAL_UART_DISABLE_IT(&huart3, UART_IT_PE);
+  HAL_TIM_Base_Start_IT(&htim1);
+  Load_Net_Parameters();
+  W5500_Hardware_Reset();
+  W5500_Initialization();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -156,10 +162,11 @@ void SystemClock_Config(void)
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;

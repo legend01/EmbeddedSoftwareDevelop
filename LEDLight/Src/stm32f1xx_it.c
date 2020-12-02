@@ -44,7 +44,7 @@ extern volatile unsigned int W5500_Send_Delay_Counter;
 
 /* External variables --------------------------------------------------------*/
 extern SPI_HandleTypeDef hspi1;
-extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim1;
 extern DMA_HandleTypeDef hdma_usart3_rx;
 extern DMA_HandleTypeDef hdma_usart3_tx;
 extern UART_HandleTypeDef huart3;
@@ -174,20 +174,6 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-* @brief This function handles EXTI line1 interrupt.
-*/
-void EXTI1_IRQHandler(void)
-{
-  /* USER CODE BEGIN EXTI1_IRQn 0 */ 
-	W5500_Interrupt = 1;
-  /* USER CODE END EXTI1_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
-  /* USER CODE BEGIN EXTI1_IRQn 1 */
-
-  /* USER CODE END EXTI1_IRQn 1 */
-}
-
-/**
 * @brief This function handles DMA1 channel2 global interrupt.
 */
 void DMA1_Channel2_IRQHandler(void)
@@ -216,18 +202,17 @@ void DMA1_Channel3_IRQHandler(void)
 }
 
 /**
-* @brief This function handles TIM2 global interrupt.
+* @brief This function handles TIM1 update interrupt.
 */
-void TIM2_IRQHandler(void)
+void TIM1_UP_IRQHandler(void)
 {
-  /* USER CODE BEGIN TIM2_IRQn 0 */
-  Timer2_Counter ++;
-  W5500_Send_Delay_Counter++;
-  /* USER CODE END TIM2_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim2);
-  /* USER CODE BEGIN TIM2_IRQn 1 */
+  /* USER CODE BEGIN TIM1_UP_IRQn 0 */
 
-  /* USER CODE END TIM2_IRQn 1 */
+  /* USER CODE END TIM1_UP_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim1);
+  /* USER CODE BEGIN TIM1_UP_IRQn 1 */
+
+  /* USER CODE END TIM1_UP_IRQn 1 */
 }
 
 /**

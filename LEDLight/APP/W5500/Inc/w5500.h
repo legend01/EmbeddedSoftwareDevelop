@@ -1,6 +1,6 @@
 #ifndef	_W5500_H_
 #define	_W5500_H_
-
+#include "spi.h"
 /***************** Common Register *****************/
 #define MR		0x0000
 	#define RST		0x80
@@ -209,12 +209,12 @@
 	
 // #define W5500_RST		GPIO_Pin_5	//定义W5500的RST引脚 Previous definition
 // #define W5500_RST_PORT	GPIOC
-#define W5500_RST       GPIO_PIN_15 /* define w5500 RST pin PC_15 */
-#define W5500_RST_PORT	GPIOC
+#define W5500_RST       GPIO_PIN_1 /* define w5500 RST pin PC_15 */
+#define W5500_RST_PORT	GPIOA
 
 // #define W5500_INT		GPIO_Pin_4	//定义W5500的INT引脚 Previous definition
 // /*#define W5500_INT_PORT	GPIOC*/
-#define W5500_INT		GPIO_Pin_1 /* define w5500 INT pin PA_1 */
+// #define W5500_INT		GPIO_Pin_1 /* define w5500 INT pin PA_1 */
 #define W5500_INT_PORT	GPIOA
 /***************----- 网络参数变量定义 -----***************/
 extern unsigned char Gateway_IP[4];	//网关IP地址 
@@ -266,6 +266,7 @@ extern unsigned char Socket_UDP(SOCKET s);//设置指定Socket(0~7)为UDP模式
 extern unsigned short Read_SOCK_Data_Buffer(SOCKET s, unsigned char *dat_ptr);//指定Socket(0~7)接收数据处理
 extern void Write_SOCK_Data_Buffer(SOCKET s, unsigned char *dat_ptr, unsigned short size); //指定Socket(0~7)发送数据处理
 extern void W5500_Interrupt_Process(void);//W5500中断处理程序框架
-
+extern void W5500_Initialization(void);
+extern void W5500ProcessMessageF(void);
 #endif
 

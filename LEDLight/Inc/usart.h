@@ -61,7 +61,7 @@
 #define UART_BUFFSIZE    200   // 定义缓冲区的大小
 typedef struct
 {
-	short Uart_SendLens;  //待发送数据长�????
+	short Uart_SendLens;  //待发送数据长�?????
 	short Uart_RecvLens;  //接收到的数据长度
 	volatile short Receive_flag;
 	char Uart_SentBuff[UART_BUFFSIZE];
@@ -89,7 +89,7 @@ void MX_USART3_UART_Init(void);
 /* USER CODE BEGIN Prototypes */
 short Uart3_DMA_Sent(char * Sendbuff, short Bufflens);
 short Get_Uart_Data(USART_TypeDef* Uartx,char * RcvBuff, short RevLen);
-void IRQ_USART3_IRQHandler(void);
+extern void IRQ_USART3_IRQHandler(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

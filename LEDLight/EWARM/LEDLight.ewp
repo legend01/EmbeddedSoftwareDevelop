@@ -226,6 +226,8 @@
           <name>CCDefines</name>
           <state>USE_HAL_DRIVER</state>
           <state>STM32F103xB</state>
+          <state>STM32F10X_HD</state>
+          <state>_DLIB_FILE_DESCRIPTOR</state>
         </option>
         <option>
           <name>CCPreprocFile</name>
@@ -358,7 +360,7 @@
           <state>$PROJ_DIR$/../Middlewares/Third_Party/FreeRTOS/Source/portable/IAR/ARM_CM3</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/FreeRTOS/Source/include</state>
           <state>$PROJ_DIR$/../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS</state>
-          <state>C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\APP\W5500\Inc</state>
+          <state>$PROJ_DIR$/../APP/W5500/Inc</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1061,6 +1063,9 @@
       <group>
         <name>Src</name>
         <file>
+          <name>$PROJ_DIR$\..\APP\W5500\Src\ProcessMessage.c</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\APP\W5500\Src\sys_stdlib.c</name>
         </file>
         <file>
@@ -1077,6 +1082,9 @@
     <group>
       <name>User</name>
       <file>
+        <name>$PROJ_DIR$\..\Src\dma.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\Src\freertos.c</name>
       </file>
       <file>
@@ -1086,10 +1094,16 @@
         <name>$PROJ_DIR$\..\Src\main.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\Src\spi.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\Src\stm32f1xx_hal_msp.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\stm32f1xx_it.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\tim.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\usart.c</name>
@@ -1105,6 +1119,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$/../Src/freertos.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$/../Src/iwdg.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$/../Src/spi.c</name>
@@ -1167,6 +1184,12 @@
         <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rcc_ex.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_spi.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_spi_ex.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_tim.c</name>
       </file>
       <file>
@@ -1177,6 +1200,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$/../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$/../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_iwdg.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$/../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_spi.c</name>

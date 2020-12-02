@@ -21,7 +21,7 @@ C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM/../Middlewar
 -I
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM/../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS
 -I
-C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\APP\W5500\Inc
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\LEDLight\EWARM/../APP/W5500/Inc
 -I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\Core\Include
 -I
@@ -328,6 +328,8 @@ C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\DSP\Include
 -D__EDG_FLOAT128_ENABLING_POSSIBLE=0
 -DUSE_HAL_DRIVER=1
 -DSTM32F103xB=1
+-DSTM32F10X_HD=1
+-D_DLIB_FILE_DESCRIPTOR=1
 -D_DLIB_CONFIG_FILE_HEADER_NAME="C:\\EmbeddedSoftwareSetup\\IAR\\arm\\inc\\c\\DLib_Config_Full.h"
 -D_DLIB_CONFIG_FILE_STRING="C:\\EmbeddedSoftwareSetup\\IAR\\arm\\inc\\c\\DLib_Config_Full.h"
 -D__VERSION__="IAR ANSI C/C++ Compiler V8.32.1.169/W32 for ARM"

@@ -5,7 +5,9 @@
             "name": "IAR",
             "defines": [
                 "USE_HAL_DRIVER=",
-                "STM32F103xB="
+                "STM32F103xB=",
+                "STM32F10X_HD=",
+                "_DLIB_FILE_DESCRIPTOR="
             ],
             "includePath": [
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\LEDLight\\Inc",
@@ -16,7 +18,7 @@
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\LEDLight\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\IAR\\ARM_CM3",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\LEDLight\\Middlewares\\Third_Party\\FreeRTOS\\Source\\include",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\LEDLight\\Middlewares\\Third_Party\\FreeRTOS\\Source\\CMSIS_RTOS",
-                "C:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\LEDLight\\APP\\W5500\\Inc"
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\LEDLight\\APP\\W5500\\Inc"
             ],
             "forcedInclude": [],
             "cStandard": "c11",

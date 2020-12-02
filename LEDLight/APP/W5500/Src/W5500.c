@@ -5,8 +5,7 @@
 **********************************************************************************/
 
 #include "stm32f1xx.h"
-#include "stm32f1xx_hal_spi.h"
-#include "spi.h"
+// #include "stm32f1xx_hal_spi.h"
 #include "gpio.h"
 #include "W5500.h"
 
@@ -55,9 +54,10 @@ volatile int W5500_Interrupt; //W5500中断标志(0:无中断,1:有中断)
 *******************************************************************************/
 void SPI1_Send_Byte(unsigned char dat)
 {
-	HAL_SPI_Transmit_IT(&hspi1, (uint8_t *)&dat, 1);
-	while (HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_READY)
-		; //等待数据寄存器空
+	HAL_SPI_Transmit(&hspi1,&dat,1,0xffff);
+while(HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_BUSY_RX);
+	// HAL_SPI_Transmit_IT(&hspi1, (uint8_t *)&dat, 1);
+	// while (HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_READY); //等待数据寄存器空
 }
 
 /*******************************************************************************
@@ -216,10 +216,12 @@ unsigned char Read_W5500_1Byte(unsigned short reg)
 	SPI1_Send_Byte(FDM1 | RWB_READ | COMMON_R); //通过SPI1写控制字节,1个字节数据长度,读数据,选择通用寄存器
 
 	//i = SPI_I2S_ReceiveData(SPI1);
-        HAL_SPI_Receive_IT(&hspi1, &i, 1);
+        // HAL_SPI_Receive_IT(&hspi1, &i, 1);
+		HAL_SPI_Receive(&hspi1,&i,1,0XFFFF);
 	SPI1_Send_Byte(0x00);		   //发送一个哑数据
 	//i = SPI_I2S_ReceiveData(&hspi1); //读取1个字节数据
-        HAL_SPI_Receive_IT(&hspi1, &i, 1);
+        // HAL_SPI_Receive_IT(&hspi1, &i, 1);
+		HAL_SPI_Receive(&hspi1,&i,1,0XFFFF);
 
 	GPIO_SetBits(W5500_SCS_PORT, W5500_SCS); //置W5500的SCS为高电平
 	return i;								 //返回读取到的寄存器数据
@@ -441,8 +443,7 @@ void W5500_Hardware_Reset(void)
 	Delay(50);
 	GPIO_SetBits(W5500_RST_PORT, W5500_RST); //复位引脚拉高
 	Delay(200);
-	while ((Read_W5500_1Byte(PHYCFGR) & LINK) == 0)
-		; //等待以太网连接完成
+	while ((Read_W5500_1Byte(PHYCFGR) & LINK) == 0); //等待以太网连接完成
 }
 
 /*******************************************************************************

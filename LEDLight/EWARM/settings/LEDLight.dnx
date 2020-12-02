@@ -18,20 +18,20 @@
         <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </StLinkDriver>
     <Jet>
-        <JetConnSerialNo>Fire CMSIS-DAP:FS-00000385</JetConnSerialNo>
-        <JetConnFoundProbes />
-        <PrevWtdReset>Disabled (no reset)</PrevWtdReset>
         <OnlineReset>Software</OnlineReset>
         <DisableInterrupts>0</DisableInterrupts>
         <LeaveRunning>0</LeaveRunning>
         <MultiCoreRunAll>0</MultiCoreRunAll>
+        <JetConnSerialNo>Fire CMSIS-DAP:FS-00000385</JetConnSerialNo>
+        <JetConnFoundProbes />
+        <PrevWtdReset>Disabled (no reset)</PrevWtdReset>
     </Jet>
     <PlDriver>
-        <FirstRun>0</FirstRun>
         <MemConfigValue>C:\EmbeddedSoftwareSetup\IAR\arm\CONFIG\debugger\ST\STM32F103C8.ddf</MemConfigValue>
+        <FirstRun>0</FirstRun>
     </PlDriver>
     <DebugChecksum>
-        <Checksum>2209186973</Checksum>
+        <Checksum>3598304203</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -46,8 +46,8 @@
     <SWOManager>
         <SamplingDivider>8192</SamplingDivider>
         <OverrideClock>0</OverrideClock>
-        <CpuClock>1952804193</CpuClock>
-        <SwoClock>577991269</SwoClock>
+        <CpuClock>696008061</CpuClock>
+        <SwoClock>560889384</SwoClock>
         <DataLogMode>0</DataLogMode>
         <ItmPortsEnabled>63</ItmPortsEnabled>
         <ItmTermIOPorts>1</ItmTermIOPorts>
@@ -102,22 +102,23 @@
         <EventLSU>0</EventLSU>
         <EventSLEEP>0</EventSLEEP>
     </SWOTraceWindow>
-    <TermIOLog>
-        <LoggingEnabled>_ 0</LoggingEnabled>
-        <LogFile>_ ""</LogFile>
-    </TermIOLog>
+    <DisassembleMode>
+        <mode>1</mode>
+    </DisassembleMode>
+    <Breakpoints2>
+        <Bp0>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Src\main.c}.124.3" 0 0 1 "" 0 "" 0</Bp0>
+        <Bp1>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\APP\W5500\Src\W5500.c}.443.2" 0 0 1 "" 0 "" 0</Bp1>
+        <Count>2</Count>
+    </Breakpoints2>
     <LogFile>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
         <Category>_ 0</Category>
     </LogFile>
-    <DisassembleMode>
-        <mode>1</mode>
-    </DisassembleMode>
-    <Breakpoints2>
-        <Bp0>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Src\usart.c}.238.5" 0 0 1 "" 0 "" 0</Bp0>
-        <Count>1</Count>
-    </Breakpoints2>
+    <TermIOLog>
+        <LoggingEnabled>_ 0</LoggingEnabled>
+        <LogFile>_ ""</LogFile>
+    </TermIOLog>
     <Aliases>
         <A0>_ "C:\EmbeddedSoftwareWorkSpace\LEDLight\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_dma.c" ""</A0>
         <A1>_ "C:\EmbeddedSoftwareWorkSpace\LEDLight\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_gpio.c" ""</A1>

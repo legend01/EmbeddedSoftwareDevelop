@@ -58,12 +58,13 @@
 /* USER CODE BEGIN Includes */     
 #include "stm32f1xx.h"   
 #include "usart.h"  
+#include "w5500.h"
+#include "iwdg.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-volatile unsigned int Timer2_Counter=0; //Timer2定时器计数变量(ms)
-volatile unsigned int W5500_Send_Delay_Counter=0; //W5500发送延时计数变量(ms)
+volatile unsigned int Timer1_Counter=0; //Timer1定时器计数变�????(ms)
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -86,7 +87,7 @@ osThreadId USART3TaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-osThreadId W5500ManageTaskHandle;
+
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const * argument);
@@ -167,8 +168,7 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osThreadDef(W5500ScheduleTask, StartDefaultTask, osPriorityNormal, 0, 128);
-    W5500ManageTaskHandle = osThreadCreate(osThread(W5500ScheduleTask), NULL);
+    W5500ProcessMessageF();
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
@@ -192,7 +192,7 @@ void StartLED2Task(void const * argument)
     char receive_buf[200];
     memset(receive_buf, 0, sizeof(receive_buf)/sizeof(receive_buf[0]));
  
-    Uart3_DMA_Sent(receive_buf, Get_Uart_Data(USART2, receive_buf, sizeof(receive_buf)/sizeof(receive_buf[0])));
+    Uart3_DMA_Sent(receive_buf, Get_Uart_Data(USART3, receive_buf, sizeof(receive_buf)/sizeof(receive_buf[0])));
   }
   /* USER CODE END StartLED2Task */
 }
@@ -210,13 +210,17 @@ void StartUSART3Task(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+    char data_buf[] = {"hello world test \r\n"};
+    Uart3_DMA_Sent(data_buf, sizeof(data_buf)/sizeof(data_buf[0]));
+    HAL_IWDG_Refresh(&hiwdg);/* 喂狗 */
+    HAL_Delay(1);
   }
   /* USER CODE END StartUSART3Task */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+
 
 /* USER CODE END Application */
 

@@ -61,7 +61,7 @@
 
 /* USER CODE END Includes */
 
-extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim1;
 
 /* USER CODE BEGIN Private defines */
 
@@ -69,10 +69,11 @@ extern TIM_HandleTypeDef htim2;
 
 extern void _Error_Handler(char *, int);
 
-void MX_TIM2_Init(void);
+void MX_TIM1_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+extern void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
+void Delay(unsigned int d);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

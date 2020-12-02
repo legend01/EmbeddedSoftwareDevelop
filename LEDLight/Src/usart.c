@@ -54,6 +54,7 @@
 #include "dma.h"
 
 /* USER CODE BEGIN 0 */
+#include "stdio.h"
 UART_STR   Uart1_Str,Uart2_Str,Uart3_Str;  // 定义串口发�?�接收缓冲区
 
 /* USER CODE END 0 */
@@ -189,7 +190,7 @@ static int HAL_UART_Transision_DMA(UART_HandleTypeDef *huart, char* buf, short b
   return ret;
 }
 /*
-函数功能：串�?3DMA data send
+函数功能：串�???3DMA data send
 函数形参：Sendbuff ：data send buffer
           Bufflens: data length
 函数返回值：数据长度
@@ -201,11 +202,11 @@ short Uart3_DMA_Sent(char * Sendbuff, short Bufflens)
   * @description: 
   * @param {*}
   * @return {*}
-  * @TODO:设置�???个发送flag标志，用户只�???要每次将数据塞进�???个循环链表中，在发�?�数据的Task中一直检查这个发送flag
+  * @TODO:设置�?????个发送flag标志，用户只�?????要每次将数据塞进�?????个循环链表中，在发�?�数据的Task中一直检查这个发送flag
   * 如果为需要发送，就直接推送出去�??
-  * 1.创建�???个结构体，存放每次队列的首地�???和标志位
-  * 2.创建入链表函数和出链表函�???
-  * 3.封装供用户使�???
+  * 1.创建�?????个结构体，存放每次队列的首地�?????和标志位
+  * 2.创建入链表函数和出链表函�?????
+  * 3.封装供用户使�?????
   */ 
 	short l_val = Bufflens > UART_BUFFSIZE ? UART_BUFFSIZE : Bufflens;
 	int ret = 0x00;
@@ -213,7 +214,7 @@ short Uart3_DMA_Sent(char * Sendbuff, short Bufflens)
 	{
 		return 0;
 	}
-	while(__HAL_DMA_GET_COUNTER(&hdma_usart3_tx));//�????测DMA发�?��?�道内还有没有数�????
+	while(__HAL_DMA_GET_COUNTER(&hdma_usart3_tx));//�??????测DMA发�?��?�道内还有没有数�??????
 	if(Sendbuff)
 	{
 		memcpy(Uart3_Str.Uart_SentBuff, Sendbuff, l_val);
@@ -241,7 +242,7 @@ void IRQ_USART3_IRQHandler(void)
 }
 /*
 函数功能：receive data functions
-函数形参�????* Uart_Str �???? 串口数据缓冲结构地址
+函数形参�??????* Uart_Str �?????? 串口数据缓冲结构地址
 	    RcvBuff ：接收数据缓冲区  
 	    RevLen  ：接收缓冲区长度
 函数返回值：接收数据长度
@@ -265,8 +266,8 @@ static short Uart_Receive_Data(UART_STR * Uart_Str, char * RcvBuff, short RevLen
 }
 /*
 函数功能：从串口获取数据
-函数形参�????* Uartx ：串口地�????
-         RcvBuff ：接收缓冲指�????
+函数形参�??????* Uartx ：串口地�??????
+         RcvBuff ：接收缓冲指�??????
          RevLen  ：接收缓冲区大小
 函数返回值：接收数据长度
 备注：无
@@ -286,6 +287,17 @@ short Get_Uart_Data(USART_TypeDef* Uartx,char * RcvBuff, short RevLen)
 		return(Uart_Receive_Data(&Uart3_Str, RcvBuff, RevLen));
 	}
 	return 0;
+}
+
+//重定向c库函数printf到USART1
+int fputc(int ch, FILE *f)
+{
+/* 发�?�一个字节数据到USART1 */
+  // USART_SendData(USART1, (uint8_t) ch);
+  Uart3_DMA_Sent((uint8_t*)&ch, 1);
+ 	/* 等待发�?�完�?? */
+ 	while (HAL_UART_GetState(&huart3) == HAL_UART_STATE_RESET);
+ 	return (ch);
 }
 /* USER CODE END 1 */
 
