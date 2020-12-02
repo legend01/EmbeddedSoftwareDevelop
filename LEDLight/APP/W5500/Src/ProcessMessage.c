@@ -2,7 +2,7 @@
  * @Description: W5500消息处理模块
  * @Author: HLLI8
  * @Date: 2020-11-28 20:53:13
- * @LastEditTime: 2020-12-01 22:33:57
+ * @LastEditTime: 2020-12-02 19:45:12
  * @LastEditors: HLLI8
  */
 #include "w5500.h"
@@ -60,8 +60,8 @@ void Load_Net_Parameters(void)
 	S0_DIP[2]=0;
 	S0_DIP[3]=101;
 	
-	S0_DPort[0] = 0x1F;//加载端口0的目的端口号8086
-	S0_DPort[1] = 0x96;
+	S0_DPort[0] = 0x17;//加载端口0的目的端口号8086
+	S0_DPort[1] = 0x70;
 
 	S0_Mode=TCP_CLIENT;//加载端口0的工作模式,TCP客户端模式
 }

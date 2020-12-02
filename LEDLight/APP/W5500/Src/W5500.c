@@ -55,7 +55,7 @@ volatile int W5500_Interrupt; //W5500中断标志(0:无中断,1:有中断)
 void SPI1_Send_Byte(unsigned char dat)
 {
 	HAL_SPI_Transmit(&hspi1,&dat,1,0xffff);
-while(HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_BUSY_RX);
+	while(HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_BUSY_RX);
 	// HAL_SPI_Transmit_IT(&hspi1, (uint8_t *)&dat, 1);
 	// while (HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_READY); //等待数据寄存器空
 }

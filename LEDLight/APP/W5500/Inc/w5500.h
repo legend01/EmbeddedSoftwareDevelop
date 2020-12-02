@@ -209,7 +209,7 @@
 	
 // #define W5500_RST		GPIO_Pin_5	//定义W5500的RST引脚 Previous definition
 // #define W5500_RST_PORT	GPIOC
-#define W5500_RST       GPIO_PIN_1 /* define w5500 RST pin PC_15 */
+#define W5500_RST       GPIO_PIN_1 /* define w5500 RST pin PA_1 */
 #define W5500_RST_PORT	GPIOA
 
 // #define W5500_INT		GPIO_Pin_4	//定义W5500的INT引脚 Previous definition
