@@ -57,6 +57,7 @@ void SPI1_Send_Byte(unsigned char dat)
 {
 	HAL_SPI_Transmit(&hspi1,&dat,1,SPI1_WAIT_TIMEOUT);
 	while(HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_BUSY);
+	W5500_Interrupt=1;
 	// HAL_SPI_Transmit_IT(&hspi1, (uint8_t *)&dat, 1);
 	// while (HAL_SPI_GetState(&hspi1) == HAL_SPI_STATE_READY); //等待数据寄存器空
 }

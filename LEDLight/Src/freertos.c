@@ -168,7 +168,7 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    W5500ProcessMessageF();
+    // W5500ProcessMessageF();
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
@@ -188,7 +188,7 @@ void StartLED2Task(void const * argument)
   for(;;)
   {
     HAL_GPIO_TogglePin(LED2_Light_GPIO_Port, LED2_Light_Pin);
-    HAL_Delay(1000);
+    HAL_Delay(100);
     char receive_buf[200];
     memset(receive_buf, 0, sizeof(receive_buf)/sizeof(receive_buf[0]));
  
