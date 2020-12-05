@@ -1,0 +1,15 @@
+"C:\EmbeddedSoftwareSetup\IAR\arm\bin\armproc.dll" 
+
+"C:\EmbeddedSoftwareSetup\IAR\arm\bin\armJET.dll" 
+
+"C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM\STM32F407_FreeRTOS\Exe\STM32F407_FreeRTOS.out" 
+
+--plugin="C:\EmbeddedSoftwareSetup\IAR\arm\bin\armbat.dll" 
+
+--device_macro="C:\EmbeddedSoftwareSetup\IAR\arm\config\debugger\ST\STM32F4xx.dmac" 
+
+--flash_loader="C:\EmbeddedSoftwareSetup\IAR\arm\config\flashloader\ST\FlashSTM32F4xxx.board" 
+
+
+
+
