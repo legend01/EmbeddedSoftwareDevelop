@@ -1,0 +1,29 @@
+{
+    "version": 4,
+    "configurations": [
+        {
+            "name": "IAR",
+            "defines": [
+                "USE_HAL_DRIVER=",
+                "STM32F407xx=",
+                "USE_STDPERIPH_DRIVER="
+            ],
+            "includePath": [
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\Inc",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\Drivers\\STM32F4xx_HAL_Driver\\Inc",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\Legacy",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\Middlewares\\Third_Party\\FreeRTOS\\Source\\portable\\IAR\\ARM_CM4F",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\Middlewares\\Third_Party\\FreeRTOS\\Source\\include",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\Middlewares\\Third_Party\\FreeRTOS\\Source\\CMSIS_RTOS",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\Drivers\\CMSIS\\Include"
+            ],
+            "forcedInclude": [],
+            "cStandard": "c11",
+            "cppStandard": "c++14",
+            "compilerPath": "",
+            "intelliSenseMode": "msvc-x64",
+            "configurationProvider": "pluyckx.iar-vsc"
+        }
+    ]
+}

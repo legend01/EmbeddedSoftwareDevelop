@@ -56,7 +56,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */     
-
+#include "stm32f4xx.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -79,6 +79,7 @@
 
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
+osThreadId ThreadTask02Handle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -86,6 +87,7 @@ osThreadId defaultTaskHandle;
 /* USER CODE END FunctionPrototypes */
 
 void StartDefaultTask(void const * argument);
+void USART1ManageFuc(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -116,6 +118,10 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
+  /* definition and creation of ThreadTask02 */
+  osThreadDef(ThreadTask02, USART1ManageFuc, osPriorityIdle, 0, 128);
+  ThreadTask02Handle = osThreadCreate(osThread(ThreadTask02), NULL);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -139,9 +145,32 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
+    HAL_GPIO_TogglePin(Light_LED0_GPIO_Port, Light_LED0_Pin);
+    HAL_Delay(100);
+    HAL_GPIO_TogglePin(Light_LED1_GPIO_Port, Light_LED1_Pin);
+    HAL_Delay(100);
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
+}
+
+/* USER CODE BEGIN Header_USART1ManageFuc */
+/**
+* @brief Function implementing the ThreadTask02 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_USART1ManageFuc */
+void USART1ManageFuc(void const * argument)
+{
+  /* USER CODE BEGIN USART1ManageFuc */
+  /* Infinite loop */
+  for(;;)
+  {
+    
+    osDelay(1);
+  }
+  /* USER CODE END USART1ManageFuc */
 }
 
 /* Private application code --------------------------------------------------*/
