@@ -37,7 +37,7 @@
 #include "cmsis_os.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "APP_USART.h"
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -190,7 +190,7 @@ void TIM3_IRQHandler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-
+  IRQ_USART1_IRQHandler();
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */

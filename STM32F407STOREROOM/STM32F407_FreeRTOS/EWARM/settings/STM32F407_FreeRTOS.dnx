@@ -21,17 +21,17 @@
         <JetConnSerialNo>Fire CMSIS-DAP:FS-00000385</JetConnSerialNo>
         <JetConnFoundProbes />
         <PrevWtdReset>Connect during reset</PrevWtdReset>
+        <OnlineReset>Software</OnlineReset>
         <DisableInterrupts>0</DisableInterrupts>
         <LeaveRunning>0</LeaveRunning>
         <MultiCoreRunAll>0</MultiCoreRunAll>
-        <OnlineReset>Software</OnlineReset>
     </Jet>
     <PlDriver>
         <FirstRun>0</FirstRun>
         <MemConfigValue>C:\EmbeddedSoftwareSetup\IAR\arm\CONFIG\debugger\ST\STM32F407ZG.ddf</MemConfigValue>
     </PlDriver>
     <DebugChecksum>
-        <Checksum>1244588102</Checksum>
+        <Checksum>2905493995</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -46,8 +46,8 @@
     <SWOManager>
         <SamplingDivider>8192</SamplingDivider>
         <OverrideClock>0</OverrideClock>
-        <CpuClock>1</CpuClock>
-        <SwoClock>1</SwoClock>
+        <CpuClock>1766093683</CpuClock>
+        <SwoClock>0</SwoClock>
         <DataLogMode>0</DataLogMode>
         <ItmPortsEnabled>63</ItmPortsEnabled>
         <ItmTermIOPorts>1</ItmTermIOPorts>
@@ -89,14 +89,6 @@
         <EventLSU>0</EventLSU>
         <EventSLEEP>0</EventSLEEP>
     </SWOTraceWindow>
-    <DisassembleMode>
-        <mode>0</mode>
-    </DisassembleMode>
-    <Breakpoints2>
-        <Bp0>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Src\main.c}.96.3" 0 0 1 "" 0 "" 0</Bp0>
-        <Bp1>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Src\main.c}.103.3" 0 0 1 "" 0 "" 0</Bp1>
-        <Count>2</Count>
-    </Breakpoints2>
     <TermIOLog>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
@@ -106,6 +98,12 @@
         <LogFile>_ ""</LogFile>
         <Category>_ 0</Category>
     </LogFile>
+    <DisassembleMode>
+        <mode>0</mode>
+    </DisassembleMode>
+    <Breakpoints2>
+        <Count>0</Count>
+    </Breakpoints2>
     <Aliases>
         <Count>0</Count>
         <SuppressDialog>0</SuppressDialog>

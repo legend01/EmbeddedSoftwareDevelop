@@ -18,7 +18,8 @@
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\Middlewares\\Third_Party\\FreeRTOS\\Source\\CMSIS_RTOS",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\Drivers\\CMSIS\\Include",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\LED",
-                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\BEEP"
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\BEEP",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\USART"
             ],
             "forcedInclude": [],
             "cStandard": "c11",

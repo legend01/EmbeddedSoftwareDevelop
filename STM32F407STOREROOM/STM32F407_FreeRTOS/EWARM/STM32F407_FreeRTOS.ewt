@@ -1201,6 +1201,12 @@
                     <name>$PROJ_DIR$\..\App\BEEP\beep.c</name>
                 </file>
             </group>
+            <group>
+                <name>USART</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\USART\APP_USART.c</name>
+                </file>
+            </group>
         </group>
         <group>
             <name>EWARM</name>
