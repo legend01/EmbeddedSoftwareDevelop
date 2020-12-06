@@ -58,6 +58,7 @@
 /* USER CODE BEGIN Includes */     
 #include "stm32f4xx.h"
 #include "led.h"
+#include "beep.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -168,7 +169,10 @@ void USART1ManageFuc(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    
+    BEEP_1;
+    HAL_Delay(100);
+    BEEP_0;
+    HAL_Delay(100);
     osDelay(1);
   }
   /* USER CODE END USART1ManageFuc */

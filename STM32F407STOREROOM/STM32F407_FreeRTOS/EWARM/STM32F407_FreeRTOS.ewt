@@ -1195,6 +1195,12 @@
                     <name>$PROJ_DIR$\..\App\LED\led.c</name>
                 </file>
             </group>
+            <group>
+                <name>BEEP</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\BEEP\beep.c</name>
+                </file>
+            </group>
         </group>
         <group>
             <name>EWARM</name>
