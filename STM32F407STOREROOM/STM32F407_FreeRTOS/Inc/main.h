@@ -59,6 +59,8 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define BEEP_Pin GPIO_PIN_8
+#define BEEP_GPIO_Port GPIOF
 #define Light_LED0_Pin GPIO_PIN_9
 #define Light_LED0_GPIO_Port GPIOF
 #define Light_LED1_Pin GPIO_PIN_10

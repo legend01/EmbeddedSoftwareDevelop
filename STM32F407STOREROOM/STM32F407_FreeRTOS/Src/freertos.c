@@ -57,6 +57,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */     
 #include "stm32f4xx.h"
+#include "led.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -145,9 +146,9 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    HAL_GPIO_TogglePin(Light_LED0_GPIO_Port, Light_LED0_Pin);
+    LED0_Toogle;
     HAL_Delay(100);
-    HAL_GPIO_TogglePin(Light_LED1_GPIO_Port, Light_LED1_Pin);
+    LED1_Toggle;
     HAL_Delay(100);
     osDelay(1);
   }
