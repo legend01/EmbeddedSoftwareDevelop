@@ -145,16 +145,16 @@ void StartDefaultTask(void const * argument)
 {
 
   /* USER CODE BEGIN StartDefaultTask */
-  char send_buffer[] = "1222333";
   /* Infinite loop */
   for(;;)
   {
 
     LED0_Toogle;
     HAL_Delay(100);
-    HAL_UART_Transmit(&huart1, "111111", sizeof("111111"), 10);
-    // Uart1_DMA_Sent(send_buffer, sizeof(send_buffer));
-    // printf("4444444444444444444");
+    char receive_buf[200];
+    memset(receive_buf, 0, sizeof(receive_buf)/sizeof(receive_buf[0]));
+    Get_Uart_Data(USART1, receive_buf, sizeof(receive_buf)/sizeof(receive_buf[0]));
+    printf("%s\n", receive_buf);
     LED1_Toggle;
     HAL_Delay(100);
     osDelay(1);
@@ -175,11 +175,7 @@ void USART1ManageFuc(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    BEEP_1;
-    // printf("[INFO]Beep Alarm \r\n");
-    HAL_Delay(100);
-    BEEP_0;
-    HAL_Delay(100);
+
     osDelay(1);
   }
   /* USER CODE END USART1ManageFuc */

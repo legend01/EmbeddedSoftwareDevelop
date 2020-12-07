@@ -41,18 +41,20 @@ short Uart1_DMA_Sent(char * Sendbuff, short Bufflens)
 
 /*
 *函数功能：serial port 3 reseive exit function
+*@NOTE:hdma_usart1_rx.Instance->NDTR为获取DMA中未传输的数据个数
 */
 void IRQ_USART1_IRQHandler(void)
 {
-	if(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET)
+uint32_t tmp_flag = 0;
+	if(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET) //获取IDLE标志位 //idle标志被置位
 	{
 		/* 清除状???寄存器和串口数据寄存器 */
-    __HAL_UART_CLEAR_IDLEFLAG(&huart1);
-    /* 失能DMA接收 */
-    HAL_UART_DMAStop(&huart1);
-    Uart1_Str.Uart_RecvLens  = UART_BUFFSIZE - DMA1_Stream3->NDTR; // 通过DMA接收指针计算接收的字节数
+		__HAL_UART_CLEAR_IDLEFLAG(&huart1);
+		/* 失能DMA接收 */
+		HAL_UART_DMAStop(&huart1);
+		Uart1_Str.Uart_RecvLens  = UART_BUFFSIZE -  hdma_usart1_rx.Instance->NDTR;; // 通过DMA接收指针计算接收的字节数
 		Uart1_Str.Receive_flag = 1;
-    HAL_UART_Receive_DMA(&huart1, Uart1_Str.Uart_RecvBuff, UART_BUFFSIZE);
+		HAL_UART_Receive_DMA(&huart1, Uart1_Str.Uart_RecvBuff, UART_BUFFSIZE);
 		__HAL_UART_CLEAR_IDLEFLAG(&huart1);
 	}
 }
@@ -108,9 +110,11 @@ short Get_Uart_Data(USART_TypeDef* Uartx,char * RcvBuff, short RevLen)
 //重定向c库函数printf到USART1
 int fputc(int ch, FILE *f)
 {
-	/* 发???一个字节数据到USART1 */
-	Uart1_DMA_Sent((uint8_t*)&ch, 1);
-	/* 等待发送完成 */
-	while (HAL_UART_GetState(&huart1) == HAL_UART_STATE_RESET);
+	if(ch != NULL){
+		/* 发???一个字节数据到USART1 */
+		Uart1_DMA_Sent((uint8_t*)&ch, 1);
+		/* 等待发送完成 */
+		while (HAL_UART_GetState(&huart1) == HAL_UART_STATE_RESET);
+	}
 	return (ch);
 }

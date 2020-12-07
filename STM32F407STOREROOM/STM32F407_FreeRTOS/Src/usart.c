@@ -54,7 +54,8 @@
 #include "dma.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "APP_USART.h"
+extern UART_STR   Uart1_Str,Uart2_Str,Uart3_Str; 
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -145,6 +146,12 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     HAL_NVIC_SetPriority(USART1_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspInit 1 */
+
+  __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE); /* 开启空闲中断 */
+  HAL_UART_Receive_DMA(&huart1, Uart1_Str.Uart_RecvBuff, UART_BUFFSIZE); 
+  // 以下这两个中断最好关掉，不然debug的时候会莫名其妙进中断，DMA发送不出去
+  __HAL_UART_DISABLE_IT(&huart1, UART_IT_ERR);
+  __HAL_UART_DISABLE_IT(&huart1, UART_IT_PE);
 
   /* USER CODE END USART1_MspInit 1 */
   }
