@@ -51,19 +51,18 @@
 #include "stm32f4xx_hal.h"
 #include "cmsis_os.h"
 #include "dma.h"
-#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "APP_USART.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+extern UART_STR   Uart1_Str,Uart2_Str,Uart3_Str; 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -110,10 +109,13 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_USART1_UART_Init();
-  MX_TIM7_Init();
-  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
-
+   __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE); /* 开启空闲中断 */
+    // 接收DMA通道关联缓冲???????
+	HAL_UART_Receive_DMA(&huart1, Uart1_Str.Uart_RecvBuff, UART_BUFFSIZE); 
+    // 以下这两个中断最好关掉，不然debug的时候会莫名其妙进中断，DMA发送不出去
+	__HAL_UART_DISABLE_IT(&huart1, UART_IT_ERR);
+  __HAL_UART_DISABLE_IT(&huart1, UART_IT_PE);
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
@@ -160,8 +162,8 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 25;
-  RCC_OscInitStruct.PLL.PLLN = 336;
+  RCC_OscInitStruct.PLL.PLLM = 4;
+  RCC_OscInitStruct.PLL.PLLN = 168;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
