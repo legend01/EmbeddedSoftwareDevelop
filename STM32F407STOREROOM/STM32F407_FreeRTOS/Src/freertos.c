@@ -154,7 +154,7 @@ void StartDefaultTask(void const * argument)
     char receive_buf[200];
     memset(receive_buf, 0, sizeof(receive_buf)/sizeof(receive_buf[0]));
     Get_Uart_Data(USART1, receive_buf, sizeof(receive_buf)/sizeof(receive_buf[0]));
-    printf("%s\n", receive_buf);
+    // printf("%s\n", receive_buf);
     LED1_Toggle;
     HAL_Delay(100);
     osDelay(1);

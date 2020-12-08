@@ -2,6 +2,8 @@
 #include "stm32f407xx.h"
 
 #include "stdio.h"
+#include "assert.h"
+
 UART_STR   Uart1_Str,Uart2_Str,Uart3_Str;  
 
 static void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
@@ -24,6 +26,7 @@ short Uart1_DMA_Sent(char * Sendbuff, short Bufflens)
  /**
   * @description: TODO:可以利用FreeRTOS中的Queue函数利用生产者和消费者模型
   */   
+ 	assert(*Sendbuff != NULL);
 	short l_val = Bufflens > UART_BUFFSIZE ? UART_BUFFSIZE : Bufflens;
 	int ret = 0x00;
 	if(Bufflens <= 0)

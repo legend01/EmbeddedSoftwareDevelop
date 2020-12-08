@@ -1,25 +1,26 @@
+/*
+ * @Description: 断言Assert
+ * @Author: HLLI8
+ * @Date: 2020-12-07 21:15:04
+ * @LastEditTime: 2020-12-08 19:44:32
+ * @LastEditors: HLLI8
+ */
 #ifndef __ASSERT_H__
 #define __ASSERT_H__
 
-/*使用断言测试*/
-#ifdef DEBUG
-    /*处理函数原型*/
-    void Assert(char * filename, unsigned int lineno);
-    #define ASSERT(condition)\
-    if(condition)\
-        NULL; \
-    else\
-        Assert(__FILE__ , __LINE__)
-/*不使用断言测试*/
+#include "stdio.h"
+
+#ifndef NDEBUG
+
+#define assert(expr) \
+  if (expr) { ; } \
+  else  {\
+    printf("Assert failed: " #expr " (file %s line %d)\n", __FILE__, (int) __LINE__ );\
+    while (1);\
+  }
 #else
-    #define ASSERT(condition) NULL
+#define assert(expr)
 #endif
-void Assert(char * filename, unsigned int lineno)
-{
-    fflush(stdout);
-    fprintf(stderr,"\nAssert failed： %s, line %u\n",filename, lineno);
-    fflush(stderr);
-    abort();
-}
+
 
 #endif // !__ASSERT_H__
