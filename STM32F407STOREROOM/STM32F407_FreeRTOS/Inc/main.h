@@ -59,12 +59,20 @@
 
 /* Private define ------------------------------------------------------------*/
 
+#define Key2_Pin GPIO_PIN_2
+#define Key2_GPIO_Port GPIOE
+#define Key1_Pin GPIO_PIN_3
+#define Key1_GPIO_Port GPIOE
+#define Key0_Pin GPIO_PIN_4
+#define Key0_GPIO_Port GPIOE
 #define BEEP_Pin GPIO_PIN_8
 #define BEEP_GPIO_Port GPIOF
 #define Light_LED0_Pin GPIO_PIN_9
 #define Light_LED0_GPIO_Port GPIOF
 #define Light_LED1_Pin GPIO_PIN_10
 #define Light_LED1_GPIO_Port GPIOF
+#define Key_UP_Pin GPIO_PIN_0
+#define Key_UP_GPIO_Port GPIOA
 #define USART1_TX_Pin GPIO_PIN_9
 #define USART1_TX_GPIO_Port GPIOA
 #define USART1_RX_Pin GPIO_PIN_10

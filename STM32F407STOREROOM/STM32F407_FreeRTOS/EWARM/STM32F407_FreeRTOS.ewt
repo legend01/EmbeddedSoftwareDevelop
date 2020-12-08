@@ -1192,6 +1192,9 @@
             <group>
                 <name>ASSERT</name>
                 <file>
+                    <name>$PROJ_DIR$\..\App\ASSERT\assert.c</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\App\ASSERT\assert.h</name>
                 </file>
             </group>
@@ -1199,6 +1202,12 @@
                 <name>BEEP</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\BEEP\beep.c</name>
+                </file>
+            </group>
+            <group>
+                <name>KEY</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\KEY\key.c</name>
                 </file>
             </group>
             <group>
