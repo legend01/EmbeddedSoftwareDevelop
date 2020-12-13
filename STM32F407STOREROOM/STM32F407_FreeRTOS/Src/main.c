@@ -64,6 +64,7 @@
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 extern UART_STR   Uart1_Str,Uart2_Str,Uart3_Str; 
+volatile uint32_t tick_time7_counter;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -215,7 +216,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-
+  if(htim->Instance == TIM7)
+  {
+    tick_time7_counter++;
+  } 
   /* USER CODE END Callback 1 */
 }
 

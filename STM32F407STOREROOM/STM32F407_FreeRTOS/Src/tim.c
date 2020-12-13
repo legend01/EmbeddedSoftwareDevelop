@@ -51,7 +51,7 @@
 #include "tim.h"
 
 /* USER CODE BEGIN 0 */
-
+extern volatile uint32_t tick_time7_counter;
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim7;
@@ -121,14 +121,10 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 /* USER CODE BEGIN 1 */
 void delay_us(uint16_t us)
 {
-  uint16_t differ=0xffff-us-5; 
-  HAL_TIM_Base_Start(&htim7);
-  __HAL_TIM_SetCounter(&htim7,differ); 
-  while(differ < 0xffff-5) 
-  { 
-    differ = __HAL_TIM_GetCounter(&htim7); 
-  } 
-  HAL_TIM_Base_Stop(&htim7);
+  tick_time7_counter = 0;
+  HAL_TIM_Base_Start_IT(&htim7); //使用定时器的时候调用这个函数启动
+  while (tick_time7_counter < us);
+  HAL_TIM_Base_Stop_IT(&htim7);  //停止定时器的时候调用这个函数关闭
 }
 /* USER CODE END 1 */
 

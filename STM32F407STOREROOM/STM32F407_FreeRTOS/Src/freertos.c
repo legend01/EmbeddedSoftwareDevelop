@@ -150,13 +150,13 @@ void StartDefaultTask(void const * argument)
   {
 
     LED0_Toogle;
-    HAL_Delay(100);
+    delay_us(1000000);
     char receive_buf[200];
     memset(receive_buf, 0, sizeof(receive_buf)/sizeof(receive_buf[0]));
     Get_Uart_Data(USART1, receive_buf, sizeof(receive_buf)/sizeof(receive_buf[0]));
     printf("%s\n", receive_buf);
     LED1_Toggle;
-    HAL_Delay(100);
+    delay_us(1000000);
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
