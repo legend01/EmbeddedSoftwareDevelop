@@ -126,6 +126,9 @@ void delay_us(uint16_t us)
   while (tick_time7_counter < us);
   HAL_TIM_Base_Stop_IT(&htim7);  //停止定时器的时候调用这个函数关闭
 }
+void delay_ms(uint16_t ms){
+  delay_us(ms*1000);
+}
 /* USER CODE END 1 */
 
 /**

@@ -148,15 +148,11 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-
-    LED0_Toogle;
-    delay_us(1000000);
     char receive_buf[200];
     memset(receive_buf, 0, sizeof(receive_buf)/sizeof(receive_buf[0]));
     Get_Uart_Data(USART1, receive_buf, sizeof(receive_buf)/sizeof(receive_buf[0]));
-    printf("%s\n", receive_buf);
-    LED1_Toggle;
-    delay_us(1000000);
+    // printf("%s\n", receive_buf);
+    // printf("Hello world \r\n");
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
@@ -175,7 +171,8 @@ void USART1ManageFuc(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-
+    // LED0_Toogle;
+    delay_ms(10000);
     osDelay(1);
   }
   /* USER CODE END USART1ManageFuc */
