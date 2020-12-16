@@ -55,6 +55,7 @@ extern volatile uint32_t tick_time7_counter;
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim7;
+TIM_HandleTypeDef htim14;
 
 /* TIM7 init function */
 void MX_TIM7_Init(void)
@@ -62,7 +63,7 @@ void MX_TIM7_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig;
 
   htim7.Instance = TIM7;
-  htim7.Init.Prescaler = 84-1;
+  htim7.Init.Prescaler = 42-1;
   htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim7.Init.Period = 1;
   if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
@@ -76,6 +77,38 @@ void MX_TIM7_Init(void)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
+
+}
+/* TIM14 init function */
+void MX_TIM14_Init(void)
+{
+  TIM_OC_InitTypeDef sConfigOC;
+
+  htim14.Instance = TIM14;
+  htim14.Init.Prescaler = 42;
+  htim14.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim14.Init.Period = 500;
+  htim14.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  if (HAL_TIM_Base_Init(&htim14) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  if (HAL_TIM_PWM_Init(&htim14) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim14, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  HAL_TIM_MspPostInit(&htim14);
 
 }
 
@@ -97,6 +130,47 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
 
   /* USER CODE END TIM7_MspInit 1 */
   }
+  else if(tim_baseHandle->Instance==TIM14)
+  {
+  /* USER CODE BEGIN TIM14_MspInit 0 */
+
+  /* USER CODE END TIM14_MspInit 0 */
+    /* TIM14 clock enable */
+    __HAL_RCC_TIM14_CLK_ENABLE();
+
+    /* TIM14 interrupt Init */
+    HAL_NVIC_SetPriority(TIM8_TRG_COM_TIM14_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(TIM8_TRG_COM_TIM14_IRQn);
+  /* USER CODE BEGIN TIM14_MspInit 1 */
+
+  /* USER CODE END TIM14_MspInit 1 */
+  }
+}
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef* timHandle)
+{
+
+  GPIO_InitTypeDef GPIO_InitStruct;
+  if(timHandle->Instance==TIM14)
+  {
+  /* USER CODE BEGIN TIM14_MspPostInit 0 */
+
+  /* USER CODE END TIM14_MspPostInit 0 */
+  
+    /**TIM14 GPIO Configuration    
+    PF9     ------> TIM14_CH1 
+    */
+    GPIO_InitStruct.Pin = Light_LED0_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.Alternate = GPIO_AF9_TIM14;
+    HAL_GPIO_Init(Light_LED0_GPIO_Port, &GPIO_InitStruct);
+
+  /* USER CODE BEGIN TIM14_MspPostInit 1 */
+
+  /* USER CODE END TIM14_MspPostInit 1 */
+  }
+
 }
 
 void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
@@ -115,6 +189,20 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
   /* USER CODE BEGIN TIM7_MspDeInit 1 */
 
   /* USER CODE END TIM7_MspDeInit 1 */
+  }
+  else if(tim_baseHandle->Instance==TIM14)
+  {
+  /* USER CODE BEGIN TIM14_MspDeInit 0 */
+
+  /* USER CODE END TIM14_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_TIM14_CLK_DISABLE();
+
+    /* TIM14 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(TIM8_TRG_COM_TIM14_IRQn);
+  /* USER CODE BEGIN TIM14_MspDeInit 1 */
+
+  /* USER CODE END TIM14_MspDeInit 1 */
   }
 } 
 

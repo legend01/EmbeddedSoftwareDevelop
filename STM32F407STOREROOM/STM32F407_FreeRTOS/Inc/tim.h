@@ -62,6 +62,7 @@
 /* USER CODE END Includes */
 
 extern TIM_HandleTypeDef htim7;
+extern TIM_HandleTypeDef htim14;
 
 /* USER CODE BEGIN Private defines */
 
@@ -70,7 +71,10 @@ extern TIM_HandleTypeDef htim7;
 extern void _Error_Handler(char *, int);
 
 void MX_TIM7_Init(void);
-
+void MX_TIM14_Init(void);
+                        
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+                    
 /* USER CODE BEGIN Prototypes */
 void delay_us(uint16_t us);
 void delay_ms(uint16_t ms);

@@ -60,6 +60,7 @@
 #include "led.h"
 #include "beep.h"
 #include "APP_USART.h"
+#include "tim.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -101,7 +102,7 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-       
+  HAL_TIM_PWM_Start(&htim14,TIM_CHANNEL_1);
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -165,14 +166,29 @@ void StartDefaultTask(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_USART1ManageFuc */
+static void SetLight0Pwm(void){
+  uint16_t pwmVal=0;   //PWM占空比
+  while (pwmVal< 500)
+  {
+    pwmVal++;
+    __HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, pwmVal);    //修改比较值，修改占空比
+    delay_ms(1000);
+  }
+  while (pwmVal)
+  {
+    pwmVal--;
+    __HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, pwmVal);    //修改比较值，修改占空比
+    delay_ms(1000);
+  }
+}
 void USART1ManageFuc(void const * argument)
 {
   /* USER CODE BEGIN USART1ManageFuc */
   /* Infinite loop */
   for(;;)
   {
-    // LED0_Toogle;
-    delay_ms(10000);
+    SetLight0Pwm();
+    delay_ms(1000);
     osDelay(1);
   }
   /* USER CODE END USART1ManageFuc */
