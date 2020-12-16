@@ -167,17 +167,17 @@ void StartDefaultTask(void const * argument)
 */
 /* USER CODE END Header_USART1ManageFuc */
 static void SetLight0Pwm(void){
-  uint16_t pwmVal=0;   //PWMռ�ձ�
+  uint16_t pwmVal=0;   //PWM占空比
   while (pwmVal< 500)
   {
     pwmVal++;
-    __HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, pwmVal);    //�޸ıȽ�ֵ���޸�ռ�ձ�
+    __HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, pwmVal);    //修改比较值，修改占空比
     delay_ms(1000);
   }
   while (pwmVal)
   {
     pwmVal--;
-    __HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, pwmVal);    //�޸ıȽ�ֵ���޸�ռ�ձ�
+    __HAL_TIM_SetCompare(&htim14, TIM_CHANNEL_1, pwmVal);    //修改比较值，修改占空比 
     delay_ms(1000);
   }
 }
