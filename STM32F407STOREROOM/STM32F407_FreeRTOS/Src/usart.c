@@ -147,9 +147,9 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     HAL_NVIC_EnableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspInit 1 */
 
-  __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE); /* 开启空闲中断 */
+  __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE); /* 寮?鍚┖闂蹭腑鏂? */
   HAL_UART_Receive_DMA(&huart1, Uart1_Str.Uart_RecvBuff, UART_BUFFSIZE); 
-  // 以下这两个中断最好关掉，不然debug的时候会莫名其妙进中断，DMA发送不出去
+  // 浠ヤ笅杩欎袱涓腑鏂渶濂藉叧鎺夛紝涓嶇劧debug鐨勬椂鍊欎細鑾悕鍏跺杩涗腑鏂紝DMA鍙戦?佷笉鍑哄幓
   __HAL_UART_DISABLE_IT(&huart1, UART_IT_ERR);
   __HAL_UART_DISABLE_IT(&huart1, UART_IT_PE);
 

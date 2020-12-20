@@ -41,6 +41,7 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim7;
 extern TIM_HandleTypeDef htim14;
 extern DMA_HandleTypeDef hdma_usart1_rx;
@@ -173,20 +174,6 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-* @brief This function handles EXTI line0 interrupt.
-*/
-void EXTI0_IRQHandler(void)
-{
-  /* USER CODE BEGIN EXTI0_IRQn 0 */
-
-  /* USER CODE END EXTI0_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
-  /* USER CODE BEGIN EXTI0_IRQn 1 */
-
-  /* USER CODE END EXTI0_IRQn 1 */
-}
-
-/**
 * @brief This function handles EXTI line2 interrupt.
 */
 void EXTI2_IRQHandler(void)
@@ -268,6 +255,20 @@ void TIM8_TRG_COM_TIM14_IRQHandler(void)
   /* USER CODE BEGIN TIM8_TRG_COM_TIM14_IRQn 1 */
 
   /* USER CODE END TIM8_TRG_COM_TIM14_IRQn 1 */
+}
+
+/**
+* @brief This function handles TIM5 global interrupt.
+*/
+void TIM5_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM5_IRQn 0 */
+
+  /* USER CODE END TIM5_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim5);
+  /* USER CODE BEGIN TIM5_IRQn 1 */
+
+  /* USER CODE END TIM5_IRQn 1 */
 }
 
 /**

@@ -61,6 +61,7 @@
 
 /* USER CODE END Includes */
 
+extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim7;
 extern TIM_HandleTypeDef htim14;
 
@@ -70,6 +71,7 @@ extern TIM_HandleTypeDef htim14;
 
 extern void _Error_Handler(char *, int);
 
+void MX_TIM5_Init(void);
 void MX_TIM7_Init(void);
 void MX_TIM14_Init(void);
                         

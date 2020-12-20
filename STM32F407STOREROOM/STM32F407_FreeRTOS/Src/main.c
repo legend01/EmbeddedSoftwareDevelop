@@ -65,7 +65,9 @@
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 extern UART_STR   Uart1_Str,Uart2_Str,Uart3_Str; 
-volatile uint32_t tick_time7_counter;
+extern volatile uint32_t tick_time7_counter;
+extern volatile uint8_t		TIM5CH1_CAPTURE_STA;	// 输入捕获状�??
+extern volatile uint32_t	TIM5CH1_CAPTURE_VAL;		// 输入捕获�?(TIM2/TIM5�?32位的定时器所以这里定义为uint32_t)
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -114,6 +116,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_TIM7_Init();
   MX_TIM14_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -238,7 +241,23 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   if(htim->Instance == TIM7)
   {
     tick_time7_counter++;
-  } 
+  }
+  if (htim->Instance == TIM5)	// 判断是定时器5发生中断
+  {
+    if ((TIM5CH1_CAPTURE_STA & 0x80) == 0) // 还未成功捕获
+    {
+      if (TIM5CH1_CAPTURE_STA & 0x40)		   // 捕获到高电平
+      {
+        if ( (TIM5CH1_CAPTURE_STA & 0x3f) == 0x3f )		// 如果高电平太�?  做溢出处�?
+        {
+          TIM5CH1_CAPTURE_STA |= 0x80;				// 标记成功捕获了一�?
+          TIM5CH1_CAPTURE_VAL = 0xffffffff;
+        }else{
+          TIM5CH1_CAPTURE_STA++;		// 若没有溢�?, 就只让TIM5CH1_CAPTURE_STA自加就ok
+        }
+      }
+    }
+  }
   /* USER CODE END Callback 1 */
 }
 
@@ -254,6 +273,7 @@ void _Error_Handler(char *file, int line)
   /* User can add his own implementation to report the HAL error return state */
   while(1)
   {
+    printf("[INFO]Error Occur file:%s, line:%s \r\n",file,line);
   }
   /* USER CODE END Error_Handler_Debug */
 }
