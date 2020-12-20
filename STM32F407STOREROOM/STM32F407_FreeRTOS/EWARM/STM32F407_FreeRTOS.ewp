@@ -364,6 +364,8 @@
           <state>$PROJ_DIR$/../App/USART/</state>
           <state>$PROJ_DIR$/../App/ASSERT/</state>
           <state>$PROJ_DIR$/../App/KEY/</state>
+          <state>$PROJ_DIR$/../App/PWM/</state>
+          <state>$PROJ_DIR$/../App/InputCapture/</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1070,6 +1072,12 @@
         </file>
       </group>
       <group>
+        <name>CAPTURE</name>
+        <file>
+          <name>$PROJ_DIR$\..\App\InputCapture\inputCapture.c</name>
+        </file>
+      </group>
+      <group>
         <name>KEY</name>
         <file>
           <name>$PROJ_DIR$\..\App\KEY\key.c</name>
@@ -1079,6 +1087,12 @@
         <name>LED</name>
         <file>
           <name>$PROJ_DIR$\..\App\LED\led.c</name>
+        </file>
+      </group>
+      <group>
+        <name>PWM</name>
+        <file>
+          <name>$PROJ_DIR$\..\App\PWM\pwm.c</name>
         </file>
       </group>
       <group>
@@ -1116,6 +1130,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\stm32f4xx_it.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Src\tim.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Src\usart.c</name>

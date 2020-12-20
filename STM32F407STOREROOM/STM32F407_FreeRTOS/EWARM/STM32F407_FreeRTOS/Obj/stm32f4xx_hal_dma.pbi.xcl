@@ -31,6 +31,10 @@ C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F40
 -I
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/KEY/
 -I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/PWM/
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/InputCapture/
+-I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\Core\Include
 -I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\DSP\Include
@@ -64,6 +68,10 @@ C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F40
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\ASSERT
 -I
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\KEY
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\PWM
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\InputCapture
 -I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\Core\Include
 -I
