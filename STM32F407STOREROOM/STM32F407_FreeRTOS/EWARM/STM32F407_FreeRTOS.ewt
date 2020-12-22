@@ -1229,6 +1229,12 @@
                 </file>
             </group>
             <group>
+                <name>TPAD</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\TPAD\tpad.c</name>
+                </file>
+            </group>
+            <group>
                 <name>USART</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\USART\APP_USART.c</name>

@@ -63,6 +63,7 @@
 #include "tim.h"
 #include "pwm.h"
 #include "inputCapture.h"
+#include "tpad.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -105,8 +106,10 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
   HAL_TIM_PWM_Start(&htim14,TIM_CHANNEL_1);
-  HAL_TIM_IC_Start_IT(&htim5, TIM_CHANNEL_1);	// �?启输入捕获中�?
+  HAL_TIM_IC_Start_IT(&htim5, TIM_CHANNEL_1);	// �????启输入捕获中�????
   __HAL_TIM_ENABLE_IT(&htim5,TIM_IT_UPDATE);	//使能更新中断
+  HAL_TIM_IC_Start(&htim2, TIM_CHANNEL_1); /* �???启输入捕�??? */
+  TPAD_Init();
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -127,7 +130,7 @@ void MX_FREERTOS_Init(void) {
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of ThreadTask02 */
-  osThreadDef(ThreadTask02, USART1ManageFuc, osPriorityIdle, 0, 128);
+  osThreadDef(ThreadTask02, USART1ManageFuc, osPriorityNormal, 0, 128);
   ThreadTask02Handle = osThreadCreate(osThread(ThreadTask02), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -156,7 +159,11 @@ void StartDefaultTask(void const * argument)
     char receive_buf[200];
     memset(receive_buf, 0, sizeof(receive_buf)/sizeof(receive_buf[0]));
     Get_Uart_Data(USART1, receive_buf, sizeof(receive_buf)/sizeof(receive_buf[0]));
-    delay_ms(1000);
+    if(TPAD_Scan(0)){
+      LED1_Toggle;
+    }
+    delay_ms(150);
+    
     InputCapture();
     // printf("%s\n", receive_buf);
     // printf("Hello world \r\n");
@@ -178,8 +185,8 @@ void USART1ManageFuc(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    SetLight0Pwm();
-    delay_ms(1000);
+    // SetLight0Pwm();
+    // delay_ms(1000);
     osDelay(1);
   }
   /* USER CODE END USART1ManageFuc */
