@@ -82,6 +82,9 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 /* USER CODE BEGIN Prototypes */
 void delay_us(uint16_t us);
 void delay_ms(uint16_t ms);
+
+void SysDelay_us(uint32_t nus);
+void SysDelay_ms(uint16_t nms);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

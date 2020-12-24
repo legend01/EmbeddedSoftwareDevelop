@@ -173,7 +173,7 @@ void MX_TIM7_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig;
 
   htim7.Instance = TIM7;
-  htim7.Init.Prescaler = 42-1;
+  htim7.Init.Prescaler = 84-1;
   htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim7.Init.Period = 1;
   if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
@@ -409,12 +409,44 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 void delay_us(uint16_t us)
 {
   tick_time7_counter = 0;
-  HAL_TIM_Base_Start_IT(&htim7); //使用定时器的时�?�调用这个函数启�??
+  HAL_TIM_Base_Start_IT(&htim7); //使用定时器的时�?�调用这个函数启�???
   while (tick_time7_counter < us);
-  HAL_TIM_Base_Stop_IT(&htim7);  //停止定时器的时�?�调用这个函数关�??
+  HAL_TIM_Base_Stop_IT(&htim7);  //停止定时器的时�?�调用这个函数关�???
 }
 void delay_ms(uint16_t ms){
   delay_us(ms*1000);
+}
+static uint32_t fac_us=168;							//us延时倍乘�?
+
+//延时nus
+//nus为要延时的us�?.	
+//nus:0~190887435(�?大�?�即2^32/fac_us@fac_us=22.5)	 
+void SysDelay_us(uint32_t nus)
+{		
+  uint32_t ticks;
+  uint32_t told,tnow,tcnt=0;
+  uint32_t reload=SysTick->LOAD;				//LOAD的�??	    	 
+  ticks=nus*fac_us; 						//�?要的节拍�? 
+  told=SysTick->VAL;        				//刚进入时的计数器�?
+  while(1)
+  {
+    tnow=SysTick->VAL;	
+    if(tnow!=told)
+    {	    
+      if(tnow<told)tcnt+=told-tnow;	//这里注意�?下SYSTICK是一个�?�减的计数器就可以了.
+      else tcnt+=reload-tnow+told;	    
+      told=tnow;
+      if(tcnt>=ticks)break;			//时间超过/等于要延迟的时间,则�??�?.
+    }  
+  };
+}
+
+//延时nms
+//nms:要延时的ms�?
+void SysDelay_ms(uint16_t nms)
+{
+	uint32_t i;
+	for(i=0;i<nms;i++) delay_us(1000);
 }
 /* USER CODE END 1 */
 
