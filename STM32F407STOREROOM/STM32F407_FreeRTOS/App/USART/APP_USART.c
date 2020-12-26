@@ -4,7 +4,7 @@
 #include "stdio.h"
 #include "assert.h"
 
-UART_STR   Uart1_Str,Uart2_Str,Uart3_Str;  
+UART_STR   Uart1_Str,Uart2_Str,Uart3_Str,Uart5_Str;  
 
 static void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
   huart->gState = HAL_UART_STATE_READY;
@@ -15,16 +15,16 @@ static int HAL_UART_Transision_DMA(UART_HandleTypeDef *huart, char* buf, short b
   return ret;
 }
 /*
-º¯Êı¹¦ÄÜ£º´®????3DMA data send
-º¯ÊıĞÎ²Î£ºSendbuff £ºdata send buffer
+å‡½æ•°åŠŸèƒ½ï¼šä¸²????3DMA data send
+å‡½æ•°å½¢å‚ï¼šSendbuff ï¼šdata send buffer
           Bufflens: data length
-º¯Êı·µ»ØÖµ£ºÊı¾İ³¤¶È
-±¸×¢£ºÎŞ
+å‡½æ•°è¿”å›å€¼ï¼šæ•°æ®é•¿åº¦
+å¤‡æ³¨ï¼šæ— 
 */
 short Uart1_DMA_Sent(char * Sendbuff, short Bufflens)
 {
  /**
-  * @description: TODO:¿ÉÒÔÀûÓÃFreeRTOSÖĞµÄQueueº¯ÊıÀûÓÃÉú²úÕßºÍÏû·ÑÕßÄ£ĞÍ
+  * @description: TODO:å¯ä»¥åˆ©ç”¨FreeRTOSä¸­çš„Queueå‡½æ•°åˆ©ç”¨ç”Ÿäº§è€…å’Œæ¶ˆè´¹è€…æ¨¡å‹
   */   
  	assert(*Sendbuff != NULL);
 	short l_val = Bufflens > UART_BUFFSIZE ? UART_BUFFSIZE : Bufflens;
@@ -41,33 +41,78 @@ short Uart1_DMA_Sent(char * Sendbuff, short Bufflens)
 	ret = HAL_UART_Transision_DMA(&huart1, Uart1_Str.Uart_SentBuff, l_val);
 	return l_val;
 }
-
 /*
-*º¯Êı¹¦ÄÜ£ºserial port 3 reseive exit function
-*@NOTE:hdma_usart1_rx.Instance->NDTRÎª»ñÈ¡DMAÖĞÎ´´«ÊäµÄÊı¾İ¸öÊı
+å‡½æ•°åŠŸèƒ½ï¼šä¸²????3DMA data send
+å‡½æ•°å½¢å‚ï¼šSendbuff ï¼šdata send buffer
+          Bufflens: data length
+å‡½æ•°è¿”å›å€¼ï¼šæ•°æ®é•¿åº¦
+å¤‡æ³¨ï¼šæ— 
+*/
+short Uart5_DMA_Sent(char * Sendbuff, short Bufflens)
+{
+ /**
+  * @description: TODO:å¯ä»¥åˆ©ç”¨FreeRTOSä¸­çš„Queueå‡½æ•°åˆ©ç”¨ç”Ÿäº§è€…å’Œæ¶ˆè´¹è€…æ¨¡å‹
+  */   
+ 	assert(*Sendbuff != NULL);
+	short l_val = Bufflens > UART_BUFFSIZE ? UART_BUFFSIZE : Bufflens;
+	int ret = 0x00;
+	if(Bufflens <= 0)
+	{
+		return 0;
+	}
+	while(__HAL_DMA_GET_COUNTER(&hdma_uart5_tx));
+	if(Sendbuff)
+	{
+		memcpy(Uart5_Str.Uart_SentBuff, Sendbuff, l_val);
+	}
+	ret = HAL_UART_Transision_DMA(&huart5, Uart5_Str.Uart_SentBuff, l_val);
+	return l_val;
+}
+/*
+*å‡½æ•°åŠŸèƒ½ï¼šserial port 3 reseive exit function
+*@NOTE:hdma_uart5_rx.Instance->NDTRä¸ºè·å–DMAä¸­æœªä¼ è¾“çš„æ•°æ®ä¸ªæ•°
+*/
+void IRQ_UART5_IRQHandler(void)
+{
+uint32_t tmp_flag = 0;
+	if(__HAL_UART_GET_FLAG(&huart5, UART_FLAG_IDLE) != RESET) //è·å–IDLEæ ‡å¿—ä½ //idleæ ‡å¿—è¢«ç½®ä½
+	{
+		/* æ¸…é™¤çŠ¶???å¯„å­˜å™¨å’Œä¸²å£æ•°æ®å¯„å­˜å™¨ */
+		__HAL_UART_CLEAR_IDLEFLAG(&huart5);
+		/* å¤±èƒ½DMAæ¥æ”¶ */
+		HAL_UART_DMAStop(&huart5);
+		Uart5_Str.Uart_RecvLens  = UART_BUFFSIZE -  hdma_uart5_rx.Instance->NDTR;; // é€šè¿‡DMAæ¥æ”¶æŒ‡é’ˆè®¡ç®—æ¥æ”¶çš„å­—èŠ‚æ•°
+		Uart5_Str.Receive_flag = 1;
+		HAL_UART_Receive_DMA(&huart5, Uart5_Str.Uart_RecvBuff, UART_BUFFSIZE);
+		__HAL_UART_CLEAR_IDLEFLAG(&huart5);
+	}
+}
+/*
+*å‡½æ•°åŠŸèƒ½ï¼šserial port 3 reseive exit function
+*@NOTE:hdma_usart1_rx.Instance->NDTRä¸ºè·å–DMAä¸­æœªä¼ è¾“çš„æ•°æ®ä¸ªæ•°
 */
 void IRQ_USART1_IRQHandler(void)
 {
 uint32_t tmp_flag = 0;
-	if(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET) //»ñÈ¡IDLE±êÖ¾Î» //idle±êÖ¾±»ÖÃÎ»
+	if(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET) //è·å–IDLEæ ‡å¿—ä½ //idleæ ‡å¿—è¢«ç½®ä½
 	{
-		/* Çå³ı×´???¼Ä´æÆ÷ºÍ´®¿ÚÊı¾İ¼Ä´æÆ÷ */
+		/* æ¸…é™¤çŠ¶???å¯„å­˜å™¨å’Œä¸²å£æ•°æ®å¯„å­˜å™¨ */
 		__HAL_UART_CLEAR_IDLEFLAG(&huart1);
-		/* Ê§ÄÜDMA½ÓÊÕ */
+		/* å¤±èƒ½DMAæ¥æ”¶ */
 		HAL_UART_DMAStop(&huart1);
-		Uart1_Str.Uart_RecvLens  = UART_BUFFSIZE -  hdma_usart1_rx.Instance->NDTR;; // Í¨¹ıDMA½ÓÊÕÖ¸Õë¼ÆËã½ÓÊÕµÄ×Ö½ÚÊı
+		Uart1_Str.Uart_RecvLens  = UART_BUFFSIZE -  hdma_usart1_rx.Instance->NDTR;; // é€šè¿‡DMAæ¥æ”¶æŒ‡é’ˆè®¡ç®—æ¥æ”¶çš„å­—èŠ‚æ•°
 		Uart1_Str.Receive_flag = 1;
 		HAL_UART_Receive_DMA(&huart1, Uart1_Str.Uart_RecvBuff, UART_BUFFSIZE);
 		__HAL_UART_CLEAR_IDLEFLAG(&huart1);
 	}
 }
 /*
-º¯Êı¹¦ÄÜ£ºreceive data functions
-º¯ÊıĞÎ²Î???????* Uart_Str ??????? ´®¿ÚÊı¾İ»º³å½á¹¹µØÖ·
-	    RcvBuff £º½ÓÊÕÊı¾İ»º³åÇø  
-	    RevLen  £º½ÓÊÕ»º³åÇø³¤¶È
-º¯Êı·µ»ØÖµ£º½ÓÊÕÊı¾İ³¤¶È
-±¸×¢£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šreceive data functions
+å‡½æ•°å½¢å‚???????* Uart_Str ??????? ä¸²å£æ•°æ®ç¼“å†²ç»“æ„åœ°å€
+	    RcvBuff ï¼šæ¥æ”¶æ•°æ®ç¼“å†²åŒº  
+	    RevLen  ï¼šæ¥æ”¶ç¼“å†²åŒºé•¿åº¦
+å‡½æ•°è¿”å›å€¼ï¼šæ¥æ”¶æ•°æ®é•¿åº¦
+å¤‡æ³¨ï¼šæ— 
 */
 static short Uart_Receive_Data(UART_STR * Uart_Str, char * RcvBuff, short RevLen)
 {
@@ -86,12 +131,12 @@ static short Uart_Receive_Data(UART_STR * Uart_Str, char * RcvBuff, short RevLen
   
 }
 /*
-º¯Êı¹¦ÄÜ£º´Ó´®¿Ú»ñÈ¡Êı¾İ
-º¯ÊıĞÎ²Î???????* Uartx £º´®¿ÚµØ???????
-         RcvBuff £º½ÓÊÕ»º³åÖ¸???????
-         RevLen  £º½ÓÊÕ»º³åÇø´óĞ¡
-º¯Êı·µ»ØÖµ£º½ÓÊÕÊı¾İ³¤¶È
-±¸×¢£ºÎŞ
+å‡½æ•°åŠŸèƒ½ï¼šä»ä¸²å£è·å–æ•°æ®
+å‡½æ•°å½¢å‚???????* Uartx ï¼šä¸²å£åœ°???????
+         RcvBuff ï¼šæ¥æ”¶ç¼“å†²æŒ‡???????
+         RevLen  ï¼šæ¥æ”¶ç¼“å†²åŒºå¤§å°
+å‡½æ•°è¿”å›å€¼ï¼šæ¥æ”¶æ•°æ®é•¿åº¦
+å¤‡æ³¨ï¼šæ— 
 */
 short Get_Uart_Data(USART_TypeDef* Uartx,char * RcvBuff, short RevLen)
 {
@@ -107,17 +152,21 @@ short Get_Uart_Data(USART_TypeDef* Uartx,char * RcvBuff, short RevLen)
 	{
 		return(Uart_Receive_Data(&Uart3_Str, RcvBuff, RevLen));
 	}
+	else if(Uartx == UART5)
+	{
+		return(Uart_Receive_Data(&Uart5_Str, RcvBuff, RevLen));
+	}
 	return 0;
 }
 
-//ÖØ¶¨Ïòc¿âº¯Êıprintfµ½USART1
+//é‡å®šå‘cåº“å‡½æ•°printfåˆ°USART1
 int fputc(int ch, FILE *f)
 {
 	if(ch != NULL){
-		/* ·¢???Ò»¸ö×Ö½ÚÊı¾İµ½USART1 */
-		Uart1_DMA_Sent((uint8_t*)&ch, 1);
-		/* µÈ´ı·¢ËÍÍê³É */
-		while (HAL_UART_GetState(&huart1) == HAL_UART_STATE_RESET);
+		/* å‘???ä¸€ä¸ªå­—èŠ‚æ•°æ®åˆ°USART1 */
+		Uart5_DMA_Sent((uint8_t*)&ch, 1);
+		/* ç­‰å¾…å‘é€å®Œæˆ */
+		while (HAL_UART_GetState(&huart5) == HAL_UART_STATE_RESET);
 	}
 	return (ch);
 }
