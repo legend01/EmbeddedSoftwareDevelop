@@ -57,6 +57,7 @@ volatile uint32_t tick_time7_counter;
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim4;
 TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim7;
 TIM_HandleTypeDef htim14;
@@ -109,6 +110,36 @@ void MX_TIM2_Init(void)
   sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
   sConfigIC.ICFilter = 0;
   if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+}
+/* TIM4 init function */
+void MX_TIM4_Init(void)
+{
+  TIM_ClockConfigTypeDef sClockSourceConfig;
+  TIM_MasterConfigTypeDef sMasterConfig;
+
+  htim4.Instance = TIM4;
+  htim4.Init.Prescaler = 8400-1;
+  htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim4.Init.Period = 1000;
+  htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim4, &sClockSourceConfig) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim4, &sMasterConfig) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
@@ -251,6 +282,21 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
 
   /* USER CODE END TIM2_MspInit 1 */
   }
+  else if(tim_baseHandle->Instance==TIM4)
+  {
+  /* USER CODE BEGIN TIM4_MspInit 0 */
+
+  /* USER CODE END TIM4_MspInit 0 */
+    /* TIM4 clock enable */
+    __HAL_RCC_TIM4_CLK_ENABLE();
+
+    /* TIM4 interrupt Init */
+    HAL_NVIC_SetPriority(TIM4_IRQn, 7, 0);
+    HAL_NVIC_EnableIRQ(TIM4_IRQn);
+  /* USER CODE BEGIN TIM4_MspInit 1 */
+
+  /* USER CODE END TIM4_MspInit 1 */
+  }
   else if(tim_baseHandle->Instance==TIM5)
   {
   /* USER CODE BEGIN TIM5_MspInit 0 */
@@ -355,6 +401,20 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
   /* USER CODE BEGIN TIM2_MspDeInit 1 */
 
   /* USER CODE END TIM2_MspDeInit 1 */
+  }
+  else if(tim_baseHandle->Instance==TIM4)
+  {
+  /* USER CODE BEGIN TIM4_MspDeInit 0 */
+
+  /* USER CODE END TIM4_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_TIM4_CLK_DISABLE();
+
+    /* TIM4 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(TIM4_IRQn);
+  /* USER CODE BEGIN TIM4_MspDeInit 1 */
+
+  /* USER CODE END TIM4_MspDeInit 1 */
   }
   else if(tim_baseHandle->Instance==TIM5)
   {

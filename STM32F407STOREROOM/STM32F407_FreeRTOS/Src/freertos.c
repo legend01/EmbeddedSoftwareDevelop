@@ -106,9 +106,9 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
   HAL_TIM_PWM_Start(&htim14,TIM_CHANNEL_1);
-  HAL_TIM_IC_Start_IT(&htim5, TIM_CHANNEL_1);	// �??????启输入捕获中�??????
+  HAL_TIM_IC_Start_IT(&htim5, TIM_CHANNEL_1);	// �???????启输入捕获中�???????
   __HAL_TIM_ENABLE_IT(&htim5,TIM_IT_UPDATE);	//使能更新中断
-  HAL_TIM_IC_Start(&htim2, TIM_CHANNEL_1); /* �?????启输入捕�????? */
+  HAL_TIM_IC_Start(&htim2, TIM_CHANNEL_1); /* �??????启输入捕�?????? */
   TPAD_Init();
   /* USER CODE END Init */
 
