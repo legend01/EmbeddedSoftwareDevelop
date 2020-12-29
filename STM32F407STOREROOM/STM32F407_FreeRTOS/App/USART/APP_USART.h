@@ -2,12 +2,14 @@
  * @Description: 串口处理函数
  * @Author: HLLI8
  * @Date: 2020-12-06 19:56:26
- * @LastEditTime: 2020-12-24 22:51:46
+ * @LastEditTime: 2020-12-27 15:40:15
  * @LastEditors: HLLI8
  */
 #ifndef __APP_USART_H__
 #define __APP_USART_H__
 #include "usart.h"
+#define FALSE 0
+#define TRUE 1
 extern DMA_HandleTypeDef hdma_usart1_rx;
 extern DMA_HandleTypeDef hdma_usart1_tx;
 

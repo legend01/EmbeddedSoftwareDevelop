@@ -64,11 +64,12 @@
 #include "pwm.h"
 #include "inputCapture.h"
 #include "tpad.h"
+#include "usmart_receiveFromUsart.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+extern USMART_RECV_STR usmart_receiveSTR;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -87,6 +88,8 @@
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 osThreadId ThreadTask02Handle;
+osThreadId ThreadTask03Handle;
+osMessageQId USMARTQueueHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -95,6 +98,7 @@ osThreadId ThreadTask02Handle;
 
 void StartDefaultTask(void const * argument);
 void USART1ManageFuc(void const * argument);
+void USMARTManageFuc(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -105,11 +109,7 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-  HAL_TIM_PWM_Start(&htim14,TIM_CHANNEL_1);
-  HAL_TIM_IC_Start_IT(&htim5, TIM_CHANNEL_1);	// �???????启输入捕获中�???????
-  __HAL_TIM_ENABLE_IT(&htim5,TIM_IT_UPDATE);	//使能更新中断
-  HAL_TIM_IC_Start(&htim2, TIM_CHANNEL_1); /* �??????启输入捕�?????? */
-  TPAD_Init();
+  
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -133,9 +133,19 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(ThreadTask02, USART1ManageFuc, osPriorityNormal, 0, 128);
   ThreadTask02Handle = osThreadCreate(osThread(ThreadTask02), NULL);
 
+  /* definition and creation of ThreadTask03 */
+  osThreadDef(ThreadTask03, USMARTManageFuc, osPriorityIdle, 0, 128);
+  ThreadTask03Handle = osThreadCreate(osThread(ThreadTask03), NULL);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
+
+  /* Create the queue(s) */
+  /* definition and creation of USMARTQueue */
+/* what about the sizeof here??? cd native code */
+  osMessageQDef(USMARTQueue, 8, usmart_receiveSTR);
+  USMARTQueueHandle = osMessageCreate(osMessageQ(USMARTQueue), NULL);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -154,6 +164,12 @@ void StartDefaultTask(void const * argument)
 
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
+  HAL_TIM_PWM_Start(&htim14,TIM_CHANNEL_1);
+  HAL_TIM_IC_Start_IT(&htim5, TIM_CHANNEL_1);	// �???????????启输入捕获中�???????????
+  __HAL_TIM_ENABLE_IT(&htim5,TIM_IT_UPDATE);	//使能更新中断
+  HAL_TIM_IC_Start(&htim2, TIM_CHANNEL_1); /* �??????????启输入捕�?????????? */
+  TPAD_Init();
+  usmart_init();
   for(;;)
   {
     char receive_buf[200];
@@ -189,6 +205,24 @@ void USART1ManageFuc(void const * argument)
     osDelay(1);
   }
   /* USER CODE END USART1ManageFuc */
+}
+
+/* USER CODE BEGIN Header_USMARTManageFuc */
+/**
+* @brief Function implementing the ThreadTask03 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_USMARTManageFuc */
+void USMARTManageFuc(void const * argument)
+{
+  /* USER CODE BEGIN USMARTManageFuc */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END USMARTManageFuc */
 }
 
 /* Private application code --------------------------------------------------*/

@@ -74,7 +74,6 @@ short Uart5_DMA_Sent(char * Sendbuff, short Bufflens)
 */
 void IRQ_UART5_IRQHandler(void)
 {
-uint32_t tmp_flag = 0;
 	if(__HAL_UART_GET_FLAG(&huart5, UART_FLAG_IDLE) != RESET) //获取IDLE标志位 //idle标志被置位
 	{
 		/* 清除状???寄存器和串口数据寄存器 */
@@ -87,25 +86,7 @@ uint32_t tmp_flag = 0;
 		__HAL_UART_CLEAR_IDLEFLAG(&huart5);
 	}
 }
-/*
-*函数功能：serial port 3 reseive exit function
-*@NOTE:hdma_usart1_rx.Instance->NDTR为获取DMA中未传输的数据个数
-*/
-void IRQ_USART1_IRQHandler(void)
-{
-uint32_t tmp_flag = 0;
-	if(__HAL_UART_GET_FLAG(&huart1, UART_FLAG_IDLE) != RESET) //获取IDLE标志位 //idle标志被置位
-	{
-		/* 清除状???寄存器和串口数据寄存器 */
-		__HAL_UART_CLEAR_IDLEFLAG(&huart1);
-		/* 失能DMA接收 */
-		HAL_UART_DMAStop(&huart1);
-		Uart1_Str.Uart_RecvLens  = UART_BUFFSIZE -  hdma_usart1_rx.Instance->NDTR;; // 通过DMA接收指针计算接收的字节数
-		Uart1_Str.Receive_flag = 1;
-		HAL_UART_Receive_DMA(&huart1, Uart1_Str.Uart_RecvBuff, UART_BUFFSIZE);
-		__HAL_UART_CLEAR_IDLEFLAG(&huart1);
-	}
-}
+
 /*
 函数功能：receive data functions
 函数形参???????* Uart_Str ??????? 串口数据缓冲结构地址
@@ -140,11 +121,7 @@ static short Uart_Receive_Data(UART_STR * Uart_Str, char * RcvBuff, short RevLen
 */
 short Get_Uart_Data(USART_TypeDef* Uartx,char * RcvBuff, short RevLen)
 {
-	if(Uartx == USART1)
-	{
-		return(Uart_Receive_Data(&Uart1_Str, RcvBuff, RevLen));
-	}
-	else if(Uartx == USART2)
+	if(Uartx == USART2)
 	{
 		return(Uart_Receive_Data(&Uart2_Str, RcvBuff, RevLen));
 	}
@@ -156,7 +133,7 @@ short Get_Uart_Data(USART_TypeDef* Uartx,char * RcvBuff, short RevLen)
 	{
 		return(Uart_Receive_Data(&Uart5_Str, RcvBuff, RevLen));
 	}
-	return 0;
+	return FALSE;
 }
 
 //重定向c库函数printf到USART1
