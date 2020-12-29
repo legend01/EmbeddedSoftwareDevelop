@@ -367,6 +367,7 @@
           <state>$PROJ_DIR$/../App/PWM/</state>
           <state>$PROJ_DIR$/../App/InputCapture/</state>
           <state>$PROJ_DIR$/../App/TPAD/</state>
+          <state>$PROJ_DIR$/../App/USMART/</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1106,6 +1107,21 @@
         <name>USART</name>
         <file>
           <name>$PROJ_DIR$\..\App\USART\APP_USART.c</name>
+        </file>
+      </group>
+      <group>
+        <name>USMART</name>
+        <file>
+          <name>$PROJ_DIR$\..\App\USMART\usmart.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\App\USMART\usmart_config.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\App\USMART\usmart_receiveFromUsart.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\App\USMART\usmart_str.c</name>
         </file>
       </group>
     </group>

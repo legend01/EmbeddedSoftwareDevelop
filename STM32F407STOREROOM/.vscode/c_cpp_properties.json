@@ -24,7 +24,8 @@
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\KEY",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\PWM",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\InputCapture",
-                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\TPAD"
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\TPAD",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\USMART"
             ],
             "forcedInclude": [],
             "cStandard": "c11",
