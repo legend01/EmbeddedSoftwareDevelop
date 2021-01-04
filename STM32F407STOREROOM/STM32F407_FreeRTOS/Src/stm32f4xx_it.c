@@ -38,7 +38,6 @@
 
 /* USER CODE BEGIN 0 */
 #include "APP_USART.h"
-#include "usmart.h"
 #include "usmart_receiveFromUsart.h"
 /* USER CODE END 0 */
 
