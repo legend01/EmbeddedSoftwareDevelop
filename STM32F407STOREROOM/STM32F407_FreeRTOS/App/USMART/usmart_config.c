@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2020-12-27 13:44:53
- * @LastEditTime: 2020-12-29 20:16:28
+ * @LastEditTime: 2021-01-04 22:00:57
  * @LastEditors: HLLI8
  */
 #include "usmart.h"
@@ -11,6 +11,7 @@
 //这下面要包含所用到的函数所申明的头文件(用户自己添加) 
 #include "tim.h"	 	
 #include "led.h"
+#include "usmart_receiveFromUsart.h"
 								 										  
 //函数名列表初始化(用户自己添加)
 //用户直接在这里输入要执行的函数名及其查找串

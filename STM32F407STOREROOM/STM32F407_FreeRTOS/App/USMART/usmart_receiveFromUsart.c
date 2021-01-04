@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2020-12-27 15:16:20
- * @LastEditTime: 2021-01-04 20:46:41
+ * @LastEditTime: 2021-01-04 22:32:05
  * @LastEditors: HLLI8
  */
 #include "usmart_receiveFromUsart.h"
@@ -14,6 +14,15 @@
 
 USMART_RECV_STR usmart_receiveSTR;
 extern osMessageQId USMARTQueueHandle;
+
+//初始化串口控制器
+void usmart_init(void)
+{
+	HAL_TIM_Base_Start_IT(&htim4); //使能定时器4和定时器4中断 
+	usmart_dev.sptype=1;	//十六进制显示参数
+	//!_//DMA接收函数，此句一定要加，不加接收不到第一次传进来的实数据，是空的，且此时接收到的数据长度为缓存器的数据长度
+	HAL_UART_Receive_DMA(&huart1,usmart_receiveSTR.Usmart_RecvBuff,UART_BUFFSIZE);
+}	
 
 /*
 *函数功能：serial port 3 reseive exit function
@@ -28,9 +37,8 @@ void IRQ_USART1_IRQHandler(void)
 		__HAL_UART_CLEAR_IDLEFLAG(&huart1);
 		/* 失能DMA接收 */
 		HAL_UART_DMAStop(&huart1);
-		usmart_receiveSTR.Usmart_RecvLens  = UART_BUFFSIZE -  hdma_usart1_rx.Instance->NDTR;; // 通过DMA接收指针计算接收的字节数
+		usmart_receiveSTR.Usmart_RecvLens = UART_BUFFSIZE -  hdma_usart1_rx.Instance->NDTR;; // 通过DMA接收指针计算接收的字节数
 		usmart_receiveSTR.Usmart_Receive_Flag = 1;
-		__HAL_UART_CLEAR_IDLEFLAG(&huart1);
         
         HAL_UART_Receive_DMA(&huart1, usmart_receiveSTR.Usmart_RecvBuff, UART_BUFFSIZE);
         xQueueSendFromISR(USMARTQueueHandle, &usmart_receiveSTR, &xHigherPriorityTaskWoken);

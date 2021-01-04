@@ -40,33 +40,27 @@ uint8_t usmart_sys_cmd_exe(uint8_t *str)
 		case 1://帮助指令
 			printf("\r\n");
 #if USMART_USE_HELP 
-			printf("USMART是由ALIENTEK开发的一个灵巧的串口调试互交组件,通过 \r\n");
-			printf("它,你可以通过串口助手调用程序里面的任何函数,并执行.因此,你可\r\n");
-			printf("以随意更改函数的输入参数(支持数字(10/16进制,支持负数)、字符串\r\n"),
-			printf("、函数入口地址等作为参数),单个函数最多支持10个输入参数,并支持\r\n"),  
-			printf("函数返回值显示.支持参数显示进制设置功能,支持进制转换功能.\r\n");
-			printf("USMART有7个系统命令(必须小写):\r\n");
-			printf("?:      获取帮助信息\r\n");
-			printf("help:   获取帮助信息\r\n");
-			printf("list:   可用的函数列表\r\n\n");
-			printf("id:     可用函数的ID列表\r\n\n");
-			printf("hex:    参数16进制显示,后跟空格+数字即执行进制转换\r\n\n");
-			printf("dec:    参数10进制显示,后跟空格+数字即执行进制转换\r\n\n");
-			printf("runtime:1,开启函数运行计时;0,关闭函数运行计时;\r\n\n");
-			printf("请按照程序编写格式输入函数名及参数并以回车键结束.\r\n");    
+			printf("USMART have 7 commands(must be lowercase):\r\n");
+			printf("?:      get help info\r\n");
+			printf("help:   get help info\r\n");
+			printf("list:   avaliable function list\r\n\n");
+			printf("id:     avaliable function id list\r\n");
+			printf("hex:    The parameter is displayed in hexadecimal\r\n");
+			printf("dec:    The parameter is displayed in decimal\r\n");
+			printf("runtime:1,Turn on function running timing;0,Turn off function running timing;\r\n");
 #else
 			printf("指令失效\r\n");
 #endif
 			break;
 		case 2://查询指令
 			printf("\r\n");
-			printf("-------------------------函数清单--------------------------- \r\n");
+			printf("-------------------------Function List--------------------------- \r\n");
 			for(i=0;i<usmart_dev.fnum;i++)printf("%s\r\n",usmart_dev.funs[i].name);
 			printf("\r\n");
 			break;	 
 		case 3://查询ID
 			printf("\r\n");
-			printf("-------------------------函数 ID --------------------------- \r\n");
+			printf("-------------------------Function ID --------------------------- \r\n");
 			for(i=0;i<usmart_dev.fnum;i++)
 			{
 				usmart_get_fname((uint8_t*)usmart_dev.funs[i].name,sfname,&pnum,&rval);//得到本地函数名 
@@ -86,7 +80,7 @@ uint8_t usmart_sys_cmd_exe(uint8_t *str)
 				}else if(i!=4)return USMART_PARMERR;//参数错误.
 				else 				   				//参数显示设定功能
 				{
-					printf("16进制参数显示!\r\n");
+					printf("Hexadecimal parameter display!\r\n");
 					usmart_dev.sptype=SP_TYPE_HEX;  
 				}
 
@@ -105,7 +99,7 @@ uint8_t usmart_sys_cmd_exe(uint8_t *str)
 				}else if(i!=4)return USMART_PARMERR;//参数错误.
 				else 				   				//参数显示设定功能
 				{
-					printf("10进制参数显示!\r\n");
+					printf("Decimal parameter display!\r\n");
 					usmart_dev.sptype=SP_TYPE_DEC;  
 				}
 
@@ -136,13 +130,7 @@ uint8_t usmart_sys_cmd_exe(uint8_t *str)
 	}
 	return 0;
 }
-
-//初始化串口控制器
-void usmart_init(void)
-{
-	HAL_TIM_Base_Start_IT(&htim4); //使能定时器4和定时器4中断 
-	usmart_dev.sptype=1;	//十六进制显示参数
-}		
+	
 //从str中获取函数名,id,及参数信息
 //*str:字符串指针.
 //返回值:0,识别成功;其他,错误代码.
@@ -290,7 +278,6 @@ void usmart_scan(void)
 					{
 						case USMART_FUNCERR:
 							printf("Function Error!\r\n");
-										
 							break;	
 						case USMART_PARMERR:
 							printf("Parameter Error!\r\n");   			

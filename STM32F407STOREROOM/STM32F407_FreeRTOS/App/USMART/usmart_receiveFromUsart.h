@@ -2,7 +2,7 @@
  * @Description: USMART串口处理函数
  * @Author: HLLI8
  * @Date: 2020-12-27 15:16:41
- * @LastEditTime: 2021-01-04 20:45:03
+ * @LastEditTime: 2021-01-04 21:57:36
  * @LastEditors: HLLI8
  */
 #ifndef __USMART_RECEIVEFROMUSART_C__
@@ -19,6 +19,8 @@ typedef struct{
     volatile short Usmart_Receive_Flag;
     char Usmart_RecvBuff[USMART_BUFFSIZE];
 }USMART_RECV_STR;
+
+void usmart_init(void);//初始化
 
 void IRQ_USART1_IRQHandler(void);
 uint32_t usmart_get_runtime(void);	//获取运行时间

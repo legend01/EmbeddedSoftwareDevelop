@@ -13,9 +13,9 @@ static void led_set(LED_STATE sta)
 {
     if (sta == LED_dark)
     {
-        LED0_0;
+        LED1_0;
     }else if (sta == LED_light){
-        LED0_1;
+        LED1_1;
     }
 } 
 //函数参数调用测试函数

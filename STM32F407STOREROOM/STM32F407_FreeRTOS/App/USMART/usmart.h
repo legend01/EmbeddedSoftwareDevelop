@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2020-12-27 13:44:53
- * @LastEditTime: 2021-01-04 20:45:34
+ * @LastEditTime: 2021-01-04 21:57:29
  * @LastEditors: HLLI8
  */
 #ifndef __USMART_H
@@ -62,7 +62,7 @@ extern struct _m_usmart_nametab usmart_nametab[];	//在usmart_config.c里面定�
 extern struct _m_usmart_dev usmart_dev;				//在usmart_config.c里面定义
 
 
-void usmart_init(void);//初始化
+
 uint8_t usmart_cmd_rec(uint8_t*str);	//识别
 void usmart_exe(void);		//执行
 void usmart_scan(void);     //扫描
