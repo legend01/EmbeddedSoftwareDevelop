@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
     <fileVersion>4</fileVersion>
-    <fileChecksum>1272845264</fileChecksum>
+    <fileChecksum>3476727961</fileChecksum>
     <configuration>
         <name>STM32F407_FreeRTOS</name>
         <outputs>
+<<<<<<< HEAD
             <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c</file>
             <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c</file>
             <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\list.c</file>
@@ -341,21 +342,325 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 53</file>
+=======
+            <file>$PROJ_DIR$\..\App\LED\led.c</file>
+            <file>$PROJ_DIR$\..\Src\main.c</file>
+            <file>$PROJ_DIR$\..\Src\system_stm32f4xx.c</file>
+            <file>$PROJ_DIR$\..\App\KEY\key.c</file>
+            <file>$PROJ_DIR$\..\Src\freertos.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c</file>
+            <file>$PROJ_DIR$\..\Src\stm32f4xx_hal_timebase_TIM.c</file>
+            <file>$PROJ_DIR$\..\App\ASSERT\assert.c</file>
+            <file>$PROJ_DIR$\..\App\ASSERT\assert.h</file>
+            <file>$PROJ_DIR$\..\App\BEEP\beep.c</file>
+            <file>$PROJ_DIR$\..\App\InputCapture\inputCapture.c</file>
+            <file>$PROJ_DIR$\..\App\PWM\pwm.c</file>
+            <file>$PROJ_DIR$\..\App\TPAD\tpad.c</file>
+            <file>$PROJ_DIR$\..\App\USART\APP_USART.c</file>
+            <file>$PROJ_DIR$\startup_stm32f407xx.s</file>
+            <file>$PROJ_DIR$\..\Src\dma.c</file>
+            <file>$PROJ_DIR$\..\Src\gpio.c</file>
+            <file>$PROJ_DIR$\..\Src\stm32f4xx_hal_msp.c</file>
+            <file>$PROJ_DIR$\..\Src\stm32f4xx_it.c</file>
+            <file>$PROJ_DIR$\..\Src\tim.c</file>
+            <file>$PROJ_DIR$\..\Src\usart.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c</file>
+            <file>$TOOLKIT_DIR$\lib\dl7M_tlf.a</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_flash_ex.pbi</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\event_groups.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\pwm.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_msp.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\STM32F407_FreeRTOS.pbd</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\APP_USART.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_gpio.__cstat.et</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\projdefs.h</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\IAR\ARM_CM4F\portmacro.h</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\pwm.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_cortex.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_dma.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_flash_ex.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\cmsis_os.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\iar_intrinsics_common.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_uart.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\iwdg.o</file>
+            <file>$PROJ_DIR$\..\Inc\gpio.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\inputCapture.__cstat.et</file>
+            <file>$PROJ_DIR$\..\App\BEEP\beep.h</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_iwdg.c</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\system_stm32f4xx.__cstat.et</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\portable.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\port.__cstat.et</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+            <file>$PROJ_DIR$\..\App\USART\APP_USART.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_flash_ex.o</file>
+            <file>$TOOLKIT_DIR$\lib\rt7M_tl.a</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\gpio.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_rcc_ex.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_rcc.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\event_groups.pbi</file>
+            <file>$PROJ_DIR$\..\Src\iwdg.c</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_flash.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\tim.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\key.__cstat.et</file>
+            <file>$PROJ_DIR$\..\Drivers\CMSIS\Include\core_cmSimd.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_stdlib.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\tim.o</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma_ex.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product_string.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_timebase_TIM.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\assert.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\system_stm32f4xx.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\gpio.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_pwr.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_flash_ramfunc.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\startup_stm32f407xx.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\tasks.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\assert.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_it.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\inputCapture.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\croutine.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_flash.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\main.pbi</file>
+            <file>$PROJ_DIR$\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_dma_ex.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_dma_ex.o</file>
+            <file>$PROJ_DIR$\..\App\LED\led.h</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\semphr.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\beep.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\APP_USART.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\heap_4.o</file>
+            <file>$PROJ_DIR$\..\Inc\dma.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\beep.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\dma.o</file>
+            <file>$PROJ_DIR$\..\App\PWM\pwm.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_iwdg.__cstat.et</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\freertos.__cstat.et</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\iwdg.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_flash_ramfunc.__cstat.et</file>
+            <file>$PROJ_DIR$\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\list.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\list.pbi</file>
+            <file>$PROJ_DIR$\..\Inc\stm32f4xx_it.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\tpad.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_uart.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\usart.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\main.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\queue.pbi</file>
+            <file>$PROJ_DIR$\..\Drivers\CMSIS\Include\core_cm4.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\dma.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_dma.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\led.o</file>
+            <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_rcc_ex.pbi</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_def.h</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_gpio_ex.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_flash_ramfunc.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\heap_4.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_iwdg.o</file>
+            <file>$PROJ_DIR$\..\Inc\main.h</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\task.h</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\deprecated_definitions.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_tim_ex.__cstat.et</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\queue.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\croutine.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\list.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\beep.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_it.pbi</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\queue.o</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc_ex.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_it.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_dma.o</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_gpio.o</file>
+            <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\led.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\event_groups.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\timers.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_pwr_ex.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\tpad.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Exe\STM32F407_FreeRTOS.hex</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\timers.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\event_groups.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_pwr.pbi</file>
+            <file>$PROJ_DIR$\..\App\TPAD\tpad.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Exe\STM32F407_FreeRTOS.out</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\List\STM32F407_FreeRTOS.map</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\mpu_wrappers.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_gpio.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_pwr_ex.o</file>
+            <file>$PROJ_DIR$\..\Inc\stm32f4xx_hal_conf.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_pwr.__cstat.et</file>
+            <file>$PROJ_DIR$\..\Inc\iwdg.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\iwdg.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_tim.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_tim_ex.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\freertos.pbi</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_iwdg.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\queue.__cstat.et</file>
+            <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_rcc.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\tpad.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\croutine.pbi</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\inputCapture.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_msp.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\APP_USART.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\assert.pbi</file>
+            <file>$PROJ_DIR$\..\App\USART\USART.c</file>
+            <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+            <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\croutine.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\tasks.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_rcc_ex.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_timebase_TIM.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\cmsis_os.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_pwr_ex.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\port.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_iwdg.pbi</file>
+            <file>$PROJ_DIR$\..\Drivers\CMSIS\Include\core_cmFunc.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_cortex.pbi</file>
+            <file>$PROJ_DIR$\..\Drivers\CMSIS\Device\ST\STM32F4xx\Include\stm32f407xx.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\tim.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\key.o</file>
+            <file>$TOOLKIT_DIR$\inc\c\iccarm_builtin.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_flash.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal.pbi</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\led.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\tasks.pbi</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_timebase_TIM.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\system_stm32f4xx.o</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\StackMacros.h</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_dma.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\key.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\list.__cstat.et</file>
+            <file>$PROJ_DIR$\..\Inc\tim.h</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ex.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\usart.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\pwm.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\main.o</file>
+            <file>$PROJ_DIR$\..\Inc\usart.h</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\include\timers.h</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_msp.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_tim_ex.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\timers.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_tim.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\gpio.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\freertos.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_dma_ex.pbi</file>
+            <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Full.h</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_cortex.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_uart.pbi</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\usart.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_cortex.o</file>
+            <file>$PROJ_DIR$\..\App\KEY\key.h</file>
+            <file>$PROJ_DIR$\stm32f407xx_flash.icf</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\heap_4.__cstat.et</file>
+            <file>$PROJ_DIR$\..\Drivers\CMSIS\Include\core_cmInstr.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\dma.pbi</file>
+            <file>$PROJ_DIR$\..\App\USART\USART.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_tim.__cstat.et</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\stm32f4xx_hal_rcc.o</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\port.o</file>
+            <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\cmsis_os.__cstat.et</file>
+            <file>$PROJ_DIR$\..\App\InputCapture\inputCapture.h</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\list.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\timers.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ramfunc.c</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\queue.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c</file>
+            <file>$PROJ_DIR$\..\Inc\FreeRTOSConfig.h</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\IAR\ARM_CM4F\port.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\croutine.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c</file>
+            <file>$TOOLKIT_DIR$\lib\m7M_tls.a</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.h</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\tasks.c</file>
+            <file>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c</file>
+            <file>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\IAR\ARM_CM4F\portasm.s</file>
+            <file>$PROJ_DIR$\STM32F407_FreeRTOS\Obj\portasm.o</file>
+        </outputs>
+        <file>
+            <name>[ROOT_NODE]</name>
+            <outputs>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 151 152</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\App\LED\led.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 112</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 140</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 195</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 194 253 148 166 217 252 238 155 174 239 153 160 117 190 103 232 275 172 64 206 215 98</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 155 174 148 117 253 215 238 166 153 103 64 98 194 217 252 239 160 190 232 206 275 172</file>
+=======
+                    <file> 85 121</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 85 121</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\list.c</name>
+=======
+            <name>$PROJ_DIR$\..\Src\main.c</name>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
             <outputs>
                 <tool>
                     <name>ICCARM</name>
@@ -363,6 +668,7 @@
                 </tool>
                 <tool>
                     <name>__cstat</name>
+<<<<<<< HEAD
                     <file> 128</file>
                 </tool>
                 <tool>
@@ -449,20 +755,36 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 258</file>
+=======
+                    <file> 107</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 81</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 244 135 231 144 104 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 153 265 255 102 104 244 154 148 259 270 212 159 172 105 253 156 90 202 166 217 252 135 231 144 59 136 180 75 162 243 260 107 263 238 113 257 164</file>
+=======
+                    <file> 121 242 156 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115 261 136 137 248 30 47 123 31 175 38 153 122 101 210 125 86 24 90 204 209 41 50 85</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 116 253 187 42 169 175 85 201 86 31 204 197 130 62 234 242 261 41 156 121 95 220 32 115 133 226 109 97 211 136 248 209 90 50 100 131 82 228 165 49 219 194 210 137 47 153 190 185 113 176 117 65 205 122 125 24 30 123 38 101</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c</name>
             <outputs>
                 <tool>
@@ -476,20 +798,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 70</file>
+=======
+            <name>$PROJ_DIR$\..\Src\system_stm32f4xx.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 199</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 46</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 69</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 180 212 231 265 260 107 252 135 59 162 263 104 144 136 75 243 270 153 202 148 259 105 102 244 154 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 242 156 121 197 116 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 42 211 113 131 116 242 82 234 169 187 109 185 190 100 165 194 228 62 49 219 97 156 121 197 95 201 220 130 32 253 115 133 226 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\IAR\ARM_CM4F\portasm.s</name>
             <outputs>
                 <tool>
@@ -518,20 +864,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 54</file>
+=======
+            <name>$PROJ_DIR$\..\App\KEY\key.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 189</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 61</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 202</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 102 244 265 252 154 104 105 202 148 259 135 231 144 59 136 180 75 162 243 260 107 263 270 212 153 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 224 121</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 224 121</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c</name>
             <outputs>
                 <tool>
@@ -545,20 +915,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 68</file>
+=======
+            <name>$PROJ_DIR$\..\Src\freertos.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 217</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 96</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 162</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 104 265 252 105 102 244 154 202 148 259 135 231 144 59 136 180 75 162 243 260 107 263 270 212 153 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 136 137 165 234 49 219 97 176 42 248 30 47 123 31 175 190 38 153 122 101 121 261 210 125 86 24 100 187 109 228 113 185 62 82 242 156 197 116 226 131 133 95 117 201 65 220 130 205 169 32 211 253 194 115 85 44 50 209 204 93 236 150</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 38 197 165 242 113 204 234 24 100 30 42 31 122 82 130 205 116 121 44 236 153 101 125 210 62 201 253 176 117 65 261 85 50 93 150 137 248 47 49 219 97 123 175 190 136 86 187 109 228 156 95 220 32 115 133 226 209 185 131 169 211 194</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Src\gpio.c</name>
             <outputs>
                 <tool>
@@ -572,20 +966,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 61</file>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 223</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 34</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 186</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 52 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 102 244 265 252 231 154 104 105 202 148 259 135 144 59 136 180 75 162 243 260 107 263 270 212 153 90 253 166 217 156 52 159 255 172 238 113 257 164</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 32 211 156 95 226 97 121 220 115 133 109 116 197 201 130 253 187 42 62 234 169 100 131 242 82 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Src\stm32f4xx_hal_msp.c</name>
             <outputs>
                 <tool>
@@ -599,20 +1017,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 279</file>
+=======
+            <name>$PROJ_DIR$\..\Src\stm32f4xx_hal_timebase_TIM.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 67</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 180</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 198</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 243 265 136 252 144 75 270 153 104 135 231 59 180 162 260 107 263 212 202 148 259 105 102 244 154 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 82 211 97 131 242 116 100 62 234 169 253 156 121 197 95 201 220 130 32 115 133 226 187 109 42 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c</name>
             <outputs>
                 <tool>
@@ -626,20 +1068,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 163</file>
+=======
+            <name>$PROJ_DIR$\..\App\ASSERT\assert.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 68</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 76</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 173</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 162 265 135 59 263 252 231 180 260 107 212 104 144 136 75 243 270 153 202 148 259 105 102 244 154 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 8 131 165 234 49 219 97 176</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 165 131 176 234 49 8 219 97</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Src\stm32f4xx_hal_timebase_TIM.c</name>
             <outputs>
                 <tool>
@@ -653,20 +1119,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 152</file>
+=======
+            <name>$PROJ_DIR$\..\App\BEEP\beep.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 128</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 87</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 91</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 154 265 252 102 244 104 105 202 148 259 243 135 231 144 59 136 180 75 162 260 107 263 270 212 153 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 44 121</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 44 121</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c</name>
             <outputs>
                 <tool>
@@ -680,20 +1170,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 167</file>
+=======
+            <name>$PROJ_DIR$\..\App\InputCapture\inputCapture.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 78</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 43</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 170</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 162 265 135 59 263 252 231 180 260 107 212 104 144 136 75 243 270 153 202 148 259 105 102 244 154 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 204 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115 236</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 116 100 113 121 131 242 82 42 176 236 156 197 95 201 220 130 32 253 115 133 226 187 109 185 234 190 165 117 65 205 204 228 62 49 219 97 169 211 194</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c</name>
             <outputs>
                 <tool>
@@ -707,16 +1221,40 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 67</file>
+=======
+            <name>$PROJ_DIR$\..\App\PWM\pwm.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 25</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 207</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 33</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
+=======
+                    <file> 93 204 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 211 116 97 100 121 131 242 82 62 234 169 204 156 197 95 201 220 130 32 253 115 133 226 187 109 42 228 165 49 219 194 93 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c</name>
             <outputs>
                 <tool>
@@ -730,20 +1268,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 225</file>
+=======
+            <name>$PROJ_DIR$\..\App\TPAD\tpad.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 104</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 167</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 144</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 243 265 136 252 144 75 270 153 104 135 231 59 180 162 260 107 263 212 202 148 259 105 102 244 154 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 150 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 242 156 121 197 116 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115 204</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 253 242 82 97 201 121 62 156 197 130 176 204 100 187 109 42 228 165 49 219 95 220 32 115 133 226 234 117 116 65 205 150 185 113 190 131 169 211 194</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c</name>
             <outputs>
                 <tool>
@@ -757,20 +1319,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 77</file>
+=======
+            <name>$PROJ_DIR$\..\App\USART\APP_USART.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 88</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 28</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 172</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 136 265 243 252 144 75 270 153 104 135 231 59 180 162 260 107 263 212 202 148 259 105 102 244 154 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 50 209 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115 8</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 121 220 109 116 242 115 133 113 190 234 205 156 95 32 226 185 165 131 197 201 130 253 187 42 117 65 8 209 100 82 176 50 228 62 49 219 97 169 211 194</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Src\freertos.c</name>
             <outputs>
                 <tool>
@@ -784,20 +1370,53 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 228</file>
+=======
+            <name>$PROJ_DIR$\startup_stm32f407xx.s</name>
+            <outputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 73</file>
+                </tool>
+            </outputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\Src\dma.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 92</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 110</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 229</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 174 239 253 148 166 217 252 238 153 160 117 190 103 232 275 172 64 206 215 98 231 233 220 272 183 268 105 270 212 90 255 159 202 154 244 135 144 104 263 102 107 59 113 136 257 180 75 164 259 162 265 243 156 260 227 236 198 210 240 150 93 95 139</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 255 238 239 102 240 148 105 139 190 252 220 270 153 231 236 93 160 253 166 217 103 275 172 174 183 212 159 104 156 210 215 233 227 198 150 95 117 232 206 64 98 272 268 244 154 259 265 90 202 135 144 59 136 180 75 162 243 260 107 263 113 257 164</file>
+=======
+                    <file> 90 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 32 211 156 95 226 97 242 121 220 115 133 109 116 197 201 130 253 187 42 62 234 169 100 131 82 228 165 49 219 194 90 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c</name>
             <outputs>
                 <tool>
@@ -811,20 +1430,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 204</file>
+=======
+            <name>$PROJ_DIR$\..\Src\gpio.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 70</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 54</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 216</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 59 263 135 265 162 252 231 180 260 107 212 104 144 136 75 243 270 153 202 148 259 105 102 244 154 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 41 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 131 242 211 97 121 82 116 100 62 234 169 156 197 95 201 220 130 32 253 115 133 226 187 109 42 228 165 49 219 194 41 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c</name>
             <outputs>
                 <tool>
@@ -838,20 +1481,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 177</file>
+=======
+            <name>$PROJ_DIR$\..\Src\stm32f4xx_hal_msp.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 212</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 171</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 26</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 136 265 243 252 144 75 270 153 104 135 231 59 180 162 260 107 263 212 202 148 259 105 102 244 154 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 253 211 201 97 197 130 187 42 116 156 121 95 220 32 115 133 226 109 62 234 169 100 131 242 82 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c</name>
             <outputs>
                 <tool>
@@ -865,47 +1532,91 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 175</file>
+=======
+            <name>$PROJ_DIR$\..\Src\stm32f4xx_it.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 77</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 134</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 129</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 75 270 153 265 135 144 252 136 243 104 231 59 180 162 260 107 263 212 202 148 259 105 102 244 154 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115 103 261 136 137 248 30 47 123 31 175 38 153 122 101 210 125 86 24 50 209</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 125 42 130 187 123 197 165 49 116 50 201 253 219 194 176 103 156 121 95 220 32 115 133 226 109 228 38 100 261 131 242 82 62 97 234 169 211 122 24 30 101 210 185 113 190 117 65 205 136 86 137 248 47 31 153 175 209</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c</name>
+=======
+            <name>$PROJ_DIR$\..\Src\tim.c</name>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
             <outputs>
                 <tool>
                     <name>ICCARM</name>
-                    <file> 245</file>
+                    <file> 64</file>
                 </tool>
                 <tool>
                     <name>__cstat</name>
+<<<<<<< HEAD
                     <file> 264</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 99</file>
+=======
+                    <file> 188</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 60</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 265 102 244 252 154 104 105 202 148 259 135 231 144 59 136 180 75 162 243 260 107 263 270 212 153 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 204 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115 41</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 253 116 201 113 190 234 205 197 130 187 42 185 165 242 156 121 95 220 32 115 133 226 109 117 65 41 100 131 82 176 204 228 62 49 219 97 169 211 194</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.c</name>
             <outputs>
                 <tool>
@@ -919,20 +1630,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 176</file>
+=======
+            <name>$PROJ_DIR$\..\Src\usart.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 222</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 106</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 206</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 223 253 148 166 217 252 238 60 233 174 239 153 160 117 190 103 232 275 172 64 206 215 98 220 272 183 268 255</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 166 148 172 60 220 190 206 253 239 255 238 174 183 160 153 232 275 233 217 252 215 272 268 117 103 64 223 98</file>
+=======
+                    <file> 209 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115 41 90 50</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 32 156 95 226 185 165 242 121 220 115 133 109 113 190 234 205 116 90 197 201 130 253 187 42 117 65 209 41 50 100 131 82 176 228 62 49 219 97 169 211 194</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\croutine.c</name>
             <outputs>
                 <tool>
@@ -946,20 +1681,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 248</file>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 75</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 145</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 193</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 174 239 253 148 166 217 252 238 153 160 117 190 103 232 275 172 64 206 215 98 100</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 238 148 166 103 153 253 117 64 98 215 239 160 190 217 252 174 100 232 206 275 172</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 253 211 201 97 197 130 187 42 116 156 121 95 220 32 115 133 226 109 62 234 169 100 131 242 82 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Src\tim.c</name>
             <outputs>
                 <tool>
@@ -973,20 +1732,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 161</file>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_iwdg.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 120</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 94</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 184</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 240 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260 52</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 243 104 136 255 172 148 164 144 75 270 153 159 253 244 135 231 59 180 162 260 107 263 212 113 257 52 105 102 154 238 240 90 202 166 217 252 259 265 156</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 163 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 116 211 187 42 234 117 65 156 121 133 226 109 185 113 190 165 205 197 95 201 220 130 163 32 253 115 100 131 242 82 176 194 228 62 49 219 97 169</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Src\stm32f4xx_it.c</name>
             <outputs>
                 <tool>
@@ -1000,20 +1783,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 82</file>
+=======
+            <name>$PROJ_DIR$\..\Src\iwdg.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 40</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 159</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 98</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260 111 233 174 239 160 117 190 103 232 275 64 206 215 98 220 272 183 268 198 210 139</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 154 153 238 148 198 102 244 255 220 190 111 104 105 239 206 172 210 233 139 135 231 144 59 136 180 75 162 243 260 107 263 270 212 159 253 113 257 164 174 183 160 232 275 90 202 166 217 252 259 265 156 215 272 268 117 103 64 98</file>
+=======
+                    <file> 158 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 163 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 116 211 234 187 42 117 65 242 156 121 133 226 109 185 113 190 165 205 197 95 201 220 130 163 32 253 115 100 131 82 176 194 158 228 62 49 219 97 169</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Src\usart.c</name>
             <outputs>
                 <tool>
@@ -1027,20 +1834,56 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 145</file>
+=======
+            <name>$PROJ_DIR$\STM32F407_FreeRTOS\Exe\STM32F407_FreeRTOS.out</name>
+            <outputs>
+                <tool>
+                    <name>OBJCOPY</name>
+                    <file> 146</file>
+                </tool>
+                <tool>
+                    <name>ILINK</name>
+                    <file> 152</file>
                 </tool>
             </outputs>
             <inputs>
                 <tool>
+                    <name>ILINK</name>
+                    <file> 225 88 68 128 181 79 92 141 217 70 89 78 189 112 127 208 233 265 25 132 73 75 223 135 84 80 52 72 138 212 71 155 232 55 215 161 67 105 77 199 178 64 142 104 222 139 53 259 22</file>
+                </tool>
+            </inputs>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\App\USART\USART.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 222</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 206</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+<<<<<<< HEAD
                     <name>ICCARM</name>
                     <file> 210 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260 52 262 198</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 153 162 135 59 263 238 244 231 180 260 107 212 255 262 144 136 75 243 270 52 198 104 105 102 154 159 148 172 253 113 257 164 210 90 202 166 217 252 259 265 156</file>
+=======
+                    <name>BICOMP</name>
+                    <file> 234 131 165 176 49 230 219 97</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ramfunc.c</name>
             <outputs>
                 <tool>
@@ -1054,20 +1897,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 114</file>
+=======
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\list.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 127</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 203</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 102</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 260 107 265 231 180 212 252 135 59 162 263 104 144 136 75 243 270 153 202 148 259 105 102 244 154 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 51 165 234 49 219 97 176 63 136 137 42 248 30 47 123 31 175 190 38 153 101</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 165 42 101 176 49 234 248 31 175 136 63 219 97 137 47 153 190 51 30 123 38</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c</name>
             <outputs>
                 <tool>
@@ -1081,20 +1948,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 249</file>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 161</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 124</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 213</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 194 253 148 166 217 252 238 155 174 239 153 160 117 190 103 232 275 172 64 206 215 98 220 268</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 275 232 220 148 160 174 155 217 153 215 268 252 239 190 253 206 172 194 238 166 117 103 64 98</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 116 211 97 100 131 242 82 62 234 169 156 121 197 95 201 220 130 32 253 115 133 226 187 109 42 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Src\main.c</name>
             <outputs>
                 <tool>
@@ -1108,20 +1999,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 140</file>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 232</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 166</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 56</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 231 244 135 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260 233 174 239 160 117 190 103 232 275 64 206 215 98 220 272 183 268 262 240 210 52 198 227</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 243 270 153 166 253 104 227 136 172 231 240 144 75 217 156 239 206 233 52 135 59 180 162 260 107 263 212 90 220 190 148 244 262 210 198 105 102 154 202 252 259 265 174 183 160 232 275 159 255 238 113 257 164 215 272 268 117 103 64 98</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 201 211 253 97 197 130 187 42 116 156 121 95 220 32 115 133 226 109 62 234 169 100 131 242 82 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c</name>
             <outputs>
                 <tool>
@@ -1135,16 +2050,39 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 127</file>
+=======
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 141</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 148</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 57</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 265 102 244 252 154 104 105 202 148 259 135 231 144 59 136 180 75 162 243 260 107 263 270 212 153 90 253 166 217 156 159 255 172 238 113 257 164</file>
+=======
+                    <file> 51 165 234 49 219 97 176 63 136 137 42 248 30 47 123 31 175 190 38 153 122 101 210 24</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 175 31 210 234 248 136 63 219 42 122 24 97 137 47 165 153 190 51 176 49 30 123 38 101</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
@@ -1153,6 +2091,7 @@
             <outputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 115</file>
                 </tool>
                 <tool>
@@ -1162,20 +2101,40 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 181</file>
+=======
+                    <file> 142</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 147</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 214</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 186 208 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 244 135 231 144 104 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260 210 240 139 174 239 160 117 190 103 232 275 64 206 233 215 98 220 272 183 268</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 212 104 156 220 153 231 174 255 105 272 240 270 253 206 210 139 233 208 244 154 159 148 172 102 259 265 117 232 64 183 215 186 90 202 166 217 252 135 144 59 136 180 75 162 243 260 107 263 238 113 257 164 239 160 190 103 275 268 98</file>
+=======
+                    <file> 51 165 234 49 219 97 176 63 136 137 42 248 30 47 123 31 175 190 38 153 122 101 125 210</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 234 125 176 38 101 136 63 165 42 123 122 210 49 30 51 219 97 137 248 47 31 153 175 190</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\App\ASSERT\assert.c</name>
             <outputs>
                 <tool>
@@ -1189,20 +2148,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 274</file>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 71</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 157</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 149</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 42 102 253 148 166 217 252 238</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 253 102 238 148 166 42 217 252</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 201 211 253 97 197 130 187 42 116 156 121 95 220 32 115 133 226 109 62 234 169 100 131 242 82 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\App\KEY\key.c</name>
             <outputs>
                 <tool>
@@ -1216,11 +2199,27 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 214</file>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 135</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 111</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 35</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 284 231</file>
                 </tool>
                 <tool>
@@ -1253,10 +2252,18 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 154 255 172 104 259 244 159 148 231 102 265 240 105 270 212 153 253 156 95 90 202 166 217 252 135 144 59 136 180 75 162 243 260 107 263 238 113 257 164</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 95 226 156 211 32 97 121 220 115 133 109 116 197 201 130 253 187 42 62 234 169 100 131 242 82 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\App\InputCapture\inputCapture.c</name>
             <outputs>
                 <tool>
@@ -1270,20 +2277,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 108</file>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ramfunc.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 72</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 99</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 118</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 240 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260 93</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 104 105 255 231 102 244 154 153 238 93 135 144 59 136 180 75 162 243 260 107 263 270 212 159 148 172 253 113 257 164 240 90 202 166 217 252 259 265 156</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 115 133 211 121 220 109 97 156 95 32 226 116 197 201 130 253 187 42 62 234 169 100 131 242 82 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\App\USMART\usmart_config.c</name>
             <outputs>
                 <tool>
@@ -1297,20 +2328,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 277</file>
+=======
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\queue.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 132</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 164</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 108</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 186 208 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 244 135 231 144 104 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260 240 227 139 210</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 148 164 252 260 107 104 139 231 180 253 240 244 154 202 135 59 162 263 113 257 208 227 105 270 212 153 90 166 217 144 136 75 243 238 186 159 255 172 102 259 265 156 210</file>
+=======
+                    <file> 51 165 234 49 219 97 176 63 192 66 136 137 42 248 30 47 123 31 175 190 38 153 122 101 125</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 234 176 122 63 219 30 165 97 66 42 123 38 192 136 125 49 137 248 47 31 153 175 190 51 101</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\App\USMART\usmart_receiveFromUsart.c</name>
             <outputs>
                 <tool>
@@ -1324,25 +2379,56 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 49</file>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 52</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 36</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 23</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 139 210 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260 198 174 239 160 117 190 103 232 275 64 206 233 215 98 220 272 183 268 240 186 208</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 148 102 244 104 240 231 154 113 257 174 210 105 159 255 172 253 164 117 220 198 233 186 135 144 59 136 180 75 162 243 260 107 263 270 212 153 238 103 64 183 139 90 202 166 217 252 259 265 156 239 160 190 232 206 275 215 272 268 98 208</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 220 109 121 211 115 133 97 156 95 32 226 116 197 201 130 253 187 42 62 234 169 100 131 242 82 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\App\USMART\usmart_str.c</name>
             <outputs>
                 <tool>
                     <name>ICCARM</name>
                     <file> 205</file>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 84</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
                 <tool>
                     <name>__cstat</name>
@@ -1350,21 +2436,34 @@
                 </tool>
                 <tool>
                     <name>BICOMP</name>
+<<<<<<< HEAD
                     <file> 69</file>
+=======
+                    <file> 218</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 208 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 244 135 231 144 104 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260 186</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 107 104 212 260 148 164 90 231 180 253 105 270 153 166 217 59 162 263 113 257 186 244 154 202 252 135 144 136 75 243 238 208 159 255 172 102 259 265 156</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 32 211 156 95 226 97 121 220 115 133 109 116 197 201 130 253 187 42 62 234 169 100 131 242 82 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\startup_stm32f407xx.s</name>
             <outputs>
                 <tool>
@@ -1372,12 +2471,40 @@
                     <file> 171</file>
                 </tool>
             </outputs>
-        </file>
-        <file>
-            <name>$PROJ_DIR$\..\App\USART\APP_USART.c</name>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c</name>
             <outputs>
                 <tool>
                     <name>ICCARM</name>
+                    <file> 138</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 29</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 154</file>
+                </tool>
+            </outputs>
+            <inputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 201 211 253 97 197 130 187 42 116 156 121 95 220 32 115 133 226 109 62 234 169 100 131 242 82 228 165 49 219 194 185 113 190 176 117 65 205</file>
+                </tool>
+            </inputs>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
+        </file>
+        <file>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 251</file>
                 </tool>
                 <tool>
@@ -1387,20 +2514,40 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 169</file>
+=======
+                    <file> 105</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 39</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 221</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 198 210 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260 42</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 162 104 135 59 263 255 172 148 164 244 231 180 260 107 212 159 253 102 144 136 75 243 270 153 113 257 42 210 105 154 238 198 90 202 166 217 252 259 265 156</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 211 131 242 97 82 116 100 62 234 169 156 121 197 95 201 220 130 32 253 115 133 226 187 109 42 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\App\BEEP\beep.c</name>
             <outputs>
                 <tool>
@@ -1414,20 +2561,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 158</file>
+=======
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 181</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 235</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 37</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 236 231</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 236 231</file>
+=======
+                    <file> 192 165 234 49 219 97 176 66 261 136 137 42 248 30 47 123 31 175 190 38 153 122 101 210 125 86 24 113</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 49 234 190 66 210 47 153 165 137 113 176 136 86 248 42 31 175 261 219 97 122 125 24 30 123 38 192 101</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\App\LED\led.c</name>
             <outputs>
                 <tool>
@@ -1441,20 +2612,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 120</file>
+=======
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\IAR\ARM_CM4F\port.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 233</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 48</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 183</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 227 231 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 244 135 144 104 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 265 212 255 102 104 270 153 148 259 105 231 244 154 159 172 253 156 227 90 202 166 217 252 135 144 59 136 180 75 162 243 260 107 263 238 113 257 164</file>
+=======
+                    <file> 175 190 234 49 219 97 38 136 137 165 176 42 248 30 47 123 31 153 122 101</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 38 165 248 234 123 122 136 190 137 47 101 175 49 219 97 42 30 176 31 153</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\App\PWM\pwm.c</name>
             <outputs>
                 <tool>
@@ -1468,39 +2663,87 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 165</file>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 155</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 143</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 182</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 150 240 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 265 104 252 105 231 102 244 154 202 148 259 240 135 144 59 136 180 75 162 243 260 107 263 270 212 153 90 253 166 217 156 150 159 255 172 238 113 257 164</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 131 242 211 97 82 116 100 62 234 169 156 121 197 95 201 220 130 32 253 115 133 226 187 109 42 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\App\USART\USART.c</name>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c</name>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
             <outputs>
                 <tool>
                     <name>ICCARM</name>
                     <file> 80</file>
+<<<<<<< HEAD
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 145</file>
+=======
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 59</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 191</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
+<<<<<<< HEAD
                     <name>BICOMP</name>
                     <file> 148 102 253 238 166 197 217 252</file>
+=======
+                    <name>ICCARM</name>
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 211 131 242 97 82 116 100 62 234 169 156 121 197 95 201 220 130 32 253 115 133 226 187 109 42 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\STM32F407_FreeRTOS\Exe\STM32F407_FreeRTOS.out</name>
             <outputs>
                 <tool>
@@ -1510,16 +2753,41 @@
                 <tool>
                     <name>ILINK</name>
                     <file> 46</file>
+=======
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\croutine.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 79</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 126</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 168</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
+<<<<<<< HEAD
                     <name>ILINK</name>
                     <file> 278 251 266 209 89 58 87 173 283 130 271 121 273 129 213 96 73 92 109 71 171 254 116 118 65 246 151 203 106 269 141 195 211 57 142 85 112 245 123 119 224 133 101 126 80 115 91 157 205 229 182 63 235</file>
+=======
+                    <name>ICCARM</name>
+                    <file> 136 137 165 234 49 219 97 176 42 248 30 47 123 31 175 190 38 153 122 101 177</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 176 234 49 123 42 165 30 38 101 122 137 248 47 219 97 136 177 31 153 175 190</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_iwdg.c</name>
             <outputs>
                 <tool>
@@ -1533,20 +2801,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 47</file>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 215</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 231</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 160</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 282 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 104 265 270 153 148 113 257 135 231 107 263 212 159 255 172 253 164 144 59 136 180 75 282 162 243 260 105 102 244 154 238 156 90 202 166 217 252 259</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 130 187 42 211 156 197 97 201 253 116 121 95 220 32 115 133 226 109 62 234 169 100 131 242 82 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\queue.c</name>
             <outputs>
                 <tool>
@@ -1560,20 +2852,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 230</file>
+=======
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 89</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 227</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 119</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 194 253 148 166 217 252 238 155 223 60 174 239 153 160 117 190 103 232 275 172 64 206 215 98 272</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 148 238 215 155 217 117 253 252 60 153 103 64 223 174 272 166 239 160 190 232 206 275 172 194 98</file>
+=======
+                    <file> 51 165 234 49 219 97 176 63 136 137 42 248 30 47 123 31 175 190 38 153 122 101</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 63 136 234 30 165 122 176 49 42 123 38 101 51 219 97 137 248 47 31 153 175 190</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\timers.c</name>
             <outputs>
                 <tool>
@@ -1587,20 +2903,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 124</file>
+=======
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\tasks.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 178</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 74</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 196</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 194 253 148 166 217 252 238 155 174 239 153 160 117 190 103 232 275 172 64 206 215 98 272 220</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 148 272 238 64 98 174 155 253 153 103 215 220 166 117 194 217 252 239 160 190 232 206 275 172</file>
+=======
+                    <file> 51 165 234 49 219 97 176 63 192 66 136 137 42 248 30 47 123 31 175 190 38 153 122 101 210 200</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 123 234 66 42 122 97 165 176 200 63 219 30 190 192 136 210 49 137 248 47 31 153 175 51 38 101</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Src\iwdg.c</name>
             <outputs>
                 <tool>
@@ -1614,20 +2954,44 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 76</file>
+=======
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c</name>
+            <outputs>
+                <tool>
+                    <name>ICCARM</name>
+                    <file> 55</file>
+                </tool>
+                <tool>
+                    <name>__cstat</name>
+                    <file> 179</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 114</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ICCARM</name>
+<<<<<<< HEAD
                     <file> 250 244 135 231 144 104 105 270 212 153 253 148 166 217 252 90 255 172 159 202 154 263 102 238 107 59 113 136 257 180 75 164 259 282 162 265 243 156 260</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 104 265 148 270 153 113 257 244 135 231 107 263 212 159 255 172 253 164 144 59 136 180 75 282 162 243 260 105 102 154 238 156 250 90 202 166 217 252 259</file>
+=======
+                    <file> 242 156 121 197 116 100 187 109 42 165 234 49 219 97 228 113 190 185 62 82 226 131 176 133 95 117 201 65 220 130 205 169 32 211 253 194 115</file>
+                </tool>
+                <tool>
+                    <name>BICOMP</name>
+                    <file> 131 242 211 97 82 116 100 62 234 169 156 121 197 95 201 220 130 32 253 115 133 226 187 109 42 228 165 49 219 194 185 113 190 176 117 65 205</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>
         <file>
+<<<<<<< HEAD
             <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\tasks.c</name>
             <outputs>
                 <tool>
@@ -1641,16 +3005,28 @@
                 <tool>
                     <name>BICOMP</name>
                     <file> 83</file>
+=======
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\IAR\ARM_CM4F\portasm.s</name>
+            <outputs>
+                <tool>
+                    <name>AARM</name>
+                    <file> 265</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </outputs>
             <inputs>
                 <tool>
+<<<<<<< HEAD
                     <name>ICCARM</name>
                     <file> 194 253 148 166 217 252 238 155 223 60 174 239 153 160 117 190 103 232 275 172 64 206 215 98 220 143</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
                     <file> 103 148 60 153 215 252 253 238 143 155 217 117 172 223 174 220 166 239 160 190 232 206 275 194 64 98</file>
+=======
+                    <name>AARM</name>
+                    <file> 248</file>
+>>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
                 </tool>
             </inputs>
         </file>

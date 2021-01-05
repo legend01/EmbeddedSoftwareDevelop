@@ -1240,21 +1240,6 @@
                     <name>$PROJ_DIR$\..\App\USART\APP_USART.c</name>
                 </file>
             </group>
-            <group>
-                <name>USMART</name>
-                <file>
-                    <name>$PROJ_DIR$\..\App\USMART\usmart.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\App\USMART\usmart_config.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\App\USMART\usmart_receiveFromUsart.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\..\App\USMART\usmart_str.c</name>
-                </file>
-            </group>
         </group>
         <group>
             <name>EWARM</name>
