@@ -41,6 +41,14 @@ short Uart1_DMA_Sent(char * Sendbuff, short Bufflens)
 	ret = HAL_UART_Transision_DMA(&huart1, Uart1_Str.Uart_SentBuff, l_val);
 	return l_val;
 }
+/**
+ * @description: 串口5初始化
+ * @param {*}
+ * !_DMA接收函数，此句一定要加，不加接收不到第一次传进来的实数据，是空的，且此时接收到的数据长度为缓存器的数据长度
+ */
+void Uart5_DMA_Init(void){
+	HAL_UART_Receive_DMA(&huart5, Uart5_Str.Uart_RecvBuff, UART_BUFFSIZE);
+}
 /*
 函数功能：串????3DMA data send
 函数形参：Sendbuff ：data send buffer
@@ -141,9 +149,9 @@ int fputc(int ch, FILE *f)
 {
 	if(ch != NULL){
 		/* 发???一个字节数据到USART1 */
-		Uart5_DMA_Sent((uint8_t*)&ch, 1);
+		Uart1_DMA_Sent((uint8_t*)&ch, 1);
 		/* 等待发送完成 */
-		while (HAL_UART_GetState(&huart5) == HAL_UART_STATE_RESET);
+		while (HAL_UART_GetState(&huart1) == HAL_UART_STATE_RESET);
 	}
 	return (ch);
 }

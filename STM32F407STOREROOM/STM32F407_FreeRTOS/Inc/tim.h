@@ -87,6 +87,8 @@ void delay_ms(uint16_t ms);
 
 void SysDelay_us(uint32_t nus);
 void SysDelay_ms(uint16_t nms);
+
+void Hal_TimStart_Init(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
