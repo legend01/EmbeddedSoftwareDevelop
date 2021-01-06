@@ -37,6 +37,10 @@ C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F40
 -I
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/TPAD/
 -I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/USMART/
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/SYSDLIB/
+-I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\Core\Include
 -I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\DSP\Include
@@ -76,6 +80,10 @@ C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F40
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\InputCapture
 -I
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\TPAD
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\USMART
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\SYSDLIB
 -I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\Core\Include
 -I

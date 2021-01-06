@@ -11,40 +11,24 @@
         <LimitSize>0</LimitSize>
         <ByteLimit>50</ByteLimit>
     </Stack>
-    <StLinkDriver>
-        <stlinkResetStyle>0</stlinkResetStyle>
-        <stlinkResetStrategy>2</stlinkResetStrategy>
-        <CStepIntDis>_ 0</CStepIntDis>
-        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
-    </StLinkDriver>
+    <PlDriver>
+        <FirstRun>0</FirstRun>
+        <MemConfigValue>C:\EmbeddedSoftwareSetup\IAR\arm\CONFIG\debugger\ST\STM32F407ZG.ddf</MemConfigValue>
+    </PlDriver>
     <Jet>
-<<<<<<< HEAD
-=======
         <JetConnSerialNo>Fire CMSIS-DAP:FS-00000385</JetConnSerialNo>
         <JetConnFoundProbes />
         <PrevWtdReset>Connect during reset</PrevWtdReset>
->>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
         <DisableInterrupts>0</DisableInterrupts>
         <LeaveRunning>0</LeaveRunning>
         <MultiCoreRunAll>0</MultiCoreRunAll>
         <OnlineReset>Software</OnlineReset>
-<<<<<<< HEAD
-        <JetConnSerialNo>Fire CMSIS-DAP:FS-00000385</JetConnSerialNo>
-        <JetConnFoundProbes />
-        <PrevWtdReset>Connect during reset</PrevWtdReset>
-=======
->>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
     </Jet>
-    <PlDriver>
-        <MemConfigValue>C:\EmbeddedSoftwareSetup\IAR\arm\CONFIG\debugger\ST\STM32F407ZG.ddf</MemConfigValue>
-        <FirstRun>0</FirstRun>
-    </PlDriver>
+    <ArmDriver>
+        <EnableCache>1</EnableCache>
+    </ArmDriver>
     <DebugChecksum>
-<<<<<<< HEAD
-        <Checksum>2620605624</Checksum>
-=======
-        <Checksum>153471556</Checksum>
->>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
+        <Checksum>567043411</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -53,15 +37,11 @@
     <CallStack>
         <ShowArgs>0</ShowArgs>
     </CallStack>
-    <Disassembly>
-        <InstrCount>0</InstrCount>
-        <MixedMode>1</MixedMode>
-    </Disassembly>
     <SWOManager>
         <SamplingDivider>8192</SamplingDivider>
         <OverrideClock>0</OverrideClock>
-        <CpuClock>1</CpuClock>
-        <SwoClock>1</SwoClock>
+        <CpuClock>0</CpuClock>
+        <SwoClock>0</SwoClock>
         <DataLogMode>0</DataLogMode>
         <ItmPortsEnabled>63</ItmPortsEnabled>
         <ItmTermIOPorts>1</ItmTermIOPorts>
@@ -70,92 +50,6 @@
         <PowerForcePC>1</PowerForcePC>
         <PowerConnectPC>1</PowerConnectPC>
     </SWOManager>
-    <ArmDriver>
-        <EnableCache>1</EnableCache>
-    </ArmDriver>
-    <JLinkDriver>
-        <CStepIntDis>_ 0</CStepIntDis>
-        <LeaveTargetRunning>_ 0</LeaveTargetRunning>
-    </JLinkDriver>
-    <CodeCoverage>
-        <Enabled>_ 0</Enabled>
-    </CodeCoverage>
-    <SWOTraceHWSettings>
-        <OverrideDefaultClocks>0</OverrideDefaultClocks>
-        <CpuClock>72000000</CpuClock>
-        <ClockAutoDetect>0</ClockAutoDetect>
-        <ClockWanted>2000000</ClockWanted>
-        <JtagSpeed>2000000</JtagSpeed>
-        <Prescaler>36</Prescaler>
-        <TimeStampPrescIndex>0</TimeStampPrescIndex>
-        <TimeStampPrescData>0</TimeStampPrescData>
-        <PcSampCYCTAP>1</PcSampCYCTAP>
-        <PcSampPOSTCNT>15</PcSampPOSTCNT>
-        <PcSampIndex>0</PcSampIndex>
-        <DataLogMode>0</DataLogMode>
-        <ITMportsEnable>0</ITMportsEnable>
-        <ITMportsTermIO>0</ITMportsTermIO>
-        <ITMportsLogFile>0</ITMportsLogFile>
-        <ITMlogFile>$PROJ_DIR$\ITM.log</ITMlogFile>
-    </SWOTraceHWSettings>
-    <PowerLog>
-        <Title_0>I0</Title_0>
-        <Symbol_0>0 4 0</Symbol_0>
-        <LogEnabled>0</LogEnabled>
-        <GraphEnabled>0</GraphEnabled>
-        <ShowTimeLog>1</ShowTimeLog>
-        <LiveEnabled>0</LiveEnabled>
-        <LiveFile>PowerLogLive.log</LiveFile>
-    </PowerLog>
-    <DataLog>
-        <LogEnabled>0</LogEnabled>
-        <GraphEnabled>0</GraphEnabled>
-        <ShowTimeLog>1</ShowTimeLog>
-        <SumEnabled>0</SumEnabled>
-        <ShowTimeSum>1</ShowTimeSum>
-    </DataLog>
-    <InterruptLog>
-        <LogEnabled>0</LogEnabled>
-        <GraphEnabled>0</GraphEnabled>
-        <ShowTimeLog>1</ShowTimeLog>
-        <SumEnabled>0</SumEnabled>
-        <ShowTimeSum>1</ShowTimeSum>
-        <SumSortOrder>0</SumSortOrder>
-    </InterruptLog>
-    <EventLog>
-        <Title_0>Ch3</Title_0>
-        <Symbol_0>0 0 1</Symbol_0>
-        <Title_1>Ch2</Title_1>
-        <Symbol_1>0 0 1</Symbol_1>
-        <Title_2>Ch1</Title_2>
-        <Symbol_2>0 0 1</Symbol_2>
-        <Title_3>Ch0</Title_3>
-        <Symbol_3>0 0 1</Symbol_3>
-        <LogEnabled>0</LogEnabled>
-        <GraphEnabled>0</GraphEnabled>
-        <ShowTimeLog>1</ShowTimeLog>
-        <SumEnabled>0</SumEnabled>
-        <ShowTimeSum>1</ShowTimeSum>
-        <SumSortOrder>0</SumSortOrder>
-    </EventLog>
-    <DriverProfiling>
-        <Enabled>0</Enabled>
-        <Mode>1</Mode>
-        <Graph>0</Graph>
-        <Symbiont>0</Symbiont>
-        <Exclusions />
-    </DriverProfiling>
-    <CallStackLog>
-        <Enabled>0</Enabled>
-    </CallStackLog>
-    <CallStackStripe>
-        <ShowTiming>1</ShowTiming>
-    </CallStackStripe>
-    <PowerProbe>
-        <Frequency>10000</Frequency>
-        <Probe0>I0</Probe0>
-        <ProbeSetup0>2 1 1 2 0 0</ProbeSetup0>
-    </PowerProbe>
     <Trace1>
         <Enabled>0</Enabled>
         <ShowSource>1</ShowSource>
@@ -190,22 +84,12 @@
         <mode>0</mode>
     </DisassembleMode>
     <Breakpoints2>
-        <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\App\ASSERT\assert.c}.12.5" 0 0 1 "" 0 "" 0</Bp0>
-<<<<<<< HEAD
-        <Bp1>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\Src\freertos.c}.153.1" 0 0 1 "" 0 "" 0</Bp1>
-        <Bp2>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\App\LED\led.c}.24.2" 0 0 1 "" 0 "" 0</Bp2>
-        <Bp3>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\App\LED\led.c}.18.9" 0 0 1 "" 0 "" 0</Bp3>
-        <Bp4>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\App\LED\led.c}.16.9" 0 0 1 "" 0 "" 0</Bp4>
-        <Count>5</Count>
-    </Breakpoints2>
-=======
-        <Count>1</Count>
+        <Count>0</Count>
     </Breakpoints2>
     <TermIOLog>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
     </TermIOLog>
->>>>>>> parent of 3ba91cc... [增加配置]1.增加cube关于USMART组件的配置
     <LogFile>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>
@@ -215,8 +99,4 @@
         <Count>0</Count>
         <SuppressDialog>0</SuppressDialog>
     </Aliases>
-    <TermIOLog>
-        <LoggingEnabled>_ 0</LoggingEnabled>
-        <LogFile>_ ""</LogFile>
-    </TermIOLog>
 </settings>
