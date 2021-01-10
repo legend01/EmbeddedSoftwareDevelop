@@ -2,12 +2,12 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2020-12-20 12:04:35
- * @LastEditTime: 2020-12-20 19:17:47
+ * @LastEditTime: 2021-01-10 16:54:11
  * @LastEditors: HLLI8
  */
 #include "tim.h"
 #include "inputCapture.h"
-long long temp = 0;	 	// 定义一个变量用以存储捕获到的时间 long long型是为了防止数据溢出
+uint32_t temp = 0;	 	// 定义一个变量用以存储捕获到的时间 long long型是为了防止数据溢出
 /*	bit7 捕获完成标识	bit6 捕获到高电平标识	bit5~0 捕获高电平后定时器溢出的次数 */
 volatile uint8_t	TIM5CH1_CAPTURE_STA = 0;	// 输入捕获状态
 volatile uint32_t	TIM5CH1_CAPTURE_VAL;		// 输入捕获值(TIM2/TIM5是32位的定时器所以这里定义为uint32_t)
@@ -40,9 +40,9 @@ void InputCapture(void){
     if (TIM5CH1_CAPTURE_STA & 0x80)   // 如果捕获完成
     {
         temp = TIM5CH1_CAPTURE_STA & 0x3f;
-        temp *= 0xffffffff;				// Total Overflow Time(总的溢出时间)
+        temp *= 0xffff;				// Total Overflow Time(总的溢出时间)
         temp += TIM5CH1_CAPTURE_VAL;    // Get Total High Level Time(获取总的高电平时长)
-        printf("HIGH: %lld ms\r\n", temp/1000); // Print Total High Level Time(打印总的高电平时长)
+        log_printf("HIGH: %04dms\r\n", temp/1000); // Print Total High Level Time(打印总的高电平时长)
         TIM5CH1_CAPTURE_STA = 0;			    // Clear Capture State , Open The Next Capture(清除捕获状态，打开下一次捕获)
     }
 }
