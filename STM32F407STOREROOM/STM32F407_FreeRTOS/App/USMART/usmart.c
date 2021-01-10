@@ -1,3 +1,5 @@
+#include "stdio.h"
+
 #include "usmart.h"
 #include "usart.h"
 #include "tim.h"
@@ -38,92 +40,92 @@ uint8_t usmart_sys_cmd_exe(uint8_t *str)
 	{					   
 		case 0:
 		case 1://帮助指令
-			printf("\r\n");
+			USMART_PRINT("\r\n");
 #if USMART_USE_HELP 
-			printf("USMART have 7 commands(must be lowercase):\r\n");
-			printf("?:      get help info\r\n");
-			printf("help:   get help info\r\n");
-			printf("list:   avaliable function list\r\n\n");
-			printf("id:     avaliable function id list\r\n");
-			printf("hex:    The parameter is displayed in hexadecimal\r\n");
-			printf("dec:    The parameter is displayed in decimal\r\n");
-			printf("runtime:1,Turn on function running timing;0,Turn off function running timing;\r\n");
+			USMART_PRINT("USMART have 7 commands(must be lowercase):\r\n");
+			USMART_PRINT("?:      get help info\r\n");
+			USMART_PRINT("help:   get help info\r\n");
+			USMART_PRINT("list:   avaliable function list\r\n\n");
+			USMART_PRINT("id:     avaliable function id list\r\n");
+			USMART_PRINT("hex:    The parameter is displayed in hexadecimal\r\n");
+			USMART_PRINT("dec:    The parameter is displayed in decimal\r\n");
+			USMART_PRINT("runtime:1,Turn on function running timing;0,Turn off function running timing;\r\n");
 #else
-			printf("指令失效\r\n");
+			USMART_PRINT("指令失效\r\n");
 #endif
 			break;
 		case 2://查询指令
-			printf("\r\n");
-			printf("-------------------------Function List--------------------------- \r\n");
-			for(i=0;i<usmart_dev.fnum;i++)printf("%s\r\n",usmart_dev.funs[i].name);
-			printf("\r\n");
+			USMART_PRINT("\r\n");
+			USMART_PRINT("-------------------------Function List--------------------------- \r\n");
+			for(i=0;i<usmart_dev.fnum;i++) USMART_PRINT("%s\r\n",usmart_dev.funs[i].name);
+			USMART_PRINT("\r\n");
 			break;	 
 		case 3://查询ID
-			printf("\r\n");
-			printf("-------------------------Function ID --------------------------- \r\n");
+			USMART_PRINT("\r\n");
+			USMART_PRINT("-------------------------Function ID --------------------------- \r\n");
 			for(i=0;i<usmart_dev.fnum;i++)
 			{
 				usmart_get_fname((uint8_t*)usmart_dev.funs[i].name,sfname,&pnum,&rval);//得到本地函数名 
-				printf("%s id is:\r\n0X%08X\r\n",sfname,usmart_dev.funs[i].func); //显示ID
+				USMART_PRINT("%s id is:\r\n0X%08X\r\n",sfname,usmart_dev.funs[i].func); //显示ID
 			}
-			printf("\r\n");
+			USMART_PRINT("\r\n");
 			break;
 		case 4://hex指令
-			printf("\r\n");
+			USMART_PRINT("\r\n");
 			usmart_get_aparm(str,sfname,&i);
 			if(i==0)//参数正常
 			{
 				i=usmart_str2num(sfname,&res);	   	//记录该参数	
 				if(i==0)						  	//进制转换功能
 				{
-					printf("HEX:0X%X\r\n",res);	   	//转为16进制
+					USMART_PRINT("HEX:0X%X\r\n",res);	   	//转为16进制
 				}else if(i!=4)return USMART_PARMERR;//参数错误.
 				else 				   				//参数显示设定功能
 				{
-					printf("Hexadecimal parameter display!\r\n");
+					USMART_PRINT("Hexadecimal parameter display!\r\n");
 					usmart_dev.sptype=SP_TYPE_HEX;  
 				}
 
 			}else return USMART_PARMERR;			//参数错误.
-			printf("\r\n"); 
+			USMART_PRINT("\r\n"); 
 			break;
 		case 5://dec指令
-			printf("\r\n");
+			USMART_PRINT("\r\n");
 			usmart_get_aparm(str,sfname,&i);
 			if(i==0)//参数正常
 			{
 				i=usmart_str2num(sfname,&res);	   	//记录该参数	
 				if(i==0)						   	//进制转换功能
 				{
-					printf("DEC:%lu\r\n",res);	   	//转为10进制
+					USMART_PRINT("DEC:%lu\r\n",res);	   	//转为10进制
 				}else if(i!=4)return USMART_PARMERR;//参数错误.
 				else 				   				//参数显示设定功能
 				{
-					printf("Decimal parameter display!\r\n");
+					USMART_PRINT("Decimal parameter display!\r\n");
 					usmart_dev.sptype=SP_TYPE_DEC;  
 				}
 
 			}else return USMART_PARMERR;			//参数错误. 
-			printf("\r\n"); 
+			USMART_PRINT("\r\n"); 
 			break;	 
 		case 6://runtime指令,设置是否显示函数执行时间
-			printf("\r\n");
+			USMART_PRINT("\r\n");
 			usmart_get_aparm(str,sfname,&i);
 			if(i==0)//参数正常
 			{
 				i=usmart_str2num(sfname,&res);	   		//记录该参数	
 				if(i==0)						   		//读取指定地址数据功能
 				{
-					if(USMART_ENTIMX_SCAN==0)printf("\r\nError! \r\nTo EN RunTime function,Please set USMART_ENTIMX_SCAN = 1 first!\r\n");//报错
+					if(USMART_ENTIMX_SCAN==0)USMART_PRINT("\r\nError! \r\nTo EN RunTime function,Please set USMART_ENTIMX_SCAN = 1 first!\r\n");//报错
 					else
 					{
 						usmart_dev.runtimeflag=res;
-						if(usmart_dev.runtimeflag)printf("Run Time Calculation ON\r\n");
-						else printf("Run Time Calculation OFF\r\n"); 
+						if(usmart_dev.runtimeflag)USMART_PRINT("Run Time Calculation ON\r\n");
+						else USMART_PRINT("Run Time Calculation OFF\r\n"); 
 					}
 				}else return USMART_PARMERR;   			//未带参数,或者参数错误	 
  			}else return USMART_PARMERR;				//参数错误. 
-			printf("\r\n"); 
+			USMART_PRINT("\r\n"); 
 			break;	    
 		default://非法指令
 			return USMART_FUNCERR;
@@ -174,24 +176,24 @@ void usmart_exe(void)
 	id=usmart_dev.id;
 	if(id>=usmart_dev.fnum)return;//不执行.
 	usmart_get_fname((uint8_t*)usmart_dev.funs[id].name,sfname,&pnum,&rval);//得到本地函数名,及参数个数 
-	printf("\r\n%s(",sfname);//输出正要执行的函数名
+	USMART_PRINT("\r\n%s(",sfname);//输出正要执行的函数名
 	for(i=0;i<pnum;i++)//输出参数
 	{
 		if(usmart_dev.parmtype&(1<<i))//参数是字符串
 		{
-			printf("%c",'"');			 
-			printf("%s",usmart_dev.parm+usmart_get_parmpos(i));
-			printf("%c",'"');
+			USMART_PRINT("%c",'"');			 
+			USMART_PRINT("%s",usmart_dev.parm+usmart_get_parmpos(i));
+			USMART_PRINT("%c",'"');
 			temp[i]=(uint32_t)&(usmart_dev.parm[usmart_get_parmpos(i)]);
 		}else						  //参数是数字
 		{
 			temp[i]=*(uint32_t*)(usmart_dev.parm+usmart_get_parmpos(i));
-			if(usmart_dev.sptype==SP_TYPE_DEC)printf("%ld",temp[i]);//10进制参数显示
-			else printf("0X%X",temp[i]);//16进制参数显示 	   
+			if(usmart_dev.sptype==SP_TYPE_DEC)USMART_PRINT("%ld",temp[i]);//10进制参数显示
+			else USMART_PRINT("0X%X",temp[i]);//16进制参数显示 	   
 		}
-		if(i!=pnum-1)printf(",");
+		if(i!=pnum-1)USMART_PRINT(",");
 	}
-	printf(")");
+	USMART_PRINT(")");
 #if USMART_ENTIMX_SCAN==1
 	usmart_reset_runtime();	//计时器清零,开始计时
 #endif
@@ -241,12 +243,12 @@ void usmart_exe(void)
 #endif
 	if(rval==1)//需要返回值.
 	{
-		if(usmart_dev.sptype==SP_TYPE_DEC)printf("=%lu;\r\n",res);//输出执行结果(10进制参数显示)
-		else printf("=0X%X;\r\n",res);//输出执行结果(16进制参数显示)	   
-	}else printf(";\r\n");		//不需要返回值,直接输出结束
+		if(usmart_dev.sptype==SP_TYPE_DEC)USMART_PRINT("=%lu;\r\n",res);//输出执行结果(10进制参数显示)
+		else USMART_PRINT("=0X%X;\r\n",res);//输出执行结果(16进制参数显示)	   
+	}else USMART_PRINT(";\r\n");		//不需要返回值,直接输出结束
 	if(usmart_dev.runtimeflag)	//需要显示函数执行时间
 	{ 
-		printf("Function Run Time:%d.%1dms\r\n",usmart_dev.runtime/10,usmart_dev.runtime%10);//打印函数执行时间 
+		USMART_PRINT("Function Run Time:%d.%1dms\r\n",usmart_dev.runtime/10,usmart_dev.runtime%10);//打印函数执行时间 
 	}	
 }
 //usmart扫描函数
@@ -277,16 +279,16 @@ void usmart_scan(void)
 					switch(sta)
 					{
 						case USMART_FUNCERR:
-							printf("Function Error!\r\n");
+							USMART_PRINT("Function Error!\r\n");
 							break;	
 						case USMART_PARMERR:
-							printf("Parameter Error!\r\n");   			
+							USMART_PRINT("Parameter Error!\r\n");   			
 							break;				
 						case USMART_PARMOVER:
-							printf("Parameter Number too much!\r\n");   			
+							USMART_PRINT("Parameter Number too much!\r\n");   			
 							break;		
 						case USMART_NOFUNCFIND:
-							printf("Cant find the match function!\r\n");   			
+							USMART_PRINT("Cant find the match function!\r\n");   			
 							break;		
 					}
 				}

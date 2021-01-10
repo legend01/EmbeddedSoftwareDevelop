@@ -2,7 +2,7 @@
  * @Description: USMART串口处理函数
  * @Author: HLLI8
  * @Date: 2020-12-27 15:16:41
- * @LastEditTime: 2021-01-04 21:57:36
+ * @LastEditTime: 2021-01-10 17:12:55
  * @LastEditors: HLLI8
  */
 #ifndef __USMART_RECEIVEFROMUSART_C__
