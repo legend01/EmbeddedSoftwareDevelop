@@ -127,9 +127,7 @@ static unsigned long int printk_mknumstr(unsigned char * numstr, void * nump, un
 static void printk_pad_zero(unsigned long int curlen, unsigned long int field_width, unsigned long int * count, PRINTK_INFO * info);
 static void printk_pad_space(unsigned long int curlen, unsigned long int field_width, unsigned long int* count, PRINTK_INFO * info);
 unsigned long int printk(PRINTK_INFO * info, const unsigned char* fmt, va_list ap);
-unsigned long int log_printf(const unsigned char * fmt,...);
 unsigned long int sys_sprintf(unsigned char* s, const unsigned char* fmt,...);
-void out_char(unsigned char *ch);
 /*********************************************************************/
 
 #endif

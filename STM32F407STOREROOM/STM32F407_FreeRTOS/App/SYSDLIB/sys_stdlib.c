@@ -1076,33 +1076,6 @@ cont_xd:
     return count;
 }
 /********************************************************************/
-unsigned long int log_printf (const unsigned char *fmt, ...) //!_TODO:修改函数名
-{
-    va_list ap;
-    unsigned long int rvalue;
-    PRINTK_INFO info;
-
-
-    info.dest = DEST_CONSOLE;
-    info.func = &out_char;
-    /*
-     * Initialize the pointer to the variable length argument list.
-     * 初始化指向可变长度参数列表的指针
-     */
-    va_start(ap, fmt);
-    rvalue = printk(&info, fmt, ap);
-    /*
-     * Cleanup the variable length argument list.
-     */
-    va_end(ap);
-    return rvalue;
-}
-/********************************************************************/
-void out_char(unsigned char *ch) //!_修改输出出口
-{
-	Uart5_DMA_Sent((uint8_t*)ch, 1);
-}
-/********************************************************************/
 /*
 	@brief:把格式化的数据写入某个字符串中
 	@param:1.char型指针，指向将要写入的字符串缓冲区 2.格式化字符串 3.可选参数，可是任何类型的数据
