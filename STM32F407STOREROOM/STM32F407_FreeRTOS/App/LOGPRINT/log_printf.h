@@ -2,7 +2,7 @@
  * @Description: 日志打印
  * @Author: HLLI8
  * @Date: 2021-01-09 16:46:53
- * @LastEditTime: 2021-01-10 17:07:45
+ * @LastEditTime: 2021-01-10 22:25:20
  * @LastEditors: HLLI8
  */
 #ifndef __LOG_PRINTF_H__
@@ -16,5 +16,6 @@ typedef struct{
 unsigned long int log_printf (const unsigned char *fmt, ...);
 void simp_printf(unsigned char *format, ...);
 void out_char(unsigned char *ch);
-unsigned long int USMART_PRINT(const unsigned char *fmt, ...)
+unsigned long int USMART_PRINT(const unsigned char *fmt, ...);
+void PRTNT_USMART(unsigned char *ch);
 #endif // !__LOG_PRINTF_H__
