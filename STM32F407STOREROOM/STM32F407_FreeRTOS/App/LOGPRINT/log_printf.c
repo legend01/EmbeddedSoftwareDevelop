@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-09 16:46:05
- * @LastEditTime: 2021-01-10 17:07:16
+ * @LastEditTime: 2021-01-10 22:35:44
  * @LastEditors: HLLI8
  */
 #include "log_printf.h"
@@ -37,6 +37,9 @@ unsigned long int log_printf (const unsigned char *fmt, ...) //!_TODO:修改函�
     return rvalue;
 }
 
+/**
+ * @description: TODO:这个函数暂时没有用到，后期用到时候再修改
+ */
 void simp_printf(unsigned char *format, ...){
     va_list args;
     const char *args1;
