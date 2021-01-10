@@ -66,6 +66,8 @@
 #include "tpad.h"
 #include "usmart_receiveFromUsart.h"
 #include "sys_stdlib.h"
+#include "log_printf.h"
+#include "app_rtc.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -169,6 +171,7 @@ void StartDefaultTask(void const * argument)
   TPAD_Init();
   usmart_init();
   Uart5_DMA_Init();
+  RTC_WakeUp_Init();
   for(;;)
   {
     char receive_buf[200];
@@ -201,7 +204,6 @@ void USART1ManageFuc(void const * argument)
   {
     // SetLight0Pwm();
     // delay_ms(1000);
-    log_printf("hello world%d, %d\r\n", 1, 12);
     osDelay(1);
   }
   /* USER CODE END USART1ManageFuc */

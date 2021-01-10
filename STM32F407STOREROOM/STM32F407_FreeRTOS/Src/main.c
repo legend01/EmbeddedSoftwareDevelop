@@ -217,19 +217,19 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
   if(GPIO_Pin == Key0_Pin){
-    printf("[INFO] Key0_Pin \r\n");
+    log_printf("[INFO] Key0_Pin \r\n");
     LED0_Toogle;
   }
   if(GPIO_Pin == Key1_Pin){
-    printf("[INFO] Key1_Pin \r\n");
+    log_printf("[INFO] Key1_Pin \r\n");
     LED1_Toggle;
   }
   if(GPIO_Pin == Key2_Pin){
-    printf("[INFO] Key2_Pin \r\n");
+    log_printf("[INFO] Key2_Pin \r\n");
     delay_ms(1000);
   }
   if(GPIO_Pin == Key_UP_Pin){
-    printf("[INFO] Key_UP_Pin \r\n");
+    log_printf("[INFO] Key_UP_Pin \r\n");
     delay_ms(1000);
   }
 }
@@ -287,7 +287,7 @@ void _Error_Handler(char *file, int line)
   /* User can add his own implementation to report the HAL error return state */
   while(1)
   {
-    printf("[INFO]Error Occur file:%s, line:%s \r\n",file,line);
+    log_printf("[INFO]Error Occur file:%s, line:%s \r\n",file,line);
   }
   /* USER CODE END Error_Handler_Debug */
 }
