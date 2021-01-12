@@ -1192,9 +1192,6 @@
             <group>
                 <name>ASSERT</name>
                 <file>
-                    <name>$PROJ_DIR$\..\App\ASSERT\assert.c</name>
-                </file>
-                <file>
                     <name>$PROJ_DIR$\..\App\ASSERT\assert.h</name>
                 </file>
             </group>
@@ -1223,9 +1220,27 @@
                 </file>
             </group>
             <group>
+                <name>LOGPRINT</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\LOGPRINT\log_printf.c</name>
+                </file>
+            </group>
+            <group>
                 <name>PWM</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\PWM\pwm.c</name>
+                </file>
+            </group>
+            <group>
+                <name>RNG</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\RNG\app_rng.c</name>
+                </file>
+            </group>
+            <group>
+                <name>RTC</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\RTC\app_rtc.c</name>
                 </file>
             </group>
             <group>
@@ -1281,6 +1296,12 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\main.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\rng.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\rtc.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\stm32f4xx_hal_msp.c</name>
@@ -1344,6 +1365,15 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rng.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc_ex.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c</name>
