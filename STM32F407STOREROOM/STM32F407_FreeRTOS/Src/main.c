@@ -60,6 +60,7 @@
 /* USER CODE BEGIN Includes */
 #include "APP_USART.h"
 #include "led.h"
+#include "app_rng.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -219,6 +220,7 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
   if(GPIO_Pin == Key0_Pin){
+    log_printf("[INFO]Rand Number:%d\r\n", RNG_Get_RandomNum());
     log_printf("[INFO] Key0_Pin \r\n");
     LED0_Toogle;
   }
