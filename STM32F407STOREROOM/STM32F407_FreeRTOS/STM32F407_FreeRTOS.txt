@@ -1,6 +1,6 @@
 Configuration	STM32F407_FreeRTOS
 STM32CubeMX 	4.27.0
-Date	01/10/2021
+Date	01/12/2021
 MCU	STM32F407ZGTx
 
 
