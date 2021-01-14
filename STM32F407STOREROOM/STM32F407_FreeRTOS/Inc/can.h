@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : RNG.h
+  * File Name          : CAN.h
   * Description        : This file provides code for the configuration
-  *                      of the RNG instances.
+  *                      of the CAN instances.
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -47,8 +47,8 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __rng_H
-#define __rng_H
+#ifndef __can_H
+#define __can_H
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -61,7 +61,7 @@
 
 /* USER CODE END Includes */
 
-extern RNG_HandleTypeDef hrng;
+extern CAN_HandleTypeDef hcan1;
 
 /* USER CODE BEGIN Private defines */
 
@@ -69,7 +69,7 @@ extern RNG_HandleTypeDef hrng;
 
 extern void _Error_Handler(char *, int);
 
-void MX_RNG_Init(void);
+void MX_CAN1_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
@@ -78,7 +78,7 @@ void MX_RNG_Init(void);
 #ifdef __cplusplus
 }
 #endif
-#endif /*__ rng_H */
+#endif /*__ can_H */
 
 /**
   * @}

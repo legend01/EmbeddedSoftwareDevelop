@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * File Name          : RNG.c
+  * File Name          : CAN.c
   * Description        : This file provides code for the configuration
-  *                      of the RNG instances.
+  *                      of the CAN instances.
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -48,55 +48,93 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "rng.h"
+#include "can.h"
+
+#include "gpio.h"
 
 /* USER CODE BEGIN 0 */
-
+ 
 /* USER CODE END 0 */
 
-RNG_HandleTypeDef hrng;
+CAN_HandleTypeDef hcan1;
 
-/* RNG init function */
-void MX_RNG_Init(void)
+/* CAN1 init function */
+void MX_CAN1_Init(void)
 {
 
-  hrng.Instance = RNG;
-  if (HAL_RNG_Init(&hrng) != HAL_OK)
+  hcan1.Instance = CAN1;
+  hcan1.Init.Prescaler = 7;
+  hcan1.Init.Mode = CAN_MODE_NORMAL;
+  hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
+  hcan1.Init.TimeSeg1 = CAN_BS1_5TQ;
+  hcan1.Init.TimeSeg2 = CAN_BS2_6TQ;
+  hcan1.Init.TimeTriggeredMode = DISABLE;
+  hcan1.Init.AutoBusOff = DISABLE;
+  hcan1.Init.AutoWakeUp = DISABLE;
+  hcan1.Init.AutoRetransmission = ENABLE;
+  hcan1.Init.ReceiveFifoLocked = DISABLE;
+  hcan1.Init.TransmitFifoPriority = DISABLE;
+  if (HAL_CAN_Init(&hcan1) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
 
 }
 
-void HAL_RNG_MspInit(RNG_HandleTypeDef* rngHandle)
+void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
 {
 
-  if(rngHandle->Instance==RNG)
+  GPIO_InitTypeDef GPIO_InitStruct;
+  if(canHandle->Instance==CAN1)
   {
-  /* USER CODE BEGIN RNG_MspInit 0 */
+  /* USER CODE BEGIN CAN1_MspInit 0 */
 
-  /* USER CODE END RNG_MspInit 0 */
-    /* RNG clock enable */
-    __HAL_RCC_RNG_CLK_ENABLE();
-  /* USER CODE BEGIN RNG_MspInit 1 */
+  /* USER CODE END CAN1_MspInit 0 */
+    /* CAN1 clock enable */
+    __HAL_RCC_CAN1_CLK_ENABLE();
+  
+    /**CAN1 GPIO Configuration    
+    PA11     ------> CAN1_RX
+    PA12     ------> CAN1_TX 
+    */
+    GPIO_InitStruct.Pin = CAN1_RX_Pin|CAN1_TX_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF9_CAN1;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /* USER CODE END RNG_MspInit 1 */
+    /* CAN1 interrupt Init */
+    HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
+  /* USER CODE BEGIN CAN1_MspInit 1 */
+
+  /* USER CODE END CAN1_MspInit 1 */
   }
 }
 
-void HAL_RNG_MspDeInit(RNG_HandleTypeDef* rngHandle)
+void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
 {
 
-  if(rngHandle->Instance==RNG)
+  if(canHandle->Instance==CAN1)
   {
-  /* USER CODE BEGIN RNG_MspDeInit 0 */
+  /* USER CODE BEGIN CAN1_MspDeInit 0 */
 
-  /* USER CODE END RNG_MspDeInit 0 */
+  /* USER CODE END CAN1_MspDeInit 0 */
     /* Peripheral clock disable */
-    __HAL_RCC_RNG_CLK_DISABLE();
-  /* USER CODE BEGIN RNG_MspDeInit 1 */
+    __HAL_RCC_CAN1_CLK_DISABLE();
+  
+    /**CAN1 GPIO Configuration    
+    PA11     ------> CAN1_RX
+    PA12     ------> CAN1_TX 
+    */
+    HAL_GPIO_DeInit(GPIOA, CAN1_RX_Pin|CAN1_TX_Pin);
 
-  /* USER CODE END RNG_MspDeInit 1 */
+    /* CAN1 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(CAN1_RX0_IRQn);
+  /* USER CODE BEGIN CAN1_MspDeInit 1 */
+
+  /* USER CODE END CAN1_MspDeInit 1 */
   }
 } 
 

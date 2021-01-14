@@ -82,6 +82,10 @@
 #define USART1_TX_GPIO_Port GPIOA
 #define USART1_RX_Pin GPIO_PIN_10
 #define USART1_RX_GPIO_Port GPIOA
+#define CAN1_RX_Pin GPIO_PIN_11
+#define CAN1_RX_GPIO_Port GPIOA
+#define CAN1_TX_Pin GPIO_PIN_12
+#define CAN1_TX_GPIO_Port GPIOA
 
 /* ########################## Assert Selection ############################## */
 /**
