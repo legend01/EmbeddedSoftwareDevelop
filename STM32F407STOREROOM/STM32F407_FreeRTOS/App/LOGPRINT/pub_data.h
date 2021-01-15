@@ -14,7 +14,7 @@ typedef enum {
 	DATA_LENGTH_FALSE = -3,
 	FUNCTION_NULL = -2,
     RET_ERROR = -1,
-	FALSE = 0,
+	FALSE_RET = 0,
 	SUCCESS_RET = 1,
 }RETTypeDef;
 #endif // !__PUB_DATA_H__

@@ -68,6 +68,8 @@
 #include "sys_stdlib.h"
 #include "log_printf.h"
 #include "app_rtc.h"
+#include "J1939x.h"
+#include "app_can.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -92,6 +94,7 @@ extern USMART_RECV_STR usmart_receiveSTR;
 osThreadId defaultTaskHandle;
 osThreadId ThreadTask02Handle;
 osThreadId ThreadTask03Handle;
+osThreadId ThreadTask04Handle;
 osMessageQId USMARTQueueHandle;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -102,6 +105,7 @@ osMessageQId USMARTQueueHandle;
 void StartDefaultTask(void const * argument);
 void USART1ManageFuc(void const * argument);
 void USMARTManageFuc(void const * argument);
+void J1939ManageFuc(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -140,6 +144,10 @@ void MX_FREERTOS_Init(void) {
   osThreadDef(ThreadTask03, USMARTManageFuc, osPriorityIdle, 0, 128);
   ThreadTask03Handle = osThreadCreate(osThread(ThreadTask03), NULL);
 
+  /* definition and creation of ThreadTask04 */
+  osThreadDef(ThreadTask04, J1939ManageFuc, osPriorityIdle, 0, 128);
+  ThreadTask04Handle = osThreadCreate(osThread(ThreadTask04), NULL);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -172,6 +180,8 @@ void StartDefaultTask(void const * argument)
   usmart_init();
   Uart5_DMA_Init();
   RTC_WakeUp_Init();
+  Ringbuff_init();
+  CAN_Filter_Config();
   for(;;)
   {
     char receive_buf[200];
@@ -225,6 +235,42 @@ void USMARTManageFuc(void const * argument)
     osDelay(1);
   }
   /* USER CODE END USMARTManageFuc */
+}
+
+/* USER CODE BEGIN Header_J1939ManageFuc */
+/**
+* @brief Function implementing the ThreadTask04 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_J1939ManageFuc */
+void J1939ManageFuc(void const * argument)
+{
+  /* USER CODE BEGIN J1939ManageFuc */
+  CAN_Register(GetmessageToRcvbuff, NULL);
+  J1939_connect_clear();
+  PGN_MessageRcv_Init();
+  /* Infinite loop */
+  for(;;)
+  {
+    GtmgFrRcvbufToPGN();
+    GetmsgconvertToSend();
+    // J1939_message msg_cst;
+    // msg_cst.sourceAddr  = 0x56;
+    // msg_cst.destAddr    = 0xf4;
+    // msg_cst.priority    = PGNInfoSend[CEM].priority;
+    // msg_cst.PGNnum      = PGNInfoSend[CEM].PGNnum;
+    // msg_cst.dataLen     = PGNInfoSend[CEM].dataLen;
+    
+    // msg_cst.data[0] = 0x01  & 0xff;                              
+    // msg_cst.data[1] =0x02  & 0xff;
+    // msg_cst.data[2] = 0x03 & 0xff;    
+    // msg_cst.data[3] = 0x4 & 0xff; 
+
+    // J1939_SendOnePacket(&msg_cst);
+    osDelay(1);
+  }
+  /* USER CODE END J1939ManageFuc */
 }
 
 /* Private application code --------------------------------------------------*/

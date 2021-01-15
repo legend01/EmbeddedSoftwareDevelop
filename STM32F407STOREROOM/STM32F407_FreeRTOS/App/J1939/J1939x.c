@@ -702,37 +702,3 @@ void J1939_connect_clear(void)
     J1939_connect.num_packet= 0;
     J1939_connect.PGNindex = 0;
 }
-
-// static uint8_t J1939_pro_module(system_state_t state)
-// {
-//     if (STATE_INITIALIZING == state)
-//     {
-//         CAN_Reg(GetmessageToRcvbuff, 0);
-//         J1939_connect_clear();
-//         if(PGN_MessageRcv_Init() != 0)
-//             return -1;
-//     }
-//     else if ((STATE_UP == state) || (STATE_RUN == state))
-//     {
-//         GtmgFrRcvbufToPGN();
-//         GetmsgconvertToSend();
-//     }
-//     else if (STATE_DESTROYING == state)
-//     {
-//         ;
-//     }
-
-//     return 0;
-// }
-
-
-// void J1939_register()
-// {
-//     module_arg_t module_arg;
-
-//     memset(&module_arg, 0, sizeof(module_arg));
-//     module_arg.cycle = J1939_CYCLE_TIME;
-//     module_arg.unit  = MODULE_MS;
-//     module_register("J1939 process frame", MODULE_J1939, FRAMEWORK_LEVEL1,
-//         J1939_pro_module, &module_arg);
-// }
