@@ -9,8 +9,6 @@ static uint8_t BuffRCV_addr_write;      //在缓冲区中的写入位置
 static uint8_t BuffRCV_addr_read;      //在缓冲区的读取位置
 sJ1939_buff_message RingRCVbuff[Ringbuff_rcvSize];  // 环形缓冲区
 
-
-
 /*******************************************
 功能:   清空收发环形缓冲区
 参数:   无
@@ -167,7 +165,6 @@ char Ringbuff_read(psJ1939_buff_message Ringbuff, psJ1939_buff_message pPullMess
     }
     return BUF_RDSUCC;
 }
-
 
 /**************************************************
 功能: 检查BUFF是否为空
