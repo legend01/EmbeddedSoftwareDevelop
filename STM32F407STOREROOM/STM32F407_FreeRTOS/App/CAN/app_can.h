@@ -2,7 +2,7 @@
  * @Description: CAN过滤器filter配置
  * @Author: HLLI8
  * @Date: 2021-01-14 15:33:10
- * @LastEditTime: 2021-01-14 22:40:21
+ * @LastEditTime: 2021-01-15 09:52:46
  * @LastEditors: HLLI8
  */
 #ifndef __APP_CAN_H__
@@ -48,4 +48,6 @@ typedef struct{
 	CANSend tx;
 	uint8_t buffer[16];
 }CAN_param_STR;
+
+uint8_t CAN1_Send_Msg(CANSend tx,void *arg);
 #endif // !__APP_CAN_H__
