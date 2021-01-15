@@ -2,10 +2,11 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-14 15:33:04
- * @LastEditTime: 2021-01-15 10:24:41
+ * @LastEditTime: 2021-01-15 13:33:15
  * @LastEditors: HLLI8
  */
 #include "app_can.h"
+#include "pub_data.h"
 
 /**
  * @description:CAN1过滤器配置 
@@ -101,7 +102,7 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle)
 //can发送一组数据(固定格式:ID为0X12,标准帧,数据帧)	
 //len:数据长度(最大为8)				     
 //msg:数据指针,最大为8个字节.
-//返回值:0,成功;
+//返回值:1,成功;
 //		 其他,失败;
 uint8_t CAN1_Send_Msg(CANSend tx,void *arg)
 {	
@@ -115,7 +116,7 @@ uint8_t CAN1_Send_Msg(CANSend tx,void *arg)
     }else{
         return FUNCTION_NULL;
     }
-    if(res != 0) return res; /* TODO:返回值用枚举代替 */
+    if(res != SUCCESS_RET) return res; /* TODO:返回值用枚举代替 */
     if(len > 8) return DATA_LENGTH_FALSE;
     packet.hdr.ExtId=id;        //扩展标识符(29位)
     

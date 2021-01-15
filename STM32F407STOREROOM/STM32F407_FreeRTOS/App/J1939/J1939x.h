@@ -51,7 +51,6 @@ typedef enum PGNTypeRcv          //收
     PGN_MAX_Rcv,//预留最大值
 }PGNTypeRcv;
 
-
 #define TP_CM_PF 			0xec00  	// 连接管理PF
 #define TP_CM_RTS 			16	 	//请求发送
 #define TP_CM_CTS 			17		//准备发送	
@@ -133,7 +132,7 @@ char MultiTrans_Manage_SEND(psJ1939_transfeManger pJ1939_connect_arrys, unsigned
 void J1939_connect_clear(void );
 int GetmessageToRcvbuff(void* rcv);
 void J1939_register(void);
-char PGN_MessageRcv_clear(void);
+uint8_t PGN_MessageRcv_clear(void);
 
 #endif
 

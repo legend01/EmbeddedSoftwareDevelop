@@ -67,7 +67,7 @@ sPGNInfo PGNInfoRcv[PGN_MAX_Rcv+1] =
 /**************************************************
 功能: 初始化PGN数组和给PGN的数据部分分配空间
 参数: 无
-返回: 无
+返回: 1 success
 ****************************************************/
 int PGN_MessageRcv_Init(void)
 {
@@ -94,7 +94,7 @@ int PGN_MessageRcv_Init(void)
             if(PGNDataBUF_start > PGN_MessageRcvBuff_END)
             {
                 LOG_PRINTF("PGN_MessageRcvBuff is small!\r\n");
-                return -1;
+                return RET_ERROR;
             }
             *(PGNDataBUF_start-1) = 0xAA;                   //用0XAA 把每个PGN的数据隔开, 在每个PGN数据的尾部
         }
@@ -105,18 +105,18 @@ int PGN_MessageRcv_Init(void)
         if(PGN_MessageRcv[PGN].data && *(PGN_MessageRcv[PGN].data-1) != 0xAA)  //检查内存界限是否正确
         {
             LOG_PRINTF("PGN %d data Memery init border Error!\r\n",PGN);
-            return -1;
+            return RET_ERROR;
         }
     }
-    return 0;
+    return SUCCESS_RET;
 }
 
 /**************************************************
 功能: 清空PGN数组使其数据无效
 参数: 无
-返回: -1 为错误  0为正常
+返回: -1 为错误  1为正常
 ****************************************************/
-char PGN_MessageRcv_clear(void)
+uint8_t PGN_MessageRcv_clear(void)
 {
     PGNTypeRcv PGN;
     for(PGN = BRM; PGN<TPCM_rcv; PGN++)
@@ -126,28 +126,28 @@ char PGN_MessageRcv_clear(void)
         if(PGN_MessageRcv[PGN].data && *(PGN_MessageRcv[PGN].data-1) != 0xAA)  //检查内存界限是否正确
         {
             LOG_PRINTF("PGN %d data Memery init border Error!\r\n",PGN);
-            return -1;
+            return RET_ERROR;
         }
     }
-    return 0;
+    return SUCCESS_RET;
 }
 
 
 /**************************************************
 功能: 将PDU重新填装CanTxMsg,从CAN底层代码发送出去
 参数: PDU指针
-返回: 0成功 不为0则失败
+返回: 1成功 不为0则失败
 ****************************************************/
 int SendOnePacket(void *arg, uint32_t* id, uint8_t *dat, uint8_t* len)
 {
     J1939_message *msg = (J1939_message *)arg;
     if(msg->dataLen > 8)
-        return -1;
+        return DATA_LENGTH_FALSE;
     *len = msg->dataLen;
     *id = 0x1fffffff & (msg->priority<<26 |msg->PGNnum<<8 | msg->destAddr << 8| msg->sourceAddr); //29位
     *id = (*id)|0xf400;
     memcpy(dat, msg->data, msg->dataLen);
-    return 0;                                     //发送成功
+    return SUCCESS_RET;                                     //发送成功
 }
 
 int J1939_SendOnePacket( J1939_message *msg)
@@ -158,7 +158,7 @@ int J1939_SendOnePacket( J1939_message *msg)
 /**************************************************
 功能: 从发送RingSNDbuff中读取sJ1939_buff_message数据转换成J1939_message, 发送出去
 参数: 无
-返回: 0成功 不为0则失败, 放在主循环中为任务
+返回: 1成功 不为0则失败, 放在主循环中为任务
 ****************************************************/
 int GetmsgconvertToSend(void)
 {
@@ -171,11 +171,11 @@ int GetmsgconvertToSend(void)
     if(Ringbuff_readstate == BUF_NEXIT)      //不存在返回-1
     {
         LOG_PRINTF("not support this ringbuff!\r\n");
-         return -1;
+         return RET_ERROR;
     }
     else if(Ringbuff_readstate == BUF_EMPTY) //读取的数据为空，算正常现象
     {
-        return 0;
+        return SUCCESS_RET;
     }
     //正常读取到数据,则填充信息
     if(message.PGN >= CRM && message.PGN < PGN_MAX_Send)//支持的PGN处理
@@ -206,16 +206,16 @@ int GetmsgconvertToSend(void)
     else                                                //不支持的PGN处理
     {
         LOG_PRINTF("NOT support PGN = %d!\r\n",message.PGN);
-        return -1;
+        return RET_ERROR;
     }
 
         int temp =  J1939_SendOnePacket(&J1939_message_send);
      if(temp != 0) //打包发送
      {
         LOG_PRINTF("J1939_SendOnePacket Error! %d\r\n",temp);
-        return -1;
+        return RET_ERROR;
      }
-    return 0;
+    return SUCCESS_RET;
 }
 /***************************************************************************
 功能: CAN 中断处理函数 ,将读出的CanTxMsg 核对信息，
@@ -245,7 +245,7 @@ int GetmessageToRcvbuff(void* rcv)
     |  3bit      |  1bit | 1bit   |    8bit         |     8bit         |    8bit         | 
     +------------+-------+--------+-----------------+------------------+-----------------+
      */
-    if((RxHeaderInf.ExtId & 0xffff)!= 0x56f4) return 0; /* 判断PS+SA目标地址和源地址是否为 充电机0x56 BMS0xF4 */
+    if((RxHeaderInf.ExtId & 0xffff)!= 0x56f4) return FALSE_ADDRESS; /* 判断PS+SA目标地址和源地址是否为 充电机0x56 BMS0xF4 */
 
     sJ1939_buff_message_temp.PGN = -1;
 
@@ -278,15 +278,15 @@ int GetmessageToRcvbuff(void* rcv)
     if(Ringbuff_write(RingRCVbuff, &sJ1939_buff_message_temp) != BUF_WRSUCC) //写入队列中
     {
         LOG_PRINTF("Interrupt Ringbuff_write Error!\r\n"); 
-        return -1;                                //碰到不支持的PGN跳出中断
+        return RET_ERROR;                                //碰到不支持的PGN跳出中断
     }
-        return 0;
+    return SUCCESS_RET;
 }
 
 /***************************************************************************
 功能: 从接收BUF中读取数据，再根据判断把PDU信息按分类放进PGN数组中
 参数: 无
-返回值: -1 错误 0正确
+返回值: -1 错误 1正确
 *****************************************************************************/
 int GtmgFrRcvbufToPGN(void)
 {
@@ -302,11 +302,11 @@ int GtmgFrRcvbufToPGN(void)
     if(Ringbuff_readstate == BUF_NEXIT)//不存在返回-1
     {
         LOG_PRINTF("convert_BUFmsgToJ1939msgArray-------Ringbuff_read Fail!\r\n");
-        return -1;
+        return RET_ERROR;
     }
     else if(Ringbuff_readstate == BUF_EMPTY) //读取的数据为空，算正常现象
     {
-        return 0;
+        return SUCCESS_RET;
     }
     /******************根据PGN的真实值找索引PGN*******************/
     for(PGNrcv_INDEX=BRM; PGNrcv_INDEX <= PGN_MAX_Rcv; PGNrcv_INDEX++)  //查询对应的PGN 在数组中的索引
@@ -317,7 +317,7 @@ int GtmgFrRcvbufToPGN(void)
         if(PGNrcv_INDEX >= PGN_MAX_Rcv)              //碰到不支持的PGN直接跳出
         {
             LOG_PRINTF("this recive PGNNUM %x is not support!\r\n", message.PGNnum);
-            return -1;                             
+            return RET_ERROR;                             
         }
 
         if(message.PGNnum == PGNInfoRcv[PGNrcv_INDEX].PGNnum)
@@ -325,25 +325,24 @@ int GtmgFrRcvbufToPGN(void)
             if(PGNInfoRcv[PGNrcv_INDEX].dataLen > 8)
             {
                 LOG_PRINTF("this recive PGNNUM %d data length is longer than 8!\r\n", message.PGNnum);
-                return -1;
+                return RET_ERROR;
             }
 
             message.PGN = PGNrcv_INDEX; //找到PGN的索引
             if((message.PGN == BMV) || (message.PGN == BSP) || (message.PGN == BMT))
-                return -1;
-            
+                return RET_ERROR;
             
              /****************************************************/
              if(message.Priority != PGNInfoRcv[PGNrcv_INDEX].priority)
              {
                 LOG_PRINTF("this recive PGNNUM %d priority is error", message.PGNnum);
-                return -1;
+                return RET_ERROR;
              }
            
             if(message.Reserved != 0x00)
             {
                 LOG_PRINTF("this PGNNUM %d reserved data is wrong!\r\n", message.PGNnum);
-                return -1;
+                return RET_ERROR;
             }
              /****************************************************/
             
@@ -358,7 +357,7 @@ int GtmgFrRcvbufToPGN(void)
         if(pJ1939_message_Rcv_temp->dataLen > 8)
         {
             LOG_PRINTF("this recive PGNNUM %d data length is longer than 8!\r\n", message.PGNnum);
-            return -1;
+            return RET_ERROR;
         }
         pJ1939_message_Rcv_temp->valid = 0;           //写之前置数据无效
         for(i=0; i<pJ1939_message_Rcv_temp->dataLen; i++)
@@ -368,13 +367,13 @@ int GtmgFrRcvbufToPGN(void)
         if(pJ1939_message_Rcv_temp->data[i] == 0XAA && *(char*)(pJ1939_message_Rcv_temp->data-1) == 0XAA )  //核对分界线，分界线正常
         {
             pJ1939_message_Rcv_temp->valid = 1;       //写完成将数据置有效
-            return 0;
+            return SUCCESS_RET;
         }
         else
         {
             LOG_PRINTF("this PGN %d date Border Error !\r\n", message.PGNnum);
             pJ1939_message_Rcv_temp->valid = 0;       //分界线错误
-            return -1;
+            return RET_ERROR;
         }
     }
     /*************************************************多连接管理****************************************************/
@@ -407,7 +406,7 @@ int GtmgFrRcvbufToPGN(void)
                         //发送放弃连接
                         MultiTrans_Manage_SEND(&J1939_connect, TP_CM_Abort);  //发送放弃连接
                         J1939_connect_clear();                               //清空当前连接管理
-                        return -1;
+                        return RET_ERROR;
                     }
                     if(J1939_connect.PGNnum == PGNInfoRcv[PGNrcv_INDEX].PGNnum)  //核对PGN实际值
                     {
@@ -423,7 +422,7 @@ int GtmgFrRcvbufToPGN(void)
                         {
                             MultiTrans_Manage_SEND(&J1939_connect, TP_CM_Abort);  //发送放弃连接
                             J1939_connect_clear();                                  //清空当前连接管理
-                            return -1;
+                            return RET_ERROR;
                         }
                     }
                 }
@@ -431,7 +430,7 @@ int GtmgFrRcvbufToPGN(void)
                 if(PGNrcv_INDEX == BMV || PGNrcv_INDEX == BMT || PGNrcv_INDEX == BSP) //忽略这三个PGN，非必要
                 {
                     LOG_PRINTF("Ignore  The PGN  BMV BMT BSP!!\r\n ");
-                    return 0;
+                    return SUCCESS_RET;
                 }
 
                 J1939_connect.cur_packet++;
@@ -462,7 +461,7 @@ int GtmgFrRcvbufToPGN(void)
             if(J1939_connect.connectState == Idle)  //未连接 却收到放弃，则错误
             {
                 LOG_PRINTF("1939_connect is not connect But recive TP_CM_Abort PGN :%x,%x,%x \r\n", pJ1939mg_data[5], pJ1939mg_data[6], pJ1939mg_data[7]);
-                return -1;
+                return RET_ERROR;
             }
             else if(J1939_connect.PGNnum == ((pJ1939mg_data[7]<<16) | (pJ1939mg_data[6]<<8) | pJ1939mg_data[5]))
             //核对对方放弃的连接管理的PGN号
@@ -543,15 +542,6 @@ int GtmgFrRcvbufToPGN(void)
                 }
                 else  //包数核对不上，请求发送 当前记录的包编号数据
                 {
-                    //if(J1939_connect.cur_packet <= 1 || J1939_connect.cur_packet > J1939_connect.num_packet)//检查当前包的范围
-                    //{
-                    //  J1939_connect.cur_packet = 1; //如果当前包超界，那么当前包请求从1开始
-                    //}
-                    //else
-                    //{
-                        //J1939_connect.cur_packet;
-                    //}
-
                     J1939_connect.cur_packet = 1;
                     LOG_PRINTF("the Package num is Error, rstart!\r\n");
                     MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS);
@@ -564,10 +554,10 @@ int GtmgFrRcvbufToPGN(void)
         {
             LOG_PRINTF("not connet but the TPDT!\r\n");
             J1939_connect_clear();
-            return 0;
+            return SUCCESS_RET;
         }
     }
-        return 0;
+        return SUCCESS_RET;
 }
 
 /***************************************************************************
@@ -585,7 +575,7 @@ char MultiTrans_Manage_SEND(psJ1939_transfeManger pJ1939_connect_arrys, unsigned
     if(pJ1939_connect == NULL ||(CMMD !=TP_CM_CTS && CMMD !=TP_CM_EndofMsgAck && CMMD !=TP_CM_Abort))
     {
         LOG_PRINTF("pJ1939_connect is NULL or  NO support CMMD!\r\n");
-        return -1;
+        return RET_ERROR;
     }
 
     msg_send.Data[0] = CMMD;
@@ -606,7 +596,7 @@ char MultiTrans_Manage_SEND(psJ1939_transfeManger pJ1939_connect_arrys, unsigned
 #ifdef J1939_OneTime_Trans
             msg_send.Data[1]        = pJ1939_connect->num_packet;   //可发送的数据包
             if(pJ1939_connect->cur_packet > 1)
-                return 0;
+                return SUCCESS_RET;
 #endif
             msg_send.Data[3]        = 0XFF;         //规定
             msg_send.Data[4]        = 0XFF;
@@ -655,12 +645,12 @@ char MultiTrans_Manage_SEND(psJ1939_transfeManger pJ1939_connect_arrys, unsigned
             msg_cst.data[6]        = (J1939_connect.PGNnum & 0xff00)  >> 8;
             msg_cst.data[7]        = (J1939_connect.PGNnum & 0xff0000)>>16;
             J1939_SendOnePacket(&msg_cst);
-            return 0;  //成功发送
+            return SUCCESS_RET;  //成功发送
         }
         default:
         {
             LOG_PRINTF("MultiTrans_Manage_SEND------------ CMMD is not support!\r\n ");
-            return -1;  //错误
+            return RET_ERROR;  //错误
         }
     }
 
@@ -671,10 +661,10 @@ char MultiTrans_Manage_SEND(psJ1939_transfeManger pJ1939_connect_arrys, unsigned
     if(Ringbuff_write(RingSNDbuff, &msg_send) != BUF_WRSUCC) //写入队列中
     {
         LOG_PRINTF(" Ringbuff_write Error!\r\n");
-        return -1;
+        return RET_ERROR;
     }
 
-    return 0;  //成功发送
+    return SUCCESS_RET;  //成功发送
 }
 
 /***************************************************************************

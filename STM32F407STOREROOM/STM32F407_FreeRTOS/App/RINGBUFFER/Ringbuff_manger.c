@@ -61,7 +61,7 @@ int Ringbuff_write(psJ1939_buff_message Ringbuff, psJ1939_buff_message pPushMess
     char i;
     if(Ringbuff == NULL)
     {
-        return -1;   
+        return BUF_POINT_NULL;   
     }
     if(Ringbuff == RingSNDbuff)  //根据写入的缓冲区区别，判断是否已经满了
     {

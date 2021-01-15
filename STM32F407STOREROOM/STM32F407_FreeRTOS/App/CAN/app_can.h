@@ -2,7 +2,7 @@
  * @Description: CAN过滤器filter配置
  * @Author: HLLI8
  * @Date: 2021-01-14 15:33:10
- * @LastEditTime: 2021-01-15 10:24:12
+ * @LastEditTime: 2021-01-15 13:20:44
  * @LastEditors: HLLI8
  */
 #ifndef __APP_CAN_H__
@@ -18,14 +18,6 @@
 #define CAN_FILTER_MODE_MASK_ENABLE 1		///< CAN过滤器模式选择：=0：列表模式  =1：屏蔽模式
 
 #define CAN_ID_TYPE_STD_ENABLE      0       ///< CAN过滤ID类型选择：=1：标准ID，=0：扩展ID
-
-typedef enum {
-	SEND_CAN_ERROR = -4,
-	DATA_LENGTH_FALSE = -3,
-	FUNCTION_NULL = -2,
-	FALSE = 0,
-	SUCCESS_RET = 1,
-}RETURN_ENU;
 
 typedef struct
 {

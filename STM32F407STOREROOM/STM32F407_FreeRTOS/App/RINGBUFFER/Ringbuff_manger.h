@@ -1,12 +1,13 @@
 #ifndef __ring_manger_h__
 #define __ring_manger_h__
 #include "stm32f4xx.h"
+#include "pub_data.h"
 /*********BUFF state**********/
 #define BUF_NOR      0 
 #define BUF_EMPTY    1
 #define BUF_FULL     2
 #define BUF_NEXIT    -1
-
+#define BUF_POINT_NULL 3
 /*********BUFF operate********/
 #define BUF_RDFAIL  -1
 #define BUF_RDSUCC   0
