@@ -283,6 +283,103 @@ int GetmessageToRcvbuff(void* rcv)
     return SUCCESS_RET;
 }
 
+static uint8_t FindPGNInPGNList(PGNTypeRcv PGNrcv_INDEX, sJ1939_transfeManger *J1939_connect, sJ1939_buff_message *message){
+    for(PGNrcv_INDEX = BRM; PGNrcv_INDEX <= TPCM_rcv; PGNrcv_INDEX++)
+    {
+        if(PGNrcv_INDEX == TPCM_rcv)  //已经跳到最后一个，说明不支持这种种类的多包处理  ERROR_SEND_PGNmulti_NOSUPPORT
+        {
+            LOG_PRINTF("this recive PGNmulti %d is not support!\r\n", message->PGNnum);
+            //发送放弃连接
+            MultiTrans_Manage_SEND(J1939_connect, TP_CM_Abort);  //发送放弃连接
+            J1939_connect_clear();                               //清空当前连接管理
+            return RET_ERROR;
+        }
+        if(J1939_connect->PGNnum == PGNInfoRcv[PGNrcv_INDEX].PGNnum)  //核对PGN实际值
+        {
+            if( PGNInfoRcv[PGNrcv_INDEX].dataLen > 8 && J1939_connect->data_num == PGNInfoRcv[PGNrcv_INDEX].dataLen \
+            && J1939_connect->num_packet == (J1939_connect->data_num+6)/7) //核对长度，和长度满足多包传输条件, 核对字节数，核对包数
+            {
+                J1939_connect->PGNindex = PGNrcv_INDEX;  //多连接的PGN的枚举值
+                break;
+            }
+            else
+            {
+                MultiTrans_Manage_SEND(J1939_connect, TP_CM_Abort);  //发送放弃连接
+                J1939_connect_clear();                                  //清空当前连接管理
+                return RET_ERROR;
+            }
+        }
+    }
+}
+
+static uint8_t Find_PGNNumFindPGN(PGNTypeRcv PGNrcv_INDEX, sJ1939_buff_message *message){
+    for(PGNrcv_INDEX=BRM; PGNrcv_INDEX <= PGN_MAX_Rcv; PGNrcv_INDEX++)  //查询对应的PGN 在数组中的索引
+    //注意这个等号是必要的，跳到最后一个说明在接收PGN数组里面没有遍历到索引
+    {
+       // if(PGNrcv_INDEX == BMT)
+       //     continue;
+        if(PGNrcv_INDEX >= PGN_MAX_Rcv)              //碰到不支持的PGN直接跳出
+        {
+            LOG_PRINTF("this recive PGNNUM %x is not support!\r\n", message->PGNnum);
+            return RET_ERROR;                             
+        }
+
+        if(message->PGNnum == PGNInfoRcv[PGNrcv_INDEX].PGNnum)
+        {
+            if(PGNInfoRcv[PGNrcv_INDEX].dataLen > 8)
+            {
+                LOG_PRINTF("this recive PGNNUM %d data length is longer than 8!\r\n", message->PGNnum);
+                return RET_ERROR;
+            }
+
+            message->PGN = PGNrcv_INDEX; //找到PGN的索引
+            if((message->PGN == BMV) || (message->PGN == BSP) || (message->PGN == BMT))
+                return RET_ERROR;
+            
+             /****************************************************/
+             if(message->Priority != PGNInfoRcv[PGNrcv_INDEX].priority)
+             {
+                LOG_PRINTF("this recive PGNNUM %d priority is error", message->PGNnum);
+                return RET_ERROR;
+             }
+           
+            if(message->Reserved != 0x00)
+            {
+                LOG_PRINTF("this PGNNUM %d reserved data is wrong!\r\n", message->PGNnum);
+                return RET_ERROR;
+            }
+             /****************************************************/
+            
+            break;
+        }
+    }
+}
+
+static uint8_t Tranmission_SinglePackage(pJ1939_message_Rcv pJ1939_message_Rcv_temp, sJ1939_buff_message *message){
+    uint8_t i = 0;
+    if(pJ1939_message_Rcv_temp->dataLen > 8)
+    {
+        LOG_PRINTF("this recive PGNNUM %d data length is longer than 8!\r\n", message->PGNnum);
+        return RET_ERROR;
+    }
+    pJ1939_message_Rcv_temp->valid = 0;           //写之前置数据无效
+    for(i=0; i<pJ1939_message_Rcv_temp->dataLen; i++)
+    {
+        pJ1939_message_Rcv_temp->data[i] = message->Data[i];
+    }
+    if(pJ1939_message_Rcv_temp->data[i] == 0XAA && *(char*)(pJ1939_message_Rcv_temp->data-1) == 0XAA )  //核对分界线，分界线正常
+    {
+        pJ1939_message_Rcv_temp->valid = 1;       //写完成将数据置有效
+        return SUCCESS_RET;
+    }
+    else
+    {
+        LOG_PRINTF("this PGN %d date Border Error !\r\n", message->PGNnum);
+        pJ1939_message_Rcv_temp->valid = 0;       //分界线错误
+        return RET_ERROR;
+    }
+}
+
 /***************************************************************************
 功能: 从接收BUF中读取数据，再根据判断把PDU信息按分类放进PGN数组中
 参数: 无
@@ -291,7 +388,10 @@ int GetmessageToRcvbuff(void* rcv)
 int GtmgFrRcvbufToPGN(void)
 {
     sJ1939_buff_message message;
-    uint8_t i;
+    
+    uint8_t ret_value = 0;
+    uint8_t singlePac_tra_retvalue = 0;
+    uint8_t findpgningpnlist_retvalue = 0;
     pJ1939_message_Rcv  pJ1939_message_Rcv_temp;
 
     char* pJ1939mg_data = message.Data;
@@ -309,263 +409,236 @@ int GtmgFrRcvbufToPGN(void)
         return SUCCESS_RET;
     }
     /******************根据PGN的真实值找索引PGN*******************/
-    for(PGNrcv_INDEX=BRM; PGNrcv_INDEX <= PGN_MAX_Rcv; PGNrcv_INDEX++)  //查询对应的PGN 在数组中的索引
-    //注意这个等号是必要的，跳到最后一个说明在接收PGN数组里面没有遍历到索引
-    {
-       // if(PGNrcv_INDEX == BMT)
-       //     continue;
-        if(PGNrcv_INDEX >= PGN_MAX_Rcv)              //碰到不支持的PGN直接跳出
-        {
-            LOG_PRINTF("this recive PGNNUM %x is not support!\r\n", message.PGNnum);
-            return RET_ERROR;                             
-        }
-
-        if(message.PGNnum == PGNInfoRcv[PGNrcv_INDEX].PGNnum)
-        {
-            if(PGNInfoRcv[PGNrcv_INDEX].dataLen > 8)
-            {
-                LOG_PRINTF("this recive PGNNUM %d data length is longer than 8!\r\n", message.PGNnum);
-                return RET_ERROR;
-            }
-
-            message.PGN = PGNrcv_INDEX; //找到PGN的索引
-            if((message.PGN == BMV) || (message.PGN == BSP) || (message.PGN == BMT))
-                return RET_ERROR;
-            
-             /****************************************************/
-             if(message.Priority != PGNInfoRcv[PGNrcv_INDEX].priority)
-             {
-                LOG_PRINTF("this recive PGNNUM %d priority is error", message.PGNnum);
-                return RET_ERROR;
-             }
-           
-            if(message.Reserved != 0x00)
-            {
-                LOG_PRINTF("this PGNNUM %d reserved data is wrong!\r\n", message.PGNnum);
-                return RET_ERROR;
-            }
-             /****************************************************/
-            
-            break;
-        }
+    ret_value = Find_PGNNumFindPGN(PGNrcv_INDEX, &message);
+    if(ret_value != NULL){
+        return RET_ERROR;
     }
 
     pJ1939_message_Rcv_temp = &(PGN_MessageRcv[message.PGN]);
     /*************************************************单包传输******************************************************/
     if(message.PGN >= BRM && message.PGN < TPCM_rcv)
     {
-        if(pJ1939_message_Rcv_temp->dataLen > 8)
-        {
-            LOG_PRINTF("this recive PGNNUM %d data length is longer than 8!\r\n", message.PGNnum);
-            return RET_ERROR;
-        }
-        pJ1939_message_Rcv_temp->valid = 0;           //写之前置数据无效
-        for(i=0; i<pJ1939_message_Rcv_temp->dataLen; i++)
-        {
-            pJ1939_message_Rcv_temp->data[i] = message.Data[i];
-        }
-        if(pJ1939_message_Rcv_temp->data[i] == 0XAA && *(char*)(pJ1939_message_Rcv_temp->data-1) == 0XAA )  //核对分界线，分界线正常
-        {
-            pJ1939_message_Rcv_temp->valid = 1;       //写完成将数据置有效
-            return SUCCESS_RET;
-        }
-        else
-        {
-            LOG_PRINTF("this PGN %d date Border Error !\r\n", message.PGNnum);
-            pJ1939_message_Rcv_temp->valid = 0;       //分界线错误
+        singlePac_tra_retvalue = Tranmission_SinglePackage(pJ1939_message_Rcv_temp, &message);
+        if(singlePac_tra_retvalue != NULL){
             return RET_ERROR;
         }
     }
     /*************************************************多连接管理****************************************************/
-    if(message.PGN == TPCM_rcv)
-    {
-      //  char* pJ1939mg_data = message.Data;
-      //  sPGNInfo PGNrcv_INDEX;
-        if(pJ1939mg_data[0] == TP_CM_RTS)                   //请求发送,如果接收到的是RTS那么要发送CTS
-        {
-            //if(J1939_connect.connectState == Idle)   //在连接管理 空闲时才能正常连接，不允许两个以上的多连接同时进行
+    switch(message.PGN){
+        case TPCM_rcv:{
+            if(pJ1939mg_data[0] == TP_CM_RTS)                   //请求发送,如果接收到的是RTS那么要发送CTS
             {
                 /**
-            +-------------+-------------+--------------+------------------+-----------------------+
-            |   控制字节16 | 字节数目    | 全部数据包数目 | 0xFF保留SAE使用  |  装载数据的参数群编号   |
-            +-------------+-------------+--------------+------------------+-----------------------+
-            |   1byte     |  2,3byte    |    4byte     |    5byte         |      6,7,8byte        |
-            +-------------+-------------+--------------+------------------+-----------------------+
-                 */
-                J1939_connect.data_num         = (pJ1939mg_data[2]<<8) | pJ1939mg_data[1]; //数据长度
-                J1939_connect.num_packet   =  pJ1939mg_data[3];                        //包数
-                J1939_connect.PGNnum       = (pJ1939mg_data[7]<<16) | (pJ1939mg_data[6]<<8) | pJ1939mg_data[5];
-                J1939_connect.cur_packet       = 0;     //开始第几个数据包,从1开始, 0为还未做好传输数据准备
+                +-------------+-------------+--------------+------------------+-----------------------+
+                |   控制字节16 | 字节数目    | 全部数据包数目 | 0xFF保留SAE使用  |  装载数据的参数群编号   |
+                +-------------+-------------+--------------+------------------+-----------------------+
+                |   1byte     |  2,3byte    |    4byte     |    5byte         |      6,7,8byte        |
+                +-------------+-------------+--------------+------------------+-----------------------+
+                    */
+                    J1939_connect.data_num         = (pJ1939mg_data[2]<<8) | pJ1939mg_data[1]; //数据长度
+                    J1939_connect.num_packet   =  pJ1939mg_data[3];                        //包数
+                    J1939_connect.PGNnum       = (pJ1939mg_data[7]<<16) | (pJ1939mg_data[6]<<8) | pJ1939mg_data[5];
+                    J1939_connect.cur_packet       = 0;     //开始第几个数据包,从1开始, 0为还未做好传输数据准备
 
-                //在PGN表项里面查询当前多连接传输的PGN 是否支持
-                for(PGNrcv_INDEX = BRM; PGNrcv_INDEX <= TPCM_rcv; PGNrcv_INDEX++)
-                {
-                    if(PGNrcv_INDEX == TPCM_rcv)  //已经跳到最后一个，说明不支持这种种类的多包处理  ERROR_SEND_PGNmulti_NOSUPPORT
-                    {
-                        LOG_PRINTF("this recive PGNmulti %d is not support!\r\n", message.PGNnum);
-                        //发送放弃连接
-                        MultiTrans_Manage_SEND(&J1939_connect, TP_CM_Abort);  //发送放弃连接
-                        J1939_connect_clear();                               //清空当前连接管理
+                    //在PGN表项里面查询当前多连接传输的PGN 是否支持
+                    findpgningpnlist_retvalue = FindPGNInPGNList(PGNrcv_INDEX, &J1939_connect, &message);
+                    if(findpgningpnlist_retvalue != NULL){
                         return RET_ERROR;
                     }
-                    if(J1939_connect.PGNnum == PGNInfoRcv[PGNrcv_INDEX].PGNnum)  //核对PGN实际值
+                    if(PGNrcv_INDEX == BMV || PGNrcv_INDEX == BMT || PGNrcv_INDEX == BSP) //忽略这三个PGN，非必要
                     {
-                        if( PGNInfoRcv[PGNrcv_INDEX].dataLen > 8 && J1939_connect.data_num == PGNInfoRcv[PGNrcv_INDEX].dataLen && J1939_connect.num_packet == (J1939_connect.data_num+6)/7)
-                      
-                        //if( PGNInfoRcv[PGNrcv_INDEX].dataLen > 8 && J1939_connect.num_packet == (J1939_connect.data_num+6)/7)
-                            //核对长度，和长度满足多包传输条件, 核对字节数，核对包数
+                        LOG_PRINTF("Ignore  The PGN  BMV BMT BSP!!\r\n ");
+                        return SUCCESS_RET;
+                    }
+
+                    J1939_connect.cur_packet++;
+                    if(MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS) == 0)  //发送成功,说明虚拟连接已经建立
+                    {
+                        J1939_connect.connectState     = connected;    //连接已经建立
+                        J1939_connect.destAddr     = Charger_Addr; // 本次连接由BMS发起，发送给充电桩
+                        J1939_connect.sourceAddr       = BMS_Addr;
+                        time_record = 0;                            //计时开始  等待BMS数据响应
+                    }
+            }
+            else if(pJ1939mg_data[0] == TP_CM_Abort)        //接收到放弃连接
+            {
+                if(J1939_connect.connectState == Idle)  //未连接 却收到放弃，则错误
+                {
+                    LOG_PRINTF("1939_connect is not connect But recive TP_CM_Abort PGN :%x,%x,%x \r\n", pJ1939mg_data[5], pJ1939mg_data[6], pJ1939mg_data[7]);
+                    return RET_ERROR;
+                }
+                else if(J1939_connect.PGNnum == ((pJ1939mg_data[7]<<16) | (pJ1939mg_data[6]<<8) | pJ1939mg_data[5]))
+                //核对对方放弃的连接管理的PGN号
+                {
+                    J1939_connect_clear();        //
+                }
+                else
+                {
+                    LOG_PRINTF("TP_CM_Abort but PGN is Error!\r\n");
+                }
+            }
+            break;
+        }
+        /*************************************************多连接数据传输************************************************/
+        case TPDT_rcv:{
+            char n;
+            if(J1939_connect.connectState != Idle)  //已经连接,且PGN核对正确
+            {
+                if(time_record > timeout_T2)   //如果超时则 放弃连接
+                {
+                    LOG_PRINTF("timeout in TP_DT !\r\n", message.PGNnum);
+                    MultiTrans_Manage_SEND(&J1939_connect, TP_CM_Abort);  //发送放弃连接
+                    J1939_connect_clear();
+                }
+                else                          //未超时则 核对并提取数据
+                {
+                    if(J1939_connect.cur_packet == pJ1939mg_data[0])// 核对当前包序号
+                    {
+                        J1939_connect.data_position = (J1939_connect.cur_packet-1)*7; //接收BUF拷贝数据的位置,除最后一包都为7的倍数跳转
+
+                        if(J1939_connect.cur_packet < J1939_connect.num_packet)  //不是最后一包, 直接拷贝
                         {
-                            J1939_connect.PGNindex = PGNrcv_INDEX;  //多连接的PGN的枚举值
-                            break;
+                            PGN_MessageRcv[J1939_connect.PGNindex].valid = 0; //写数据之前使PGN数据部分无效，防止未写完，应用层读
+                            for(n=1; n<8; n++)   //拷贝数据到接收数据的BUF中, 7个数字
+                            {
+                                PGN_MessageRcv[J1939_connect.PGNindex].data[J1939_connect.data_position+n-1] = pJ1939mg_data[n];//剩下的7个数据拷贝到BUFF中
+                            }
+
+                            J1939_connect.cur_packet++;
+                            MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS);  //完成一包后再发送传输请求发送下一包
+                            time_record = 0;                //计时开始
+                        }
+
+                        else if(J1939_connect.cur_packet == J1939_connect.num_packet) //接收到最后一包
+                        {
+                            PGN_MessageRcv[J1939_connect.PGNindex].valid = 0; //写数据之前使PGN数据部分无效，防止未写完，应用层读
+                            for(n=1; n<(J1939_connect.data_num-J1939_connect.data_position+1); n++)   //拷贝数据到接收数据的BUF中, 可能不足7个数字
+                            {
+                                PGN_MessageRcv[J1939_connect.PGNindex].data[J1939_connect.data_position+n-1] = pJ1939mg_data[n];
+                            }
+
+                            J1939_connect.data_position = J1939_connect.data_position + n- 1;
+                            if(J1939_connect.data_num == J1939_connect.data_position) //核对拷贝的数据总长度, 正确则发送应答
+                            {
+                                MultiTrans_Manage_SEND(&J1939_connect, TP_CM_EndofMsgAck);  //发送完成应答
+
+                                PGN_MessageRcv[J1939_connect.PGNindex].valid = 1;//使能缓存数据有效
+                                J1939_connect_clear();
+                            }
+                            else
+                            {
+                                PGN_MessageRcv[J1939_connect.PGNindex].valid = 0; //数据无效
+                                J1939_connect.cur_packet = 1;                     //从第一包开始从新接收数据
+                                MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS);
+                                J1939_connect.cur_packet++;
+                            }
                         }
                         else
                         {
-                            MultiTrans_Manage_SEND(&J1939_connect, TP_CM_Abort);  //发送放弃连接
-                            J1939_connect_clear();                                  //清空当前连接管理
-                            return RET_ERROR;
+                            /*当前单包数据完成,但整个多包传输没有完成，再次发送CTS ，请求BMS发送数据*/
+                            MultiTrans_Manage_SEND(&J1939_connect, TP_CM_EndofMsgAck);  //发送完成应答
+                            //PGN_MessageRcv[J1939_connect.PGNindex].valid = 1;//使能缓存数据有效
+                            J1939_connect_clear();             //计时开始
                         }
+
                     }
-                }
-
-                if(PGNrcv_INDEX == BMV || PGNrcv_INDEX == BMT || PGNrcv_INDEX == BSP) //忽略这三个PGN，非必要
-                {
-                    LOG_PRINTF("Ignore  The PGN  BMV BMT BSP!!\r\n ");
-                    return SUCCESS_RET;
-                }
-
-                J1939_connect.cur_packet++;
-                if(MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS) == 0)  //发送成功,说明虚拟连接已经建立
-                {
-                    J1939_connect.connectState     = connected;    //连接已经建立
-                    J1939_connect.destAddr     = Charger_Addr; // 本次连接由BMS发起，发送给充电桩
-                    J1939_connect.sourceAddr       = BMS_Addr;
-                    time_record = 0;                            //计时开始  等待BMS数据响应
-                }
-                else                                            //如果发送不成功
-                {
-                    //J1939_connect.connectState = Idle;
-                }
-
-            }
-            //else                                      //说明之前已经建立起多连接, 放弃当前连接请求
-            //{
-
-            //}
-        }
-        else if(pJ1939mg_data[0] == TP_CM_CTS)          //准备发送
-        {}
-        else if(pJ1939mg_data[0] == TP_CM_EndofMsgAck)  //消息结束应答
-        {}
-        else if(pJ1939mg_data[0] == TP_CM_Abort)        //接收到放弃连接
-        {
-            if(J1939_connect.connectState == Idle)  //未连接 却收到放弃，则错误
-            {
-                LOG_PRINTF("1939_connect is not connect But recive TP_CM_Abort PGN :%x,%x,%x \r\n", pJ1939mg_data[5], pJ1939mg_data[6], pJ1939mg_data[7]);
-                return RET_ERROR;
-            }
-            else if(J1939_connect.PGNnum == ((pJ1939mg_data[7]<<16) | (pJ1939mg_data[6]<<8) | pJ1939mg_data[5]))
-            //核对对方放弃的连接管理的PGN号
-            {
-                J1939_connect_clear();        //
-            }
-            else
-            {
-                LOG_PRINTF("TP_CM_Abort but PGN is Error!\r\n");
-            }
-        }
-        else if(pJ1939mg_data[0] == TP_CM_BAM)          //广播公告消息
-        {}
-    }
-    /*************************************************多连接数据传输************************************************/
-    else if(message.PGN == TPDT_rcv)        //连接管理 下的数据传输
-    {
-        char n;
-        if(J1939_connect.connectState != Idle)  //已经连接,且PGN核对正确
-        {
-            if(time_record > timeout_T2)   //如果超时则 放弃连接
-            {
-                LOG_PRINTF("timeout in TP_DT !\r\n", message.PGNnum);
-                MultiTrans_Manage_SEND(&J1939_connect, TP_CM_Abort);  //发送放弃连接
-                J1939_connect_clear();
-            }
-            else                          //未超时则 核对并提取数据
-            {
-                if(J1939_connect.cur_packet == pJ1939mg_data[0])// 核对当前包序号
-                {
-                    J1939_connect.data_position = (J1939_connect.cur_packet-1)*7; //接收BUF拷贝数据的位置,除最后一包都为7的倍数跳转
-
-                    if(J1939_connect.cur_packet < J1939_connect.num_packet)  //不是最后一包, 直接拷贝
+                    else  //包数核对不上，请求发送 当前记录的包编号数据
                     {
-                        PGN_MessageRcv[J1939_connect.PGNindex].valid = 0; //写数据之前使PGN数据部分无效，防止未写完，应用层读
-                        for(n=1; n<8; n++)   //拷贝数据到接收数据的BUF中, 7个数字
-                        {
-                            PGN_MessageRcv[J1939_connect.PGNindex].data[J1939_connect.data_position+n-1] = pJ1939mg_data[n];//剩下的7个数据拷贝到BUFF中
-                        }
+                        J1939_connect.cur_packet = 1;
+                        LOG_PRINTF("the Package num is Error, rstart!\r\n");
+                        MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS);
 
-                        J1939_connect.cur_packet++;
-                        MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS);  //完成一包后再发送传输请求发送下一包
                         time_record = 0;                //计时开始
                     }
-
-                    else if(J1939_connect.cur_packet == J1939_connect.num_packet) //接收到最后一包
-                    {
-                        PGN_MessageRcv[J1939_connect.PGNindex].valid = 0; //写数据之前使PGN数据部分无效，防止未写完，应用层读
-                        for(n=1; n<(J1939_connect.data_num-J1939_connect.data_position+1); n++)   //拷贝数据到接收数据的BUF中, 可能不足7个数字
-                        {
-                            PGN_MessageRcv[J1939_connect.PGNindex].data[J1939_connect.data_position+n-1] = pJ1939mg_data[n];
-                        }
-
-                        J1939_connect.data_position = J1939_connect.data_position + n- 1;
-                        if(J1939_connect.data_num == J1939_connect.data_position) //核对拷贝的数据总长度, 正确则发送应答
-                        {
-                            MultiTrans_Manage_SEND(&J1939_connect, TP_CM_EndofMsgAck);  //发送完成应答
-
-                            PGN_MessageRcv[J1939_connect.PGNindex].valid = 1;//使能缓存数据有效
-                            J1939_connect_clear();
-                        }
-                        else
-                        {
-                            PGN_MessageRcv[J1939_connect.PGNindex].valid = 0; //数据无效
-                            J1939_connect.cur_packet = 1;                     //从第一包开始从新接收数据
-                            MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS);
-                            J1939_connect.cur_packet++;
-                        }
-                    }
-                    else
-                    {
-                        /*当前单包数据完成,但整个多包传输没有完成，再次发送CTS ，请求BMS发送数据*/
-                        MultiTrans_Manage_SEND(&J1939_connect, TP_CM_EndofMsgAck);  //发送完成应答
-                        //PGN_MessageRcv[J1939_connect.PGNindex].valid = 1;//使能缓存数据有效
-                        J1939_connect_clear();             //计时开始
-                    }
-
                 }
-                else  //包数核对不上，请求发送 当前记录的包编号数据
-                {
-                    J1939_connect.cur_packet = 1;
-                    LOG_PRINTF("the Package num is Error, rstart!\r\n");
-                    MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS);
-
-                    time_record = 0;                //计时开始
-                }
+            }else  //还未连接却收到多包数据 ，则错误且获取不到多连接数据的PGN，故直接返回
+            {
+                LOG_PRINTF("not connet but the TPDT!\r\n");
+                J1939_connect_clear();
+                return SUCCESS_RET;
             }
-        }
-        else  //还未连接却收到多包数据 ，则错误且获取不到多连接数据的PGN，故直接返回
-        {
-            LOG_PRINTF("not connet but the TPDT!\r\n");
-            J1939_connect_clear();
-            return SUCCESS_RET;
+            break;
         }
     }
-        return SUCCESS_RET;
+    return SUCCESS_RET;
 }
 
+static void MultiTrans_ManageSend_Abort(void){
+    J1939_message msg_cst;
+    msg_cst.sourceAddr  = 0x56;
+    msg_cst.destAddr      = 0xf4;
+    msg_cst.priority        = PGNInfoSend[TPCM_send].priority;
+    msg_cst.PGNnum      = PGNInfoSend[TPCM_send].PGNnum;
+    msg_cst.dataLen       = PGNInfoSend[TPCM_send].dataLen;
+    /**
+     * @brief: J1939放弃连接
+    +-------------------+------------------+-----------------------+
+    | 控制字节FF放弃连接 |  保留给SAE使用 FF |    装载数据参数群编号   +
+    +-------------------+------------------+-----------------------+
+    |   1byte           |    2 3 4 5byte   |    6 7 8 byte         | 
+    +-------------------+------------------+-----------------------+ 
+        */
+    msg_cst.data[0]        = 0xFF;
+    msg_cst.data[1]        = 0xFF;
+    msg_cst.data[2]        = 0xFF;
+    msg_cst.data[3]        = 0XFF;
+    msg_cst.data[4]        = 0XFF;
+    msg_cst.data[5]        = J1939_connect.PGNnum & 0xff;
+    msg_cst.data[6]        = (J1939_connect.PGNnum & 0xff00)  >> 8;
+    msg_cst.data[7]        = (J1939_connect.PGNnum & 0xff0000)>>16;
+    J1939_SendOnePacket(&msg_cst);
+}
+
+static void MultiTrans_ManageSend_TP_CM_CTS(unsigned char CMMD, sJ1939_buff_message *msg_send, psJ1939_transfeManger pJ1939_connect){
+    /**
+     * @brief:连接模式下准备发送
+    +-----------------+--------------------+--------------------------+---------------------+-------------------------+
+    |  控制字节17      |  可发送数据包数目   |  下一个将要发送数据包编号  |   保留SAE设定0xFF    |    装载数据参数群编号     |
+    +-----------------+--------------------+--------------------------+---------------------+-------------------------+
+    |  1byte          |    2byte           |       3byte              |     4 5byte         |       6 7 8byte         |
+    +-----------------+--------------------+--------------------------+---------------------+-------------------------+
+        */
+    msg_send->Data[0] = CMMD;
+    msg_send->Data[1]        = 1;            //可发送的数据包
+    msg_send->Data[2]        = pJ1939_connect->cur_packet;       //接收第一包数据
+    #ifdef J1939_OneTime_Trans
+    msg_send->Data[1]        = pJ1939_connect->num_packet;   //可发送的数据包
+    if(pJ1939_connect->cur_packet > 1)
+        return SUCCESS_RET;
+    #endif
+    msg_send->Data[3]        = 0XFF;         //规定
+    msg_send->Data[4]        = 0XFF;
+
+    msg_send->Data[5]    =  J1939_connect.PGNnum & 0xff;
+    msg_send->Data[6]    = (J1939_connect.PGNnum & 0xff00)  >> 8;
+    msg_send->Data[7]    = (J1939_connect.PGNnum & 0xff0000)>>16;
+}
+
+static void MultiTrans_ManageSend_TP_CM_EndofMsgAck(unsigned char CMMD, sJ1939_buff_message *msg_send, psJ1939_transfeManger pJ1939_connect){
+    /**
+     * @brief: 消息结束应答
+    +---------------------+-----------------+-------------------------+----------------------+---------------------+
+    |  控制字节19          |  整个消息大小    |  全部数据包数目          |    保留给ASE使用0xFF  |      参数群编号      |
+    +---------------------+-----------------+-------------------------+----------------------+---------------------+
+    |     1byte           |   2 3byte       |     4byte               |      5byte           |       6 7 8byte     |
+    +---------------------+-----------------+-------------------------+----------------------+---------------------+ 
+        */
+    msg_send->Data[0] = CMMD;
+    msg_send->Data[1]        =  J1939_connect.data_num & 0xff;//整个数据长度
+    msg_send->Data[2]        = (J1939_connect.data_num>>8) & 0xff;
+    msg_send->Data[3]        =  J1939_connect.num_packet;  //包的长度
+    msg_send->Data[4]        = 0XFF;  //规定
+
+    msg_send->Data[5]    =  J1939_connect.PGNnum & 0xff;
+    msg_send->Data[6]    = (J1939_connect.PGNnum & 0xff00)  >> 8;
+    msg_send->Data[7]    = (J1939_connect.PGNnum & 0xff0000)>>16;
+}
 /***************************************************************************
 功能: 连接管理发送命令
 参数: 0 连接管理指针，1 命令
 返回值:0 发送成功 -1 发送失败
 *****************************************************************************/
-char MultiTrans_Manage_SEND(psJ1939_transfeManger pJ1939_connect_arrys, unsigned char CMMD)
+uint8_t MultiTrans_Manage_SEND(psJ1939_transfeManger pJ1939_connect_arrys, unsigned char CMMD)
 {
     sJ1939_buff_message msg_send;
     psJ1939_transfeManger pJ1939_connect = pJ1939_connect_arrys;
@@ -578,73 +651,22 @@ char MultiTrans_Manage_SEND(psJ1939_transfeManger pJ1939_connect_arrys, unsigned
         return RET_ERROR;
     }
 
-    msg_send.Data[0] = CMMD;
     switch(CMMD)
     {
         case TP_CM_CTS:           //准备发送
         {
-            /**
-             * @brief:连接模式下准备发送
-            +-----------------+--------------------+--------------------------+---------------------+-------------------------+
-            |  控制字节17      |  可发送数据包数目   |  下一个将要发送数据包编号  |   保留SAE设定0xFF    |    装载数据参数群编号     |
-            +-----------------+--------------------+--------------------------+---------------------+-------------------------+
-            |  1byte          |    2byte           |       3byte              |     4 5byte         |       6 7 8byte         |
-            +-----------------+--------------------+--------------------------+---------------------+-------------------------+
-             */
-            msg_send.Data[1]        = 1;            //可发送的数据包
-            msg_send.Data[2]        = pJ1939_connect->cur_packet;       //接收第一包数据
-#ifdef J1939_OneTime_Trans
-            msg_send.Data[1]        = pJ1939_connect->num_packet;   //可发送的数据包
-            if(pJ1939_connect->cur_packet > 1)
-                return SUCCESS_RET;
-#endif
-            msg_send.Data[3]        = 0XFF;         //规定
-            msg_send.Data[4]        = 0XFF;
+            MultiTrans_ManageSend_TP_CM_CTS(CMMD, &msg_send, pJ1939_connect);
             break;
         }
        
         case TP_CM_EndofMsgAck:  //消息结束应答
         {
-            /**
-             * @brief: 消息结束应答
-            +---------------------+-----------------+-------------------------+----------------------+---------------------+
-            |  控制字节19          |  整个消息大小    |  全部数据包数目          |    保留给ASE使用0xFF  |      参数群编号      |
-            +---------------------+-----------------+-------------------------+----------------------+---------------------+
-            |     1byte           |   2 3byte       |     4byte               |      5byte           |       6 7 8byte     |
-            +---------------------+-----------------+-------------------------+----------------------+---------------------+ 
-             */
-            msg_send.Data[1]        =  J1939_connect.data_num & 0xff;//整个数据长度
-            msg_send.Data[2]        = (J1939_connect.data_num>>8) & 0xff;
-            msg_send.Data[3]        =  J1939_connect.num_packet;  //包的长度
-            msg_send.Data[4]        = 0XFF;  //规定
+            MultiTrans_ManageSend_TP_CM_EndofMsgAck(CMMD, &msg_send, pJ1939_connect);
             break;
         }
         case TP_CM_Abort:          //放弃连接
         {  
-          
-           J1939_message msg_cst;
-            msg_cst.sourceAddr  = 0x56;
-            msg_cst.destAddr      = 0xf4;
-            msg_cst.priority        = PGNInfoSend[TPCM_send].priority;
-            msg_cst.PGNnum      = PGNInfoSend[TPCM_send].PGNnum;
-            msg_cst.dataLen       = PGNInfoSend[TPCM_send].dataLen;
-            /**
-             * @brief: J1939放弃连接
-            +-------------------+------------------+-----------------------+
-            | 控制字节FF放弃连接 |  保留给SAE使用 FF |    装载数据参数群编号   +
-            +-------------------+------------------+-----------------------+
-            |   1byte           |    2 3 4 5byte   |    6 7 8 byte         | 
-            +-------------------+------------------+-----------------------+ 
-             */
-            msg_cst.data[0]        = 0xFF;
-            msg_cst.data[1]        = 0xFF;
-            msg_cst.data[2]        = 0xFF;
-            msg_cst.data[3]        = 0XFF;
-            msg_cst.data[4]        = 0XFF;
-            msg_cst.data[5]        = J1939_connect.PGNnum & 0xff;
-            msg_cst.data[6]        = (J1939_connect.PGNnum & 0xff00)  >> 8;
-            msg_cst.data[7]        = (J1939_connect.PGNnum & 0xff0000)>>16;
-            J1939_SendOnePacket(&msg_cst);
+            MultiTrans_ManageSend_Abort();
             return SUCCESS_RET;  //成功发送
         }
         default:
@@ -653,10 +675,6 @@ char MultiTrans_Manage_SEND(psJ1939_transfeManger pJ1939_connect_arrys, unsigned
             return RET_ERROR;  //错误
         }
     }
-
-    msg_send.Data[5]    =  J1939_connect.PGNnum & 0xff;
-    msg_send.Data[6]    = (J1939_connect.PGNnum & 0xff00)  >> 8;
-    msg_send.Data[7]    = (J1939_connect.PGNnum & 0xff0000)>>16;
 
     if(Ringbuff_write(RingSNDbuff, &msg_send) != BUF_WRSUCC) //写入队列中
     {

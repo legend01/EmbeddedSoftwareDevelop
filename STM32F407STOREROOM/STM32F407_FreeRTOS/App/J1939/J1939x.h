@@ -128,7 +128,7 @@ int PGN_MessageRcv_Init(void);
 int J1939_SendOnePacket( J1939_message *msg);
 int GetmsgconvertToSend(void);
 int GtmgFrRcvbufToPGN(void);
-char MultiTrans_Manage_SEND(psJ1939_transfeManger pJ1939_connect_arrys, unsigned char CMMD);
+uint8_t MultiTrans_Manage_SEND(psJ1939_transfeManger pJ1939_connect_arrys, unsigned char CMMD);
 void J1939_connect_clear(void );
 int GetmessageToRcvbuff(void* rcv);
 void J1939_register(void);
