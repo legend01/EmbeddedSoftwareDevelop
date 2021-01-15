@@ -52,6 +52,7 @@
 #include "cmsis_os.h"
 #include "can.h"
 #include "dma.h"
+#include "rng.h"
 #include "rtc.h"
 #include "tim.h"
 #include "usart.h"
@@ -125,6 +126,7 @@ int main(void)
   MX_TIM4_Init();
   MX_RTC_Init();
   MX_CAN1_Init();
+  MX_RNG_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */

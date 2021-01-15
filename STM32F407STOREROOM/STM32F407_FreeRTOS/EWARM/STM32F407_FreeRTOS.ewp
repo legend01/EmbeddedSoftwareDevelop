@@ -372,6 +372,9 @@
           <state>$PROJ_DIR$/../App/LOGPRINT/</state>
           <state>$PROJ_DIR$/../App/RTC/</state>
           <state>$PROJ_DIR$/../App/RNG/</state>
+          <state>$PROJ_DIR$/../App/CAN/</state>
+          <state>$PROJ_DIR$/../App/J1939/</state>
+          <state>$PROJ_DIR$/../App/RINGBUFFER/</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1075,9 +1078,21 @@
         </file>
       </group>
       <group>
+        <name>CAN</name>
+        <file>
+          <name>$PROJ_DIR$\..\App\CAN\app_can.c</name>
+        </file>
+      </group>
+      <group>
         <name>CAPTURE</name>
         <file>
           <name>$PROJ_DIR$\..\App\InputCapture\inputCapture.c</name>
+        </file>
+      </group>
+      <group>
+        <name>J1939</name>
+        <file>
+          <name>$PROJ_DIR$\..\App\J1939\J1939x.c</name>
         </file>
       </group>
       <group>
@@ -1102,6 +1117,12 @@
         <name>PWM</name>
         <file>
           <name>$PROJ_DIR$\..\App\PWM\pwm.c</name>
+        </file>
+      </group>
+      <group>
+        <name>RINGBUFFER</name>
+        <file>
+          <name>$PROJ_DIR$\..\App\RINGBUFFER\Ringbuff_manger.c</name>
         </file>
       </group>
       <group>
@@ -1159,6 +1180,9 @@
     <group>
       <name>User</name>
       <file>
+        <name>$PROJ_DIR$\..\Src\can.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\Src\dma.c</name>
       </file>
       <file>
@@ -1204,6 +1228,9 @@
         <name>$PROJ_DIR$/../Src/freertos.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$/../Src/rng.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$/../Src/rtc.c</name>
       </file>
       <file>
@@ -1238,6 +1265,9 @@
       <name>STM32F4xx_HAL_Driver</name>
       <file>
         <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c</name>
@@ -1289,6 +1319,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$/../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$/../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rng.c</name>
       </file>
       <file>
         <name>$PROJ_DIR$/../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rtc.c</name>

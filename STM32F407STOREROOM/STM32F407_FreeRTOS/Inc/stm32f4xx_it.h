@@ -71,6 +71,7 @@ void UART5_IRQHandler(void);
 void TIM7_IRQHandler(void);
 void DMA2_Stream2_IRQHandler(void);
 void DMA2_Stream7_IRQHandler(void);
+void HASH_RNG_IRQHandler(void);
 
 #ifdef __cplusplus
 }
