@@ -1326,6 +1326,10 @@
             <name>$PROJ_DIR$\..\App\CAN\app_can.c</name>
             <outputs>
                 <tool>
+                    <name>ICCARM</name>
+                    <file> 127</file>
+                </tool>
+                <tool>
                     <name>__cstat</name>
                     <file> 140</file>
                 </tool>
@@ -1360,11 +1364,11 @@
             <inputs>
                 <tool>
                     <name>ICCARM</name>
-                    <file> 142 131 125 132 54 314 57 256 306 266 106 47 253 339 337 59 42 310 301 304 156 89 326 61 249 109 95 20 328 191 250 246 60 138 38 180 181 23 26 157 243 50 317 112 33</file>
+                    <file> 142 131 266 106 47 253 339 337 59 42 310 301 304 156 89 326 61 54 314 57 256 306 249 109 95 20 328 191 250 246 60 138 38 180 181 23 26 157 243 50 317 112 33 125 132</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 38 328 317 106 253 304 132 60 157 306 57 256 250 138 23 243 33 20 249 47 95 125 131 54 314 266 109 61 89 337 156 339 191 246 180 112 142 301 326 59 42 310 181 26 50</file>
+                    <file> 306 301 57 131 47 266 50 54 106 253 339 59 42 132 125 61 326 310 314 109 337 181 26 142 89 304 156 256 328 250 60 138 38 23 157 243 317 33 20 249 95 191 246 180 112</file>
                 </tool>
             </inputs>
         </file>
@@ -1561,6 +1565,10 @@
             <name>$PROJ_DIR$\..\App\RINGBUFFER\Ringbuff_manger.c</name>
             <outputs>
                 <tool>
+                    <name>ICCARM</name>
+                    <file> 136</file>
+                </tool>
+                <tool>
                     <name>__cstat</name>
                     <file> 144</file>
                 </tool>
@@ -1572,11 +1580,11 @@
             <inputs>
                 <tool>
                     <name>ICCARM</name>
-                    <file> 131 31 339 337 59 42 310 95 187</file>
+                    <file> 131 266 106 47 253 339 337 59 42 310 301 304 156 89 326 61 54 314 57 256 306 249 109 95 20 328 191 250 246 60 138 38 180 181 23 26 157 243 50 317 112 33</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 131</file>
+                    <file> 156 304 157 106 253 89 60 306 47 337 328 38 317 95 266 54 61 256 250 138 23 243 33 20 249 339 191 246 180 112 131 301 326 59 42 310 314 57 109 181 26 50</file>
                 </tool>
             </inputs>
         </file>
@@ -2006,15 +2014,7 @@
             </inputs>
         </file>
         <forcedrebuild>
-            <name>$PROJ_DIR$\..\App\CAN\app_can.c</name>
-            <tool>ICCARM</tool>
-        </forcedrebuild>
-        <forcedrebuild>
             <name>$PROJ_DIR$\..\App\J1939\J1939x.c</name>
-            <tool>ICCARM</tool>
-        </forcedrebuild>
-        <forcedrebuild>
-            <name>$PROJ_DIR$\..\App\RINGBUFFER\Ringbuff_manger.c</name>
             <tool>ICCARM</tool>
         </forcedrebuild>
         <forcedrebuild>

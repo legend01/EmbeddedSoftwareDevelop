@@ -1,7 +1,5 @@
 #include "J1939x.h"
-#include "module.h"
-#include "CANbus.h"
-#include "pub_data.h"
+#include "app_can.h"
 
 sJ1939_transfeManger J1939_connect;
 
@@ -15,66 +13,55 @@ unsigned int time_record  = 0;  // 这个时间在中断定时器中加，用来判断超时作用
 
 sPGNInfo PGNInfoSend[PGN_MAX_Send+1] =
 {
-    //充电握手阶段
-    {
-        {256,   6,  8,  250, },     //CRM   
-        {9728,  6,  3,  250, },     //CHM
-        //充电参数配置阶段
-        {1792,  6,  7,  500, },     //cts
-        {2048,  6,  6,  250, },     //cml
-        {2560,  4,  1,  250, },     //cro
-        {4608,  6,  6,   50, },     //ccs
+    
+    { 256,      6,  8,  250, },  //CRM   //充电握手阶段
+    {9728,      6,  3,  250, },  //CHM
+    
+    {1792,      6,  7,  500, },  //cts //充电参数配置阶段
+    {2048,      6,  6,  250, },  //cml
+    {2560,      4,  1,  250, },  //cro
+    {4608,      6,  6,   50, },  //ccs
 
-        //充电阶段
-        {6656,  4,  4,    10,},     //cst
-        //充电结束阶段
-        {7424,  6,  5,   250,},     //csd
-        //错误报文
-        {7936,  2,  4,   250,},     //CEM
-        //多包传输
-        {TP_CM_PF, 7, 8,  0, },     //传输管理
-        {TP_DT_PF, 7, 8,  0, },     //传输数据
-        //MAX
-        {0,     0,  0,    0, },     //结束符
-    },
+    {6656,      4,  4,   10, },  //cst //充电阶段
+    
+    {7424,      6,  5,  250, },  //csd //充电结束阶段
+    
+    {7936,      2,  4,  250, },  //CEM //错误报文
+    
+    {TP_CM_PF,  7,  8,    0, },  //传输管理 //多包传输
+    {TP_DT_PF,  7,  8,    0, },  //传输数据
+    
+    {      0,   0,  0,    0, },  //MAX //结束符
 };
 
 sPGNInfo PGNInfoRcv[PGN_MAX_Rcv+1] =
 {
-    {
-        //充电握手阶段
-        {512,   6,  41,  250, },            //BRM   
-        {9984,  6,  2,    250, },           //BHM
-        //充电参数配置阶段
-        {1536,  6,  13,   500, },           //bcp
-        {2304,  4,  1,  250, },         //bro
-        //充电阶段
-        {4096,  6,  5,  500, },         //bcl
-        {4352,  6,  9,  250, },         //bcs
-        {4864,  6,  7,  250, },         //bsm
+    
+    { 512,      6,  41,  250, },   //BRM  //充电握手阶段
+    {9984,      6,   2,  250, },  //BHM
 
-        {5376,  6,  8,   1000, },       //bmv
-        {5632,  6,  8,   1000, },        //bmt
-        {5888,  6,  8,   1000, },       //bsp
+    {1536,      6,  13,  500, },  //bcp //充电参数配置阶段
+    {2304,      4,   1,  250, },    //bro
+    
+    {4096,      6,  5,   500, },    //bcl //充电阶段
+    {4352,      6,  9,   250, },    //bcs
+    {4864,      6,  7,   250, },    //bsm
 
-        {6400,  4,  4,    10, },        //bst
-        //充电结束阶段
-        {7168,  6,  7,   250, },        //BSD
-        //错误报文
-        {7680,  2,  4,   250, },        //BEM
-        //多包传输
-        {TP_CM_PF, 7, 8,        0,  },        //传输管理
-        {TP_DT_PF, 7, 8,         0,  },     //传输数据
-        //MAX
-        {       0,       0, 0,        0,  },        //结束符
-    },
+    {5376,      6,  8,  1000, },  //bmv
+    {5632,      6,  8,  1000, },  //bmt
+    {5888,      6,  8,  1000, },  //bsp
+
+    {6400,      4,  4,   10, },  //bst
+    
+    {7168,      6,  7,  250, },  //BSD //充电结束阶段
+    
+    {7680,      2,  4,  250, },  //BEM //错误报文
+    
+    {TP_CM_PF,  7,  8,    0, },  //多包传输  //传输管理
+    {TP_DT_PF,  7,  8,    0, }, //传输数据
+    
+    {0,         0,  0,    0, },   //MAX  //结束符
 };
-
-enum
-{
-    DEBUG_J1939 = ERROR_BEGIN_DEBUG(MODULE_J1939),
-};
-
 
 /**************************************************
 功能: 初始化PGN数组和给PGN的数据部分分配空间
@@ -151,7 +138,7 @@ char PGN_MessageRcv_clear(void)
 参数: PDU指针
 返回: 0成功 不为0则失败
 ****************************************************/
-int SendOnePacket(void *arg, u32* id, u8 *dat, u8* len)
+int SendOnePacket(void *arg, uint32_t* id, uint8_t *dat, uint8_t* len)
 {
     J1939_message *msg = (J1939_message *)arg;
     if(msg->dataLen > 8)
@@ -165,7 +152,7 @@ int SendOnePacket(void *arg, u32* id, u8 *dat, u8* len)
 
 int J1939_SendOnePacket( J1939_message *msg)
 {
-    return CAN_Send(SendOnePacket, msg);
+    return CAN1_Send_Msg(SendOnePacket, msg);
 }
 
 /**************************************************
@@ -241,12 +228,12 @@ int GetmessageToRcvbuff(void* rcv)
     unsigned char j;
     J1939_message msg_temp;
     sJ1939_buff_message sJ1939_buff_message_temp;
-    CanRxMsg* TxMessage = (CanRxMsg*)rcv; /* 从CAN中断调用该函数rcv是接收到的CAN数据 */
-
+    CAN_RxPacketTypeDef* RxMessage = (CAN_RxPacketTypeDef*)rcv; /* 从CAN中断调用该函数rcv是接收到的CAN数据 */
+    CAN_RxHeaderTypeDef RxHeaderInf = RxMessage->hdr;
 #ifdef LOG_CAN_RCV
-    printf("rcv: ID %x ,DATA:",    TxMessage->ExtId );
-    for(u8 i =0; i< TxMessage->DLC; i++)
-        printf(" %x ",    TxMessage->Data[i] );
+    printf("rcv: ID %x ,DATA:",    RxHeaderInf.ExtId );
+    for(uint8_t i =0; i< RxHeaderInf.DLC; i++)
+        printf(" %x ",    RxMessage->message[i]);
     printf("\r\n" );
 #endif
     /**
@@ -258,21 +245,21 @@ int GetmessageToRcvbuff(void* rcv)
     |  3bit      |  1bit | 1bit   |    8bit         |     8bit         |    8bit         | 
     +------------+-------+--------+-----------------+------------------+-----------------+
      */
-    if((TxMessage->ExtId & 0xffff)!= 0x56f4) return 0; /* 判断PS+SA目标地址和源地址是否为 充电机0x56 BMS0xF4 */
+    if((RxHeaderInf.ExtId & 0xffff)!= 0x56f4) return 0; /* 判断PS+SA目标地址和源地址是否为 充电机0x56 BMS0xF4 */
 
     sJ1939_buff_message_temp.PGN = -1;
 
-    msg_temp.PGNnum     = (TxMessage->ExtId>>8) & 0x3ff00;   //PGN值 /* PGN = R, DP, PF, PS */
-    msg_temp.sourceAddr =  TxMessage->ExtId & 0xff;          //源地址
+    msg_temp.PGNnum     = (RxHeaderInf.ExtId>>8) & 0x3ff00;   //PGN值 /* PGN = R, DP, PF, PS */
+    msg_temp.sourceAddr =  RxHeaderInf.ExtId & 0xff;          //源地址
     
     /****************************************************/ 
-    msg_temp.priority = (TxMessage->ExtId>>26) & 0x07;       //优先级
-    msg_temp.Reserved = (TxMessage->ExtId >>24 )&0x03;       //预留
+    msg_temp.priority = (RxHeaderInf.ExtId>>26) & 0x07;       //优先级
+    msg_temp.Reserved = (RxHeaderInf.ExtId >>24 )&0x03;       //预留
     
     /****************************************************/
     
 
-    //sJ1939_buff_message_temp.Prio=(TxMessage->ExtId>>24)& 0x1c; 
+    //sJ1939_buff_message_temp.Prio=(RxHeaderInf.ExtId>>24)& 0x1c; 
     sJ1939_buff_message_temp.PGNnum = msg_temp.PGNnum;
     sJ1939_buff_message_temp.PGN    = -1;  //只提出真实的PGN值，把确认的PGN索引值的工作交给主循环做
     
@@ -285,7 +272,7 @@ int GetmessageToRcvbuff(void* rcv)
 
     for(j=0; j<8; j++)
     {
-        sJ1939_buff_message_temp.Data[j] = TxMessage->Data[j]; //拷贝数据
+        sJ1939_buff_message_temp.Data[j] = RxMessage->message[j]; //拷贝数据
     }
 
     if(Ringbuff_write(RingRCVbuff, &sJ1939_buff_message_temp) != BUF_WRSUCC) //写入队列中
@@ -304,7 +291,7 @@ int GetmessageToRcvbuff(void* rcv)
 int GtmgFrRcvbufToPGN(void)
 {
     sJ1939_buff_message message;
-    u8 i;
+    uint8_t i;
     pJ1939_message_Rcv  pJ1939_message_Rcv_temp;
 
     char* pJ1939mg_data = message.Data;
@@ -726,36 +713,36 @@ void J1939_connect_clear(void)
     J1939_connect.PGNindex = 0;
 }
 
-static error_t J1939_pro_module(system_state_t state)
-{
-    if (STATE_INITIALIZING == state)
-    {
-        CAN_Reg(GetmessageToRcvbuff, 0);
-        J1939_connect_clear();
-        if(PGN_MessageRcv_Init() != 0)
-            return -1;
-    }
-    else if ((STATE_UP == state) || (STATE_RUN == state))
-    {
-        GtmgFrRcvbufToPGN();
-        GetmsgconvertToSend();
-    }
-    else if (STATE_DESTROYING == state)
-    {
-        ;
-    }
+// static uint8_t J1939_pro_module(system_state_t state)
+// {
+//     if (STATE_INITIALIZING == state)
+//     {
+//         CAN_Reg(GetmessageToRcvbuff, 0);
+//         J1939_connect_clear();
+//         if(PGN_MessageRcv_Init() != 0)
+//             return -1;
+//     }
+//     else if ((STATE_UP == state) || (STATE_RUN == state))
+//     {
+//         GtmgFrRcvbufToPGN();
+//         GetmsgconvertToSend();
+//     }
+//     else if (STATE_DESTROYING == state)
+//     {
+//         ;
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
 
 
-void J1939_register()
-{
-    module_arg_t module_arg;
+// void J1939_register()
+// {
+//     module_arg_t module_arg;
 
-    memset(&module_arg, 0, sizeof(module_arg));
-    module_arg.cycle = J1939_CYCLE_TIME;
-    module_arg.unit  = MODULE_MS;
-    module_register("J1939 process frame", MODULE_J1939, FRAMEWORK_LEVEL1,
-        J1939_pro_module, &module_arg);
-}
+//     memset(&module_arg, 0, sizeof(module_arg));
+//     module_arg.cycle = J1939_CYCLE_TIME;
+//     module_arg.unit  = MODULE_MS;
+//     module_register("J1939 process frame", MODULE_J1939, FRAMEWORK_LEVEL1,
+//         J1939_pro_module, &module_arg);
+// }

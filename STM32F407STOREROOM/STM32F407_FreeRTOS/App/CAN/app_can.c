@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-14 15:33:04
- * @LastEditTime: 2021-01-14 22:43:25
+ * @LastEditTime: 2021-01-15 10:24:41
  * @LastEditors: HLLI8
  */
 #include "app_can.h"
@@ -62,16 +62,16 @@ CAN_param_STR CSG_CAN;
 uint8_t CAN_Register(CANRecv rx, CANSend tx){
     if(rx) CSG_CAN.rx = rx;
     if(tx) CSG_CAN.tx = tx;
-    return SUCCESS;
+    return SUCCESS_RET;
 }
 
-uint8_t CAN_Recv(CanRxMsg *m){
+uint8_t CAN_Recv(CAN_RxPacketTypeDef *m){
     if(CSG_CAN.rx){
         CSG_CAN.rx(m);
     }else{
         return FUNCTION_NULL;
     }
-    return SUCCESS;
+    return SUCCESS_RET;
 }
 
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle)
@@ -81,17 +81,18 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle)
     // CAN数据接收
     if (canHandle->Instance == hcan1.Instance)
     {
-        if (HAL_CAN_GetRxMessage(canHandle, CAN_RX_FIFO0, &packet.hdr, packet.payload) == HAL_OK)		// 获得接收到的数据头和数据
+        if (HAL_CAN_GetRxMessage(canHandle, CAN_RX_FIFO0, &packet.hdr, packet.message) == HAL_OK)		// 获得接收到的数据头和数据
         {
-			printf("\r\n\r\n\r\n################### CAN RECV ###################\r\n");
-			printf("STID:0x%X\r\n",packet.hdr.StdId);
-			printf("EXID:0x%X\r\n",packet.hdr.ExtId);
-			printf("DLC :%d\r\n", packet.hdr.DLC);
-			printf("DATA:");
-			for(int i = 0; i < packet.hdr.DLC; i++)
-			{
-				printf("0x%02X ", packet.message[i]);
-			}
+            CAN_Recv(&packet);
+			// printf("\r\n\r\n\r\n################### CAN RECV ###################\r\n");
+			// printf("STID:0x%X\r\n",packet.hdr.StdId);
+			// printf("EXID:0x%X\r\n",packet.hdr.ExtId);
+			// printf("DLC :%d\r\n", packet.hdr.DLC);
+			// printf("DATA:");
+			// for(int i = 0; i < packet.hdr.DLC; i++)
+			// {
+			// 	printf("0x%02X ", packet.message[i]);
+			// }
            HAL_CAN_ActivateNotification(canHandle, CAN_IT_RX_FIFO0_MSG_PENDING);						// 再次使能FIFO0接收中断
         }
     }
@@ -128,5 +129,5 @@ uint8_t CAN1_Send_Msg(CANSend tx,void *arg)
 		return SEND_CAN_ERROR;
 	}
 	while(HAL_CAN_GetTxMailboxesFreeLevel(&hcan1) != 3);
-    return SUCCESS;
+    return SUCCESS_RET;
 }

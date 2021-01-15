@@ -1,8 +1,6 @@
 #ifndef __ring_manger_h__
 #define __ring_manger_h__
-#include "stdio.h"
-#include "error.h"
-#include "module.h"
+#include "stm32f4xx.h"
 /*********BUFF state**********/
 #define BUF_NOR      0 
 #define BUF_EMPTY    1

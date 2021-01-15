@@ -1,14 +1,12 @@
 #include "Ringbuff_manger.h"
-#include <string.h>
-#include "pub_data.h"
 
-static u8 BuffSND_addr_write;      //在缓冲区中的写入位置
-static u8 BuffSND_addr_read;      //在缓冲区的读取位置
+static uint8_t BuffSND_addr_write;      //在缓冲区中的写入位置
+static uint8_t BuffSND_addr_read;      //在缓冲区的读取位置
 sJ1939_buff_message  RingSNDbuff[Ringbuff_sedSize];  // 环形缓冲区
 //注意此信息读出内部带有malloc分配的内存，当用完需要释放它
 
-static u8 BuffRCV_addr_write;      //在缓冲区中的写入位置
-static u8 BuffRCV_addr_read;      //在缓冲区的读取位置
+static uint8_t BuffRCV_addr_write;      //在缓冲区中的写入位置
+static uint8_t BuffRCV_addr_read;      //在缓冲区的读取位置
 sJ1939_buff_message RingRCVbuff[Ringbuff_rcvSize];  // 环形缓冲区
 
 
@@ -33,7 +31,7 @@ void Ringbuff_setEmpty(void)
 ***************************************************/
 void Ringbuff_init(void)
 {
-    u8 i,j;
+    uint8_t i,j;
     for(i =0;i<Ringbuff_sedSize;i++)  //清空环形缓冲区数据
     {
         RingSNDbuff[i].PGN         = -1;
@@ -221,22 +219,4 @@ int RingRCVbuff_isfull(void)
         return BUF_FULL; //缓冲满
     else 
         return BUF_NOR; //缓冲不满
-}
-
-static error_t Ringbuff_pro_module(system_state_t state)
-{
-    if (STATE_INITIALIZING == state)
-    {
-        Ringbuff_init();
-    }
-    else if ((STATE_UP == state) || (STATE_RUN == state))
-    {
-    ;
-    }
-    else if (STATE_DESTROYING == state)
-    {
-        ;
-    }
-    
-    return 0;
 }

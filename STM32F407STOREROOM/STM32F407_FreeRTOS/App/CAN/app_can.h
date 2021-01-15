@@ -2,7 +2,7 @@
  * @Description: CAN过滤器filter配置
  * @Author: HLLI8
  * @Date: 2021-01-14 15:33:10
- * @LastEditTime: 2021-01-15 09:52:46
+ * @LastEditTime: 2021-01-15 10:24:12
  * @LastEditors: HLLI8
  */
 #ifndef __APP_CAN_H__
@@ -24,7 +24,7 @@ typedef enum {
 	DATA_LENGTH_FALSE = -3,
 	FUNCTION_NULL = -2,
 	FALSE = 0,
-	SUCCESS = 1,
+	SUCCESS_RET = 1,
 }RETURN_ENU;
 
 typedef struct
@@ -49,5 +49,9 @@ typedef struct{
 	uint8_t buffer[16];
 }CAN_param_STR;
 
+void CAN_Filter_Config(void);
+
 uint8_t CAN1_Send_Msg(CANSend tx,void *arg);
+uint8_t CAN_Register(CANRecv rx, CANSend tx);
+uint8_t CAN_Recv(CAN_RxPacketTypeDef *m);
 #endif // !__APP_CAN_H__

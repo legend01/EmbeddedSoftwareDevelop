@@ -1,8 +1,6 @@
 #ifndef __J1939X_h__
 #define __J1939X_h__
 
-#include "stdio.h"
-#include "hardwareDefine.h"
 #include "Ringbuff_manger.h"
 
 #define BMS_Addr            244
