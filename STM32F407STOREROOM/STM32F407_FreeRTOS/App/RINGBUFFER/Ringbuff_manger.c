@@ -1,18 +1,18 @@
 #include "Ringbuff_manger.h"
 
-static uint8_t BuffSND_addr_write;      //ÔÚ»º³åÇøÖĞµÄĞ´ÈëÎ»ÖÃ
-static uint8_t BuffSND_addr_read;      //ÔÚ»º³åÇøµÄ¶ÁÈ¡Î»ÖÃ
-sJ1939_buff_message  RingSNDbuff[Ringbuff_sedSize];  // »·ĞÎ»º³åÇø
-//×¢Òâ´ËĞÅÏ¢¶Á³öÄÚ²¿´øÓĞmalloc·ÖÅäµÄÄÚ´æ£¬µ±ÓÃÍêĞèÒªÊÍ·ÅËü
+static uint8_t BuffSND_addr_write;      //åœ¨ç¼“å†²åŒºä¸­çš„å†™å…¥ä½ç½®
+static uint8_t BuffSND_addr_read;      //åœ¨ç¼“å†²åŒºçš„è¯»å–ä½ç½®
+sJ1939_buff_message  RingSNDbuff[Ringbuff_sedSize];  // ç¯å½¢ç¼“å†²åŒº
+//æ³¨æ„æ­¤ä¿¡æ¯è¯»å‡ºå†…éƒ¨å¸¦æœ‰mallocåˆ†é…çš„å†…å­˜ï¼Œå½“ç”¨å®Œéœ€è¦é‡Šæ”¾å®ƒ
 
-static uint8_t BuffRCV_addr_write;      //ÔÚ»º³åÇøÖĞµÄĞ´ÈëÎ»ÖÃ
-static uint8_t BuffRCV_addr_read;      //ÔÚ»º³åÇøµÄ¶ÁÈ¡Î»ÖÃ
-sJ1939_buff_message RingRCVbuff[Ringbuff_rcvSize];  // »·ĞÎ»º³åÇø
+static uint8_t BuffRCV_addr_write;      //åœ¨ç¼“å†²åŒºä¸­çš„å†™å…¥ä½ç½®
+static uint8_t BuffRCV_addr_read;      //åœ¨ç¼“å†²åŒºçš„è¯»å–ä½ç½®
+sJ1939_buff_message RingRCVbuff[Ringbuff_rcvSize];  // ç¯å½¢ç¼“å†²åŒº
 
 /*******************************************
-¹¦ÄÜ:   Çå¿ÕÊÕ·¢»·ĞÎ»º³åÇø
-²ÎÊı:   ÎŞ
-·µ»ØÖµ: ÎŞ
+åŠŸèƒ½:   æ¸…ç©ºæ”¶å‘ç¯å½¢ç¼“å†²åŒº
+å‚æ•°:   æ— 
+è¿”å›å€¼: æ— 
 *********************************************/
 void Ringbuff_setEmpty(void)
 {
@@ -23,38 +23,38 @@ void Ringbuff_setEmpty(void)
 }
 
 /**************************************************
-¹¦ÄÜ:   ½«·¢ËÍºÍ½ÓÊÕÁ½¸ö»·ĞÎ»º³åÇøÄÚ²¿Êı¾İÈ«²¿Çå¿Õ
-²ÎÊı:   ÎŞ
-·µ»ØÖµ: ÎŞ
+åŠŸèƒ½:   å°†å‘é€å’Œæ¥æ”¶ä¸¤ä¸ªç¯å½¢ç¼“å†²åŒºå†…éƒ¨æ•°æ®å…¨éƒ¨æ¸…ç©º
+å‚æ•°:   æ— 
+è¿”å›å€¼: æ— 
 ***************************************************/
 void Ringbuff_init(void)
 {
     uint8_t i,j;
-    for(i =0;i<Ringbuff_sedSize;i++)  //Çå¿Õ»·ĞÎ»º³åÇøÊı¾İ
+    for(i =0;i<Ringbuff_sedSize;i++)  //æ¸…ç©ºç¯å½¢ç¼“å†²åŒºæ•°æ®
     {
         RingSNDbuff[i].PGN         = -1;
         RingSNDbuff[i].PGNnum  = 0;
         for(j=0;j<8;j++)
             RingSNDbuff[i].Data[j]= 0;
     }
-    BuffSND_addr_write = 0;  // ¶ÁĞ´Î»ÖÃ¶¼´Ó0¿ªÊ¼£¬»º³åÇø¿Õ
+    BuffSND_addr_write = 0;  // è¯»å†™ä½ç½®éƒ½ä»0å¼€å§‹ï¼Œç¼“å†²åŒºç©º
     BuffSND_addr_read  = 0;
 
-    for(i =0;i<Ringbuff_rcvSize;i++)  //Çå¿Õ»·ĞÎ»º³åÇøÊı¾İ
+    for(i =0;i<Ringbuff_rcvSize;i++)  //æ¸…ç©ºç¯å½¢ç¼“å†²åŒºæ•°æ®
     {
         RingRCVbuff[i].PGN         = -1;
         RingRCVbuff[i].PGNnum  = 0;
         for(j=0;j<8;j++)
             RingRCVbuff[i].Data[j]= 0;
     }
-    BuffRCV_addr_write = 0;  // ¶ÁĞ´Î»ÖÃ¶¼´Ó0¿ªÊ¼£¬»º³åÇø¿Õ
+    BuffRCV_addr_write = 0;  // è¯»å†™ä½ç½®éƒ½ä»0å¼€å§‹ï¼Œç¼“å†²åŒºç©º
     BuffRCV_addr_read  = 0;
 }
 /*****************************************************************
-¹¦ÄÜ:   ½«ĞÅÏ¢Ğ´ÈëBUFÖĞ
-²ÎÊı:   Ringbuff:     ½«ÒªĞ´ÈëµÄĞÅÏ¢Ğ´ÈëµÄ»º³åÇøÖ¸Õë
-        pPushMessage: ½«ÒªĞ´ÈëµÄĞÅÏ¢Ö¸Õë
-·µ»ØÖµ: 0 Ğ´Èë³É¹¦£»-1Ğ´ÈëÊ§°Ü
+åŠŸèƒ½:   å°†ä¿¡æ¯å†™å…¥BUFä¸­
+å‚æ•°:   Ringbuff:     å°†è¦å†™å…¥çš„ä¿¡æ¯å†™å…¥çš„ç¼“å†²åŒºæŒ‡é’ˆ
+        pPushMessage: å°†è¦å†™å…¥çš„ä¿¡æ¯æŒ‡é’ˆ
+è¿”å›å€¼: 0 å†™å…¥æˆåŠŸï¼›-1å†™å…¥å¤±è´¥
 ******************************************************************/
 int Ringbuff_write(psJ1939_buff_message Ringbuff, psJ1939_buff_message pPushMessage)
 {
@@ -63,47 +63,47 @@ int Ringbuff_write(psJ1939_buff_message Ringbuff, psJ1939_buff_message pPushMess
     {
         return BUF_POINT_NULL;   
     }
-    if(Ringbuff == RingSNDbuff)  //¸ù¾İĞ´ÈëµÄ»º³åÇøÇø±ğ£¬ÅĞ¶ÏÊÇ·ñÒÑ¾­ÂúÁË
+    if(Ringbuff == RingSNDbuff)  //æ ¹æ®å†™å…¥çš„ç¼“å†²åŒºåŒºåˆ«ï¼Œåˆ¤æ–­æ˜¯å¦å·²ç»æ»¡äº†
     {
         if(RingSNDbuff_isfull())
         {
-            return BUF_FULL;   //»º³åÂú£¬Ğ´Èë´íÎó
+            return BUF_FULL;   //ç¼“å†²æ»¡ï¼Œå†™å…¥é”™è¯¯
         }
     
-        Ringbuff[BuffSND_addr_write].PGN       = pPushMessage->PGN;     //PGNºÅ
-        Ringbuff[BuffSND_addr_write].PGNnum    = pPushMessage->PGNnum;  //PGNºÅ
+        Ringbuff[BuffSND_addr_write].PGN       = pPushMessage->PGN;     //PGNå·
+        Ringbuff[BuffSND_addr_write].PGNnum    = pPushMessage->PGNnum;  //PGNå·
         
-        Ringbuff[BuffSND_addr_write].Priority = pPushMessage->Priority; //ÓÅÏÈ¼¶
-        Ringbuff[BuffSND_addr_write].Reserved = pPushMessage->Reserved; //±£ÁôÎ»
+        Ringbuff[BuffSND_addr_write].Priority = pPushMessage->Priority; //ä¼˜å…ˆçº§
+        Ringbuff[BuffSND_addr_write].Reserved = pPushMessage->Reserved; //ä¿ç•™ä½
         
         for(i=0; i<8; i++)
         {
-            Ringbuff[BuffSND_addr_write].Data[i] = pPushMessage->Data[i];  //¿½±´Êı¾İ
+            Ringbuff[BuffSND_addr_write].Data[i] = pPushMessage->Data[i];  //æ‹·è´æ•°æ®
         }
         
-        BuffSND_addr_write = (BuffSND_addr_write+1) % Ringbuff_sedSize; //Ñ­»·Ö¸ÏòÏÂÒ»¸öÏî    
+        BuffSND_addr_write = (BuffSND_addr_write+1) % Ringbuff_sedSize; //å¾ªç¯æŒ‡å‘ä¸‹ä¸€ä¸ªé¡¹    
     }
-    else if(Ringbuff == RingRCVbuff)  //¸ù¾İĞ´ÈëµÄ»º³åÇøÇø±ğ£¬ÅĞ¶ÏÊÇ·ñÒÑ¾­ÂúÁË
+    else if(Ringbuff == RingRCVbuff)  //æ ¹æ®å†™å…¥çš„ç¼“å†²åŒºåŒºåˆ«ï¼Œåˆ¤æ–­æ˜¯å¦å·²ç»æ»¡äº†
     {
         if(RingRCVbuff_isfull())
         {
-            return BUF_FULL;   //»º³åÂú£¬Ğ´Èë´íÎó
+            return BUF_FULL;   //ç¼“å†²æ»¡ï¼Œå†™å…¥é”™è¯¯
         }       
-        Ringbuff[BuffRCV_addr_write].PGN    = pPushMessage->PGN;  //PGNºÅ      
-        Ringbuff[BuffRCV_addr_write].PGNnum = pPushMessage->PGNnum;  //PGNºÅ 
+        Ringbuff[BuffRCV_addr_write].PGN    = pPushMessage->PGN;  //PGNå·      
+        Ringbuff[BuffRCV_addr_write].PGNnum = pPushMessage->PGNnum;  //PGNå· 
         
-        Ringbuff[BuffRCV_addr_write].Priority = pPushMessage->Priority; //ÓÅÏÈ¼¶
-        Ringbuff[BuffRCV_addr_write].Reserved = pPushMessage->Reserved; //±£ÁôÎ»   
+        Ringbuff[BuffRCV_addr_write].Priority = pPushMessage->Priority; //ä¼˜å…ˆçº§
+        Ringbuff[BuffRCV_addr_write].Reserved = pPushMessage->Reserved; //ä¿ç•™ä½   
         
         for(i=0; i<8; i++)
         {
-            Ringbuff[BuffRCV_addr_write].Data[i] = pPushMessage->Data[i];  //¿½±´Êı¾İ
+            Ringbuff[BuffRCV_addr_write].Data[i] = pPushMessage->Data[i];  //æ‹·è´æ•°æ®
         }
         
-        BuffRCV_addr_write = (BuffRCV_addr_write+1) % Ringbuff_rcvSize; //Ñ­»·Ö¸ÏòÏÂÒ»¸öÏî    
+        BuffRCV_addr_write = (BuffRCV_addr_write+1) % Ringbuff_rcvSize; //å¾ªç¯æŒ‡å‘ä¸‹ä¸€ä¸ªé¡¹    
         return BUF_WRSUCC;
     }
-    else                             // »º´æ BUFF  ²»´æÔÚ
+    else                             // ç¼“å­˜ BUFF  ä¸å­˜åœ¨
     {
         return BUF_NEXIT; 
     }
@@ -111,55 +111,55 @@ int Ringbuff_write(psJ1939_buff_message Ringbuff, psJ1939_buff_message pPushMess
 }
 
 /********************************************
-¹¦ÄÜ:½«ĞÅÏ¢¶Á³öBUFÖĞ µ½Ö¸ÕëpPullMessage
-²ÎÊı: »ñÈ¡¶Á³öĞÅÏ¢µÄÖ¸Õë
-·µ»ØÖµ: 0 ¶Á³É¹¦£»-1¶ÁÊ§°Ü
+åŠŸèƒ½:å°†ä¿¡æ¯è¯»å‡ºBUFä¸­ åˆ°æŒ‡é’ˆpPullMessage
+å‚æ•°: è·å–è¯»å‡ºä¿¡æ¯çš„æŒ‡é’ˆ
+è¿”å›å€¼: 0 è¯»æˆåŠŸï¼›-1è¯»å¤±è´¥
 *********************************************/
 char Ringbuff_read(psJ1939_buff_message Ringbuff, psJ1939_buff_message pPullMessage)
 {
     char i;
-    if(Ringbuff == RingSNDbuff)  //¸ù¾İĞ´ÈëµÄ»º³åÇøÇø±ğ£¬ÅĞ¶ÏÊÇ·ñÒÑ¾­ÂúÁË
+    if(Ringbuff == RingSNDbuff)  //æ ¹æ®å†™å…¥çš„ç¼“å†²åŒºåŒºåˆ«ï¼Œåˆ¤æ–­æ˜¯å¦å·²ç»æ»¡äº†
     {
         if(RingSNDbuff_isempty())
         {
             return BUF_EMPTY;  
         }
     
-        pPullMessage->PGN       = Ringbuff[BuffSND_addr_read].PGN;  //PGNºÅ
-        pPullMessage->PGNnum    = Ringbuff[BuffSND_addr_read].PGNnum;  //PGNºÅ
+        pPullMessage->PGN       = Ringbuff[BuffSND_addr_read].PGN;  //PGNå·
+        pPullMessage->PGNnum    = Ringbuff[BuffSND_addr_read].PGNnum;  //PGNå·
         
         
-        pPullMessage->Priority  = Ringbuff[BuffSND_addr_read].Priority; //ÓÅÏÈ¼¶
-        pPullMessage->Reserved = Ringbuff[BuffSND_addr_read].Reserved;//±£ÁôÎ»
+        pPullMessage->Priority  = Ringbuff[BuffSND_addr_read].Priority; //ä¼˜å…ˆçº§
+        pPullMessage->Reserved = Ringbuff[BuffSND_addr_read].Reserved;//ä¿ç•™ä½
         
         for(i=0; i<8; i++)
         {
-             pPullMessage->Data[i] = Ringbuff[BuffSND_addr_read].Data[i];  //¿½±´Êı¾İ
+             pPullMessage->Data[i] = Ringbuff[BuffSND_addr_read].Data[i];  //æ‹·è´æ•°æ®
         }
-        BuffSND_addr_read = (BuffSND_addr_read+1) % Ringbuff_sedSize; //Ñ­»·Ö¸ÏòÏÂÒ»¸öÏî 
+        BuffSND_addr_read = (BuffSND_addr_read+1) % Ringbuff_sedSize; //å¾ªç¯æŒ‡å‘ä¸‹ä¸€ä¸ªé¡¹ 
     }
-    else if(Ringbuff == RingRCVbuff)  //¸ù¾İĞ´ÈëµÄ»º³åÇøÇø±ğ£¬ÅĞ¶ÏÊÇ·ñÒÑ¾­ÂúÁË
+    else if(Ringbuff == RingRCVbuff)  //æ ¹æ®å†™å…¥çš„ç¼“å†²åŒºåŒºåˆ«ï¼Œåˆ¤æ–­æ˜¯å¦å·²ç»æ»¡äº†
     {
         if(RingRCVbuff_isempty())
         {
-            return BUF_EMPTY;   //»º³åÂú£¬Ğ´Èë´íÎó
+            return BUF_EMPTY;   //ç¼“å†²æ»¡ï¼Œå†™å…¥é”™è¯¯
         }
     
-        pPullMessage->PGN        = Ringbuff[BuffRCV_addr_read].PGN;  //PGNºÅ
-        pPullMessage->PGNnum = Ringbuff[BuffRCV_addr_read].PGNnum;  //PGNºÅ
+        pPullMessage->PGN        = Ringbuff[BuffRCV_addr_read].PGN;  //PGNå·
+        pPullMessage->PGNnum = Ringbuff[BuffRCV_addr_read].PGNnum;  //PGNå·
         
-        pPullMessage->Priority  = Ringbuff[BuffRCV_addr_read].Priority; //ÓÅÏÈ¼¶
-        pPullMessage->Reserved = Ringbuff[BuffRCV_addr_read].Reserved;//±£ÁôÎ»
+        pPullMessage->Priority  = Ringbuff[BuffRCV_addr_read].Priority; //ä¼˜å…ˆçº§
+        pPullMessage->Reserved = Ringbuff[BuffRCV_addr_read].Reserved;//ä¿ç•™ä½
 
         for(i=0; i<8; i++)
         {
-            pPullMessage->Data[i] = Ringbuff[BuffRCV_addr_read].Data[i];  //¿½±´Êı¾İ
+            pPullMessage->Data[i] = Ringbuff[BuffRCV_addr_read].Data[i];  //æ‹·è´æ•°æ®
         }
         
-        BuffRCV_addr_read = (BuffRCV_addr_read+1) % Ringbuff_rcvSize; //Ñ­»·Ö¸ÏòÏÂÒ»¸öÏî 
+        BuffRCV_addr_read = (BuffRCV_addr_read+1) % Ringbuff_rcvSize; //å¾ªç¯æŒ‡å‘ä¸‹ä¸€ä¸ªé¡¹ 
         return BUF_WRSUCC;
     }
-    else                             // »º´æ BUFF  ²»´æÔÚ
+    else                             // ç¼“å­˜ BUFF  ä¸å­˜åœ¨
     {
         return BUF_NEXIT; 
     }
@@ -167,53 +167,53 @@ char Ringbuff_read(psJ1939_buff_message Ringbuff, psJ1939_buff_message pPullMess
 }
 
 /**************************************************
-¹¦ÄÜ: ¼ì²éBUFFÊÇ·ñÎª¿Õ
-²ÎÊı: ÎŞ
-·µ»ØÖµ: 
+åŠŸèƒ½: æ£€æŸ¥BUFFæ˜¯å¦ä¸ºç©º
+å‚æ•°: æ— 
+è¿”å›å€¼: 
 ****************************************************/
 int RingSNDbuff_isempty(void)
 {
     if( BuffSND_addr_write == BuffSND_addr_read )
-        return BUF_EMPTY; //»º³å¿Õ
+        return BUF_EMPTY; //ç¼“å†²ç©º
     else 
-        return BUF_NOR; //»º³å²»¿Õ
+        return BUF_NOR; //ç¼“å†²ä¸ç©º
 }
 
 /**************************************************
-¹¦ÄÜ: ¼ì²éBUFFÊÇ·ñÎªÂú
-²ÎÊı: ÎŞ
-·µ»ØÖµ: 
+åŠŸèƒ½: æ£€æŸ¥BUFFæ˜¯å¦ä¸ºæ»¡
+å‚æ•°: æ— 
+è¿”å›å€¼: 
 ****************************************************/
 int RingSNDbuff_isfull(void)
 {
     if( (BuffSND_addr_write+1) % Ringbuff_sedSize == BuffSND_addr_read )
-        return BUF_FULL; //»º³åÂú
+        return BUF_FULL; //ç¼“å†²æ»¡
     else 
-        return BUF_NOR; //»º³å²»Âú
+        return BUF_NOR; //ç¼“å†²ä¸æ»¡
 }
 
 /**************************************************
-¹¦ÄÜ: ¼ì²éBUFFÊÇ·ñÎª¿Õ
-²ÎÊı: ÎŞ
-·µ»ØÖµ: 
+åŠŸèƒ½: æ£€æŸ¥BUFFæ˜¯å¦ä¸ºç©º
+å‚æ•°: æ— 
+è¿”å›å€¼: 
 ****************************************************/
 int RingRCVbuff_isempty(void)
 {
     if( BuffRCV_addr_write == BuffRCV_addr_read )
-        return BUF_EMPTY; //»º³å¿Õ
+        return BUF_EMPTY; //ç¼“å†²ç©º
     else 
-        return BUF_NOR; //»º³å²»¿Õ
+        return BUF_NOR; //ç¼“å†²ä¸ç©º
 }
 
 /**************************************************
-¹¦ÄÜ: ¼ì²éBUFFÊÇ·ñÎªÂú
-²ÎÊı: ÎŞ
-·µ»ØÖµ: 
+åŠŸèƒ½: æ£€æŸ¥BUFFæ˜¯å¦ä¸ºæ»¡
+å‚æ•°: æ— 
+è¿”å›å€¼: 
 ****************************************************/
 int RingRCVbuff_isfull(void)
 {
     if( (BuffRCV_addr_write+1) % Ringbuff_rcvSize == BuffRCV_addr_read )
-        return BUF_FULL; //»º³åÂú
+        return BUF_FULL; //ç¼“å†²æ»¡
     else 
-        return BUF_NOR; //»º³å²»Âú
+        return BUF_NOR; //ç¼“å†²ä¸æ»¡
 }

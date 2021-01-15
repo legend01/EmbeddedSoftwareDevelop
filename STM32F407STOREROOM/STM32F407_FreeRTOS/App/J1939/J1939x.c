@@ -4,47 +4,47 @@
 
 sJ1939_transfeManger J1939_connect;
 
-J1939_message_Rcv PGN_MessageRcv[PGN_MAX_Rcv];          // PDU ¶ÔÓ¦µÄĞÅÏ¢ °üÀ¨Êı¾İÖ¸Õë
-static char PGN_MessageRcvBuff[PGN_MessageRcvBuff_Max];    // pdu µÄÊı¾İÄÚ´æ·ÖÅä
+J1939_message_Rcv PGN_MessageRcv[PGN_MAX_Rcv];          // PDU å¯¹åº”çš„ä¿¡æ¯ åŒ…æ‹¬æ•°æ®æŒ‡é’ˆ
+static char PGN_MessageRcvBuff[PGN_MessageRcvBuff_Max];    // pdu çš„æ•°æ®å†…å­˜åˆ†é…
 
 sPGNInfo TP_CM = {TP_CM_PF, 7, 8, 0, };
 sPGNInfo TP_DT = {TP_DT_PF, 7, 8, 0, };
 
-unsigned int time_record  = 0;  // Õâ¸öÊ±¼äÔÚÖĞ¶Ï¶¨Ê±Æ÷ÖĞ¼Ó£¬ÓÃÀ´ÅĞ¶Ï³¬Ê±×÷ÓÃ
+unsigned int time_record  = 0;  // è¿™ä¸ªæ—¶é—´åœ¨ä¸­æ–­å®šæ—¶å™¨ä¸­åŠ ï¼Œç”¨æ¥åˆ¤æ–­è¶…æ—¶ä½œç”¨
 
 sPGNInfo PGNInfoSend[PGN_MAX_Send+1] =
 {
     
-    { 256,      6,  8,  250, },  //CRM   //³äµçÎÕÊÖ½×¶Î
+    { 256,      6,  8,  250, },  //CRM   //å……ç”µæ¡æ‰‹é˜¶æ®µ
     {9728,      6,  3,  250, },  //CHM
     
-    {1792,      6,  7,  500, },  //cts //³äµç²ÎÊıÅäÖÃ½×¶Î
+    {1792,      6,  7,  500, },  //cts //å……ç”µå‚æ•°é…ç½®é˜¶æ®µ
     {2048,      6,  6,  250, },  //cml
     {2560,      4,  1,  250, },  //cro
     {4608,      6,  6,   50, },  //ccs
 
-    {6656,      4,  4,   10, },  //cst //³äµç½×¶Î
+    {6656,      4,  4,   10, },  //cst //å……ç”µé˜¶æ®µ
     
-    {7424,      6,  5,  250, },  //csd //³äµç½áÊø½×¶Î
+    {7424,      6,  5,  250, },  //csd //å……ç”µç»“æŸé˜¶æ®µ
     
-    {7936,      2,  4,  250, },  //CEM //´íÎó±¨ÎÄ
+    {7936,      2,  4,  250, },  //CEM //é”™è¯¯æŠ¥æ–‡
     
-    {TP_CM_PF,  7,  8,    0, },  //´«Êä¹ÜÀí //¶à°ü´«Êä
-    {TP_DT_PF,  7,  8,    0, },  //´«ÊäÊı¾İ
+    {TP_CM_PF,  7,  8,    0, },  //ä¼ è¾“ç®¡ç† //å¤šåŒ…ä¼ è¾“
+    {TP_DT_PF,  7,  8,    0, },  //ä¼ è¾“æ•°æ®
     
-    {      0,   0,  0,    0, },  //MAX //½áÊø·û
+    {      0,   0,  0,    0, },  //MAX //ç»“æŸç¬¦
 };
 
 sPGNInfo PGNInfoRcv[PGN_MAX_Rcv+1] =
 {
     
-    { 512,      6,  41,  250, },   //BRM  //³äµçÎÕÊÖ½×¶Î
+    { 512,      6,  41,  250, },   //BRM  //å……ç”µæ¡æ‰‹é˜¶æ®µ
     {9984,      6,   2,  250, },  //BHM
 
-    {1536,      6,  13,  500, },  //bcp //³äµç²ÎÊıÅäÖÃ½×¶Î
+    {1536,      6,  13,  500, },  //bcp //å……ç”µå‚æ•°é…ç½®é˜¶æ®µ
     {2304,      4,   1,  250, },    //bro
     
-    {4096,      6,  5,   500, },    //bcl //³äµç½×¶Î
+    {4096,      6,  5,   500, },    //bcl //å……ç”µé˜¶æ®µ
     {4352,      6,  9,   250, },    //bcs
     {4864,      6,  7,   250, },    //bsm
 
@@ -54,20 +54,20 @@ sPGNInfo PGNInfoRcv[PGN_MAX_Rcv+1] =
 
     {6400,      4,  4,   10, },  //bst
     
-    {7168,      6,  7,  250, },  //BSD //³äµç½áÊø½×¶Î
+    {7168,      6,  7,  250, },  //BSD //å……ç”µç»“æŸé˜¶æ®µ
     
-    {7680,      2,  4,  250, },  //BEM //´íÎó±¨ÎÄ
+    {7680,      2,  4,  250, },  //BEM //é”™è¯¯æŠ¥æ–‡
     
-    {TP_CM_PF,  7,  8,    0, },  //¶à°ü´«Êä  //´«Êä¹ÜÀí
-    {TP_DT_PF,  7,  8,    0, }, //´«ÊäÊı¾İ
+    {TP_CM_PF,  7,  8,    0, },  //å¤šåŒ…ä¼ è¾“  //ä¼ è¾“ç®¡ç†
+    {TP_DT_PF,  7,  8,    0, }, //ä¼ è¾“æ•°æ®
     
-    {0,         0,  0,    0, },   //MAX  //½áÊø·û
+    {0,         0,  0,    0, },   //MAX  //ç»“æŸç¬¦
 };
 
 /**************************************************
-¹¦ÄÜ: ³õÊ¼»¯PGNÊı×éºÍ¸øPGNµÄÊı¾İ²¿·Ö·ÖÅä¿Õ¼ä
-²ÎÊı: ÎŞ
-·µ»Ø: 1 success
+åŠŸèƒ½: åˆå§‹åŒ–PGNæ•°ç»„å’Œç»™PGNçš„æ•°æ®éƒ¨åˆ†åˆ†é…ç©ºé—´
+å‚æ•°: æ— 
+è¿”å›: 1 success
 ****************************************************/
 int PGN_MessageRcv_Init(void)
 {
@@ -75,7 +75,7 @@ int PGN_MessageRcv_Init(void)
     char* PGN_MessageRcvBuff_END = PGN_MessageRcvBuff + PGN_MessageRcvBuff_Max;
         char* PGNDataBUF_start = PGN_MessageRcvBuff;
 
-    PGN_MessageRcvBuff[0] = 0XAA;//ÓÃ0XAA °ÑÃ¿¸öPGNµÄÊı¾İ¸ô¿ª
+    PGN_MessageRcvBuff[0] = 0XAA;//ç”¨0XAA æŠŠæ¯ä¸ªPGNçš„æ•°æ®éš”å¼€
     PGNDataBUF_start++;
 
     for(PGN = BRM; PGN<TPCM_rcv; PGN++)
@@ -86,7 +86,7 @@ int PGN_MessageRcv_Init(void)
         PGN_MessageRcv[PGN].data       = (char*)PGNDataBUF_start;
 
 
-  //      if(PGN != BMV && PGN != BMT && PGN != BSP)                //³ıÁËÕâÈı¸öPGN²»¸ø·ÖÅäÄÚ´æÍâ£¬¶¼¸øÆäËûPGN·ÖÅäÊı¾İ²¿·ÖµÄÄÚ´æ
+  //      if(PGN != BMV && PGN != BMT && PGN != BSP)                //é™¤äº†è¿™ä¸‰ä¸ªPGNä¸ç»™åˆ†é…å†…å­˜å¤–ï¼Œéƒ½ç»™å…¶ä»–PGNåˆ†é…æ•°æ®éƒ¨åˆ†çš„å†…å­˜
         if(PGN != BMV && PGN != BSP)
             {
             PGNDataBUF_start  = PGNDataBUF_start+(PGNInfoRcv[PGN].dataLen + 1);
@@ -96,13 +96,13 @@ int PGN_MessageRcv_Init(void)
                 LOG_PRINTF("PGN_MessageRcvBuff is small!\r\n");
                 return RET_ERROR;
             }
-            *(PGNDataBUF_start-1) = 0xAA;                   //ÓÃ0XAA °ÑÃ¿¸öPGNµÄÊı¾İ¸ô¿ª, ÔÚÃ¿¸öPGNÊı¾İµÄÎ²²¿
+            *(PGNDataBUF_start-1) = 0xAA;                   //ç”¨0XAA æŠŠæ¯ä¸ªPGNçš„æ•°æ®éš”å¼€, åœ¨æ¯ä¸ªPGNæ•°æ®çš„å°¾éƒ¨
         }
         else
         {
-            PGN_MessageRcv[PGN].data = NULL;                   // ÕâÈı¸öPGNÔİÊ±²»´¦Àí£¬Ò²²»·ÖÅäÊı¾İÄÚ´æ£¬Ö¸ÕëÖ¸ÏòNULL
+            PGN_MessageRcv[PGN].data = NULL;                   // è¿™ä¸‰ä¸ªPGNæš‚æ—¶ä¸å¤„ç†ï¼Œä¹Ÿä¸åˆ†é…æ•°æ®å†…å­˜ï¼ŒæŒ‡é’ˆæŒ‡å‘NULL
         }
-        if(PGN_MessageRcv[PGN].data && *(PGN_MessageRcv[PGN].data-1) != 0xAA)  //¼ì²éÄÚ´æ½çÏŞÊÇ·ñÕıÈ·
+        if(PGN_MessageRcv[PGN].data && *(PGN_MessageRcv[PGN].data-1) != 0xAA)  //æ£€æŸ¥å†…å­˜ç•Œé™æ˜¯å¦æ­£ç¡®
         {
             LOG_PRINTF("PGN %d data Memery init border Error!\r\n",PGN);
             return RET_ERROR;
@@ -112,18 +112,18 @@ int PGN_MessageRcv_Init(void)
 }
 
 /**************************************************
-¹¦ÄÜ: Çå¿ÕPGNÊı×éÊ¹ÆäÊı¾İÎŞĞ§
-²ÎÊı: ÎŞ
-·µ»Ø: -1 Îª´íÎó  1ÎªÕı³£
+åŠŸèƒ½: æ¸…ç©ºPGNæ•°ç»„ä½¿å…¶æ•°æ®æ— æ•ˆ
+å‚æ•°: æ— 
+è¿”å›: -1 ä¸ºé”™è¯¯  1ä¸ºæ­£å¸¸
 ****************************************************/
 uint8_t PGN_MessageRcv_clear(void)
 {
     PGNTypeRcv PGN;
     for(PGN = BRM; PGN<TPCM_rcv; PGN++)
     {
-        PGN_MessageRcv[PGN].valid = 0; // Ê¹PGNÊı×éÊ¹ÆäÊı¾İÎŞĞ§
+        PGN_MessageRcv[PGN].valid = 0; // ä½¿PGNæ•°ç»„ä½¿å…¶æ•°æ®æ— æ•ˆ
 
-        if(PGN_MessageRcv[PGN].data && *(PGN_MessageRcv[PGN].data-1) != 0xAA)  //¼ì²éÄÚ´æ½çÏŞÊÇ·ñÕıÈ·
+        if(PGN_MessageRcv[PGN].data && *(PGN_MessageRcv[PGN].data-1) != 0xAA)  //æ£€æŸ¥å†…å­˜ç•Œé™æ˜¯å¦æ­£ç¡®
         {
             LOG_PRINTF("PGN %d data Memery init border Error!\r\n",PGN);
             return RET_ERROR;
@@ -134,9 +134,9 @@ uint8_t PGN_MessageRcv_clear(void)
 
 
 /**************************************************
-¹¦ÄÜ: ½«PDUÖØĞÂÌî×°CanTxMsg,´ÓCANµ×²ã´úÂë·¢ËÍ³öÈ¥
-²ÎÊı: PDUÖ¸Õë
-·µ»Ø: 1³É¹¦ ²»Îª0ÔòÊ§°Ü
+åŠŸèƒ½: å°†PDUé‡æ–°å¡«è£…CanTxMsg,ä»CANåº•å±‚ä»£ç å‘é€å‡ºå»
+å‚æ•°: PDUæŒ‡é’ˆ
+è¿”å›: 1æˆåŠŸ ä¸ä¸º0åˆ™å¤±è´¥
 ****************************************************/
 int SendOnePacket(void *arg, uint32_t* id, uint8_t *dat, uint8_t* len)
 {
@@ -144,10 +144,10 @@ int SendOnePacket(void *arg, uint32_t* id, uint8_t *dat, uint8_t* len)
     if(msg->dataLen > 8)
         return DATA_LENGTH_FALSE;
     *len = msg->dataLen;
-    *id = 0x1fffffff & (msg->priority<<26 |msg->PGNnum<<8 | msg->destAddr << 8| msg->sourceAddr); //29Î»
+    *id = 0x1fffffff & (msg->priority<<26 |msg->PGNnum<<8 | msg->destAddr << 8| msg->sourceAddr); //29ä½
     *id = (*id)|0xf400;
     memcpy(dat, msg->data, msg->dataLen);
-    return SUCCESS_RET;                                     //·¢ËÍ³É¹¦
+    return SUCCESS_RET;                                     //å‘é€æˆåŠŸ
 }
 
 int J1939_SendOnePacket( J1939_message *msg)
@@ -156,9 +156,9 @@ int J1939_SendOnePacket( J1939_message *msg)
 }
 
 /**************************************************
-¹¦ÄÜ: ´Ó·¢ËÍRingSNDbuffÖĞ¶ÁÈ¡sJ1939_buff_messageÊı¾İ×ª»»³ÉJ1939_message, ·¢ËÍ³öÈ¥
-²ÎÊı: ÎŞ
-·µ»Ø: 1³É¹¦ ²»Îª0ÔòÊ§°Ü, ·ÅÔÚÖ÷Ñ­»·ÖĞÎªÈÎÎñ
+åŠŸèƒ½: ä»å‘é€RingSNDbuffä¸­è¯»å–sJ1939_buff_messageæ•°æ®è½¬æ¢æˆJ1939_message, å‘é€å‡ºå»
+å‚æ•°: æ— 
+è¿”å›: 1æˆåŠŸ ä¸ä¸º0åˆ™å¤±è´¥, æ”¾åœ¨ä¸»å¾ªç¯ä¸­ä¸ºä»»åŠ¡
 ****************************************************/
 int GetmsgconvertToSend(void)
 {
@@ -167,21 +167,21 @@ int GetmsgconvertToSend(void)
     sJ1939_buff_message message;
     J1939_message J1939_message_send;
 
-    Ringbuff_readstate = Ringbuff_read(RingSNDbuff, &message); //´Ó·¢ËÍBUFÖĞ¶Á³öÊı¾İµ½message
-    if(Ringbuff_readstate == BUF_NEXIT)      //²»´æÔÚ·µ»Ø-1
+    Ringbuff_readstate = Ringbuff_read(RingSNDbuff, &message); //ä»å‘é€BUFä¸­è¯»å‡ºæ•°æ®åˆ°message
+    if(Ringbuff_readstate == BUF_NEXIT)      //ä¸å­˜åœ¨è¿”å›-1
     {
         LOG_PRINTF("not support this ringbuff!\r\n");
          return RET_ERROR;
     }
-    else if(Ringbuff_readstate == BUF_EMPTY) //¶ÁÈ¡µÄÊı¾İÎª¿Õ£¬ËãÕı³£ÏÖÏó
+    else if(Ringbuff_readstate == BUF_EMPTY) //è¯»å–çš„æ•°æ®ä¸ºç©ºï¼Œç®—æ­£å¸¸ç°è±¡
     {
         return SUCCESS_RET;
     }
-    //Õı³£¶ÁÈ¡µ½Êı¾İ,ÔòÌî³äĞÅÏ¢
-    if(message.PGN >= CRM && message.PGN < PGN_MAX_Send)//Ö§³ÖµÄPGN´¦Àí
+    //æ­£å¸¸è¯»å–åˆ°æ•°æ®,åˆ™å¡«å……ä¿¡æ¯
+    if(message.PGN >= CRM && message.PGN < PGN_MAX_Send)//æ”¯æŒçš„PGNå¤„ç†
     {
-        /*********************°ÑsJ1939_buff_messageÀàĞÍµÄÊı¾İÌî³ä³ÉJ1939_messageÀàĞÍ·ÅÈëÊı×éÖĞ***************************/
-        J1939_message_send.priority     = PGNInfoSend[message.PGN].priority;//Í¨¹ıSPNË÷Òı²éSPNµÄĞÅÏ¢
+        /*********************æŠŠsJ1939_buff_messageç±»å‹çš„æ•°æ®å¡«å……æˆJ1939_messageç±»å‹æ”¾å…¥æ•°ç»„ä¸­***************************/
+        J1939_message_send.priority     = PGNInfoSend[message.PGN].priority;//é€šè¿‡SPNç´¢å¼•æŸ¥SPNçš„ä¿¡æ¯
 
         if(PGNInfoSend[message.PGN].dataLen <= 8)
             J1939_message_send.dataLen  = PGNInfoSend[message.PGN].dataLen;
@@ -191,26 +191,26 @@ int GetmsgconvertToSend(void)
         J1939_message_send.destAddr     = BMS_Addr;
         J1939_message_send.PGNnum       = PGNInfoSend[message.PGN].PGNnum;
 
-        if(J1939_message_send.PGNnum > 240)  //PGN´óÓÚ240ÒÔÉÏ£¬Ôò PSÔòÖ¸¶¨µØÖ·
+        if(J1939_message_send.PGNnum > 240)  //PGNå¤§äº240ä»¥ä¸Šï¼Œåˆ™ PSåˆ™æŒ‡å®šåœ°å€
         {
             J1939_message_send.PGNnum = (J1939_message_send.PGNnum & 0xffffff00)|J1939_message_send.destAddr;
         }
 
-        J1939_message_send.sourceAddr   = Charger_Addr;   //Ô´µØÖ·
+        J1939_message_send.sourceAddr   = Charger_Addr;   //æºåœ°å€
 
-        for(i=0; i<J1939_message_send.dataLen; i++)   //PDU 8¸öÊı¾İÎ»
+        for(i=0; i<J1939_message_send.dataLen; i++)   //PDU 8ä¸ªæ•°æ®ä½
         {
             J1939_message_send.data[i] = message.Data[i];
         }
     }
-    else                                                //²»Ö§³ÖµÄPGN´¦Àí
+    else                                                //ä¸æ”¯æŒçš„PGNå¤„ç†
     {
         LOG_PRINTF("NOT support PGN = %d!\r\n",message.PGN);
         return RET_ERROR;
     }
 
         int temp =  J1939_SendOnePacket(&J1939_message_send);
-     if(temp != 0) //´ò°ü·¢ËÍ
+     if(temp != 0) //æ‰“åŒ…å‘é€
      {
         LOG_PRINTF("J1939_SendOnePacket Error! %d\r\n",temp);
         return RET_ERROR;
@@ -218,17 +218,17 @@ int GetmsgconvertToSend(void)
     return SUCCESS_RET;
 }
 /***************************************************************************
-¹¦ÄÜ: CAN ÖĞ¶Ï´¦Àíº¯Êı ,½«¶Á³öµÄCanTxMsg ºË¶ÔĞÅÏ¢£¬
-        ¹¹½¨sJ1939_buff_message·ÅÈë½ÓÊÕBUF
-²ÎÊı: ÎŞ
-·µ»ØÖµ:
+åŠŸèƒ½: CAN ä¸­æ–­å¤„ç†å‡½æ•° ,å°†è¯»å‡ºçš„CanTxMsg æ ¸å¯¹ä¿¡æ¯ï¼Œ
+        æ„å»ºsJ1939_buff_messageæ”¾å…¥æ¥æ”¶BUF
+å‚æ•°: æ— 
+è¿”å›å€¼:
 *****************************************************************************/
 int GetmessageToRcvbuff(void* rcv)
 {
     unsigned char j;
     J1939_message msg_temp;
     sJ1939_buff_message sJ1939_buff_message_temp;
-    CAN_RxPacketTypeDef* RxMessage = (CAN_RxPacketTypeDef*)rcv; /* ´ÓCANÖĞ¶Ïµ÷ÓÃ¸Ãº¯ÊırcvÊÇ½ÓÊÕµ½µÄCANÊı¾İ */
+    CAN_RxPacketTypeDef* RxMessage = (CAN_RxPacketTypeDef*)rcv; /* ä»CANä¸­æ–­è°ƒç”¨è¯¥å‡½æ•°rcvæ˜¯æ¥æ”¶åˆ°çš„CANæ•°æ® */
     CAN_RxHeaderTypeDef RxHeaderInf = RxMessage->hdr;
 #ifdef LOG_CAN_RCV
     LOG_PRINTF("rcv: ID %x ,DATA:",    RxHeaderInf.ExtId );
@@ -240,28 +240,28 @@ int GetmessageToRcvbuff(void* rcv)
     +------------+-------+--------+-----------------+------------------+-----------------+
     |     P      |  R    |   DP   |    PF           |      PS          |      SA         |
     +------------+-------+--------+-----------------+------------------+-----------------+
-    |  ÓÅÏÈÈ¨    | ±£ÁôÎ» | Êı¾İÒ³  |    PDU¸ñÊ½      |      Ä¿±êµØÖ·     |   Ô´µØÖ·        |
+    |  ä¼˜å…ˆæƒ    | ä¿ç•™ä½ | æ•°æ®é¡µ  |    PDUæ ¼å¼      |      ç›®æ ‡åœ°å€     |   æºåœ°å€        |
     +------------+-------+--------+-----------------+------------------+-----------------+
     |  3bit      |  1bit | 1bit   |    8bit         |     8bit         |    8bit         | 
     +------------+-------+--------+-----------------+------------------+-----------------+
      */
-    if((RxHeaderInf.ExtId & 0xffff)!= 0x56f4) return FALSE_ADDRESS; /* ÅĞ¶ÏPS+SAÄ¿±êµØÖ·ºÍÔ´µØÖ·ÊÇ·ñÎª ³äµç»ú0x56 BMS0xF4 */
+    if((RxHeaderInf.ExtId & 0xffff)!= 0x56f4) return FALSE_ADDRESS; /* åˆ¤æ–­PS+SAç›®æ ‡åœ°å€å’Œæºåœ°å€æ˜¯å¦ä¸º å……ç”µæœº0x56 BMS0xF4 */
 
     sJ1939_buff_message_temp.PGN = -1;
 
-    msg_temp.PGNnum     = (RxHeaderInf.ExtId>>8) & 0x3ff00;   //PGNÖµ /* PGN = R, DP, PF, PS */
-    msg_temp.sourceAddr =  RxHeaderInf.ExtId & 0xff;          //Ô´µØÖ·
+    msg_temp.PGNnum     = (RxHeaderInf.ExtId>>8) & 0x3ff00;   //PGNå€¼ /* PGN = R, DP, PF, PS */
+    msg_temp.sourceAddr =  RxHeaderInf.ExtId & 0xff;          //æºåœ°å€
     
     /****************************************************/ 
-    msg_temp.priority = (RxHeaderInf.ExtId>>26) & 0x07;       //ÓÅÏÈ¼¶
-    msg_temp.Reserved = (RxHeaderInf.ExtId >>24 )&0x03;       //Ô¤Áô
+    msg_temp.priority = (RxHeaderInf.ExtId>>26) & 0x07;       //ä¼˜å…ˆçº§
+    msg_temp.Reserved = (RxHeaderInf.ExtId >>24 )&0x03;       //é¢„ç•™
     
     /****************************************************/
     
 
     //sJ1939_buff_message_temp.Prio=(RxHeaderInf.ExtId>>24)& 0x1c; 
     sJ1939_buff_message_temp.PGNnum = msg_temp.PGNnum;
-    sJ1939_buff_message_temp.PGN    = -1;  //Ö»Ìá³öÕæÊµµÄPGNÖµ£¬°ÑÈ·ÈÏµÄPGNË÷ÒıÖµµÄ¹¤×÷½»¸øÖ÷Ñ­»·×ö
+    sJ1939_buff_message_temp.PGN    = -1;  //åªæå‡ºçœŸå®çš„PGNå€¼ï¼ŒæŠŠç¡®è®¤çš„PGNç´¢å¼•å€¼çš„å·¥ä½œäº¤ç»™ä¸»å¾ªç¯åš
     
    /****************************************************/
     
@@ -272,13 +272,13 @@ int GetmessageToRcvbuff(void* rcv)
 
     for(j=0; j<8; j++)
     {
-        sJ1939_buff_message_temp.Data[j] = RxMessage->message[j]; //¿½±´Êı¾İ
+        sJ1939_buff_message_temp.Data[j] = RxMessage->message[j]; //æ‹·è´æ•°æ®
     }
 
-    if(Ringbuff_write(RingRCVbuff, &sJ1939_buff_message_temp) != BUF_WRSUCC) //Ğ´Èë¶ÓÁĞÖĞ
+    if(Ringbuff_write(RingRCVbuff, &sJ1939_buff_message_temp) != BUF_WRSUCC) //å†™å…¥é˜Ÿåˆ—ä¸­
     {
         LOG_PRINTF("Interrupt Ringbuff_write Error!\r\n"); 
-        return RET_ERROR;                                //Åöµ½²»Ö§³ÖµÄPGNÌø³öÖĞ¶Ï
+        return RET_ERROR;                                //ç¢°åˆ°ä¸æ”¯æŒçš„PGNè·³å‡ºä¸­æ–­
     }
     return SUCCESS_RET;
 }
@@ -286,26 +286,26 @@ int GetmessageToRcvbuff(void* rcv)
 static uint8_t FindPGNInPGNList(PGNTypeRcv PGNrcv_INDEX, sJ1939_transfeManger *J1939_connect, sJ1939_buff_message *message){
     for(PGNrcv_INDEX = BRM; PGNrcv_INDEX <= TPCM_rcv; PGNrcv_INDEX++)
     {
-        if(PGNrcv_INDEX == TPCM_rcv)  //ÒÑ¾­Ìøµ½×îºóÒ»¸ö£¬ËµÃ÷²»Ö§³ÖÕâÖÖÖÖÀàµÄ¶à°ü´¦Àí  ERROR_SEND_PGNmulti_NOSUPPORT
+        if(PGNrcv_INDEX == TPCM_rcv)  //å·²ç»è·³åˆ°æœ€åä¸€ä¸ªï¼Œè¯´æ˜ä¸æ”¯æŒè¿™ç§ç§ç±»çš„å¤šåŒ…å¤„ç†  ERROR_SEND_PGNmulti_NOSUPPORT
         {
             LOG_PRINTF("this recive PGNmulti %d is not support!\r\n", message->PGNnum);
-            //·¢ËÍ·ÅÆúÁ¬½Ó
-            MultiTrans_Manage_SEND(J1939_connect, TP_CM_Abort);  //·¢ËÍ·ÅÆúÁ¬½Ó
-            J1939_connect_clear();                               //Çå¿Õµ±Ç°Á¬½Ó¹ÜÀí
+            //å‘é€æ”¾å¼ƒè¿æ¥
+            MultiTrans_Manage_SEND(J1939_connect, TP_CM_Abort);  //å‘é€æ”¾å¼ƒè¿æ¥
+            J1939_connect_clear();                               //æ¸…ç©ºå½“å‰è¿æ¥ç®¡ç†
             return RET_ERROR;
         }
-        if(J1939_connect->PGNnum == PGNInfoRcv[PGNrcv_INDEX].PGNnum)  //ºË¶ÔPGNÊµ¼ÊÖµ
+        if(J1939_connect->PGNnum == PGNInfoRcv[PGNrcv_INDEX].PGNnum)  //æ ¸å¯¹PGNå®é™…å€¼
         {
             if( PGNInfoRcv[PGNrcv_INDEX].dataLen > 8 && J1939_connect->data_num == PGNInfoRcv[PGNrcv_INDEX].dataLen \
-            && J1939_connect->num_packet == (J1939_connect->data_num+6)/7) //ºË¶Ô³¤¶È£¬ºÍ³¤¶ÈÂú×ã¶à°ü´«ÊäÌõ¼ş, ºË¶Ô×Ö½ÚÊı£¬ºË¶Ô°üÊı
+            && J1939_connect->num_packet == (J1939_connect->data_num+6)/7) //æ ¸å¯¹é•¿åº¦ï¼Œå’Œé•¿åº¦æ»¡è¶³å¤šåŒ…ä¼ è¾“æ¡ä»¶, æ ¸å¯¹å­—èŠ‚æ•°ï¼Œæ ¸å¯¹åŒ…æ•°
             {
-                J1939_connect->PGNindex = PGNrcv_INDEX;  //¶àÁ¬½ÓµÄPGNµÄÃ¶¾ÙÖµ
+                J1939_connect->PGNindex = PGNrcv_INDEX;  //å¤šè¿æ¥çš„PGNçš„æšä¸¾å€¼
                 break;
             }
             else
             {
-                MultiTrans_Manage_SEND(J1939_connect, TP_CM_Abort);  //·¢ËÍ·ÅÆúÁ¬½Ó
-                J1939_connect_clear();                                  //Çå¿Õµ±Ç°Á¬½Ó¹ÜÀí
+                MultiTrans_Manage_SEND(J1939_connect, TP_CM_Abort);  //å‘é€æ”¾å¼ƒè¿æ¥
+                J1939_connect_clear();                                  //æ¸…ç©ºå½“å‰è¿æ¥ç®¡ç†
                 return RET_ERROR;
             }
         }
@@ -313,12 +313,12 @@ static uint8_t FindPGNInPGNList(PGNTypeRcv PGNrcv_INDEX, sJ1939_transfeManger *J
 }
 
 static uint8_t Find_PGNNumFindPGN(PGNTypeRcv PGNrcv_INDEX, sJ1939_buff_message *message){
-    for(PGNrcv_INDEX=BRM; PGNrcv_INDEX <= PGN_MAX_Rcv; PGNrcv_INDEX++)  //²éÑ¯¶ÔÓ¦µÄPGN ÔÚÊı×éÖĞµÄË÷Òı
-    //×¢ÒâÕâ¸öµÈºÅÊÇ±ØÒªµÄ£¬Ìøµ½×îºóÒ»¸öËµÃ÷ÔÚ½ÓÊÕPGNÊı×éÀïÃæÃ»ÓĞ±éÀúµ½Ë÷Òı
+    for(PGNrcv_INDEX=BRM; PGNrcv_INDEX <= PGN_MAX_Rcv; PGNrcv_INDEX++)  //æŸ¥è¯¢å¯¹åº”çš„PGN åœ¨æ•°ç»„ä¸­çš„ç´¢å¼•
+    //æ³¨æ„è¿™ä¸ªç­‰å·æ˜¯å¿…è¦çš„ï¼Œè·³åˆ°æœ€åä¸€ä¸ªè¯´æ˜åœ¨æ¥æ”¶PGNæ•°ç»„é‡Œé¢æ²¡æœ‰éå†åˆ°ç´¢å¼•
     {
        // if(PGNrcv_INDEX == BMT)
        //     continue;
-        if(PGNrcv_INDEX >= PGN_MAX_Rcv)              //Åöµ½²»Ö§³ÖµÄPGNÖ±½ÓÌø³ö
+        if(PGNrcv_INDEX >= PGN_MAX_Rcv)              //ç¢°åˆ°ä¸æ”¯æŒçš„PGNç›´æ¥è·³å‡º
         {
             LOG_PRINTF("this recive PGNNUM %x is not support!\r\n", message->PGNnum);
             return RET_ERROR;                             
@@ -332,7 +332,7 @@ static uint8_t Find_PGNNumFindPGN(PGNTypeRcv PGNrcv_INDEX, sJ1939_buff_message *
                 return RET_ERROR;
             }
 
-            message->PGN = PGNrcv_INDEX; //ÕÒµ½PGNµÄË÷Òı
+            message->PGN = PGNrcv_INDEX; //æ‰¾åˆ°PGNçš„ç´¢å¼•
             if((message->PGN == BMV) || (message->PGN == BSP) || (message->PGN == BMT))
                 return RET_ERROR;
             
@@ -362,28 +362,28 @@ static uint8_t Tranmission_SinglePackage(pJ1939_message_Rcv pJ1939_message_Rcv_t
         LOG_PRINTF("this recive PGNNUM %d data length is longer than 8!\r\n", message->PGNnum);
         return RET_ERROR;
     }
-    pJ1939_message_Rcv_temp->valid = 0;           //Ğ´Ö®Ç°ÖÃÊı¾İÎŞĞ§
+    pJ1939_message_Rcv_temp->valid = 0;           //å†™ä¹‹å‰ç½®æ•°æ®æ— æ•ˆ
     for(i=0; i<pJ1939_message_Rcv_temp->dataLen; i++)
     {
         pJ1939_message_Rcv_temp->data[i] = message->Data[i];
     }
-    if(pJ1939_message_Rcv_temp->data[i] == 0XAA && *(char*)(pJ1939_message_Rcv_temp->data-1) == 0XAA )  //ºË¶Ô·Ö½çÏß£¬·Ö½çÏßÕı³£
+    if(pJ1939_message_Rcv_temp->data[i] == 0XAA && *(char*)(pJ1939_message_Rcv_temp->data-1) == 0XAA )  //æ ¸å¯¹åˆ†ç•Œçº¿ï¼Œåˆ†ç•Œçº¿æ­£å¸¸
     {
-        pJ1939_message_Rcv_temp->valid = 1;       //Ğ´Íê³É½«Êı¾İÖÃÓĞĞ§
+        pJ1939_message_Rcv_temp->valid = 1;       //å†™å®Œæˆå°†æ•°æ®ç½®æœ‰æ•ˆ
         return SUCCESS_RET;
     }
     else
     {
         LOG_PRINTF("this PGN %d date Border Error !\r\n", message->PGNnum);
-        pJ1939_message_Rcv_temp->valid = 0;       //·Ö½çÏß´íÎó
+        pJ1939_message_Rcv_temp->valid = 0;       //åˆ†ç•Œçº¿é”™è¯¯
         return RET_ERROR;
     }
 }
 
 /***************************************************************************
-¹¦ÄÜ: ´Ó½ÓÊÕBUFÖĞ¶ÁÈ¡Êı¾İ£¬ÔÙ¸ù¾İÅĞ¶Ï°ÑPDUĞÅÏ¢°´·ÖÀà·Å½øPGNÊı×éÖĞ
-²ÎÊı: ÎŞ
-·µ»ØÖµ: -1 ´íÎó 1ÕıÈ·
+åŠŸèƒ½: ä»æ¥æ”¶BUFä¸­è¯»å–æ•°æ®ï¼Œå†æ ¹æ®åˆ¤æ–­æŠŠPDUä¿¡æ¯æŒ‰åˆ†ç±»æ”¾è¿›PGNæ•°ç»„ä¸­
+å‚æ•°: æ— 
+è¿”å›å€¼: -1 é”™è¯¯ 1æ­£ç¡®
 *****************************************************************************/
 int GtmgFrRcvbufToPGN(void)
 {
@@ -397,25 +397,25 @@ int GtmgFrRcvbufToPGN(void)
     char* pJ1939mg_data = message.Data;
     PGNTypeRcv PGNrcv_INDEX;
 
-    int Ringbuff_readstate = Ringbuff_read(RingRCVbuff, &message); //´Ó½ÓÊÕBUFÖĞ¶Á³öÊı¾İµ½message
+    int Ringbuff_readstate = Ringbuff_read(RingRCVbuff, &message); //ä»æ¥æ”¶BUFä¸­è¯»å‡ºæ•°æ®åˆ°message
 
-    if(Ringbuff_readstate == BUF_NEXIT)//²»´æÔÚ·µ»Ø-1
+    if(Ringbuff_readstate == BUF_NEXIT)//ä¸å­˜åœ¨è¿”å›-1
     {
         LOG_PRINTF("convert_BUFmsgToJ1939msgArray-------Ringbuff_read Fail!\r\n");
         return RET_ERROR;
     }
-    else if(Ringbuff_readstate == BUF_EMPTY) //¶ÁÈ¡µÄÊı¾İÎª¿Õ£¬ËãÕı³£ÏÖÏó
+    else if(Ringbuff_readstate == BUF_EMPTY) //è¯»å–çš„æ•°æ®ä¸ºç©ºï¼Œç®—æ­£å¸¸ç°è±¡
     {
         return SUCCESS_RET;
     }
-    /******************¸ù¾İPGNµÄÕæÊµÖµÕÒË÷ÒıPGN*******************/
+    /******************æ ¹æ®PGNçš„çœŸå®å€¼æ‰¾ç´¢å¼•PGN*******************/
     ret_value = Find_PGNNumFindPGN(PGNrcv_INDEX, &message);
     if(ret_value != NULL){
         return RET_ERROR;
     }
 
     pJ1939_message_Rcv_temp = &(PGN_MessageRcv[message.PGN]);
-    /*************************************************µ¥°ü´«Êä******************************************************/
+    /*************************************************å•åŒ…ä¼ è¾“******************************************************/
     if(message.PGN >= BRM && message.PGN < TPCM_rcv)
     {
         singlePac_tra_retvalue = Tranmission_SinglePackage(pJ1939_message_Rcv_temp, &message);
@@ -423,52 +423,52 @@ int GtmgFrRcvbufToPGN(void)
             return RET_ERROR;
         }
     }
-    /*************************************************¶àÁ¬½Ó¹ÜÀí****************************************************/
+    /*************************************************å¤šè¿æ¥ç®¡ç†****************************************************/
     switch(message.PGN){
         case TPCM_rcv:{
-            if(pJ1939mg_data[0] == TP_CM_RTS)                   //ÇëÇó·¢ËÍ,Èç¹û½ÓÊÕµ½µÄÊÇRTSÄÇÃ´Òª·¢ËÍCTS
+            if(pJ1939mg_data[0] == TP_CM_RTS)                   //è¯·æ±‚å‘é€,å¦‚æœæ¥æ”¶åˆ°çš„æ˜¯RTSé‚£ä¹ˆè¦å‘é€CTS
             {
                 /**
                 +-------------+-------------+--------------+------------------+-----------------------+
-                |   ¿ØÖÆ×Ö½Ú16 | ×Ö½ÚÊıÄ¿    | È«²¿Êı¾İ°üÊıÄ¿ | 0xFF±£ÁôSAEÊ¹ÓÃ  |  ×°ÔØÊı¾İµÄ²ÎÊıÈº±àºÅ   |
+                |   æ§åˆ¶å­—èŠ‚16 | å­—èŠ‚æ•°ç›®    | å…¨éƒ¨æ•°æ®åŒ…æ•°ç›® | 0xFFä¿ç•™SAEä½¿ç”¨  |  è£…è½½æ•°æ®çš„å‚æ•°ç¾¤ç¼–å·   |
                 +-------------+-------------+--------------+------------------+-----------------------+
                 |   1byte     |  2,3byte    |    4byte     |    5byte         |      6,7,8byte        |
                 +-------------+-------------+--------------+------------------+-----------------------+
                     */
-                    J1939_connect.data_num         = (pJ1939mg_data[2]<<8) | pJ1939mg_data[1]; //Êı¾İ³¤¶È
-                    J1939_connect.num_packet   =  pJ1939mg_data[3];                        //°üÊı
+                    J1939_connect.data_num         = (pJ1939mg_data[2]<<8) | pJ1939mg_data[1]; //æ•°æ®é•¿åº¦
+                    J1939_connect.num_packet   =  pJ1939mg_data[3];                        //åŒ…æ•°
                     J1939_connect.PGNnum       = (pJ1939mg_data[7]<<16) | (pJ1939mg_data[6]<<8) | pJ1939mg_data[5];
-                    J1939_connect.cur_packet       = 0;     //¿ªÊ¼µÚ¼¸¸öÊı¾İ°ü,´Ó1¿ªÊ¼, 0Îª»¹Î´×öºÃ´«ÊäÊı¾İ×¼±¸
+                    J1939_connect.cur_packet       = 0;     //å¼€å§‹ç¬¬å‡ ä¸ªæ•°æ®åŒ…,ä»1å¼€å§‹, 0ä¸ºè¿˜æœªåšå¥½ä¼ è¾“æ•°æ®å‡†å¤‡
 
-                    //ÔÚPGN±íÏîÀïÃæ²éÑ¯µ±Ç°¶àÁ¬½Ó´«ÊäµÄPGN ÊÇ·ñÖ§³Ö
+                    //åœ¨PGNè¡¨é¡¹é‡Œé¢æŸ¥è¯¢å½“å‰å¤šè¿æ¥ä¼ è¾“çš„PGN æ˜¯å¦æ”¯æŒ
                     findpgningpnlist_retvalue = FindPGNInPGNList(PGNrcv_INDEX, &J1939_connect, &message);
                     if(findpgningpnlist_retvalue != NULL){
                         return RET_ERROR;
                     }
-                    if(PGNrcv_INDEX == BMV || PGNrcv_INDEX == BMT || PGNrcv_INDEX == BSP) //ºöÂÔÕâÈı¸öPGN£¬·Ç±ØÒª
+                    if(PGNrcv_INDEX == BMV || PGNrcv_INDEX == BMT || PGNrcv_INDEX == BSP) //å¿½ç•¥è¿™ä¸‰ä¸ªPGNï¼Œéå¿…è¦
                     {
                         LOG_PRINTF("Ignore  The PGN  BMV BMT BSP!!\r\n ");
                         return SUCCESS_RET;
                     }
 
                     J1939_connect.cur_packet++;
-                    if(MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS) == 0)  //·¢ËÍ³É¹¦,ËµÃ÷ĞéÄâÁ¬½ÓÒÑ¾­½¨Á¢
+                    if(MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS) == 0)  //å‘é€æˆåŠŸ,è¯´æ˜è™šæ‹Ÿè¿æ¥å·²ç»å»ºç«‹
                     {
-                        J1939_connect.connectState     = connected;    //Á¬½ÓÒÑ¾­½¨Á¢
-                        J1939_connect.destAddr     = Charger_Addr; // ±¾´ÎÁ¬½ÓÓÉBMS·¢Æğ£¬·¢ËÍ¸ø³äµç×®
+                        J1939_connect.connectState     = connected;    //è¿æ¥å·²ç»å»ºç«‹
+                        J1939_connect.destAddr     = Charger_Addr; // æœ¬æ¬¡è¿æ¥ç”±BMSå‘èµ·ï¼Œå‘é€ç»™å……ç”µæ¡©
                         J1939_connect.sourceAddr       = BMS_Addr;
-                        time_record = 0;                            //¼ÆÊ±¿ªÊ¼  µÈ´ıBMSÊı¾İÏìÓ¦
+                        time_record = 0;                            //è®¡æ—¶å¼€å§‹  ç­‰å¾…BMSæ•°æ®å“åº”
                     }
             }
-            else if(pJ1939mg_data[0] == TP_CM_Abort)        //½ÓÊÕµ½·ÅÆúÁ¬½Ó
+            else if(pJ1939mg_data[0] == TP_CM_Abort)        //æ¥æ”¶åˆ°æ”¾å¼ƒè¿æ¥
             {
-                if(J1939_connect.connectState == Idle)  //Î´Á¬½Ó È´ÊÕµ½·ÅÆú£¬Ôò´íÎó
+                if(J1939_connect.connectState == Idle)  //æœªè¿æ¥ å´æ”¶åˆ°æ”¾å¼ƒï¼Œåˆ™é”™è¯¯
                 {
                     LOG_PRINTF("1939_connect is not connect But recive TP_CM_Abort PGN :%x,%x,%x \r\n", pJ1939mg_data[5], pJ1939mg_data[6], pJ1939mg_data[7]);
                     return RET_ERROR;
                 }
                 else if(J1939_connect.PGNnum == ((pJ1939mg_data[7]<<16) | (pJ1939mg_data[6]<<8) | pJ1939mg_data[5]))
-                //ºË¶Ô¶Ô·½·ÅÆúµÄÁ¬½Ó¹ÜÀíµÄPGNºÅ
+                //æ ¸å¯¹å¯¹æ–¹æ”¾å¼ƒçš„è¿æ¥ç®¡ç†çš„PGNå·
                 {
                     J1939_connect_clear();        //
                 }
@@ -479,79 +479,79 @@ int GtmgFrRcvbufToPGN(void)
             }
             break;
         }
-        /*************************************************¶àÁ¬½ÓÊı¾İ´«Êä************************************************/
+        /*************************************************å¤šè¿æ¥æ•°æ®ä¼ è¾“************************************************/
         case TPDT_rcv:{
             char n;
-            if(J1939_connect.connectState != Idle)  //ÒÑ¾­Á¬½Ó,ÇÒPGNºË¶ÔÕıÈ·
+            if(J1939_connect.connectState != Idle)  //å·²ç»è¿æ¥,ä¸”PGNæ ¸å¯¹æ­£ç¡®
             {
-                if(time_record > timeout_T2)   //Èç¹û³¬Ê±Ôò ·ÅÆúÁ¬½Ó
+                if(time_record > timeout_T2)   //å¦‚æœè¶…æ—¶åˆ™ æ”¾å¼ƒè¿æ¥
                 {
                     LOG_PRINTF("timeout in TP_DT !\r\n", message.PGNnum);
-                    MultiTrans_Manage_SEND(&J1939_connect, TP_CM_Abort);  //·¢ËÍ·ÅÆúÁ¬½Ó
+                    MultiTrans_Manage_SEND(&J1939_connect, TP_CM_Abort);  //å‘é€æ”¾å¼ƒè¿æ¥
                     J1939_connect_clear();
                 }
-                else                          //Î´³¬Ê±Ôò ºË¶Ô²¢ÌáÈ¡Êı¾İ
+                else                          //æœªè¶…æ—¶åˆ™ æ ¸å¯¹å¹¶æå–æ•°æ®
                 {
-                    if(J1939_connect.cur_packet == pJ1939mg_data[0])// ºË¶Ôµ±Ç°°üĞòºÅ
+                    if(J1939_connect.cur_packet == pJ1939mg_data[0])// æ ¸å¯¹å½“å‰åŒ…åºå·
                     {
-                        J1939_connect.data_position = (J1939_connect.cur_packet-1)*7; //½ÓÊÕBUF¿½±´Êı¾İµÄÎ»ÖÃ,³ı×îºóÒ»°ü¶¼Îª7µÄ±¶ÊıÌø×ª
+                        J1939_connect.data_position = (J1939_connect.cur_packet-1)*7; //æ¥æ”¶BUFæ‹·è´æ•°æ®çš„ä½ç½®,é™¤æœ€åä¸€åŒ…éƒ½ä¸º7çš„å€æ•°è·³è½¬
 
-                        if(J1939_connect.cur_packet < J1939_connect.num_packet)  //²»ÊÇ×îºóÒ»°ü, Ö±½Ó¿½±´
+                        if(J1939_connect.cur_packet < J1939_connect.num_packet)  //ä¸æ˜¯æœ€åä¸€åŒ…, ç›´æ¥æ‹·è´
                         {
-                            PGN_MessageRcv[J1939_connect.PGNindex].valid = 0; //Ğ´Êı¾İÖ®Ç°Ê¹PGNÊı¾İ²¿·ÖÎŞĞ§£¬·ÀÖ¹Î´Ğ´Íê£¬Ó¦ÓÃ²ã¶Á
-                            for(n=1; n<8; n++)   //¿½±´Êı¾İµ½½ÓÊÕÊı¾İµÄBUFÖĞ, 7¸öÊı×Ö
+                            PGN_MessageRcv[J1939_connect.PGNindex].valid = 0; //å†™æ•°æ®ä¹‹å‰ä½¿PGNæ•°æ®éƒ¨åˆ†æ— æ•ˆï¼Œé˜²æ­¢æœªå†™å®Œï¼Œåº”ç”¨å±‚è¯»
+                            for(n=1; n<8; n++)   //æ‹·è´æ•°æ®åˆ°æ¥æ”¶æ•°æ®çš„BUFä¸­, 7ä¸ªæ•°å­—
                             {
-                                PGN_MessageRcv[J1939_connect.PGNindex].data[J1939_connect.data_position+n-1] = pJ1939mg_data[n];//Ê£ÏÂµÄ7¸öÊı¾İ¿½±´µ½BUFFÖĞ
+                                PGN_MessageRcv[J1939_connect.PGNindex].data[J1939_connect.data_position+n-1] = pJ1939mg_data[n];//å‰©ä¸‹çš„7ä¸ªæ•°æ®æ‹·è´åˆ°BUFFä¸­
                             }
 
                             J1939_connect.cur_packet++;
-                            MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS);  //Íê³ÉÒ»°üºóÔÙ·¢ËÍ´«ÊäÇëÇó·¢ËÍÏÂÒ»°ü
-                            time_record = 0;                //¼ÆÊ±¿ªÊ¼
+                            MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS);  //å®Œæˆä¸€åŒ…åå†å‘é€ä¼ è¾“è¯·æ±‚å‘é€ä¸‹ä¸€åŒ…
+                            time_record = 0;                //è®¡æ—¶å¼€å§‹
                         }
 
-                        else if(J1939_connect.cur_packet == J1939_connect.num_packet) //½ÓÊÕµ½×îºóÒ»°ü
+                        else if(J1939_connect.cur_packet == J1939_connect.num_packet) //æ¥æ”¶åˆ°æœ€åä¸€åŒ…
                         {
-                            PGN_MessageRcv[J1939_connect.PGNindex].valid = 0; //Ğ´Êı¾İÖ®Ç°Ê¹PGNÊı¾İ²¿·ÖÎŞĞ§£¬·ÀÖ¹Î´Ğ´Íê£¬Ó¦ÓÃ²ã¶Á
-                            for(n=1; n<(J1939_connect.data_num-J1939_connect.data_position+1); n++)   //¿½±´Êı¾İµ½½ÓÊÕÊı¾İµÄBUFÖĞ, ¿ÉÄÜ²»×ã7¸öÊı×Ö
+                            PGN_MessageRcv[J1939_connect.PGNindex].valid = 0; //å†™æ•°æ®ä¹‹å‰ä½¿PGNæ•°æ®éƒ¨åˆ†æ— æ•ˆï¼Œé˜²æ­¢æœªå†™å®Œï¼Œåº”ç”¨å±‚è¯»
+                            for(n=1; n<(J1939_connect.data_num-J1939_connect.data_position+1); n++)   //æ‹·è´æ•°æ®åˆ°æ¥æ”¶æ•°æ®çš„BUFä¸­, å¯èƒ½ä¸è¶³7ä¸ªæ•°å­—
                             {
                                 PGN_MessageRcv[J1939_connect.PGNindex].data[J1939_connect.data_position+n-1] = pJ1939mg_data[n];
                             }
 
                             J1939_connect.data_position = J1939_connect.data_position + n- 1;
-                            if(J1939_connect.data_num == J1939_connect.data_position) //ºË¶Ô¿½±´µÄÊı¾İ×Ü³¤¶È, ÕıÈ·Ôò·¢ËÍÓ¦´ğ
+                            if(J1939_connect.data_num == J1939_connect.data_position) //æ ¸å¯¹æ‹·è´çš„æ•°æ®æ€»é•¿åº¦, æ­£ç¡®åˆ™å‘é€åº”ç­”
                             {
-                                MultiTrans_Manage_SEND(&J1939_connect, TP_CM_EndofMsgAck);  //·¢ËÍÍê³ÉÓ¦´ğ
+                                MultiTrans_Manage_SEND(&J1939_connect, TP_CM_EndofMsgAck);  //å‘é€å®Œæˆåº”ç­”
 
-                                PGN_MessageRcv[J1939_connect.PGNindex].valid = 1;//Ê¹ÄÜ»º´æÊı¾İÓĞĞ§
+                                PGN_MessageRcv[J1939_connect.PGNindex].valid = 1;//ä½¿èƒ½ç¼“å­˜æ•°æ®æœ‰æ•ˆ
                                 J1939_connect_clear();
                             }
                             else
                             {
-                                PGN_MessageRcv[J1939_connect.PGNindex].valid = 0; //Êı¾İÎŞĞ§
-                                J1939_connect.cur_packet = 1;                     //´ÓµÚÒ»°ü¿ªÊ¼´ÓĞÂ½ÓÊÕÊı¾İ
+                                PGN_MessageRcv[J1939_connect.PGNindex].valid = 0; //æ•°æ®æ— æ•ˆ
+                                J1939_connect.cur_packet = 1;                     //ä»ç¬¬ä¸€åŒ…å¼€å§‹ä»æ–°æ¥æ”¶æ•°æ®
                                 MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS);
                                 J1939_connect.cur_packet++;
                             }
                         }
                         else
                         {
-                            /*µ±Ç°µ¥°üÊı¾İÍê³É,µ«Õû¸ö¶à°ü´«ÊäÃ»ÓĞÍê³É£¬ÔÙ´Î·¢ËÍCTS £¬ÇëÇóBMS·¢ËÍÊı¾İ*/
-                            MultiTrans_Manage_SEND(&J1939_connect, TP_CM_EndofMsgAck);  //·¢ËÍÍê³ÉÓ¦´ğ
-                            //PGN_MessageRcv[J1939_connect.PGNindex].valid = 1;//Ê¹ÄÜ»º´æÊı¾İÓĞĞ§
-                            J1939_connect_clear();             //¼ÆÊ±¿ªÊ¼
+                            /*å½“å‰å•åŒ…æ•°æ®å®Œæˆ,ä½†æ•´ä¸ªå¤šåŒ…ä¼ è¾“æ²¡æœ‰å®Œæˆï¼Œå†æ¬¡å‘é€CTS ï¼Œè¯·æ±‚BMSå‘é€æ•°æ®*/
+                            MultiTrans_Manage_SEND(&J1939_connect, TP_CM_EndofMsgAck);  //å‘é€å®Œæˆåº”ç­”
+                            //PGN_MessageRcv[J1939_connect.PGNindex].valid = 1;//ä½¿èƒ½ç¼“å­˜æ•°æ®æœ‰æ•ˆ
+                            J1939_connect_clear();             //è®¡æ—¶å¼€å§‹
                         }
 
                     }
-                    else  //°üÊıºË¶Ô²»ÉÏ£¬ÇëÇó·¢ËÍ µ±Ç°¼ÇÂ¼µÄ°ü±àºÅÊı¾İ
+                    else  //åŒ…æ•°æ ¸å¯¹ä¸ä¸Šï¼Œè¯·æ±‚å‘é€ å½“å‰è®°å½•çš„åŒ…ç¼–å·æ•°æ®
                     {
                         J1939_connect.cur_packet = 1;
                         LOG_PRINTF("the Package num is Error, rstart!\r\n");
                         MultiTrans_Manage_SEND(&J1939_connect, TP_CM_CTS);
 
-                        time_record = 0;                //¼ÆÊ±¿ªÊ¼
+                        time_record = 0;                //è®¡æ—¶å¼€å§‹
                     }
                 }
-            }else  //»¹Î´Á¬½ÓÈ´ÊÕµ½¶à°üÊı¾İ £¬Ôò´íÎóÇÒ»ñÈ¡²»µ½¶àÁ¬½ÓÊı¾İµÄPGN£¬¹ÊÖ±½Ó·µ»Ø
+            }else  //è¿˜æœªè¿æ¥å´æ”¶åˆ°å¤šåŒ…æ•°æ® ï¼Œåˆ™é”™è¯¯ä¸”è·å–ä¸åˆ°å¤šè¿æ¥æ•°æ®çš„PGNï¼Œæ•…ç›´æ¥è¿”å›
             {
                 LOG_PRINTF("not connet but the TPDT!\r\n");
                 J1939_connect_clear();
@@ -571,9 +571,9 @@ static void MultiTrans_ManageSend_Abort(void){
     msg_cst.PGNnum      = PGNInfoSend[TPCM_send].PGNnum;
     msg_cst.dataLen       = PGNInfoSend[TPCM_send].dataLen;
     /**
-     * @brief: J1939·ÅÆúÁ¬½Ó
+     * @brief: J1939æ”¾å¼ƒè¿æ¥
     +-------------------+------------------+-----------------------+
-    | ¿ØÖÆ×Ö½ÚFF·ÅÆúÁ¬½Ó |  ±£Áô¸øSAEÊ¹ÓÃ FF |    ×°ÔØÊı¾İ²ÎÊıÈº±àºÅ   +
+    | æ§åˆ¶å­—èŠ‚FFæ”¾å¼ƒè¿æ¥ |  ä¿ç•™ç»™SAEä½¿ç”¨ FF |    è£…è½½æ•°æ®å‚æ•°ç¾¤ç¼–å·   +
     +-------------------+------------------+-----------------------+
     |   1byte           |    2 3 4 5byte   |    6 7 8 byte         | 
     +-------------------+------------------+-----------------------+ 
@@ -591,22 +591,22 @@ static void MultiTrans_ManageSend_Abort(void){
 
 static void MultiTrans_ManageSend_TP_CM_CTS(unsigned char CMMD, sJ1939_buff_message *msg_send, psJ1939_transfeManger pJ1939_connect){
     /**
-     * @brief:Á¬½ÓÄ£Ê½ÏÂ×¼±¸·¢ËÍ
+     * @brief:è¿æ¥æ¨¡å¼ä¸‹å‡†å¤‡å‘é€
     +-----------------+--------------------+--------------------------+---------------------+-------------------------+
-    |  ¿ØÖÆ×Ö½Ú17      |  ¿É·¢ËÍÊı¾İ°üÊıÄ¿   |  ÏÂÒ»¸ö½«Òª·¢ËÍÊı¾İ°ü±àºÅ  |   ±£ÁôSAEÉè¶¨0xFF    |    ×°ÔØÊı¾İ²ÎÊıÈº±àºÅ     |
+    |  æ§åˆ¶å­—èŠ‚17      |  å¯å‘é€æ•°æ®åŒ…æ•°ç›®   |  ä¸‹ä¸€ä¸ªå°†è¦å‘é€æ•°æ®åŒ…ç¼–å·  |   ä¿ç•™SAEè®¾å®š0xFF    |    è£…è½½æ•°æ®å‚æ•°ç¾¤ç¼–å·     |
     +-----------------+--------------------+--------------------------+---------------------+-------------------------+
     |  1byte          |    2byte           |       3byte              |     4 5byte         |       6 7 8byte         |
     +-----------------+--------------------+--------------------------+---------------------+-------------------------+
         */
     msg_send->Data[0] = CMMD;
-    msg_send->Data[1]        = 1;            //¿É·¢ËÍµÄÊı¾İ°ü
-    msg_send->Data[2]        = pJ1939_connect->cur_packet;       //½ÓÊÕµÚÒ»°üÊı¾İ
+    msg_send->Data[1]        = 1;            //å¯å‘é€çš„æ•°æ®åŒ…
+    msg_send->Data[2]        = pJ1939_connect->cur_packet;       //æ¥æ”¶ç¬¬ä¸€åŒ…æ•°æ®
     #ifdef J1939_OneTime_Trans
-    msg_send->Data[1]        = pJ1939_connect->num_packet;   //¿É·¢ËÍµÄÊı¾İ°ü
+    msg_send->Data[1]        = pJ1939_connect->num_packet;   //å¯å‘é€çš„æ•°æ®åŒ…
     if(pJ1939_connect->cur_packet > 1)
         return SUCCESS_RET;
     #endif
-    msg_send->Data[3]        = 0XFF;         //¹æ¶¨
+    msg_send->Data[3]        = 0XFF;         //è§„å®š
     msg_send->Data[4]        = 0XFF;
 
     msg_send->Data[5]    =  J1939_connect.PGNnum & 0xff;
@@ -616,27 +616,27 @@ static void MultiTrans_ManageSend_TP_CM_CTS(unsigned char CMMD, sJ1939_buff_mess
 
 static void MultiTrans_ManageSend_TP_CM_EndofMsgAck(unsigned char CMMD, sJ1939_buff_message *msg_send, psJ1939_transfeManger pJ1939_connect){
     /**
-     * @brief: ÏûÏ¢½áÊøÓ¦´ğ
+     * @brief: æ¶ˆæ¯ç»“æŸåº”ç­”
     +---------------------+-----------------+-------------------------+----------------------+---------------------+
-    |  ¿ØÖÆ×Ö½Ú19          |  Õû¸öÏûÏ¢´óĞ¡    |  È«²¿Êı¾İ°üÊıÄ¿          |    ±£Áô¸øASEÊ¹ÓÃ0xFF  |      ²ÎÊıÈº±àºÅ      |
+    |  æ§åˆ¶å­—èŠ‚19          |  æ•´ä¸ªæ¶ˆæ¯å¤§å°    |  å…¨éƒ¨æ•°æ®åŒ…æ•°ç›®          |    ä¿ç•™ç»™ASEä½¿ç”¨0xFF  |      å‚æ•°ç¾¤ç¼–å·      |
     +---------------------+-----------------+-------------------------+----------------------+---------------------+
     |     1byte           |   2 3byte       |     4byte               |      5byte           |       6 7 8byte     |
     +---------------------+-----------------+-------------------------+----------------------+---------------------+ 
         */
     msg_send->Data[0] = CMMD;
-    msg_send->Data[1]        =  J1939_connect.data_num & 0xff;//Õû¸öÊı¾İ³¤¶È
+    msg_send->Data[1]        =  J1939_connect.data_num & 0xff;//æ•´ä¸ªæ•°æ®é•¿åº¦
     msg_send->Data[2]        = (J1939_connect.data_num>>8) & 0xff;
-    msg_send->Data[3]        =  J1939_connect.num_packet;  //°üµÄ³¤¶È
-    msg_send->Data[4]        = 0XFF;  //¹æ¶¨
+    msg_send->Data[3]        =  J1939_connect.num_packet;  //åŒ…çš„é•¿åº¦
+    msg_send->Data[4]        = 0XFF;  //è§„å®š
 
     msg_send->Data[5]    =  J1939_connect.PGNnum & 0xff;
     msg_send->Data[6]    = (J1939_connect.PGNnum & 0xff00)  >> 8;
     msg_send->Data[7]    = (J1939_connect.PGNnum & 0xff0000)>>16;
 }
 /***************************************************************************
-¹¦ÄÜ: Á¬½Ó¹ÜÀí·¢ËÍÃüÁî
-²ÎÊı: 0 Á¬½Ó¹ÜÀíÖ¸Õë£¬1 ÃüÁî
-·µ»ØÖµ:0 ·¢ËÍ³É¹¦ -1 ·¢ËÍÊ§°Ü
+åŠŸèƒ½: è¿æ¥ç®¡ç†å‘é€å‘½ä»¤
+å‚æ•°: 0 è¿æ¥ç®¡ç†æŒ‡é’ˆï¼Œ1 å‘½ä»¤
+è¿”å›å€¼:0 å‘é€æˆåŠŸ -1 å‘é€å¤±è´¥
 *****************************************************************************/
 uint8_t MultiTrans_Manage_SEND(psJ1939_transfeManger pJ1939_connect_arrys, unsigned char CMMD)
 {
@@ -653,46 +653,46 @@ uint8_t MultiTrans_Manage_SEND(psJ1939_transfeManger pJ1939_connect_arrys, unsig
 
     switch(CMMD)
     {
-        case TP_CM_CTS:           //×¼±¸·¢ËÍ
+        case TP_CM_CTS:           //å‡†å¤‡å‘é€
         {
             MultiTrans_ManageSend_TP_CM_CTS(CMMD, &msg_send, pJ1939_connect);
             break;
         }
        
-        case TP_CM_EndofMsgAck:  //ÏûÏ¢½áÊøÓ¦´ğ
+        case TP_CM_EndofMsgAck:  //æ¶ˆæ¯ç»“æŸåº”ç­”
         {
             MultiTrans_ManageSend_TP_CM_EndofMsgAck(CMMD, &msg_send, pJ1939_connect);
             break;
         }
-        case TP_CM_Abort:          //·ÅÆúÁ¬½Ó
+        case TP_CM_Abort:          //æ”¾å¼ƒè¿æ¥
         {  
             MultiTrans_ManageSend_Abort();
-            return SUCCESS_RET;  //³É¹¦·¢ËÍ
+            return SUCCESS_RET;  //æˆåŠŸå‘é€
         }
         default:
         {
             LOG_PRINTF("MultiTrans_Manage_SEND------------ CMMD is not support!\r\n ");
-            return RET_ERROR;  //´íÎó
+            return RET_ERROR;  //é”™è¯¯
         }
     }
 
-    if(Ringbuff_write(RingSNDbuff, &msg_send) != BUF_WRSUCC) //Ğ´Èë¶ÓÁĞÖĞ
+    if(Ringbuff_write(RingSNDbuff, &msg_send) != BUF_WRSUCC) //å†™å…¥é˜Ÿåˆ—ä¸­
     {
         LOG_PRINTF(" Ringbuff_write Error!\r\n");
         return RET_ERROR;
     }
 
-    return SUCCESS_RET;  //³É¹¦·¢ËÍ
+    return SUCCESS_RET;  //æˆåŠŸå‘é€
 }
 
 /***************************************************************************
-¹¦ÄÜ: ³õÊ¼»¯J1939_connect
-²ÎÊı: ÎŞ
-·µ»ØÖµ:ÎŞ
+åŠŸèƒ½: åˆå§‹åŒ–J1939_connect
+å‚æ•°: æ— 
+è¿”å›å€¼:æ— 
 *****************************************************************************/
 void J1939_connect_clear(void)
 {
-    J1939_connect.connectState  = Idle; //´«Êä½áÊø, Á¬½Ó¶Ï¿ª
+    J1939_connect.connectState  = Idle; //ä¼ è¾“ç»“æŸ, è¿æ¥æ–­å¼€
     J1939_connect.data_position = 0;
     J1939_connect.data_num     = 0;
     J1939_connect.cur_packet = 0;

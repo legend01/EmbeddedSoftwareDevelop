@@ -32,21 +32,21 @@ typedef enum
 } BUFstat;
 */
 
-typedef struct sJ1939_buff_message        //·¢ËÍ
+typedef struct sJ1939_buff_message        //å‘é€
 {
-	int 			PGN;   	//ÔÚÕâµÄSPN²»ÊÇÕæÊµµÄPGNÖµ£¬¶øÊÇBMS½»»¥ÖĞÓÃµ½µÄË÷Òı£¬Í¨¹ıË÷Òı²éÕÒµ½PGNÏêÏ¸µÄĞÅÏ¢, ·¢ËÍĞÅÏ¢Ê±Ê¹ÓÃ
+	int 			PGN;   	//åœ¨è¿™çš„SPNä¸æ˜¯çœŸå®çš„PGNå€¼ï¼Œè€Œæ˜¯BMSäº¤äº’ä¸­ç”¨åˆ°çš„ç´¢å¼•ï¼Œé€šè¿‡ç´¢å¼•æŸ¥æ‰¾åˆ°PGNè¯¦ç»†çš„ä¿¡æ¯, å‘é€ä¿¡æ¯æ—¶ä½¿ç”¨
 	char 			Data[8];
-	int			PGNnum; //ÕæÊµµÄPGNÖµ
+	int			PGNnum; //çœŸå®çš„PGNå€¼
         
-  char 	     Priority; //ÓÅÏÈ¼¶
-  char         Reserved; //Ô¤Áô
+  char 	     Priority; //ä¼˜å…ˆçº§
+  char         Reserved; //é¢„ç•™
 }sJ1939_buff_message,*psJ1939_buff_message;
 
 
 #define Ringbuff_rcvSize     24
 #define Ringbuff_sedSize    12
-extern sJ1939_buff_message  RingSNDbuff[Ringbuff_sedSize];  // »·ĞÎ»º³åÇø
-extern sJ1939_buff_message  RingRCVbuff[Ringbuff_rcvSize];  // »·ĞÎ»º³åÇø
+extern sJ1939_buff_message  RingSNDbuff[Ringbuff_sedSize];  // ç¯å½¢ç¼“å†²åŒº
+extern sJ1939_buff_message  RingRCVbuff[Ringbuff_rcvSize];  // ç¯å½¢ç¼“å†²åŒº
 
 
 void Ringbuff_init(void);

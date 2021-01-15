@@ -6,59 +6,59 @@
 #define BMS_Addr            244
 #define Charger_Addr        86
 
-#define  J1939_CYCLE_TIME   5  //Ñ­»·ÖÜÆÚ 25 ms
+#define  J1939_CYCLE_TIME   5  //å¾ªç¯å‘¨æœŸ 25 ms
 
 typedef enum tranState {Idle=0,    connected,}tranState;
 typedef enum tranError {noFail=0, connectFail, transmitFail, timeOut}tranError;
 typedef enum connectType{singleFrame=0, multiFrame}connectType;
 typedef enum tranDirection{receive=0, send}tranDirection;
 
-typedef enum PGNTypeSend          //·¢
+typedef enum PGNTypeSend          //å‘
 {
-    CRM = 0, //³äµç»ú±æÊ¶±¨ÎÄ  ·¢
-    CHM, //³äµç»úÎÕÊÖ±¨ÎÄ
-    CTS, //³äµç»ú·¢ËÍÊ±¼äÍ¬²½ĞÅÏ¢
-    CML, //³äµç»ú·¢ËÍÊ±¼äÍ¬²½ĞÅÏ¢
-    CRO, //³äµç»úÊä³ö×¼±¸¾ÍĞ÷×´Ì¬
-    CCS, //³äµç»ú³äµç×´Ì¬
-    CST, //³äµç»úÖĞÖ¹³äµç
-    CSD, //³äµç»úÍ³¼ÆÊı¾İ
-    CEM, //³äµçÆ÷´íÎó±¨ÎÄ
+    CRM = 0, //å……ç”µæœºè¾¨è¯†æŠ¥æ–‡  å‘
+    CHM, //å……ç”µæœºæ¡æ‰‹æŠ¥æ–‡
+    CTS, //å……ç”µæœºå‘é€æ—¶é—´åŒæ­¥ä¿¡æ¯
+    CML, //å……ç”µæœºå‘é€æ—¶é—´åŒæ­¥ä¿¡æ¯
+    CRO, //å……ç”µæœºè¾“å‡ºå‡†å¤‡å°±ç»ªçŠ¶æ€
+    CCS, //å……ç”µæœºå……ç”µçŠ¶æ€
+    CST, //å……ç”µæœºä¸­æ­¢å……ç”µ
+    CSD, //å……ç”µæœºç»Ÿè®¡æ•°æ®
+    CEM, //å……ç”µå™¨é”™è¯¯æŠ¥æ–‡
 
-    TPCM_send,//¶à°üÊı¾İ¹ÜÀí
-    TPDT_send,//¶à°üÊı¾İ´«Êä
+    TPCM_send,//å¤šåŒ…æ•°æ®ç®¡ç†
+    TPDT_send,//å¤šåŒ…æ•°æ®ä¼ è¾“
     PGN_MAX_Send,
 }PGNTypeSend;
 
-typedef enum PGNTypeRcv          //ÊÕ
+typedef enum PGNTypeRcv          //æ”¶
 {
-    BRM = 0, //BMSºÍ³µÁ¾±æÊ¶±¨ÎÄ     ÊÕ 
+    BRM = 0, //BMSå’Œè½¦è¾†è¾¨è¯†æŠ¥æ–‡     æ”¶ 
     BHM,    
-    BCP, //¶¯Á¦Ğîµç³Ø³äµç²ÎÊı
-    BRO, //µç³Ø³äµç×¼±¸¾ÍĞ÷×´Ì¬
-    BCL, //µç³Ø³äµçĞèÇó
-    BCS, //µç³Ø³äµç×Ü×´Ì¬
-    BSM, //¶¯Á¦Ğîµç³Ø×´Ì¬ĞÅÏ¢
-    BMV, //µ¥Ìå¶¯Á¦Ğîµç³ØµçÑ¹
-    BMT, //¶¯Á¦Ğîµç³ØÎÂ¶È
-    BSP, //¶¯Á¦Ğîµç³ØÔ¤Áô±¨ÎÄ
-    BST, //BMSÖĞÖ¹³äµç
-    BSD, //BMSÍ³¼ÆÊı¾İ  
-    BEM, //BMS´íÎó±¨ÎÄ
+    BCP, //åŠ¨åŠ›è“„ç”µæ± å……ç”µå‚æ•°
+    BRO, //ç”µæ± å……ç”µå‡†å¤‡å°±ç»ªçŠ¶æ€
+    BCL, //ç”µæ± å……ç”µéœ€æ±‚
+    BCS, //ç”µæ± å……ç”µæ€»çŠ¶æ€
+    BSM, //åŠ¨åŠ›è“„ç”µæ± çŠ¶æ€ä¿¡æ¯
+    BMV, //å•ä½“åŠ¨åŠ›è“„ç”µæ± ç”µå‹
+    BMT, //åŠ¨åŠ›è“„ç”µæ± æ¸©åº¦
+    BSP, //åŠ¨åŠ›è“„ç”µæ± é¢„ç•™æŠ¥æ–‡
+    BST, //BMSä¸­æ­¢å……ç”µ
+    BSD, //BMSç»Ÿè®¡æ•°æ®  
+    BEM, //BMSé”™è¯¯æŠ¥æ–‡
     
-    TPCM_rcv,//¶à°üÊı¾İ¹ÜÀí
-    TPDT_rcv,//¶à°üÊı¾İ´«Êä
-    PGN_MAX_Rcv,//Ô¤Áô×î´óÖµ
+    TPCM_rcv,//å¤šåŒ…æ•°æ®ç®¡ç†
+    TPDT_rcv,//å¤šåŒ…æ•°æ®ä¼ è¾“
+    PGN_MAX_Rcv,//é¢„ç•™æœ€å¤§å€¼
 }PGNTypeRcv;
 
-#define TP_CM_PF 			0xec00  	// Á¬½Ó¹ÜÀíPF
-#define TP_CM_RTS 			16	 	//ÇëÇó·¢ËÍ
-#define TP_CM_CTS 			17		//×¼±¸·¢ËÍ	
-#define TP_CM_EndofMsgAck 	19		//ÏûÏ¢½áÊøÓ¦´ğ
-#define TP_CM_Abort			255		//·ÅÆúÁ¬½Ó
-#define TP_CM_BAM			32		//¹ã²¥¹«¸æÏûÏ¢
+#define TP_CM_PF 			0xec00  	// è¿æ¥ç®¡ç†PF
+#define TP_CM_RTS 			16	 	//è¯·æ±‚å‘é€
+#define TP_CM_CTS 			17		//å‡†å¤‡å‘é€	
+#define TP_CM_EndofMsgAck 	19		//æ¶ˆæ¯ç»“æŸåº”ç­”
+#define TP_CM_Abort			255		//æ”¾å¼ƒè¿æ¥
+#define TP_CM_BAM			32		//å¹¿æ’­å…¬å‘Šæ¶ˆæ¯
 
-#define TP_DT_PF 			0xeb00  	// Á¬½ÓÄ£Ê½ÏÂµÄÊı¾İ´«Êä
+#define TP_DT_PF 			0xeb00  	// è¿æ¥æ¨¡å¼ä¸‹çš„æ•°æ®ä¼ è¾“
 
 #define timeout_T1          75      //750MS
 #define timeout_T2          125     //1250MS
@@ -68,55 +68,55 @@ typedef enum PGNTypeRcv          //ÊÕ
 typedef struct PGNInfo
 {
     unsigned int    PGNnum;
-    unsigned int    priority;   // ÓÅÏÈ¼¶
-    unsigned int    dataLen;    // Êı¾İ³¤¶È
-    unsigned int    period; //±¨ÎÄÖÜÆÚms
+    unsigned int    priority;   // ä¼˜å…ˆçº§
+    unsigned int    dataLen;    // æ•°æ®é•¿åº¦
+    unsigned int    period; //æŠ¥æ–‡å‘¨æœŸms
 }sPGNInfo,*psPGNInfo;
 
 
 typedef struct sJ1939_multiTransfeManger
 {
-     unsigned int   data_num;                   //±¨ÎÄÊı¾İ³¤¶È
-     unsigned char  num_packet;                 //±¨ÎÄ°üÊı
-     unsigned char  cur_packet;                 //µ±Ç°´«ÊäµÄ±¨Êı
-     unsigned int   destAddr;                   //Ä¿±êµØÖ·
-     unsigned int   sourceAddr;                 //Ô´µØÖ·
-     unsigned int   PGNnum;                     //´ËÁ¬½Ó¹ÜÀí´«ÊäµÄPGN
-     unsigned char  PGNindex;                   //PGNµÄÃ¶¾ÙÖµ
-     tranState      connectState;               //Á¬½Ó×´Ì¬
-     unsigned char data_position;               // ¿½±´µ½BUFÊ²Ã´Î»ÖÃ
+     unsigned int   data_num;                   //æŠ¥æ–‡æ•°æ®é•¿åº¦
+     unsigned char  num_packet;                 //æŠ¥æ–‡åŒ…æ•°
+     unsigned char  cur_packet;                 //å½“å‰ä¼ è¾“çš„æŠ¥æ•°
+     unsigned int   destAddr;                   //ç›®æ ‡åœ°å€
+     unsigned int   sourceAddr;                 //æºåœ°å€
+     unsigned int   PGNnum;                     //æ­¤è¿æ¥ç®¡ç†ä¼ è¾“çš„PGN
+     unsigned char  PGNindex;                   //PGNçš„æšä¸¾å€¼
+     tranState      connectState;               //è¿æ¥çŠ¶æ€
+     unsigned char data_position;               // æ‹·è´åˆ°BUFä»€ä¹ˆä½ç½®
 }sJ1939_transfeManger,*psJ1939_transfeManger;
 
 typedef struct J1939_message
 {
-    unsigned int    priority;       // ÓÅÏÈ¼¶
-    unsigned int    PGNnum;         //PGNÕæÊµÖµ
-    unsigned char   sourceAddr;     // Ô´µØÖ·
-    unsigned char   destAddr;       // Ô´µØÖ·
-    unsigned char   dataLen;        // Êı¾İ³¤¶È
-    unsigned char   data[8];        // Êı¾İÊı×é
+    unsigned int    priority;       // ä¼˜å…ˆçº§
+    unsigned int    PGNnum;         //PGNçœŸå®å€¼
+    unsigned char   sourceAddr;     // æºåœ°å€
+    unsigned char   destAddr;       // æºåœ°å€
+    unsigned char   dataLen;        // æ•°æ®é•¿åº¦
+    unsigned char   data[8];        // æ•°æ®æ•°ç»„
     
-    unsigned char   Reserved;       //±£ÁôÎ»
+    unsigned char   Reserved;       //ä¿ç•™ä½
     
 }J1939_message,*pJ1939_message;
 
 
-typedef struct J1939_message_Rcv  //J1939½ÓÊÕµ½µÄÊı¾İ
+typedef struct J1939_message_Rcv  //J1939æ¥æ”¶åˆ°çš„æ•°æ®
 {
-    unsigned char   PDUformat;      // PDU¸ñÊ½PF
+    unsigned char   PDUformat;      // PDUæ ¼å¼PF
     unsigned char   PDUspecific;    // PS
-    unsigned char   dataLen;        // Êı¾İ³¤¶È
-    char*       data;           // Êı¾İÖ¸Õë
-    unsigned char   valid;          // Êı¾İÎŞĞ§
+    unsigned char   dataLen;        // æ•°æ®é•¿åº¦
+    char*       data;           // æ•°æ®æŒ‡é’ˆ
+    unsigned char   valid;          // æ•°æ®æ— æ•ˆ
     
 }J1939_message_Rcv,*pJ1939_message_Rcv;
 extern J1939_message_Rcv PGN_MessageRcv[PGN_MAX_Rcv]; 
 
-typedef struct J1939mg_interrupt  //J1939ÔÚÖĞ¶ÏÖĞ¶ÁÈ¡µÄÔ­Ê¼Êı¾İ
+typedef struct J1939mg_interrupt  //J1939åœ¨ä¸­æ–­ä¸­è¯»å–çš„åŸå§‹æ•°æ®
 {
     unsigned int    PGNnum;
     unsigned char   data[8];
-    unsigned char   valid;          // Êı¾İÎŞĞ§
+    unsigned char   valid;          // æ•°æ®æ— æ•ˆ
 }J1939mg_interrupt,*pJ1939mg_interrupt;
 
 extern sPGNInfo PGNInfoSend[PGN_MAX_Send+1];
