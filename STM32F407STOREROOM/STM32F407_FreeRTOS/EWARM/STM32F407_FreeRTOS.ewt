@@ -1294,6 +1294,12 @@
                     <name>$PROJ_DIR$\..\App\USMART\usmart_str.c</name>
                 </file>
             </group>
+            <group>
+                <name>WAKEUP</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\WAKEUP\wakeup.c</name>
+                </file>
+            </group>
         </group>
         <group>
             <name>EWARM</name>
@@ -1317,6 +1323,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\main.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\rng.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\rtc.c</name>
@@ -1386,6 +1395,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rng.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc.c</name>
