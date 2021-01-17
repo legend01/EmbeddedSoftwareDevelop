@@ -142,7 +142,7 @@ char Ringbuff_read(psJ1939_buff_message Ringbuff, psJ1939_buff_message pPullMess
     {
         if(RingRCVbuff_isempty())
         {
-            return BUF_EMPTY;   //缓冲满，写入错误
+            return BUF_EMPTY;   //缓冲空，读取错误
         }
     
         pPullMessage->PGN        = Ringbuff[BuffRCV_addr_read].PGN;  //PGN号

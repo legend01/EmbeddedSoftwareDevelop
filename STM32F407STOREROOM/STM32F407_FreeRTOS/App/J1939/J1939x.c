@@ -230,12 +230,7 @@ int GetmessageToRcvbuff(void* rcv)
     sJ1939_buff_message sJ1939_buff_message_temp;
     CAN_RxPacketTypeDef* RxMessage = (CAN_RxPacketTypeDef*)rcv; /* 从CAN中断调用该函数rcv是接收到的CAN数据 */
     CAN_RxHeaderTypeDef RxHeaderInf = RxMessage->hdr;
-#ifdef LOG_CAN_RCV
-    LOG_PRINTF("rcv: ID %x ,DATA:",    RxHeaderInf.ExtId );
-    for(uint8_t i =0; i< RxHeaderInf.DLC; i++)
-        LOG_PRINTF(" %x ",    RxMessage->message[i]);
-    LOG_PRINTF("\r\n" );
-#endif
+
     /**
     +------------+-------+--------+-----------------+------------------+-----------------+
     |     P      |  R    |   DP   |    PF           |      PS          |      SA         |
@@ -274,7 +269,7 @@ int GetmessageToRcvbuff(void* rcv)
     {
         sJ1939_buff_message_temp.Data[j] = RxMessage->message[j]; //拷贝数据
     }
-
+    
     if(Ringbuff_write(RingRCVbuff, &sJ1939_buff_message_temp) != BUF_WRSUCC) //写入队列中
     {
         LOG_PRINTF("Interrupt Ringbuff_write Error!\r\n"); 

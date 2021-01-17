@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-14 15:33:04
- * @LastEditTime: 2021-01-15 13:33:15
+ * @LastEditTime: 2021-01-16 15:02:39
  * @LastEditors: HLLI8
  */
 #include "app_can.h"
@@ -85,16 +85,8 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *canHandle)
         if (HAL_CAN_GetRxMessage(canHandle, CAN_RX_FIFO0, &packet.hdr, packet.message) == HAL_OK)		// 获得接收到的数据头和数据
         {
             CAN_Recv(&packet);
-			// printf("\r\n\r\n\r\n################### CAN RECV ###################\r\n");
-			// printf("STID:0x%X\r\n",packet.hdr.StdId);
-			// printf("EXID:0x%X\r\n",packet.hdr.ExtId);
-			// printf("DLC :%d\r\n", packet.hdr.DLC);
-			// printf("DATA:");
-			// for(int i = 0; i < packet.hdr.DLC; i++)
-			// {
-			// 	printf("0x%02X ", packet.message[i]);
-			// }
-           HAL_CAN_ActivateNotification(canHandle, CAN_IT_RX_FIFO0_MSG_PENDING);						// 再次使能FIFO0接收中断
+
+            HAL_CAN_ActivateNotification(canHandle, CAN_IT_RX_FIFO0_MSG_PENDING);						// 再次使能FIFO0接收中断
         }
     }
 }
