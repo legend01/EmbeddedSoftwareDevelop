@@ -826,7 +826,7 @@
                     <item>msg_temp</item>
                     <item>sJ1939_buff_message_temp</item>
                     <item>PGN_MessageRcv</item>
-                    <item></item>
+                    <item />
                 </expressions>
                 <col-names>
                     <item>Expression</item>
@@ -927,7 +927,7 @@
                     <item>message</item>
                     <item>message</item>
                     <item>pJ1939_message_Rcv_temp</item>
-                    <item></item>
+                    <item />
                 </expressions>
                 <col-names>
                     <item>Expression</item>

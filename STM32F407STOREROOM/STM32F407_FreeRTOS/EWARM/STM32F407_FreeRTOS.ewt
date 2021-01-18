@@ -1190,6 +1190,12 @@
         <group>
             <name>APP</name>
             <group>
+                <name>ADC</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\ADC\app_adc.c</name>
+                </file>
+            </group>
+            <group>
                 <name>ASSERT</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\ASSERT\assert.h</name>
@@ -1310,6 +1316,9 @@
         <group>
             <name>User</name>
             <file>
+                <name>$PROJ_DIR$\..\Src\adc.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Src\can.c</name>
             </file>
             <file>
@@ -1359,6 +1368,12 @@
             <name>STM32F4xx_HAL_Driver</name>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc_ex.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c</name>

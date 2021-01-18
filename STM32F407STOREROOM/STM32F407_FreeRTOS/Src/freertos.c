@@ -70,6 +70,7 @@
 #include "app_rtc.h"
 #include "J1939x.h"
 #include "app_can.h"
+#include "app_adc.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -182,6 +183,7 @@ void StartDefaultTask(void const * argument)
   RTC_WakeUp_Init();
   Ringbuff_init();
   CAN_Filter_Config();
+  HAL_ADC_Start_DMA(&hadc3, (uint32_t *)&ADC_Conversion[0], SAMPLE_N*ADC_TOTAL_CH_NUM);
   for(;;)
   {
     char receive_buf[200];
