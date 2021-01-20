@@ -177,7 +177,7 @@ void StartDefaultTask(void const * argument)
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
   Hal_TimStart_Init();
-  TPAD_Init();
+  // TPAD_Init();
   usmart_init();
   Uart5_DMA_Init();
   RTC_WakeUp_Init();

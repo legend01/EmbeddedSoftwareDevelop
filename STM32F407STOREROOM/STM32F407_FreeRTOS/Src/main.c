@@ -129,6 +129,7 @@ int main(void)
   MX_CAN1_Init();
   MX_RNG_Init();
   MX_ADC3_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
