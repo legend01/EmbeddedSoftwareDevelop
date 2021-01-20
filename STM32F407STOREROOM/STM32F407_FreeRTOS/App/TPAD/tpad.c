@@ -2,7 +2,7 @@
  * @Description: 触摸按键
  * @Author: HLLI8
  * @Date: 2020-12-20 20:09:56
- * @LastEditTime: 2020-12-22 20:35:08
+ * @LastEditTime: 2021-01-20 22:30:28
  * @LastEditors: HLLI8
  */
 #include "tpad.h"
@@ -44,20 +44,20 @@ uint8_t TPAD_Init(void)
 //复位一次
 //释放电容电量，并清除定时器的计数值
 void TPAD_Reset(void){
-    GPIO_InitTypeDef GPIO_Initure;
-    GPIO_Initure.Pin=GPIO_PIN_5; //PA5
-    GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP; //推挽输出
-    GPIO_Initure.Pull=GPIO_PULLDOWN; //下拉
-    GPIO_Initure.Speed=GPIO_SPEED_HIGH; //高速
-    HAL_GPIO_Init(GPIOA,&GPIO_Initure);
-    HAL_GPIO_WritePin(TPAD_Key_GPIO_Port,TPAD_Key_Pin,GPIO_PIN_RESET); //PA5 输出 0，放电
-    delay_ms(5);
-    __HAL_TIM_CLEAR_FLAG(&htim2,TIM_FLAG_CC1|TIM_FLAG_UPDATE); //清除标志位
-    __HAL_TIM_SET_COUNTER(&htim2,0); //计数器值归 0
-    GPIO_Initure.Mode=GPIO_MODE_AF_PP; //推挽复用
-    GPIO_Initure.Pull=GPIO_NOPULL; //不带上下拉
-    GPIO_Initure.Alternate=GPIO_AF1_TIM2; //PA5 复用为 TIM2 通道 1
-    HAL_GPIO_Init(GPIOA,&GPIO_Initure);
+    // GPIO_InitTypeDef GPIO_Initure;
+    // GPIO_Initure.Pin=GPIO_PIN_5; //PA5
+    // GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP; //推挽输出
+    // GPIO_Initure.Pull=GPIO_PULLDOWN; //下拉
+    // GPIO_Initure.Speed=GPIO_SPEED_HIGH; //高速
+    // HAL_GPIO_Init(GPIOA,&GPIO_Initure);
+    // HAL_GPIO_WritePin(TPAD_Key_GPIO_Port,TPAD_Key_Pin,GPIO_PIN_RESET); //PA5 输出 0，放电
+    // delay_ms(5);
+    // __HAL_TIM_CLEAR_FLAG(&htim2,TIM_FLAG_CC1|TIM_FLAG_UPDATE); //清除标志位
+    // __HAL_TIM_SET_COUNTER(&htim2,0); //计数器值归 0
+    // GPIO_Initure.Mode=GPIO_MODE_AF_PP; //推挽复用
+    // GPIO_Initure.Pull=GPIO_NOPULL; //不带上下拉
+    // GPIO_Initure.Alternate=GPIO_AF1_TIM2; //PA5 复用为 TIM2 通道 1
+    // HAL_GPIO_Init(GPIOA,&GPIO_Initure);
 }
 //得到定时器捕获值
 //如果超时,则直接返回定时器的计数值.
