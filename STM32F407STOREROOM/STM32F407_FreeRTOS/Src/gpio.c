@@ -66,6 +66,8 @@
         * Output
         * EVENT_OUT
         * EXTI
+     PF5   ------> SharedAnalog_PF5
+     PF7   ------> SharedAnalog_PF7
 */
 void MX_GPIO_Init(void)
 {
@@ -88,6 +90,12 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PFPin PFPin */
+  GPIO_InitStruct.Pin = ADC3_IN15_Gather_Pin|Light_Sensor_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = BEEP_Pin;
