@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-18 09:30:46
- * @LastEditTime: 2021-01-20 21:30:35
+ * @LastEditTime: 2021-01-23 12:08:49
  * @LastEditors: HLLI8
  */
 #ifndef __APP_ADC_H__
@@ -16,4 +16,8 @@
 #define ADC_TOTAL_CH_NUM 2
 #define SAMPLE_N 50
 extern uint16_t ADC_Conversion[SAMPLE_N][ADC_TOTAL_CH_NUM];
+
+bool GetADC3_value(uint8_t *value, uint8_t ch);
+bool GetLightSensor_value(uint8_t *value, uint8_t ch);
+short Get_Temprate(void);
 #endif // !__APP_ADC_H__
