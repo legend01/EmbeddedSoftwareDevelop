@@ -1294,6 +1294,9 @@
                     <name>$PROJ_DIR$\..\App\USMART\usmart_config.c</name>
                 </file>
                 <file>
+                    <name>$PROJ_DIR$\..\App\USMART\usmart_FunExe.c</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\..\App\USMART\usmart_receiveFromUsart.c</name>
                 </file>
                 <file>
