@@ -1220,6 +1220,12 @@
                 </file>
             </group>
             <group>
+                <name>DAC</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\DAC\app_dac.c</name>
+                </file>
+            </group>
+            <group>
                 <name>J1939</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\J1939\J1939x.c</name>
@@ -1325,6 +1331,9 @@
                 <name>$PROJ_DIR$\..\Src\can.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\Src\dac.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Src\dma.c</name>
             </file>
             <file>
@@ -1383,6 +1392,12 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dac.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dac_ex.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c</name>
