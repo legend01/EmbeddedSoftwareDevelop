@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-23 11:07:34
- * @LastEditTime: 2021-01-23 12:09:46
+ * @LastEditTime: 2021-01-23 14:01:54
  * @LastEditors: HLLI8
  */
 #include "usmart_FunExe.h"
@@ -28,4 +28,8 @@ void usmart_print_ADC3Sensor(void){
     }else{
         USMART_RETURN("don`t get value \r\n");
     }
+}
+
+void usmart_set_DAC1Vol(uint16_t value){
+    DAC1_Set_Vol(value);
 }
