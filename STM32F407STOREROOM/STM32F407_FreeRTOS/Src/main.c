@@ -52,6 +52,7 @@
 #include "cmsis_os.h"
 #include "adc.h"
 #include "can.h"
+#include "dac.h"
 #include "dma.h"
 #include "rng.h"
 #include "rtc.h"
@@ -130,6 +131,7 @@ int main(void)
   MX_RNG_Init();
   MX_ADC3_Init();
   MX_ADC1_Init();
+  MX_DAC_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */

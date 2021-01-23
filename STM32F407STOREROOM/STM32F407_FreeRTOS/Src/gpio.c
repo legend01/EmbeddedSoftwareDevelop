@@ -68,6 +68,7 @@
         * EXTI
      PF5   ------> SharedAnalog_PF5
      PF7   ------> SharedAnalog_PF7
+     PA4   ------> SharedAnalog_PA4
      PA5   ------> SharedAnalog_PA5
 */
 void MX_GPIO_Init(void)
@@ -112,11 +113,11 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(Light_LED1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PtPin */
-  GPIO_InitStruct.Pin = Gather_Inf_Pin;
+  /*Configure GPIO pins : PAPin PAPin */
+  GPIO_InitStruct.Pin = PA4_DAC_Pin|Gather_Inf_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(Gather_Inf_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI2_IRQn, 12, 0);
