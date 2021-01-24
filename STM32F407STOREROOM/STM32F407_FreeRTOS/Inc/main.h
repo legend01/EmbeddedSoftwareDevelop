@@ -94,6 +94,10 @@
 #define CAN1_RX_GPIO_Port GPIOA
 #define CAN1_TX_Pin GPIO_PIN_12
 #define CAN1_TX_GPIO_Port GPIOA
+#define IIC_SCL_Pin GPIO_PIN_8
+#define IIC_SCL_GPIO_Port GPIOB
+#define IIC_SDA_Pin GPIO_PIN_9
+#define IIC_SDA_GPIO_Port GPIOB
 
 /* ########################## Assert Selection ############################## */
 /**
