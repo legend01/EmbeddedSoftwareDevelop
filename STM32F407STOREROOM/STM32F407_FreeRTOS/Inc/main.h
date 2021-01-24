@@ -80,6 +80,8 @@
 #define Light_LED1_GPIO_Port GPIOF
 #define Key_UP_Pin GPIO_PIN_0
 #define Key_UP_GPIO_Port GPIOA
+#define DAC_PWM_Pin GPIO_PIN_3
+#define DAC_PWM_GPIO_Port GPIOA
 #define PA4_DAC_Pin GPIO_PIN_4
 #define PA4_DAC_GPIO_Port GPIOA
 #define Gather_Inf_Pin GPIO_PIN_5
