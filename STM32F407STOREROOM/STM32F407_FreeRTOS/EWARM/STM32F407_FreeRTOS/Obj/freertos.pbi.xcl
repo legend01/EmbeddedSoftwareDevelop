@@ -61,6 +61,8 @@ C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F40
 -I
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/PWMADC/
 -I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/IIC/
+-I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\Core\Include
 -I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\DSP\Include
@@ -124,6 +126,8 @@ C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F40
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\DAC
 -I
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\PWMADC
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\IIC
 -I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\Core\Include
 -I

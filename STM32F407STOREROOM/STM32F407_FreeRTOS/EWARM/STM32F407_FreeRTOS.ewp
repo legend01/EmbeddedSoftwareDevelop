@@ -379,6 +379,8 @@
                     <state>$PROJ_DIR$/../App/ADC/</state>
                     <state>$PROJ_DIR$/../App/DAC/</state>
                     <state>$PROJ_DIR$/../App/PWMADC/</state>
+                    <state>$PROJ_DIR$/../App/IIC/</state>
+                    <state>$PROJ_DIR$/../App/24CXX/</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1070,6 +1072,12 @@
         <group>
             <name>APP</name>
             <group>
+                <name>24CXX</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\24CXX\24cxx.c</name>
+                </file>
+            </group>
+            <group>
                 <name>ADC</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\ADC\app_adc.c</name>
@@ -1103,6 +1111,12 @@
                 <name>DAC</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\DAC\app_dac.c</name>
+                </file>
+            </group>
+            <group>
+                <name>IIC</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\IIC\drive_iic.c</name>
                 </file>
             </group>
             <group>
