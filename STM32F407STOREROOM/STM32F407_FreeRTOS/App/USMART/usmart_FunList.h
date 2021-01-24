@@ -30,6 +30,7 @@ struct _m_usmart_nametab usmart_nametab[]=
 	(void *)usmart_print_lightSensor, "void usmart_print_lightSensor(void)",
 	(void *)usmart_print_ADC3Sensor, "void usmart_print_ADC3Sensor(void)",
 	(void *)usmart_set_DAC1Vol, "void usmart_set_DAC1Vol(uint16_t value)",
+	(void *)usmart_set_PWMCompare, "void usmart_set_PWMCompare(uint32_t pulse)",
 };		
 
 #endif // !__USMART_FUNLIST_H__
