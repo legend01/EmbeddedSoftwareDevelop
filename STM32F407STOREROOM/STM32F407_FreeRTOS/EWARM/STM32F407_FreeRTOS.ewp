@@ -378,6 +378,7 @@
                     <state>$PROJ_DIR$/../App/WAKEUP/</state>
                     <state>$PROJ_DIR$/../App/ADC/</state>
                     <state>$PROJ_DIR$/../App/DAC/</state>
+                    <state>$PROJ_DIR$/../App/PWMADC/</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1132,6 +1133,12 @@
                 <name>PWM</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\PWM\pwm.c</name>
+                </file>
+            </group>
+            <group>
+                <name>PWMADC</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\PWMADC\pwmadc.c</name>
                 </file>
             </group>
             <group>

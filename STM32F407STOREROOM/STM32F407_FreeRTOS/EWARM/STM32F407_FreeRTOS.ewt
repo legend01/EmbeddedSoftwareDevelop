@@ -1256,6 +1256,12 @@
                 </file>
             </group>
             <group>
+                <name>PWMADC</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\PWMADC\pwmadc.c</name>
+                </file>
+            </group>
+            <group>
                 <name>RINGBUFFER</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\RINGBUFFER\Ringbuff_manger.c</name>
