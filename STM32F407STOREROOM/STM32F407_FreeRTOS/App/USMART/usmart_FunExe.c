@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-23 11:07:34
- * @LastEditTime: 2021-01-24 15:29:49
+ * @LastEditTime: 2021-01-24 21:07:14
  * @LastEditors: HLLI8
  */
 #include "usmart_FunExe.h"
@@ -36,4 +36,15 @@ void usmart_set_DAC1Vol(uint16_t value){
 
 void usmart_set_PWMCompare(uint32_t pulse){
     SetPWMCompare(&htim9, TIM_CHANNEL_2, pulse/2);
+}
+
+void usmart_write_EEPROMData(void){
+    uint8_t Write_buffer[] = {"Write to the EEPROM"};
+    AT24CXX_Write(0, Write_buffer, sizeof(Write_buffer));
+}
+
+void usmart_read_EEPROMData(void){
+    uint8_t Read_buffer[20];
+    AT24CXX_Read(0, Read_buffer, 20);
+    USMART_RETURN("Read AT24CXX: %s \r\n", Read_buffer);
 }
