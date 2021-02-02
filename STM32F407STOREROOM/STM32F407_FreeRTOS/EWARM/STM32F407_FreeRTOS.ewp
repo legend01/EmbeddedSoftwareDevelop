@@ -381,6 +381,8 @@
                     <state>$PROJ_DIR$/../App/PWMADC/</state>
                     <state>$PROJ_DIR$/../App/IIC/</state>
                     <state>$PROJ_DIR$/../App/24CXX/</state>
+                    <state>$PROJ_DIR$/../App/SPI/</state>
+                    <state>$PROJ_DIR$/../App/W25QXX/</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1174,6 +1176,12 @@
                 </file>
             </group>
             <group>
+                <name>SPI</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\SPI\drive_spi.c</name>
+                </file>
+            </group>
+            <group>
                 <name>SYSDLIB</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\SYSDLIB\sys_stdlib.c</name>
@@ -1207,6 +1215,12 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\..\App\USMART\usmart_str.c</name>
+                </file>
+            </group>
+            <group>
+                <name>W25QXX</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\W25QXX\w25qxx.c</name>
                 </file>
             </group>
             <group>
