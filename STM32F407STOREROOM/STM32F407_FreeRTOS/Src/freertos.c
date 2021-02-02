@@ -71,6 +71,7 @@
 #include "J1939x.h"
 #include "app_can.h"
 #include "app_adc.h"
+#include "w25qxx.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -183,7 +184,10 @@ void StartDefaultTask(void const * argument)
   RTC_WakeUp_Init();
   Ringbuff_init();
   CAN_Filter_Config();
+  W25QXX_Init();
   HAL_ADC_Start_DMA(&hadc3, (uint32_t *)&ADC_Conversion[0], SAMPLE_N*ADC_TOTAL_CH_NUM);
+  uint16_t w25qxxID = W25QXX_ReadID();
+  LOG_PRINTF("W25QXX ID:%d \r\n", w25qxxID);
   for(;;)
   {
     char receive_buf[200];

@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: HLLI8
+ * @Date: 2021-01-23 11:52:01
+ * @LastEditTime: 2021-01-26 21:56:55
+ * @LastEditors: HLLI8
+ */
 #ifndef __USMART_FUNLIST_H__
 #define __USMART_FUNLIST_H__
 #include "usmart.h"
@@ -33,6 +40,8 @@ struct _m_usmart_nametab usmart_nametab[]=
 	(void *)usmart_set_PWMCompare, "void usmart_set_PWMCompare(uint32_t pulse)",
 	(void *)usmart_write_EEPROMData, "void usmart_write_EEPROMData(void)",
 	(void *)usmart_read_EEPROMData, "void usmart_read_EEPROMData(void)",
+	(void *)usmart_write_FlashData, "void usmart_write_FlashData(void)",
+	(void *)usmart_read_FlashData, "void usmart_read_FlashData(void)",
 };		
 
 #endif // !__USMART_FUNLIST_H__

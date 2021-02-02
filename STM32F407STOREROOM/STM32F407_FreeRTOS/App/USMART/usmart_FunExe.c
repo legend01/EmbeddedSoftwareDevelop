@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-23 11:07:34
- * @LastEditTime: 2021-01-24 21:07:14
+ * @LastEditTime: 2021-01-26 22:21:05
  * @LastEditors: HLLI8
  */
 #include "usmart_FunExe.h"
@@ -47,4 +47,15 @@ void usmart_read_EEPROMData(void){
     uint8_t Read_buffer[20];
     AT24CXX_Read(0, Read_buffer, 20);
     USMART_RETURN("Read AT24CXX: %s \r\n", Read_buffer);
+}
+
+void usmart_write_FlashData(void){
+    uint8_t write_buffer[] = {"Write to the Flash"};
+    W25QXX_Write(write_buffer, FLASH_TEST_Addr, sizeof(write_buffer));
+}
+
+void usmart_read_FlashData(void){
+    uint8_t read_buffer[13];
+    W25QXX_Read(read_buffer, FLASH_TEST_Addr, 13);
+    USMART_RETURN("Read W25QXX: %s \r\n", read_buffer);
 }

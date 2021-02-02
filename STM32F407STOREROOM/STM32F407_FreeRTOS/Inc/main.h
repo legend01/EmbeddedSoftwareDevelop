@@ -86,6 +86,8 @@
 #define PA4_DAC_GPIO_Port GPIOA
 #define Gather_Inf_Pin GPIO_PIN_5
 #define Gather_Inf_GPIO_Port GPIOA
+#define SPI1_CS_Pin GPIO_PIN_14
+#define SPI1_CS_GPIO_Port GPIOB
 #define USART1_TX_Pin GPIO_PIN_9
 #define USART1_TX_GPIO_Port GPIOA
 #define USART1_RX_Pin GPIO_PIN_10
@@ -94,6 +96,12 @@
 #define CAN1_RX_GPIO_Port GPIOA
 #define CAN1_TX_Pin GPIO_PIN_12
 #define CAN1_TX_GPIO_Port GPIOA
+#define SPI1_SCK_Pin GPIO_PIN_3
+#define SPI1_SCK_GPIO_Port GPIOB
+#define SPI1_MISO_Pin GPIO_PIN_4
+#define SPI1_MISO_GPIO_Port GPIOB
+#define SPI1_MOSI_Pin GPIO_PIN_5
+#define SPI1_MOSI_GPIO_Port GPIOB
 #define IIC_SCL_Pin GPIO_PIN_8
 #define IIC_SCL_GPIO_Port GPIOB
 #define IIC_SDA_Pin GPIO_PIN_9
