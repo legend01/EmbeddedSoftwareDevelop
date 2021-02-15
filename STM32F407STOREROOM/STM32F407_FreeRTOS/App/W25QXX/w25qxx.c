@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-25 22:23:17
- * @LastEditTime: 2021-01-26 21:59:45
+ * @LastEditTime: 2021-02-15 12:19:36
  * @LastEditors: HLLI8
  */
 #include "w25qxx.h"
@@ -136,9 +136,7 @@ uint16_t W25QXX_ReadID(void)
 	SPI1_WriteByte(0x00); 	 
 
     SPI1_WriteByte(0xFF);
-    Temp |= SPI1_ReadByte() << 8;	
-    SPI1_WriteByte(0xFF);		   
-	Temp |= SPI1_ReadByte();	 
+    Temp = SPI_RECV_TWOBYTE();		 
 	SPI_CS_H;				    
 	return Temp;
 }   		    

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-24 22:30:14
- * @LastEditTime: 2021-01-25 22:18:25
+ * @LastEditTime: 2021-02-15 12:18:26
  * @LastEditors: HLLI8
  */
 #ifndef __DRIVE_SPI_H__
@@ -24,4 +24,6 @@
 
 void SPI_SEND_BYTE(uint8_t TxData);
 uint8_t SPI_RECV_BYTE(void);
+
+uint16_t SPI_RECV_TWOBYTE(void);
 #endif // !__DRIVE_SPI_H__

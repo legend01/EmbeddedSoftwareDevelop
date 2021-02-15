@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-24 22:30:07
- * @LastEditTime: 2021-01-26 22:14:57
+ * @LastEditTime: 2021-02-15 12:17:54
  * @LastEditors: HLLI8
  */
 #include "drive_spi.h"
@@ -41,6 +41,31 @@ uint8_t SPI_RECV_BYTE(void)
 
     
     for (i = 0; i < 8; i++)
+    {
+        SPI_SCK_L;
+        SysDelay_us(1);
+
+        RxData <<= 1;
+        if (SPI_MISO_H)
+        {
+            RxData |= 0x01;
+        }
+        
+        SPI_SCK_H;
+        SysDelay_us(1);
+    }
+
+    return RxData;
+}
+
+//spi数据读取驱动
+uint16_t SPI_RECV_TWOBYTE(void)
+{
+    uint16_t RxData = 0;
+    uint8_t i = 0;
+
+    
+    for (i = 0; i < 16; i++)
     {
         SPI_SCK_L;
         SysDelay_us(1);

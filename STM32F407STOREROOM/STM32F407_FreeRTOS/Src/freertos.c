@@ -187,7 +187,7 @@ void StartDefaultTask(void const * argument)
   W25QXX_Init();
   HAL_ADC_Start_DMA(&hadc3, (uint32_t *)&ADC_Conversion[0], SAMPLE_N*ADC_TOTAL_CH_NUM);
   uint16_t w25qxxID = W25QXX_ReadID();
-  LOG_PRINTF("W25QXX ID:%d \r\n", w25qxxID);
+  LOG_PRINTF("W25QXX ID:0x%x \r\n", w25qxxID);
   for(;;)
   {
     char receive_buf[200];
