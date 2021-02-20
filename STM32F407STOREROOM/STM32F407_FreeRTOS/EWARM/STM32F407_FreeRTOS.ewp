@@ -383,6 +383,7 @@
                     <state>$PROJ_DIR$/../App/24CXX/</state>
                     <state>$PROJ_DIR$/../App/SPI/</state>
                     <state>$PROJ_DIR$/../App/W25QXX/</state>
+                    <state>$PROJ_DIR$/../App/BMS/</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1095,6 +1096,12 @@
                 <name>BEEP</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\BEEP\beep.c</name>
+                </file>
+            </group>
+            <group>
+                <name>BMS</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\BMS\BMS.c</name>
                 </file>
             </group>
             <group>

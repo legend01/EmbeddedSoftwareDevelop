@@ -1214,6 +1214,12 @@
                 </file>
             </group>
             <group>
+                <name>BMS</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\BMS\BMS.c</name>
+                </file>
+            </group>
+            <group>
                 <name>CAN</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\CAN\app_can.c</name>
