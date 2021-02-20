@@ -92,7 +92,7 @@ typedef struct J1939_message
     unsigned int    priority;       // 优先级
     unsigned int    PGNnum;         //PGN真实值
     unsigned char   sourceAddr;     // 源地址
-    unsigned char   destAddr;       // 源地址
+    unsigned char   destAddr;       // 目的地址
     unsigned char   dataLen;        // 数据长度
     unsigned char   data[8];        // 数据数组
     

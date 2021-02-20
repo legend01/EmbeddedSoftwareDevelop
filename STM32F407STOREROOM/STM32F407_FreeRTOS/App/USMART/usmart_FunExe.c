@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-23 11:07:34
- * @LastEditTime: 2021-01-26 22:21:05
+ * @LastEditTime: 2021-02-15 12:45:18
  * @LastEditors: HLLI8
  */
 #include "usmart_FunExe.h"
@@ -50,7 +50,7 @@ void usmart_read_EEPROMData(void){
 }
 
 void usmart_write_FlashData(void){
-    uint8_t write_buffer[] = {"Write to the Flash"};
+    uint8_t write_buffer[] = {"hello"};
     W25QXX_Write(write_buffer, FLASH_TEST_Addr, sizeof(write_buffer));
 }
 
