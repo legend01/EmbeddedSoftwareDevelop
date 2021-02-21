@@ -2,6 +2,7 @@
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
         "drive_spi.h": "c",
-        "j1939x.h": "c"
+        "j1939x.h": "c",
+        "remote_control.h": "c"
     }
 }

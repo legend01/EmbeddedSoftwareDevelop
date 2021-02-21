@@ -1280,6 +1280,15 @@
                 </file>
             </group>
             <group>
+                <name>REMOTE</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\REMOTE\remote.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\App\REMOTE\remote_control.c</name>
+                </file>
+            </group>
+            <group>
                 <name>RINGBUFFER</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\RINGBUFFER\Ringbuff_manger.c</name>
