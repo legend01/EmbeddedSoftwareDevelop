@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-25 22:23:17
- * @LastEditTime: 2021-02-15 12:19:36
+ * @LastEditTime: 2021-02-21 12:03:26
  * @LastEditors: HLLI8
  */
 #include "w25qxx.h"
@@ -72,7 +72,6 @@ uint8_t W25QXX_ReadSR(uint8_t regno)
     }    
 	SPI_CS_L;                            //使能器件   
 	SPI1_WriteByte(command);            //发送读取状态寄存器命令 
-    SPI1_WriteByte(0xff);
     byte = SPI1_ReadByte();           //读取一个字节  
 	SPI_CS_H;                            //取消片选     
 	return byte;   
@@ -135,7 +134,6 @@ uint16_t W25QXX_ReadID(void)
 	SPI1_WriteByte(0x00); 	    
 	SPI1_WriteByte(0x00); 	 
 
-    SPI1_WriteByte(0xFF);
     Temp = SPI_RECV_TWOBYTE();		 
 	SPI_CS_H;				    
 	return Temp;
@@ -159,7 +157,6 @@ void W25QXX_Read(uint8_t* pBuffer,uint32_t ReadAddr,uint16_t NumByteToRead)
     SPI1_WriteByte((uint8_t)ReadAddr);   
     for(i=0;i<NumByteToRead;i++)
 	{ 
-        SPI1_WriteByte(0xFF);
         pBuffer[i]=SPI1_ReadByte();    //循环读数  
     }
 	SPI_CS_H;  				    	      
