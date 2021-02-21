@@ -72,11 +72,14 @@
 #include "app_can.h"
 #include "app_adc.h"
 #include "w25qxx.h"
+#include "BMS.h"
+#include "remote_control.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 extern USMART_RECV_STR usmart_receiveSTR;
+sBMS_Manage BMSmanager;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -238,6 +241,7 @@ void USMARTManageFuc(void const * argument)
   /* Infinite loop */
   for(;;)
   {
+    Remote_control();
     osDelay(1);
   }
   /* USER CODE END USMARTManageFuc */
@@ -261,19 +265,16 @@ void J1939ManageFuc(void const * argument)
   {
     GtmgFrRcvbufToPGN();
     GetmsgconvertToSend();
-    // J1939_message msg_cst;
-    // msg_cst.sourceAddr  = 0x56;
-    // msg_cst.destAddr    = 0xf4;
-    // msg_cst.priority    = PGNInfoSend[CEM].priority;
-    // msg_cst.PGNnum      = PGNInfoSend[CEM].PGNnum;
-    // msg_cst.dataLen     = PGNInfoSend[CEM].dataLen;
     
-    // msg_cst.data[0] = 0x01  & 0xff;                              
-    // msg_cst.data[1] =0x02  & 0xff;
-    // msg_cst.data[2] = 0x03 & 0xff;    
-    // msg_cst.data[3] = 0x4 & 0xff; 
-
-    // J1939_SendOnePacket(&msg_cst);
+    // char data[] = {0x01, 0x02, 0x03, 0x04};
+    // BMS_Send_message(CRM, data, sizeof(data));
+    
+    // uint8_t Getmsglen = BMS_Get_message(BMV, &(BMSmanager.messageData));
+    // LOG_PRINTF("GetBMV message: \r\n");
+    // for (uint8_t i = 0; i < 8; i++)
+    // {
+    //   LOG_PRINTF("0x %x \r\n", BMSmanager.messageData[i]);
+    // }
     osDelay(1);
   }
   /* USER CODE END J1939ManageFuc */

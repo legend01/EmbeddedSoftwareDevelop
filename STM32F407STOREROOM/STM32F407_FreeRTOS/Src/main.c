@@ -64,6 +64,7 @@
 #include "APP_USART.h"
 #include "led.h"
 #include "app_rng.h"
+#include "remote.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -284,6 +285,19 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         }
       }
     }
+  }
+  if(htim->Instance == TIM1){
+    if(RmtSta&0x80)//??????????
+    {	
+      RmtSta&=~0X10;						//????????????
+      if((RmtSta&0X0F)==0X00)RmtSta|=1<<6;//?????????????????
+      if((RmtSta&0X0F)<14){
+        RmtSta++;
+      }else{
+        RmtSta&=~(1<<7);//??????
+        RmtSta&=0XF0;	//?????	
+      }						 	   	
+    }	
   }
   /* USER CODE END Callback 1 */
 }
