@@ -86,6 +86,8 @@
 #define Gather_Inf_GPIO_Port GPIOA
 #define SPI1_CS_Pin GPIO_PIN_14
 #define SPI1_CS_GPIO_Port GPIOB
+#define Capture_light_Pin GPIO_PIN_8
+#define Capture_light_GPIO_Port GPIOA
 #define USART1_TX_Pin GPIO_PIN_9
 #define USART1_TX_GPIO_Port GPIOA
 #define USART1_RX_Pin GPIO_PIN_10

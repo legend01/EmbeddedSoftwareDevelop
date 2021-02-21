@@ -133,6 +133,7 @@ int main(void)
   MX_ADC1_Init();
   MX_DAC_Init();
   MX_TIM9_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
