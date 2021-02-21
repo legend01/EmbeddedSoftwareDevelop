@@ -68,8 +68,6 @@
 #define Key0_Pin GPIO_PIN_4
 #define Key0_GPIO_Port GPIOE
 #define Key0_EXTI_IRQn EXTI4_IRQn
-#define ADC3_IN15_Gather_Pin GPIO_PIN_5
-#define ADC3_IN15_Gather_GPIO_Port GPIOF
 #define Light_Sensor_Pin GPIO_PIN_7
 #define Light_Sensor_GPIO_Port GPIOF
 #define BEEP_Pin GPIO_PIN_8
