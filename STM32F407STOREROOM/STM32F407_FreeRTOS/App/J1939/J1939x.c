@@ -393,13 +393,13 @@ int GtmgFrRcvbufToPGN(void)
     PGNTypeRcv PGNrcv_INDEX;
 
     int Ringbuff_readstate = Ringbuff_read(RingRCVbuff, &message); //从接收BUF中读出数据到message
-
+    //LOG_PRINTF("----->Ringbuff_readstate: %d\r\n", Ringbuff_readstate);
     if(Ringbuff_readstate == BUF_NEXIT)//不存在返回-1
     {
         LOG_PRINTF("convert_BUFmsgToJ1939msgArray-------Ringbuff_read Fail!\r\n");
         return RET_ERROR;
     }
-    else if(Ringbuff_readstate == BUF_EMPTY) //读取的数据为空，算正常现象
+    if(Ringbuff_readstate == BUF_EMPTY) //读取的数据为空，算正常现象
     {
         return SUCCESS_RET;
     }
@@ -596,11 +596,6 @@ static void MultiTrans_ManageSend_TP_CM_CTS(unsigned char CMMD, sJ1939_buff_mess
     msg_send->Data[0] = CMMD;
     msg_send->Data[1]        = 1;            //可发送的数据包
     msg_send->Data[2]        = pJ1939_connect->cur_packet;       //接收第一包数据
-    #ifdef J1939_OneTime_Trans
-    msg_send->Data[1]        = pJ1939_connect->num_packet;   //可发送的数据包
-    if(pJ1939_connect->cur_packet > 1)
-        return SUCCESS_RET;
-    #endif
     msg_send->Data[3]        = 0XFF;         //规定
     msg_send->Data[4]        = 0XFF;
 

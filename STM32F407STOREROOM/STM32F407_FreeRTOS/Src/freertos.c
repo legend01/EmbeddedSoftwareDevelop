@@ -266,15 +266,15 @@ void J1939ManageFuc(void const * argument)
     GtmgFrRcvbufToPGN();
     GetmsgconvertToSend();
     
-    // char data[] = {0x01, 0x02, 0x03, 0x04};
-    // BMS_Send_message(CRM, data, sizeof(data));
+    char data[] = {0x01, 0x02, 0x03, 0x04};
+    BMS_Send_message(CRM, data, sizeof(data));
     
-    // uint8_t Getmsglen = BMS_Get_message(BMV, &(BMSmanager.messageData));
-    // LOG_PRINTF("GetBMV message: \r\n");
-    // for (uint8_t i = 0; i < 8; i++)
-    // {
-    //   LOG_PRINTF("0x %x \r\n", BMSmanager.messageData[i]);
-    // }
+    uint8_t Getmsglen = BMS_Get_message(BHM, &(BMSmanager.messageData));
+    LOG_PRINTF("GetBHM message: \r\n");
+    for (uint8_t i = 0; i < 8; i++)
+    {
+      LOG_PRINTF("0x %x \r\n", BMSmanager.messageData[i]);
+    }
     osDelay(1);
   }
   /* USER CODE END J1939ManageFuc */
