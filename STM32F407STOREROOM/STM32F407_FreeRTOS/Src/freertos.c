@@ -184,6 +184,7 @@ void StartDefaultTask(void const * argument)
   // TPAD_Init();
   usmart_init();
   Uart5_DMA_Init();
+  Uart4_DMA_Init();
   RTC_WakeUp_Init();
   Ringbuff_init();
   CAN_Filter_Config();
@@ -223,6 +224,8 @@ void USART1ManageFuc(void const * argument)
   {
     // SetLight0Pwm();
     // delay_ms(1000);
+    char sent_buffer[] = {"hello word \r\n"};
+    Uart4_DMA_Sent(sent_buffer, strlen(sent_buffer));
     osDelay(1);
   }
   /* USER CODE END USART1ManageFuc */
@@ -266,15 +269,15 @@ void J1939ManageFuc(void const * argument)
     GtmgFrRcvbufToPGN();
     GetmsgconvertToSend();
     
-    char data[] = {0x01, 0x02, 0x03, 0x04};
-    BMS_Send_message(CRM, data, sizeof(data));
+    // char data[] = {0x01, 0x02, 0x03, 0x04};
+    // BMS_Send_message(CRM, data, sizeof(data));
     
-    uint8_t Getmsglen = BMS_Get_message(BHM, &(BMSmanager.messageData));
-    LOG_PRINTF("GetBHM message: \r\n");
-    for (uint8_t i = 0; i < 8; i++)
-    {
-      LOG_PRINTF("0x %x \r\n", BMSmanager.messageData[i]);
-    }
+    // uint8_t Getmsglen = BMS_Get_message(BHM, &(BMSmanager.messageData));
+    // LOG_PRINTF("GetBHM message: \r\n");
+    // for (uint8_t i = 0; i < 8; i++)
+    // {
+    //   LOG_PRINTF("0x %x \r\n", BMSmanager.messageData[i]);
+    // }
     osDelay(1);
   }
   /* USER CODE END J1939ManageFuc */

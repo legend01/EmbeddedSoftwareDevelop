@@ -135,6 +135,7 @@ int main(void)
   MX_DAC_Init();
   MX_TIM9_Init();
   MX_TIM1_Init();
+  MX_UART4_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
