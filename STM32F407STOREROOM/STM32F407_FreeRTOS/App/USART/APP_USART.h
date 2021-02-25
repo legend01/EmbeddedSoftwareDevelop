@@ -2,7 +2,7 @@
  * @Description: 串口处理函数
  * @Author: HLLI8
  * @Date: 2020-12-06 19:56:26
- * @LastEditTime: 2021-01-06 21:38:15
+ * @LastEditTime: 2021-02-24 22:27:06
  * @LastEditors: HLLI8
  */
 #ifndef __APP_USART_H__
@@ -15,6 +15,9 @@ extern DMA_HandleTypeDef hdma_usart1_tx;
 
 extern DMA_HandleTypeDef hdma_uart5_rx;
 extern DMA_HandleTypeDef hdma_uart5_tx;
+
+extern DMA_HandleTypeDef hdma_uart4_rx;
+extern DMA_HandleTypeDef hdma_uart4_tx;
 #define UART_BUFFSIZE    200   
 typedef struct
 {
