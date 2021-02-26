@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-24 17:10:36
- * @LastEditTime: 2021-01-24 17:27:19
+ * @LastEditTime: 2021-02-26 21:01:32
  * @LastEditors: HLLI8
  */
 #ifndef __DRIVE_IIC_H__
@@ -20,7 +20,6 @@
 #define READ_SDA  PBin(9)  //输入SDA
 
 //IIC所有操作函数
-void IIC_Init(void);                //初始化IIC的IO口				 
 void IIC_Start(void);				//发送IIC开始信号
 void IIC_Stop(void);	  			//发送IIC停止信号
 void IIC_Send_Byte(uint8_t txd);			//IIC发送一个字节
