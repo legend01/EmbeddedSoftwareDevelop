@@ -224,8 +224,6 @@ void USART1ManageFuc(void const * argument)
   {
     // SetLight0Pwm();
     // delay_ms(1000);
-    char sent_buffer[] = {"hello word \r\n"};
-    Uart4_DMA_Sent(sent_buffer, strlen(sent_buffer));
     osDelay(1);
   }
   /* USER CODE END USART1ManageFuc */

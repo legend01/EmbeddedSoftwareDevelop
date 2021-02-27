@@ -2,7 +2,7 @@
  * @Description: 串口处理函数
  * @Author: HLLI8
  * @Date: 2020-12-06 19:56:26
- * @LastEditTime: 2021-02-24 22:27:06
+ * @LastEditTime: 2021-02-25 21:18:29
  * @LastEditors: HLLI8
  */
 #ifndef __APP_USART_H__
@@ -42,4 +42,8 @@ void IRQ_USART1_IRQHandler(void);
 void Uart5_DMA_Init(void);
 short Uart5_DMA_Sent(char * Sendbuff, short Bufflens);
 void IRQ_UART5_IRQHandler(void);
+
+void Uart4_DMA_Init(void);
+short Uart4_DMA_Sent(char * Sendbuff, short Bufflens);
+void IRQ_UART4_IRQHandler(void);
 #endif // !__USART_H__
