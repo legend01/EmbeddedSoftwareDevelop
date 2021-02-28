@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file           : main.h
-  * @brief          : Header for main.c file.
-  *                   This file contains the common defines of the application.
+  * File Name          : FSMC.h
+  * Description        : This file provides code for the configuration
+  *                      of the FSMC peripheral.
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -46,89 +46,47 @@
   *
   ******************************************************************************
   */
-
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H__
-#define __MAIN_H__
+#ifndef __FSMC_H
+#define __FSMC_H
+#ifdef __cplusplus
+ extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
+#include "main.h"
 
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
 
-/* Private define ------------------------------------------------------------*/
-
-#define Key2_Pin GPIO_PIN_2
-#define Key2_GPIO_Port GPIOE
-#define Key2_EXTI_IRQn EXTI2_IRQn
-#define Key1_Pin GPIO_PIN_3
-#define Key1_GPIO_Port GPIOE
-#define Key1_EXTI_IRQn EXTI3_IRQn
-#define Key0_Pin GPIO_PIN_4
-#define Key0_GPIO_Port GPIOE
-#define Key0_EXTI_IRQn EXTI4_IRQn
-#define Light_Sensor_Pin GPIO_PIN_7
-#define Light_Sensor_GPIO_Port GPIOF
-#define BEEP_Pin GPIO_PIN_8
-#define BEEP_GPIO_Port GPIOF
-#define Light_LED0_Pin GPIO_PIN_9
-#define Light_LED0_GPIO_Port GPIOF
-#define Light_LED1_Pin GPIO_PIN_10
-#define Light_LED1_GPIO_Port GPIOF
-#define Key_UP_Pin GPIO_PIN_0
-#define Key_UP_GPIO_Port GPIOA
-#define DAC_PWM_Pin GPIO_PIN_3
-#define DAC_PWM_GPIO_Port GPIOA
-#define PA4_DAC_Pin GPIO_PIN_4
-#define PA4_DAC_GPIO_Port GPIOA
-#define Gather_Inf_Pin GPIO_PIN_5
-#define Gather_Inf_GPIO_Port GPIOA
-#define SPI1_CS_Pin GPIO_PIN_14
-#define SPI1_CS_GPIO_Port GPIOB
-#define Capture_light_Pin GPIO_PIN_8
-#define Capture_light_GPIO_Port GPIOA
-#define USART1_TX_Pin GPIO_PIN_9
-#define USART1_TX_GPIO_Port GPIOA
-#define USART1_RX_Pin GPIO_PIN_10
-#define USART1_RX_GPIO_Port GPIOA
-#define CAN1_RX_Pin GPIO_PIN_11
-#define CAN1_RX_GPIO_Port GPIOA
-#define CAN1_TX_Pin GPIO_PIN_12
-#define CAN1_TX_GPIO_Port GPIOA
-#define SPI1_SCK_Pin GPIO_PIN_3
-#define SPI1_SCK_GPIO_Port GPIOB
-#define SPI1_MISO_Pin GPIO_PIN_4
-#define SPI1_MISO_GPIO_Port GPIOB
-#define SPI1_MOSI_Pin GPIO_PIN_5
-#define SPI1_MOSI_GPIO_Port GPIOB
-#define IIC_SCL_Pin GPIO_PIN_8
-#define IIC_SCL_GPIO_Port GPIOB
-#define IIC_SDA_Pin GPIO_PIN_9
-#define IIC_SDA_GPIO_Port GPIOB
-
-/* ########################## Assert Selection ############################## */
-/**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the 
-  *        HAL drivers code
-  */
-/* #define USE_FULL_ASSERT    1U */
+extern SRAM_HandleTypeDef hsram1;
+extern void _Error_Handler(char *, int);
 
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
 
-#ifdef __cplusplus
- extern "C" {
-#endif
-void _Error_Handler(char *, int);
+void MX_FSMC_Init(void);
+void HAL_SRAM_MspInit(SRAM_HandleTypeDef* hsram);
+void HAL_SRAM_MspDeInit(SRAM_HandleTypeDef* hsram);
 
-#define Error_Handler() _Error_Handler(__FILE__, __LINE__)
+/* USER CODE BEGIN Prototypes */
+
+/* USER CODE END Prototypes */
+
 #ifdef __cplusplus
 }
 #endif
+#endif /*__FSMC_H */
 
-#endif /* __MAIN_H__ */
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

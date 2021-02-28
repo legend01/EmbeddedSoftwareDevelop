@@ -2,11 +2,13 @@
  * @Description: 公共数据 返回值等
  * @Author: HLLI8
  * @Date: 2021-01-15 13:19:17
- * @LastEditTime: 2021-02-28 14:04:06
+ * @LastEditTime: 2021-02-28 16:54:39
  * @LastEditors: HLLI8
  */
 #ifndef __PUB_DATA_H__
 #define __PUB_DATA_H__
+
+#include "stm32f4xx.h"
 
 typedef enum{
 	false = 0,
