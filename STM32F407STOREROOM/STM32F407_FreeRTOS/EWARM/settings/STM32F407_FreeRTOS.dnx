@@ -16,10 +16,10 @@
         <FirstRun>0</FirstRun>
     </PlDriver>
     <Jet>
+        <OnlineReset>Software</OnlineReset>
         <DisableInterrupts>0</DisableInterrupts>
         <LeaveRunning>0</LeaveRunning>
         <MultiCoreRunAll>0</MultiCoreRunAll>
-        <OnlineReset>Software</OnlineReset>
         <JetConnSerialNo>Fire CMSIS-DAP:FS-00000385</JetConnSerialNo>
         <JetConnFoundProbes />
         <PrevWtdReset>Connect during reset</PrevWtdReset>
@@ -28,7 +28,7 @@
         <EnableCache>1</EnableCache>
     </ArmDriver>
     <DebugChecksum>
-        <Checksum>2032668858</Checksum>
+        <Checksum>336136156</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -40,8 +40,8 @@
     <SWOManager>
         <SamplingDivider>8192</SamplingDivider>
         <OverrideClock>0</OverrideClock>
-        <CpuClock>3145780</CpuClock>
-        <SwoClock>5439543</SwoClock>
+        <CpuClock>696008061</CpuClock>
+        <SwoClock>560889384</SwoClock>
         <DataLogMode>0</DataLogMode>
         <ItmPortsEnabled>63</ItmPortsEnabled>
         <ItmTermIOPorts>1</ItmTermIOPorts>
@@ -88,7 +88,8 @@
     </DisassembleMode>
     <Breakpoints2>
         <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\App\MPU6050\eMPL\inv_mpu.c}.2975.3" 0 0 1 "" 0 "" 0</Bp0>
-        <Count>1</Count>
+        <Bp1>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\App\SRAM\sram.c}.62.5" 0 0 1 "" 0 "" 0</Bp1>
+        <Count>2</Count>
     </Breakpoints2>
     <LogFile>
         <LoggingEnabled>_ 0</LoggingEnabled>

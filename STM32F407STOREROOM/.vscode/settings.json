@@ -3,6 +3,9 @@
     "files.associations": {
         "drive_spi.h": "c",
         "j1939x.h": "c",
-        "remote_control.h": "c"
+        "remote_control.h": "c",
+        "sram.h": "c",
+        "pub_data.h": "c",
+        "log_printf.h": "c"
     }
 }

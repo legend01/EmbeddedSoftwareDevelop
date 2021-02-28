@@ -73,6 +73,10 @@ C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F40
 -I
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/REMOTE/
 -I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/FLASH/
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/SRAM/
+-I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\Core\Include
 -I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\DSP\Include
@@ -148,6 +152,10 @@ C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F40
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\BMS
 -I
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\REMOTE
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\FLASH
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\SRAM
 -I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\Core\Include
 -I

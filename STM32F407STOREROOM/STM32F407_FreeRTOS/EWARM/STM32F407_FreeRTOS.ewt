@@ -1319,6 +1319,12 @@
                 </file>
             </group>
             <group>
+                <name>SRAM</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\SRAM\sram.c</name>
+                </file>
+            </group>
+            <group>
                 <name>SYSDLIB</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\SYSDLIB\sys_stdlib.c</name>
@@ -1389,6 +1395,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\freertos.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\fsmc.c</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\gpio.c</name>
@@ -1490,6 +1499,9 @@
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc_ex.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_sram.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c</name>
             </file>
             <file>
@@ -1497,6 +1509,9 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_fsmc.c</name>
             </file>
         </group>
     </group>

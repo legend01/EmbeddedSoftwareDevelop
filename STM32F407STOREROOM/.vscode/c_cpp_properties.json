@@ -43,7 +43,8 @@
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\W25QXX",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\BMS",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\REMOTE",
-                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\FLASH"
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\FLASH",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\SRAM"
             ],
             "forcedInclude": [],
             "cStandard": "c11",
