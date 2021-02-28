@@ -936,7 +936,7 @@
                     <item>msg_cst</item>
                     <item>usmart_receivePOI</item>
                     <item>result</item>
-                    <item></item>
+                    <item />
                 </expressions>
                 <col-names>
                     <item>Expression</item>

@@ -1238,6 +1238,12 @@
                 </file>
             </group>
             <group>
+                <name>FLASH</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\FLASH\APP_Flash.c</name>
+                </file>
+            </group>
+            <group>
                 <name>IIC</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\IIC\drive_iic.c</name>
