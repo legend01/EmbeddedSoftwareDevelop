@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-23 11:07:45
- * @LastEditTime: 2021-02-28 14:29:13
+ * @LastEditTime: 2021-02-28 17:09:40
  * @LastEditors: HLLI8
  */
 #ifndef __USMART_FUNEXE_H__
@@ -12,6 +12,7 @@
 #include "24cxx.h"
 #include "w25qxx.h"
 #include "APP_Flash.h"
+#include "sram.h"
 
 void usmart_print_TempeSensor(void);
 void usmart_print_lightSensor(void);
@@ -27,4 +28,5 @@ void usmart_read_FlashData(void);
 void usmart_write_LocalFlashData(void);
 void usmart_read_LocalFlashData(void);
 
+void usmart_read_externSramSize(void);
 #endif // !__USMART_FUNEXE_H__

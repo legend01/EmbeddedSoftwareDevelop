@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-23 11:07:34
- * @LastEditTime: 2021-02-28 14:54:26
+ * @LastEditTime: 2021-02-28 18:08:12
  * @LastEditors: HLLI8
  */
 #include "usmart_FunExe.h"
@@ -69,4 +69,11 @@ void usmart_read_LocalFlashData(void){
     u8 data_buffer[24];
     STMFLASH_Read(FLASH_SAVE_ADDR, (u32*)data_buffer, SIZE(TEXT_Buffer));
     USMART_RETURN("Read Local Flash: %s \r\n", data_buffer);
+}
+
+void usmart_read_externSramSize(void){
+    u16 len = 0;
+    uint8_t textbuffer[24];
+    fsmc_sram_size(textbuffer);
+    USMART_RETURN("External SRAM data: %s \r\n", textbuffer);
 }
