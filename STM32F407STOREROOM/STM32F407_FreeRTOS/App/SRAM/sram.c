@@ -2,11 +2,11 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-02-28 16:49:44
- * @LastEditTime: 2021-02-28 18:09:20
+ * @LastEditTime: 2021-02-28 20:46:59
  * @LastEditors: HLLI8
  */
 #include "sram.h"
-#include "log_printf.h"
+#include "XMRAM.h"
 
 //在指定地址(WriteAddr+Bank1_SRAM3_ADDR)开始,连续写入n个字节.
 //pBuffer:字节指针

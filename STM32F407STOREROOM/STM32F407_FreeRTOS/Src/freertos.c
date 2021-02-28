@@ -55,7 +55,7 @@
 #include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */     
+/* USER CODE BEGIN Includes */
 #include "stm32f4xx.h"
 #include "led.h"
 #include "beep.h"
@@ -74,6 +74,7 @@
 #include "w25qxx.h"
 #include "BMS.h"
 #include "remote_control.h"
+#include "XMRAM.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -104,13 +105,13 @@ osMessageQId USMARTQueueHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
-   
+
 /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void const * argument);
-void USART1ManageFuc(void const * argument);
-void USMARTManageFuc(void const * argument);
-void J1939ManageFuc(void const * argument);
+void StartDefaultTask(void const *argument);
+void USART1ManageFuc(void const *argument);
+void USMARTManageFuc(void const *argument);
+void J1939ManageFuc(void const *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -119,9 +120,10 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   * @param  None
   * @retval None
   */
-void MX_FREERTOS_Init(void) {
+void MX_FREERTOS_Init(void)
+{
   /* USER CODE BEGIN Init */
-  
+
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -159,7 +161,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* definition and creation of USMARTQueue */
-/* what about the sizeof here??? cd native code */
+  /* what about the sizeof here??? cd native code */
   osMessageQDef(USMARTQueue, 8, usmart_receiveSTR);
   USMARTQueueHandle = osMessageCreate(osMessageQ(USMARTQueue), NULL);
 
@@ -175,7 +177,7 @@ void MX_FREERTOS_Init(void) {
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const * argument)
+void StartDefaultTask(void const *argument)
 {
 
   /* USER CODE BEGIN StartDefaultTask */
@@ -189,19 +191,20 @@ void StartDefaultTask(void const * argument)
   Ringbuff_init();
   CAN_Filter_Config();
   W25QXX_Init();
-  HAL_ADC_Start_DMA(&hadc3, (uint32_t *)&ADC_Conversion[0], SAMPLE_N*ADC_TOTAL_CH_NUM);
+  HAL_ADC_Start_DMA(&hadc3, (uint32_t *)&ADC_Conversion[0], SAMPLE_N * ADC_TOTAL_CH_NUM);
   uint16_t w25qxxID = W25QXX_ReadID();
   LOG_PRINTF("W25QXX ID:0x%x \r\n", w25qxxID);
-  for(;;)
+  XmRamInit(); /* 初始化XMRAM */
+  for (;;)
   {
     char receive_buf[200];
-    memset(receive_buf, 0, sizeof(receive_buf)/sizeof(receive_buf[0]));
-    Get_Uart_Data(USART1, receive_buf, sizeof(receive_buf)/sizeof(receive_buf[0]));
+    memset(receive_buf, 0, sizeof(receive_buf) / sizeof(receive_buf[0]));
+    Get_Uart_Data(USART1, receive_buf, sizeof(receive_buf) / sizeof(receive_buf[0]));
     // if(TPAD_Scan(0)){
     //   LED1_Toggle;
     // }
     // delay_ms(150);
-    
+
     InputCapture();
     // printf("%s\n", receive_buf);
     osDelay(1);
@@ -216,11 +219,11 @@ void StartDefaultTask(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_USART1ManageFuc */
-void USART1ManageFuc(void const * argument)
+void USART1ManageFuc(void const *argument)
 {
   /* USER CODE BEGIN USART1ManageFuc */
   /* Infinite loop */
-  for(;;)
+  for (;;)
   {
     // SetLight0Pwm();
     // delay_ms(1000);
@@ -236,11 +239,11 @@ void USART1ManageFuc(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_USMARTManageFuc */
-void USMARTManageFuc(void const * argument)
+void USMARTManageFuc(void const *argument)
 {
   /* USER CODE BEGIN USMARTManageFuc */
   /* Infinite loop */
-  for(;;)
+  for (;;)
   {
     Remote_control();
     osDelay(1);
@@ -255,21 +258,21 @@ void USMARTManageFuc(void const * argument)
 * @retval None
 */
 /* USER CODE END Header_J1939ManageFuc */
-void J1939ManageFuc(void const * argument)
+void J1939ManageFuc(void const *argument)
 {
   /* USER CODE BEGIN J1939ManageFuc */
   CAN_Register(GetmessageToRcvbuff, NULL);
   J1939_connect_clear();
   PGN_MessageRcv_Init();
   /* Infinite loop */
-  for(;;)
+  for (;;)
   {
     GtmgFrRcvbufToPGN();
     GetmsgconvertToSend();
-    
+
     // char data[] = {0x01, 0x02, 0x03, 0x04};
     // BMS_Send_message(CRM, data, sizeof(data));
-    
+
     // uint8_t Getmsglen = BMS_Get_message(BHM, &(BMSmanager.messageData));
     // LOG_PRINTF("GetBHM message: \r\n");
     // for (uint8_t i = 0; i < 8; i++)
@@ -283,7 +286,7 @@ void J1939ManageFuc(void const * argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
-     
+
 /* USER CODE END Application */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
