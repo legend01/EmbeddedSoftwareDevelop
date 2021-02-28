@@ -1372,6 +1372,15 @@
                     <name>$PROJ_DIR$\..\App\WAKEUP\wakeup.c</name>
                 </file>
             </group>
+            <group>
+                <name>XMRAM</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\XMRAM\XMRAM.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\App\XMRAM\XMRAM.lib</name>
+                </file>
+            </group>
         </group>
         <group>
             <name>EWARM</name>

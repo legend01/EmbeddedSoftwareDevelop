@@ -287,7 +287,7 @@
                 <option>
                     <name>CCAllowList</name>
                     <version>1</version>
-                    <state>11111110</state>
+                    <state>10010100</state>
                 </option>
                 <option>
                     <name>CCDebugInfo</name>
@@ -387,6 +387,7 @@
                     <state>$PROJ_DIR$/../App/REMOTE/</state>
                     <state>$PROJ_DIR$/../App/FLASH/</state>
                     <state>$PROJ_DIR$/../App/SRAM/</state>
+                    <state>$PROJ_DIR$/../App/XMRAM/</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -402,7 +403,7 @@
                 </option>
                 <option>
                     <name>CCOptLevel</name>
-                    <state>3</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>CCOptStrategy</name>
@@ -411,7 +412,7 @@
                 </option>
                 <option>
                     <name>CCOptLevelSlave</name>
-                    <state>3</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>CompilerMisraRules98</name>
@@ -853,7 +854,7 @@
                 </option>
                 <option>
                     <name>IlinkAdditionalLibs</name>
-                    <state></state>
+                    <state>$PROJ_DIR$\..\App\XMRAM\XMRAM.lib</state>
                 </option>
                 <option>
                     <name>IlinkOverrideProgramEntryLabel</name>
@@ -1258,6 +1259,15 @@
                 <name>WAKEUP</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\WAKEUP\wakeup.c</name>
+                </file>
+            </group>
+            <group>
+                <name>XMRAM</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\XMRAM\XMRAM.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\App\XMRAM\XMRAM.lib</name>
                 </file>
             </group>
         </group>
