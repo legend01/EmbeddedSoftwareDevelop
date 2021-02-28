@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-23 11:07:34
- * @LastEditTime: 2021-02-15 12:45:18
+ * @LastEditTime: 2021-02-28 14:54:26
  * @LastEditors: HLLI8
  */
 #include "usmart_FunExe.h"
@@ -58,4 +58,15 @@ void usmart_read_FlashData(void){
     uint8_t read_buffer[13];
     W25QXX_Read(read_buffer, FLASH_TEST_Addr, 13);
     USMART_RETURN("Read W25QXX: %s \r\n", read_buffer);
+}
+
+const uint8_t TEXT_Buffer[]={"Test local Flash"};
+void usmart_write_LocalFlashData(void){
+    STMFLASH_Write(FLASH_SAVE_ADDR,(u32*)TEXT_Buffer,SIZE(TEXT_Buffer));
+}
+
+void usmart_read_LocalFlashData(void){
+    u8 data_buffer[24];
+    STMFLASH_Read(FLASH_SAVE_ADDR, (u32*)data_buffer, SIZE(TEXT_Buffer));
+    USMART_RETURN("Read Local Flash: %s \r\n", data_buffer);
 }

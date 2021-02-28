@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-23 11:52:01
- * @LastEditTime: 2021-01-26 21:56:55
+ * @LastEditTime: 2021-02-28 14:30:20
  * @LastEditors: HLLI8
  */
 #ifndef __USMART_FUNLIST_H__
@@ -42,6 +42,8 @@ struct _m_usmart_nametab usmart_nametab[]=
 	(void *)usmart_read_EEPROMData, "void usmart_read_EEPROMData(void)",
 	(void *)usmart_write_FlashData, "void usmart_write_FlashData(void)",
 	(void *)usmart_read_FlashData, "void usmart_read_FlashData(void)",
+	(void *)usmart_write_LocalFlashData, "void usmart_write_LocalFlashData(void)",
+	(void *)usmart_read_LocalFlashData, "void usmart_read_LocalFlashData(void)",
 };		
 
 #endif // !__USMART_FUNLIST_H__
