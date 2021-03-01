@@ -60,10 +60,6 @@ void * memcpy (void *, const void *, unsigned);
 
 void * sys_memset (void *, unsigned long int, unsigned);
 
-void free (void *);
-
-void * malloc (unsigned);
-
 u16_t atoi_my(const unsigned char * str);
 
 /********************************************************************/
