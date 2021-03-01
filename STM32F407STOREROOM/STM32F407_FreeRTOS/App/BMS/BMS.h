@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-02-20 09:00:08
- * @LastEditTime: 2021-03-01 11:12:10
+ * @LastEditTime: 2021-03-01 13:31:14
  * @LastEditors: HLLI8
  */
 #ifndef __BMS_H__
@@ -89,6 +89,6 @@ typedef struct BMS_Manage
 extern  sBMS_Manage BMSmanager;
 
 void BMSmanager_Init(void);
-void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data, int dataLen);
+void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data);
 int BMS_Get_message(PGNTypeRcv ePGNTypeRcv, char** messageData);
 #endif // !__BMS_H__

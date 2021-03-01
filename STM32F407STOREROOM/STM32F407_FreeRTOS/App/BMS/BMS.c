@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-02-20 08:59:56
- * @LastEditTime: 2021-03-01 10:57:31
+ * @LastEditTime: 2021-03-01 13:30:59
  * @LastEditors: HLLI8
  */
 #include "BMS.h"
@@ -13,7 +13,7 @@ void BMSmanager_Init(void){
     PGN_MessageRcv_clear();
 }
 
-void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data, int dataLen){
+void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data){
     J1939_message msg_cst;
     msg_cst.sourceAddr  = 0x56;
     msg_cst.destAddr    = 0xf4;
@@ -21,7 +21,7 @@ void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data, int dataLen){
     msg_cst.PGNnum      = PGNInfoSend[ePGNTypeSend].PGNnum;
     msg_cst.dataLen     = PGNInfoSend[ePGNTypeSend].dataLen;
     memset(msg_cst.data, 0, 8);
-    for (int i = 0; i < dataLen; i++)
+    for (int i = 0; i < PGNInfoSend[ePGNTypeSend].dataLen; i++)
     {
         msg_cst.data[i] = data[i] & 0xff;
     }
