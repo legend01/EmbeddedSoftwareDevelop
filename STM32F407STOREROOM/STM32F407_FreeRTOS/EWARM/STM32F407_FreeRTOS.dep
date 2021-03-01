@@ -651,10 +651,6 @@
                     <name>ICCARM</name>
                     <file> 465 293 301 256 142 287 145 239 165 133 467 159 173 115 233 455 99 476 459 355 350 385 474 162 450 110 280 364 327 302 348 359 457 454 337 153 373 93 416 401 234 336 193 433 388 112 413 449 417 468</file>
                 </tool>
-                <tool>
-                    <name>BICOMP</name>
-                    <file> 145 355 159 287 388 468 256 293 474 350 233 417 301 142 110 364 302 348 457 454 153 416 234 193 433 112 449 450 385 239 165 133 455 467 173 115 359 93 401 336 465 459 99 476 162 280 327 337 373 413</file>
-                </tool>
             </inputs>
         </file>
         <file>
@@ -832,7 +828,7 @@
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 110 287 234 457 449 159 201 302 153 433 145 280 327 293 301 256 142 364 348 454 416 193 112 474 350 459 99 476 467 450 385 239 165 133 162 337 373 413 316 455 355 173 115 233 359 93 401 336 388</file>
+                    <file> 110 287 234 457 449 159 201 302 153 433 239 133 280 327 293 301 256 142 364 348 454 416 193 112 450 385 165 459 99 476 467 145 474 350 162 337 373 413 316 455 355 173 115 233 359 93 401 336 388</file>
                 </tool>
             </inputs>
         </file>
@@ -886,7 +882,7 @@
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 388 301 454 350 364 193 287 465 293 256 142 348 416 112 474 355 159 110 302 457 153 234 433 449 145 233 439 450 385 239 165 133 455 467 173 115 359 93 401 336 403 459 99 476 162 280 327 337 373 413</file>
+                    <file> 388 301 454 165 364 193 450 287 465 293 256 142 348 416 112 385 355 159 110 302 457 153 234 433 449 239 133 233 145 439 474 350 455 467 173 115 359 93 401 336 403 459 99 476 162 280 327 337 373 413</file>
                 </tool>
             </inputs>
         </file>
@@ -967,7 +963,7 @@
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 388 416 256 142 293 348 112 474 287 301 364 454 193 350 355 159 110 302 457 153 234 433 449 145 233 439 371 450 385 239 165 133 455 467 173 115 359 93 401 336 208 459 99 476 162 280 327 337 373 413</file>
+                    <file> 388 416 256 142 293 348 112 385 287 301 364 454 193 450 165 355 159 110 302 457 153 234 433 449 239 133 233 145 439 371 474 350 455 467 173 115 359 93 401 336 208 459 99 476 162 280 327 337 373 413</file>
                 </tool>
             </inputs>
         </file>
@@ -1048,7 +1044,7 @@
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 287 385 159 450 165 280 327 256 293 239 133 459 99 476 467 465 301 142 110 364 302 348 457 454 153 416 234 193 433 112 449 145 474 350 162 337 373 413 223 455 355 173 115 233 359 93 401 336 388</file>
+                    <file> 287 145 159 280 327 256 293 474 350 459 99 476 467 465 301 142 110 364 302 348 457 454 153 416 234 193 433 112 449 450 385 239 165 133 162 337 373 413 223 455 355 173 115 233 359 93 401 336 388</file>
                 </tool>
             </inputs>
         </file>
@@ -1765,7 +1761,7 @@
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 287 234 110 457 449 159 302 153 433 145 280 327 301 256 142 364 348 454 416 193 112 474 293 350 459 99 476 467 450 385 239 165 133 162 337 373 413 455 355 173 115 233 359 93 401 336 388</file>
+                    <file> 287 234 110 457 449 159 302 153 433 239 133 280 327 301 256 142 364 348 454 416 193 112 450 385 165 459 99 476 467 293 145 474 350 162 337 373 413 455 355 173 115 233 359 93 401 336 388</file>
                 </tool>
             </inputs>
         </file>
@@ -2584,7 +2580,7 @@
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 133 239 435 188 181 173 287 159 465 115 326 256 145 424 147 467 321 476 401 336 120 306 384 417 211 443 64 249 289 162 233 293 455 359 93 157 426 204 389 270 223 244 453 480 208 259 150 487 95 361 376 91 315 301 142 110 364 302 348 457 454 153 416 234 193 433 112 449 450 385 165 355 99 388 365 371 439 368 160 474 350 459 280 327 337 373 413 325 107 267 109 347 314 485 386</file>
+                    <file> 133 239 435 364 188 193 287 159 465 454 256 145 424 147 467 376 315 142 348 416 112 401 336 120 306 384 417 211 443 64 95 361 91 301 110 302 457 153 234 433 449 450 455 359 93 157 426 204 389 270 223 244 453 480 208 259 150 487 249 181 289 162 173 115 233 326 321 476 293 385 165 355 99 388 365 371 439 368 160 474 350 459 280 327 337 373 413 325 107 267 109 347 314 485 386</file>
                 </tool>
             </inputs>
         </file>
@@ -2876,7 +2872,7 @@
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 287 145 233 388 293 159 211 350 355 474 208 386 439 239 165 133 455 467 173 115 359 93 401 336 107 485 459 99 476 301 256 142 110 364 302 348 457 454 153 416 234 193 433 112 449 450 385 162 280 327 337 373 413 371 453</file>
+                    <file> 287 386 439 233 388 165 293 159 211 239 133 355 474 145 208 350 455 467 173 115 359 93 401 336 107 485 459 99 476 301 256 142 110 364 302 348 457 454 153 416 234 193 433 112 449 450 385 162 280 327 337 373 413 371 453</file>
                 </tool>
             </inputs>
         </file>
@@ -2904,6 +2900,334 @@
             </inputs>
         </file>
         <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\RTC\app_rtc.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\SPI\drive_spi.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\24CXX\24cxx.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\ADC\app_adc.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\BMS\BMS.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\InputCapture\inputCapture.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\J1939\J1939x.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\KEY\key.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\LOGPRINT\log_printf.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\PWMADC\pwmadc.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\REMOTE\remote.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\BEEP\beep.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\DAC\app_dac.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\REMOTE\remote_control.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\IIC\drive_iic.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\RNG\app_rng.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\FLASH\APP_Flash.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\CAN\app_can.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\LED\led.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\RINGBUFFER\Ringbuff_manger.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\PWM\pwm.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim_ex.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\IAR\ARM_CM4F\port.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_uart.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rng.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_can.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ex.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash_ramfunc.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_cortex.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc_ex.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma_ex.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rtc_ex.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_sram.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_pwr_ex.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dac_ex.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\croutine.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\queue.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_adc_ex.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_gpio.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_tim.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_ll_fsmc.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\list.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dac.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_flash.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_rcc.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\USMART\usmart_config.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\rng.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\rtc.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\USMART\usmart_str.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\stm32f4xx_hal_timebase_TIM.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\system_stm32f4xx.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\USMART\usmart_receiveFromUsart.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\adc.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\gpio.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\dac.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\SYSDLIB\sys_stdlib.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\WAKEUP\wakeup.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\dma.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\USART\APP_USART.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\fsmc.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\TPAD\tpad.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\USMART\usmart_FunExe.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\stm32f4xx_hal_msp.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\can.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\SRAM\sram.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\tim.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\usart.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\W25QXX\w25qxx.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\freertos.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\main.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\USMART\usmart.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Src\stm32f4xx_it.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\timers.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\Middlewares\Third_Party\FreeRTOS\Source\tasks.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
             <name>$PROJ_DIR$\..\App\MPU6050\eMPL\inv_mpu.c</name>
             <tool>ICCARM</tool>
         </forcedrebuild>
@@ -2917,6 +3241,14 @@
         </forcedrebuild>
         <forcedrebuild>
             <name>$PROJ_DIR$\..\App\MPU6050\eMPL\inv_mpu_dmp_motion_driver.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\BMSJ1939\BMS_J1939x.c</name>
+            <tool>ICCARM</tool>
+        </forcedrebuild>
+        <forcedrebuild>
+            <name>$PROJ_DIR$\..\App\BMSBMS\BMS_BMS.c</name>
             <tool>ICCARM</tool>
         </forcedrebuild>
     </configuration>
