@@ -346,7 +346,7 @@ static uint8_t Find_PGNNumFindPGN(PGNTypeRcv PGNrcv_INDEX, sJ1939_buff_message *
             }
              /****************************************************/
             
-            break;
+            return SUCCESS_RET;
         }
     }
 }
@@ -406,7 +406,7 @@ int GtmgFrRcvbufToPGN(void)
     }
     /******************根据PGN的真实值找索引PGN*******************/
     ret_value = Find_PGNNumFindPGN(PGNrcv_INDEX, &message);
-    if(ret_value != NULL){
+    if(ret_value == RET_ERROR){
         return RET_ERROR;
     }
 
