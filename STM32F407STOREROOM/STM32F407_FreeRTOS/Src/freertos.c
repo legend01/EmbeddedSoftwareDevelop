@@ -262,8 +262,7 @@ void J1939ManageFuc(void const *argument)
 {
   /* USER CODE BEGIN J1939ManageFuc */
   CAN_Register(GetmessageToRcvbuff, NULL);
-  J1939_connect_clear();
-  PGN_MessageRcv_Init();
+  BMSmanager_Init();
   /* Infinite loop */
   for (;;)
   {

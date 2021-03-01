@@ -414,8 +414,10 @@ int GtmgFrRcvbufToPGN(void)
     if(message.PGN >= BRM && message.PGN < TPCM_rcv)
     {
         singlePac_tra_retvalue = Tranmission_SinglePackage(pJ1939_message_Rcv_temp, &message);
-        if(singlePac_tra_retvalue != NULL){
+        if(singlePac_tra_retvalue == RET_ERROR){
             return RET_ERROR;
+        }else{
+            return SUCCESS_RET;
         }
     }
     /*************************************************多连接管理****************************************************/

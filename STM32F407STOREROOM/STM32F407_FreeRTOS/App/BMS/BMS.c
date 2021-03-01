@@ -2,10 +2,16 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-02-20 08:59:56
- * @LastEditTime: 2021-02-20 11:28:05
+ * @LastEditTime: 2021-03-01 10:57:31
  * @LastEditors: HLLI8
  */
 #include "BMS.h"
+
+void BMSmanager_Init(void){
+    Ringbuff_setEmpty();
+    J1939_connect_clear();
+    PGN_MessageRcv_clear();
+}
 
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data, int dataLen){
     J1939_message msg_cst;
