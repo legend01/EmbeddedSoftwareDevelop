@@ -390,6 +390,7 @@
                     <state>$PROJ_DIR$/../App/XMRAM/</state>
                     <state>$PROJ_DIR$/../App/BMSJ1939/</state>
                     <state>$PROJ_DIR$/../App/BMSBMS/</state>
+                    <state>$PROJ_DIR$/../App/MALLOC/</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1174,6 +1175,12 @@
                 <name>LOGPRINT</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\LOGPRINT\log_printf.c</name>
+                </file>
+            </group>
+            <group>
+                <name>MALLOC</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\MALLOC\malloc.c</name>
                 </file>
             </group>
             <group>

@@ -47,7 +47,8 @@
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\SRAM",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\XMRAM",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\BMSJ1939",
-                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\BMSBMS"
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\BMSBMS",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\MALLOC"
             ],
             "forcedInclude": [],
             "cStandard": "c11",

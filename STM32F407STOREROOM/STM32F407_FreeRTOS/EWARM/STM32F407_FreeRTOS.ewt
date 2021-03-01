@@ -1286,6 +1286,12 @@
                 </file>
             </group>
             <group>
+                <name>MALLOC</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\MALLOC\malloc.c</name>
+                </file>
+            </group>
+            <group>
                 <name>PWM</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\PWM\pwm.c</name>
