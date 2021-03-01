@@ -2,14 +2,18 @@
  * @Description: CAN过滤器filter配置
  * @Author: HLLI8
  * @Date: 2021-01-14 15:33:10
- * @LastEditTime: 2021-01-15 13:20:44
+ * @LastEditTime: 2021-03-01 21:16:11
  * @LastEditors: HLLI8
  */
 #ifndef __APP_CAN_H__
 #define __APP_CAN_H__
 #include "can.h" 
-#define CAN_BASE_ID 0x56F4  ///< CAN标准ID，最大11位，也就是0x7FF
 
+#if BMS_BMS
+#define CAN_BASE_ID 0x56F4  ///< CAN标准ID，最大11位，也就是0x7FF
+#else
+#define CAN_BASE_ID 0xF456  ///< CAN标准ID，最大11位，也就是0x7FF
+#endif
 /**
  * @description:
  *  为了过滤出一组标识符，应该设置过滤器组工作在屏蔽位模式

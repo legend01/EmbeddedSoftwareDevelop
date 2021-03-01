@@ -210,8 +210,8 @@ int GetmsgconvertToSend(void)
         return RET_ERROR;
     }
 
-        int temp =  J1939_SendOnePacket(&J1939_message_send);
-     if(temp != 0) //打包发送
+    int temp =  J1939_SendOnePacket(&J1939_message_send);
+     if(temp != SUCCESS_RET) //打包发送
      {
         LOG_PRINTF("J1939_SendOnePacket Error! %d\r\n",temp);
         return RET_ERROR;
