@@ -1,6 +1,6 @@
 #ifndef __J1939X_h__
 #define __J1939X_h__
-
+#if BMS_BMS
 #include "Ringbuff_manger.h"
 
 #define BMS_Addr            244
@@ -133,7 +133,7 @@ void J1939_connect_clear(void );
 int GetmessageToRcvbuff(void* rcv);
 void J1939_register(void);
 uint8_t PGN_MessageRcv_clear(void);
-
+#endif
 #endif
 
 

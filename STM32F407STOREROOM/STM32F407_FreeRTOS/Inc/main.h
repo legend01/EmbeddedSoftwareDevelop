@@ -116,7 +116,7 @@
 /* #define USE_FULL_ASSERT    1U */
 
 /* USER CODE BEGIN Private defines */
-
+#define BMS_BMS 0
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

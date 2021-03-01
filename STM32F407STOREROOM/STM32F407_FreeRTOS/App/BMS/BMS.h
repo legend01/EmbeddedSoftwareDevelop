@@ -2,12 +2,12 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-02-20 09:00:08
- * @LastEditTime: 2021-03-01 13:31:14
+ * @LastEditTime: 2021-03-01 14:05:23
  * @LastEditors: HLLI8
  */
 #ifndef __BMS_H__
 #define __BMS_H__
-
+#if BMS_BMS
 #include "J1939x.h"
 
 #define messageData_MAXnum 60
@@ -91,4 +91,5 @@ extern  sBMS_Manage BMSmanager;
 void BMSmanager_Init(void);
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data);
 int BMS_Get_message(PGNTypeRcv ePGNTypeRcv, char** messageData);
+#endif
 #endif // !__BMS_H__

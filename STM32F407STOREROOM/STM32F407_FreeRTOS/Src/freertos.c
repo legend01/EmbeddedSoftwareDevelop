@@ -75,12 +75,12 @@
 #include "BMS.h"
 #include "remote_control.h"
 #include "XMRAM.h"
+#include "BMS_BMS.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 extern USMART_RECV_STR usmart_receiveSTR;
-sBMS_Manage BMSmanager;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/

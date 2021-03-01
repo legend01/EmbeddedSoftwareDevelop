@@ -1,3 +1,4 @@
+#if BMS_BMS
 #include "J1939x.h"
 #include "app_can.h"
 #include "log_printf.h"
@@ -694,3 +695,4 @@ void J1939_connect_clear(void)
     J1939_connect.num_packet= 0;
     J1939_connect.PGNindex = 0;
 }
+#endif

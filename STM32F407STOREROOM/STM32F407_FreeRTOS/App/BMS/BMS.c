@@ -2,10 +2,13 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-02-20 08:59:56
- * @LastEditTime: 2021-03-01 13:30:59
+ * @LastEditTime: 2021-03-01 14:29:08
  * @LastEditors: HLLI8
  */
+#if BMS_BMS
 #include "BMS.h"
+
+sBMS_Manage BMSmanager;
 
 void BMSmanager_Init(void){
     Ringbuff_setEmpty();
@@ -64,3 +67,4 @@ int BMS_Get_message(PGNTypeRcv ePGNTypeRcv, char** messageData)
     
     return PGNInfoRcv[ePGNTypeRcv].dataLen;
 }
+#endif
