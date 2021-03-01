@@ -388,6 +388,8 @@
                     <state>$PROJ_DIR$/../App/FLASH/</state>
                     <state>$PROJ_DIR$/../App/SRAM/</state>
                     <state>$PROJ_DIR$/../App/XMRAM/</state>
+                    <state>$PROJ_DIR$/../App/BMSJ1939/</state>
+                    <state>$PROJ_DIR$/../App/BMSBMS/</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1106,6 +1108,18 @@
                 <name>BMS</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\BMS\BMS.c</name>
+                </file>
+            </group>
+            <group>
+                <name>BMSBMS</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\BMSBMS\BMS_BMS.c</name>
+                </file>
+            </group>
+            <group>
+                <name>BMSJ1939</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\BMSJ1939\BMS_J1939x.c</name>
                 </file>
             </group>
             <group>
