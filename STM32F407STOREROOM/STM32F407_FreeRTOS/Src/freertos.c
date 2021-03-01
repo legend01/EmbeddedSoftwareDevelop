@@ -81,6 +81,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 extern USMART_RECV_STR usmart_receiveSTR;
+sBMS_Manage BMSmanager;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -269,15 +270,15 @@ void J1939ManageFuc(void const *argument)
     GtmgFrRcvbufToPGN();
     GetmsgconvertToSend();
 
-    // char data[] = {0x01, 0x02, 0x03, 0x04};
-    // BMS_Send_message(CRM, data, sizeof(data));
+    // char data[] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, 0x11, 0x12};
+    // BMS_Send_message(BRM, data);
 
-    // uint8_t Getmsglen = BMS_Get_message(BHM, &(BMSmanager.messageData));
-    // LOG_PRINTF("GetBHM message: \r\n");
-    // for (uint8_t i = 0; i < 8; i++)
-    // {
-    //   LOG_PRINTF("0x %x \r\n", BMSmanager.messageData[i]);
-    // }
+    uint8_t Getmsglen = BMS_Get_message(CHM, &(BMSmanager.messageData));
+    LOG_PRINTF("GetCHM message: \r\n");
+    for (uint8_t i = 0; i < 8; i++)
+    {
+      LOG_PRINTF("0x %x \r\n", BMSmanager.messageData[i]);
+    }
     osDelay(1);
   }
   /* USER CODE END J1939ManageFuc */
