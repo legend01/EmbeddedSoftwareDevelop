@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:35
- * @LastEditTime: 2021-03-01 15:56:32
+ * @LastEditTime: 2021-03-02 14:22:55
  * @LastEditors: HLLI8
  */
 #ifndef __BMS_BMS_H__
@@ -94,4 +94,6 @@ extern sBMS_Manage BMSmanager;
 int BMS_Get_message(PGNTypeRcv ePGNTypeRcv, char** messageData);
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data);
 void BMSmanager_Init(void);
+
+bool BMS_Check_Valid(PGNTypeRcv ePGNTypeRcv);
 #endif // !__BMS_BMS_H__
