@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-02-20 08:59:56
- * @LastEditTime: 2021-03-01 14:29:08
+ * @LastEditTime: 2021-03-02 08:49:51
  * @LastEditors: HLLI8
  */
 #if BMS_BMS
@@ -14,6 +14,7 @@ void BMSmanager_Init(void){
     Ringbuff_setEmpty();
     J1939_connect_clear();
     PGN_MessageRcv_clear();
+    PGN_MessageRcv_Init();
 }
 
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data){
