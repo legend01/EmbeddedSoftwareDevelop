@@ -557,7 +557,6 @@ int GtmgFrRcvbufToPGN(void)
     }
     /******************根据PGN的真实值找索引PGN*******************/
     ret_value = Find_PGNNumFindPGN(PGNrcv_INDEX, &message);
-    LOG_PRINTF("The Find_PGNNumFindPGN retrun value: %d\r\n", ret_value);
     if(ret_value == RET_ERROR){
         return RET_ERROR;
     }

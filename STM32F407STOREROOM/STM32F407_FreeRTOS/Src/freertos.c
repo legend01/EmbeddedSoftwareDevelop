@@ -81,7 +81,6 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 extern USMART_RECV_STR usmart_receiveSTR;
-sBMS_Manage BMSmanager;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/

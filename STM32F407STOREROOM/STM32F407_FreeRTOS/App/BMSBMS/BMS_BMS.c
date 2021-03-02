@@ -2,17 +2,18 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:29
- * @LastEditTime: 2021-03-01 21:13:04
+ * @LastEditTime: 2021-03-02 08:50:52
  * @LastEditors: HLLI8
  */
 #include "BMS_BMS.h"
 
-
+sBMS_Manage BMSmanager;
 
 void BMSmanager_Init(void){
     Ringbuff_setEmpty();
     J1939_connect_send_clear();
     J1939_connect_clear();
+    PGN_MessageRcv_Init();
     PGN_MessageRcv_clear();
 }
 
