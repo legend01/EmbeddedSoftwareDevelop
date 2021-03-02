@@ -2,12 +2,13 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:29
- * @LastEditTime: 2021-03-02 14:21:49
+ * @LastEditTime: 2021-03-02 15:00:53
  * @LastEditors: HLLI8
  */
 #include "BMS_BMS.h"
 
 sBMS_Manage BMSmanager;
+BAT_INFOR BAT_inf;
 
 void BMSmanager_Init(void){
     Ringbuff_setEmpty();
@@ -15,6 +16,7 @@ void BMSmanager_Init(void){
     J1939_connect_clear();
     PGN_MessageRcv_Init();
     PGN_MessageRcv_clear();
+    memset(&BAT_inf, 0, sizeof(BAT_inf));
 }
 
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data){
