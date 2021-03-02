@@ -2,11 +2,11 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-02 14:57:12
+ * @LastEditTime: 2021-03-02 16:08:57
  * @LastEditors: HLLI8
  */
-#ifndef __BATTERYINFO_H__
-#define __BATTERYINFO_H__
+#ifndef __CHARGEINF_H__
+#define __CHARGEINF_H__
 #include "pub_data.h"
 
 typedef enum
@@ -76,4 +76,15 @@ typedef struct
     u16      Bat_sinBatVn;    //单体电池最高电压值所在组号
 }BAT_INFOR;
 
-#endif // !__BATTERYINFO_H__
+struct RCV_CHM
+{
+    u8 chargeComVersion_L: 8;
+    u8 chargeComVersion_M: 8;
+    u8 chargeComVersion_H: 8;
+};
+
+typedef struct
+{
+    u32 	charg_CommVersion; //充电机通信协议版本号
+}CHG_INFOR;
+#endif // !__CHARGEINF_H__
