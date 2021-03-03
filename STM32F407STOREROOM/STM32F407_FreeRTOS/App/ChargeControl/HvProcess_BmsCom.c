@@ -17,6 +17,37 @@ bool HvProcess_LowPowerOnCond(void){
     return res;
 }
 
+void HvProcess_LowPowerOnAction(void){
+    HvProcess_BmsComInnerData.ChargeFlag.SysStart = true; 
+    HvProcess_BmsComInnerData.TimeTick.SysStart = GetTimeMs();
+}
+
+bool HvProcess_ReceiveCHMCond(void)
+{
+    bool ret = false;
+    u8 Getmsglen = 0;  
+    if(BMS_Check_Valid(CHM))
+    {
+        //处理CHM报文中的通信协议版本号
+        Getmsglen = BMS_Get_message(CHM, &BMSmanager.messageData); //获取PGN的数值长度
+        if (Getmsglen == PGNInfoRcv[CHM].dataLen)
+        {
+            Rcv_CHM.chargeComVersion_L = BMSmanager.messageData[1];
+            Rcv_CHM.chargeComVersion_M = BMSmanager.messageData[2];
+            Rcv_CHM.chargeComVersion_H = BMSmanager.messageData[3];
+            Getmsglen = 0; /* 这里对CHM报文不做记录 */
+            ret = true;
+        }
+    }
+    return false;
+}
+
+void HvProcess_RecvCHMAction(void){
+    /* TODO:接收CHM报文后 动作 */
+    HvProcess_BmsComInnerData.Flag.RecvCHM = true;
+    HvProcess_BmsComInnerData.TimeTick.RecvCHM = GetTimeMs();
+}
+
 bool HvProcess_SendBHMCond(void)
 {
     static u32 lastime = 1;
@@ -351,11 +382,6 @@ void HvProcess_RecvCRM0xAATimeoutAction(void){
     /* TODO: 接收CRM0xAA超时 动作 */
 }
 
-void HvProcess_LowPowerOnAction(void){
-    HvProcess_BmsComInnerData.ChargeFlag.SysStart = true; 
-    HvProcess_BmsComInnerData.TimeTick.SysStart = GetTimeMs();
-}
-
 bool HvProcess_60STimeoutCond(void)
 {
     static u32 lastime = 0;
@@ -404,32 +430,6 @@ void HvProcess_SendBRMAction(void)
 void HvProcess_ReceiveCRM0x00Action(void)
 {
     HvProcess_BmsComInnerData.Flag.RecvCRM_0x00 = true;
-}
-
-bool HvProcess_ReceiveCHMCond(void)
-{
-    bool ret = false;
-    u8 Getmsglen = 0;  
-    if(BMS_Check_Valid(CHM))
-    {
-        //处理CHM报文中的通信协议版本号
-        Getmsglen = BMS_Get_message(CHM, &BMSmanager.messageData); //获取PGN的数值长度
-        if (Getmsglen == PGNInfoRcv[CHM].dataLen)
-        {
-            Rcv_CHM.chargeComVersion_L = BMSmanager.messageData[1];
-            Rcv_CHM.chargeComVersion_M = BMSmanager.messageData[2];
-            Rcv_CHM.chargeComVersion_H = BMSmanager.messageData[3];
-            Getmsglen = 0; /* 这里对CHM报文不做记录 */
-            ret = true;
-        }
-    }
-    return false;
-}
-
-void HvProcess_RecvCHMAction(void){
-    /* TODO:接收CHM报文后 动作 */
-    HvProcess_BmsComInnerData.Flag.RecvCHM = true;
-    HvProcess_BmsComInnerData.TimeTick.RecvCHM = GetTimeMs();
 }
 
 bool HvProcess_ReceiveCRM0xAA_Cond(void)

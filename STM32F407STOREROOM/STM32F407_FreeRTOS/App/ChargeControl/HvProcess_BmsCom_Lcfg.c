@@ -11,6 +11,11 @@ const HvProcess_StateInfoType HvProcess_BmsComStart_InfoConfig[] = { //0
 
 const HvProcess_StateInfoType HvProcess_BmsComHandshakeStart_InfoConfig[] = { //1
     {
+        HvProcess_ReceiveCHMCond, /**< Cond: 条件函数指针 *//*接收到CHM报文*/
+        HvProcess_RecvCHMAction, /**< Action: 动作函数指针 */ 
+        (u16)HVPROCESS_BMSCOM_HANDSHAKE_START, /**< Next: 下一状态 */
+    },
+    {
         HvProcess_RecvCRM0x00Cond, /**< Cond: 条件函数指针 *//*接收到CRM，停止发送BHM，进入握手辨识阶段*/
         HvProcess_ReceiveCRM0x00Action, /**< Action: 动作函数指针 */
         (u16)HVPROCESS_BMSCOM_HANDSHAKE_IDENTIFY, /**< Next: 下一状态 */
@@ -18,11 +23,6 @@ const HvProcess_StateInfoType HvProcess_BmsComHandshakeStart_InfoConfig[] = { //
     {
         HvProcess_SendBHMCond, /**< Cond: 条件函数指针 *//*达到发送BHM报文的周期*/
         HvProcess_SendBHM, /**< Action: 动作函数指针 */ /*发送BHM报文*/
-        (u16)HVPROCESS_BMSCOM_HANDSHAKE_START, /**< Next: 下一状态 */
-    },
-    {
-        HvProcess_ReceiveCHMCond, /**< Cond: 条件函数指针 *//*接收到CHM报文*/
-        HvProcess_RecvCHMAction, /**< Action: 动作函数指针 */ 
         (u16)HVPROCESS_BMSCOM_HANDSHAKE_START, /**< Next: 下一状态 */
     },
     {
