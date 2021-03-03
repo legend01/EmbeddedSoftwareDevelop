@@ -19,9 +19,8 @@ unsigned int time_record  = 0;  // 这个时间在中断定时器中加，用来
 
 sPGNInfo PGNInfoRcv[PGN_MAX_Rcv+1] =
 {
-    
-    { 256,      6,  8,  250, },  //CRM   //充电握手阶段
     {9728,      6,  3,  250, },  //CHM
+    { 256,      6,  8,  250, },  //CRM   //充电握手阶段
     
     {1792,      6,  7,  500, },  //cts //充电参数配置阶段
     {2048,      6,  6,  250, },  //cml
@@ -42,9 +41,8 @@ sPGNInfo PGNInfoRcv[PGN_MAX_Rcv+1] =
 
 sPGNInfo PGNInfoSend[PGN_MAX_Send+1] =
 {
-    
-    { 512,      6,  41,  250, },   //BRM  //充电握手阶段
     {9984,      6,   2,  250, },  //BHM
+    { 512,      6,  41,  250, },   //BRM  //充电握手阶段
 
     {1536,      6,  13,  500, },  //bcp //充电参数配置阶段
     {2304,      4,   1,  250, },    //bro
