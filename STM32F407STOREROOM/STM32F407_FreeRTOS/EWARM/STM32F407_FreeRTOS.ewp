@@ -391,6 +391,9 @@
                     <state>$PROJ_DIR$/../App/BMSJ1939/</state>
                     <state>$PROJ_DIR$/../App/BMSBMS/</state>
                     <state>$PROJ_DIR$/../App/MALLOC/</state>
+                    <state>$PROJ_DIR$/../App/CHARGEINF/</state>
+                    <state>$PROJ_DIR$/../App/ChargeControl/</state>
+                    <state>$PROJ_DIR$/../App/PUBLIC/</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1136,6 +1139,30 @@
                 </file>
             </group>
             <group>
+                <name>CHARGECONTROL</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\ChargeControl\ChargeControl.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\App\ChargeControl\HvProcess_BmsCom.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\App\ChargeControl\HvProcess_BmsCom_Lcfg.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\App\ChargeControl\HvProcess_Chg.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\..\App\ChargeControl\HvProcess_Chg_Lcfg.c</name>
+                </file>
+            </group>
+            <group>
+                <name>CHARGEINF</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\CHARGEINF\ChargeInf.c</name>
+                </file>
+            </group>
+            <group>
                 <name>DAC</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\DAC\app_dac.c</name>
@@ -1181,6 +1208,12 @@
                 <name>MALLOC</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\MALLOC\malloc.c</name>
+                </file>
+            </group>
+            <group>
+                <name>PUBLIC</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\PUBLIC\HvProcess_Types.c</name>
                 </file>
             </group>
             <group>

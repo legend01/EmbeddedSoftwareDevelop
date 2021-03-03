@@ -48,7 +48,10 @@
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\XMRAM",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\BMSJ1939",
                 "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\BMSBMS",
-                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\MALLOC"
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\MALLOC",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\CHARGEINF",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\ChargeControl",
+                "c:\\EmbeddedSoftwareWorkSpace\\EmbeddedSoftwareDevelop\\STM32F407STOREROOM\\STM32F407_FreeRTOS\\App\\PUBLIC"
             ],
             "forcedInclude": [],
             "cStandard": "c11",

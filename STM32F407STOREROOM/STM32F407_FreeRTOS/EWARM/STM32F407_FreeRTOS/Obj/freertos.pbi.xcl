@@ -85,6 +85,12 @@ C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F40
 -I
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/MALLOC/
 -I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/CHARGEINF/
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/ChargeControl/
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\EWARM/../App/PUBLIC/
+-I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\Core\Include
 -I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\DSP\Include
@@ -172,6 +178,12 @@ C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F40
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\BMSBMS
 -I
 C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\MALLOC
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\CHARGEINF
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\ChargeControl
+-I
+C:\EmbeddedSoftwareWorkSpace\EmbeddedSoftwareDevelop\STM32F407STOREROOM\STM32F407_FreeRTOS\App\PUBLIC
 -I
 C:\EmbeddedSoftwareSetup\IAR\arm\CMSIS\Core\Include
 -I

@@ -6,6 +6,9 @@
         "remote_control.h": "c",
         "sram.h": "c",
         "pub_data.h": "c",
-        "log_printf.h": "c"
+        "log_printf.h": "c",
+        "hvprocess_bmscom.h": "c",
+        "bms_bms.h": "c",
+        "hvprocess_chg.h": "c"
     }
 }
