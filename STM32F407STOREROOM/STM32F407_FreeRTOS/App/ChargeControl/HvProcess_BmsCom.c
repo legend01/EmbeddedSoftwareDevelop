@@ -65,20 +65,15 @@ bool HvProcess_SendBHMCond(void)
     static u32 lastime = 1;
     bool res = false;
 
-    if(lastime == 0)
-    {
+    if(lastime == 0){
         lastime = GetTimeMs();
-    }
-    else
-    {
-
+    }else{
         if(TimeAfterMs(lastime) >= 250/* BHM的发送周期 250ms */&& HvProcess_BmsComInnerData.Flag.RecvCHM == true)
         {
             lastime = 0;
             res = true;
         }
     }
-
     return res;
 }
 
