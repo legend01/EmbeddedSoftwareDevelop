@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-02 16:08:57
+ * @LastEditTime: 2021-03-03 13:56:43
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
@@ -76,12 +76,12 @@ typedef struct
     u16      Bat_sinBatVn;    //单体电池最高电压值所在组号
 }BAT_INFOR;
 
-struct RCV_CHM
+typedef struct 
 {
     u8 chargeComVersion_L: 8;
     u8 chargeComVersion_M: 8;
     u8 chargeComVersion_H: 8;
-};
+}RCV_CHM;
 
 typedef struct
 {
