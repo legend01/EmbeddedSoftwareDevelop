@@ -1,9 +1,6 @@
 #include "HvProcess_BmsCom.h"
 
 HvProcess_BmsComInnerDataType HvProcess_BmsComInnerData;
-extern BAT_INFOR BAT_inf;
-extern RCV_CHM Rcv_CHM;
-extern SEND_BHM Send_BHM;
 
 void HvProcess_BmsComInit(void){
     HvProcess_BmsComInnerData.State = HVPROCESS_BMSCOM_START;
@@ -84,7 +81,9 @@ void HvProcess_SendBHM(void)
     if(HvProcess_BmsComInnerData.Flag.RecvCHM == true)
     {
         /* TODO:发送BMS最高允许充电总电压 */
-
+        BMSmanager.msgSendData[0] = Get_Send_BHM_Inf()->vehicleAllowMaxV_L;
+        BMSmanager.msgSendData[1] = Get_Send_BHM_Inf()->vehicleAllowMaxV_H;
+        BMS_Send_message(BHM, BMSmanager.msgSendData);
         HvProcess_BmsComInnerData.ChargeFlag.SendBHM = true;
     }
 
