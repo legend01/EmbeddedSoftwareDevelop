@@ -2,13 +2,16 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-03 13:56:43
+ * @LastEditTime: 2021-03-03 15:23:12
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
 #define __CHARGEINF_H__
 #include "pub_data.h"
 
+typedef struct {
+    u16 vehicle_maxallow_v;         /* 配置车辆最大允许电压 */   
+}VEHICLEPARAMINF;
 typedef enum
 {
     CHAG_CV = 0x01,     //恒压
@@ -78,13 +81,16 @@ typedef struct
 
 typedef struct 
 {
-    u8 chargeComVersion_L: 8;
-    u8 chargeComVersion_M: 8;
-    u8 chargeComVersion_H: 8;
+    u32 chargeComVersion_L: 8; /* 充电机通信协议版本号 */
+    u32 chargeComVersion_M: 8;
+    u32 chargeComVersion_H: 8;
 }RCV_CHM;
 
-typedef struct
-{
-    u32 	charg_CommVersion; //充电机通信协议版本号
-}CHG_INFOR;
+typedef struct{
+    u32 vehicleAllowMaxV_L: 8; /* 车辆最高允许总电压 */
+    u32 vehicleAllowMaxV_H: 8;
+}SEND_BHM;
+
+void ConfigureVehicleParam(void);
+VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);
 #endif // !__CHARGEINF_H__
