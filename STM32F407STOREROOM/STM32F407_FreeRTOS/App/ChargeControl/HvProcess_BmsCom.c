@@ -48,6 +48,18 @@ void HvProcess_RecvCHMAction(void){
     HvProcess_BmsComInnerData.TimeTick.RecvCHM = GetTimeMs();
 }
 
+bool HvProcess_ReceiveCHMTimeOut(void){
+    bool res = false;
+    if (HvProcess_BmsComInnerData.Flag.RecvCHM == false)
+    { /* 自启动起经过5S或收到CRM */
+        if (TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.SysStart) >= 5000)
+        {
+            res = true;
+        }
+    }
+    return res;    
+}
+
 bool HvProcess_SendBHMCond(void)
 {
     static u32 lastime = 1;
@@ -331,18 +343,6 @@ bool HvProcess_RecvCRM0x00Cond(void)
         res = true;
     }
     return res;
-}
-
-bool HvProcess_ReceiveCHMTimeOut(void){
-    bool res = false;
-    if (HvProcess_BmsComInnerData.Flag.RecvCHM == false)
-    { /* 自启动起经过5S或收到CRM */
-        if (TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.SysStart) >= 5000)
-        {
-            res = true;
-        }
-    }
-    return res;    
 }
 
 void HvProcess_RecvCHMTimeOutAction(void){
