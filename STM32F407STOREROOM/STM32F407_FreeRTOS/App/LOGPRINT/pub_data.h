@@ -2,13 +2,18 @@
  * @Description: 公共数据 返回值等
  * @Author: HLLI8
  * @Date: 2021-01-15 13:19:17
- * @LastEditTime: 2021-02-28 16:54:39
+ * @LastEditTime: 2021-03-03 14:47:39
  * @LastEditors: HLLI8
  */
 #ifndef __PUB_DATA_H__
 #define __PUB_DATA_H__
 
 #include "stm32f4xx.h"
+#include "stm32f4xx_hal.h"
+
+#define COUNT_MS_CYCLE 0x00FFFFFF //毫秒计时器循环周期
+
+extern __IO uint32_t uwTick;
 
 typedef enum{
 	false = 0,
@@ -123,4 +128,9 @@ typedef __I uint8_t vuc8;
 
 #define PKout(n)   BIT_ADDR(GPIOK_ODR_Addr,n)  //输出 
 #define PKin(n)    BIT_ADDR(GPIOK_IDR_Addr,n)  //输入
+
+/* **************************************************************** */
+u32 GetTimeMs(void);
+u32 TimeAfterMs(u32 StapTimeMs);
+/* **************************************************************** */
 #endif // !__PUB_DATA_H__
