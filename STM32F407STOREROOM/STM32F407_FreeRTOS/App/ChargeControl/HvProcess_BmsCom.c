@@ -32,10 +32,10 @@ bool HvProcess_ReceiveCHMCond(void)
         Getmsglen = BMS_Get_message(CHM, &BMSmanager.messageData); //获取PGN的数值长度
         if (Getmsglen == PGNInfoRcv[CHM].dataLen)
         {
-            Rcv_CHM.chargeComVersion_L = BMSmanager.messageData[1];
+            Rcv_CHM.chargeComVersion_L = BMSmanager.messageData[1]; /* 充电机通信协议版本号存放于CHM结构体中 */
             Rcv_CHM.chargeComVersion_M = BMSmanager.messageData[2];
             Rcv_CHM.chargeComVersion_H = BMSmanager.messageData[3];
-            Getmsglen = 0; /* 这里对CHM报文不做记录 */
+            Getmsglen = 0; 
             ret = true;
         }
     }
