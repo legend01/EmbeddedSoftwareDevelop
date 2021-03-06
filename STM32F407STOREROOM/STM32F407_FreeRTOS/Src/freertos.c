@@ -55,7 +55,7 @@
 #include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
+/* USER CODE BEGIN Includes */     
 #include "stm32f4xx.h"
 #include "led.h"
 #include "beep.h"
@@ -108,10 +108,10 @@ osMessageQId USMARTQueueHandle;
 
 /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void const *argument);
-void USART1ManageFuc(void const *argument);
-void USMARTManageFuc(void const *argument);
-void J1939ManageFuc(void const *argument);
+void StartDefaultTask(void const * argument);
+void USART1ManageFuc(void const * argument);
+void USMARTManageFuc(void const * argument);
+void J1939ManageFuc(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -120,8 +120,7 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   * @param  None
   * @retval None
   */
-void MX_FREERTOS_Init(void)
-{
+void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
@@ -161,7 +160,7 @@ void MX_FREERTOS_Init(void)
 
   /* Create the queue(s) */
   /* definition and creation of USMARTQueue */
-  /* what about the sizeof here??? cd native code */
+/* what about the sizeof here??? cd native code */
   osMessageQDef(USMARTQueue, 8, usmart_receiveSTR);
   USMARTQueueHandle = osMessageCreate(osMessageQ(USMARTQueue), NULL);
 
@@ -177,7 +176,7 @@ void MX_FREERTOS_Init(void)
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const *argument)
+void StartDefaultTask(void const * argument)
 {
 
   /* USER CODE BEGIN StartDefaultTask */
@@ -186,7 +185,7 @@ void StartDefaultTask(void const *argument)
   // TPAD_Init();
   usmart_init();
   Uart5_DMA_Init();
-  Uart4_DMA_Init();
+  // Uart4_DMA_Init();
   RTC_WakeUp_Init();
   Ringbuff_init();
   CAN_Filter_Config();
@@ -219,7 +218,7 @@ void StartDefaultTask(void const *argument)
 * @retval None
 */
 /* USER CODE END Header_USART1ManageFuc */
-void USART1ManageFuc(void const *argument)
+void USART1ManageFuc(void const * argument)
 {
   /* USER CODE BEGIN USART1ManageFuc */
   /* Infinite loop */
@@ -239,7 +238,7 @@ void USART1ManageFuc(void const *argument)
 * @retval None
 */
 /* USER CODE END Header_USMARTManageFuc */
-void USMARTManageFuc(void const *argument)
+void USMARTManageFuc(void const * argument)
 {
   /* USER CODE BEGIN USMARTManageFuc */
   /* Infinite loop */
@@ -258,7 +257,7 @@ void USMARTManageFuc(void const *argument)
 * @retval None
 */
 /* USER CODE END Header_J1939ManageFuc */
-void J1939ManageFuc(void const *argument)
+void J1939ManageFuc(void const * argument)
 {
   /* USER CODE BEGIN J1939ManageFuc */
   CAN_Register(GetmessageToRcvbuff, NULL);

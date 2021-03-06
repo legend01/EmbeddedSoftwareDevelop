@@ -54,6 +54,7 @@
 #include "can.h"
 #include "dac.h"
 #include "dma.h"
+#include "i2s.h"
 #include "rng.h"
 #include "rtc.h"
 #include "tim.h"
@@ -72,10 +73,9 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-extern UART_STR   Uart1_Str,Uart2_Str,Uart3_Str; 
 extern volatile uint32_t tick_time7_counter;
 extern volatile uint8_t		TIM5CH1_CAPTURE_STA;	// 输入捕获状�??
-extern volatile uint32_t	TIM5CH1_CAPTURE_VAL;		// 输入捕获�??(TIM2/TIM5�??32位的定时器所以这里定义为uint32_t)
+extern volatile uint32_t	TIM5CH1_CAPTURE_VAL;		// 输入捕获�???(TIM2/TIM5�???32位的定时器所以这里定义为uint32_t)
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -136,8 +136,8 @@ int main(void)
   MX_DAC_Init();
   MX_TIM9_Init();
   MX_TIM1_Init();
-  MX_UART4_Init();
   MX_FSMC_Init();
+  MX_I2S2_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -211,7 +211,9 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_RTC;
+  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_I2S|RCC_PERIPHCLK_RTC;
+  PeriphClkInitStruct.PLLI2S.PLLI2SN = 135;
+  PeriphClkInitStruct.PLLI2S.PLLI2SR = 6;
   PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
   {
@@ -279,12 +281,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     {
       if (TIM5CH1_CAPTURE_STA & 0x40)		   // 捕获到高电平
       {
-        if ( (TIM5CH1_CAPTURE_STA & 0x3f) == 0x3f )		// 如果高电平太�??  做溢出处�??
+        if ( (TIM5CH1_CAPTURE_STA & 0x3f) == 0x3f )		// 如果高电平太�???  做溢出处�???
         {
-          TIM5CH1_CAPTURE_STA |= 0x80;				// 标记成功捕获了一�??
+          TIM5CH1_CAPTURE_STA |= 0x80;				// 标记成功捕获了一�???
           TIM5CH1_CAPTURE_VAL = 0xffffffff;
         }else{
-          TIM5CH1_CAPTURE_STA++;		// 若没有溢�??, 就只让TIM5CH1_CAPTURE_STA自加就ok
+          TIM5CH1_CAPTURE_STA++;		// 若没有溢�???, 就只让TIM5CH1_CAPTURE_STA自加就ok
         }
       }
     }
