@@ -39,6 +39,7 @@
 /* USER CODE BEGIN 0 */
 #include "APP_USART.h"
 #include "usmart_receiveFromUsart.h"
+#include "APP_I2S.h"
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -46,7 +47,7 @@ extern DMA_HandleTypeDef hdma_adc1;
 extern DMA_HandleTypeDef hdma_adc3;
 extern CAN_HandleTypeDef hcan1;
 extern DMA_HandleTypeDef hdma_dac1;
-extern DMA_HandleTypeDef hdma_i2s2_ext_rx;
+extern DMA_HandleTypeDef hdma_spi2_tx;
 extern RNG_HandleTypeDef hrng;
 extern RTC_HandleTypeDef hrtc;
 extern TIM_HandleTypeDef htim1;
@@ -244,17 +245,18 @@ void DMA1_Stream0_IRQHandler(void)
 }
 
 /**
-* @brief This function handles DMA1 stream3 global interrupt.
+* @brief This function handles DMA1 stream4 global interrupt.
 */
-void DMA1_Stream3_IRQHandler(void)
+void DMA1_Stream4_IRQHandler(void)
 {
-  /* USER CODE BEGIN DMA1_Stream3_IRQn 0 */
+  /* USER CODE BEGIN DMA1_Stream4_IRQn 0 */
 
-  /* USER CODE END DMA1_Stream3_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_i2s2_ext_rx);
-  /* USER CODE BEGIN DMA1_Stream3_IRQn 1 */
+  /* USER CODE END DMA1_Stream4_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_spi2_tx);
+  DMA1_Stream4_IRQHandler_callback();
+  /* USER CODE BEGIN DMA1_Stream4_IRQn 1 */
 
-  /* USER CODE END DMA1_Stream3_IRQn 1 */
+  /* USER CODE END DMA1_Stream4_IRQn 1 */
 }
 
 /**
