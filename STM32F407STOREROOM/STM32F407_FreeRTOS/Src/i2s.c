@@ -59,6 +59,7 @@
 
 I2S_HandleTypeDef hi2s2;
 DMA_HandleTypeDef hdma_spi2_tx;
+DMA_HandleTypeDef hdma_i2s2_ext_rx;
 
 /* I2S2 init function */
 void MX_I2S2_Init(void)
@@ -139,6 +140,24 @@ void HAL_I2S_MspInit(I2S_HandleTypeDef* i2sHandle)
 
     __HAL_LINKDMA(i2sHandle,hdmatx,hdma_spi2_tx);
 
+    /* I2S2_EXT_RX Init */
+    hdma_i2s2_ext_rx.Instance = DMA1_Stream3;
+    hdma_i2s2_ext_rx.Init.Channel = DMA_CHANNEL_3;
+    hdma_i2s2_ext_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
+    hdma_i2s2_ext_rx.Init.PeriphInc = DMA_PINC_DISABLE;
+    hdma_i2s2_ext_rx.Init.MemInc = DMA_MINC_ENABLE;
+    hdma_i2s2_ext_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+    hdma_i2s2_ext_rx.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+    hdma_i2s2_ext_rx.Init.Mode = DMA_CIRCULAR;
+    hdma_i2s2_ext_rx.Init.Priority = DMA_PRIORITY_HIGH;
+    hdma_i2s2_ext_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+    if (HAL_DMA_Init(&hdma_i2s2_ext_rx) != HAL_OK)
+    {
+      _Error_Handler(__FILE__, __LINE__);
+    }
+
+    __HAL_LINKDMA(i2sHandle,hdmarx,hdma_i2s2_ext_rx);
+
   /* USER CODE BEGIN SPI2_MspInit 1 */
 
   /* USER CODE END SPI2_MspInit 1 */
@@ -169,6 +188,7 @@ void HAL_I2S_MspDeInit(I2S_HandleTypeDef* i2sHandle)
 
     /* I2S2 DMA DeInit */
     HAL_DMA_DeInit(i2sHandle->hdmatx);
+    HAL_DMA_DeInit(i2sHandle->hdmarx);
   /* USER CODE BEGIN SPI2_MspDeInit 1 */
 
   /* USER CODE END SPI2_MspDeInit 1 */
