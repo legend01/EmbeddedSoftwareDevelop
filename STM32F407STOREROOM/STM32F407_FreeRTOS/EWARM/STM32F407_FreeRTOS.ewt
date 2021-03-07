@@ -1427,6 +1427,12 @@
                 </file>
             </group>
             <group>
+                <name>WM8978</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\WM8978\wm8978.c</name>
+                </file>
+            </group>
+            <group>
                 <name>XMRAM</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\XMRAM\XMRAM.h</name>
