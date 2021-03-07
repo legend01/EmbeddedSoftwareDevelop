@@ -4,7 +4,7 @@
 #include "stdio.h"
 #include "assert.h"
 
-UART_STR   Uart1_Str/* ,Uart2_Str */,Uart5_Str;  
+UART_STR   Uart1_Str,Uart6_Str;  
 
 static void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
   huart->gState = HAL_UART_STATE_READY;
@@ -42,21 +42,14 @@ short Uart1_DMA_Sent(char * Sendbuff, short Bufflens)
 	return l_val;
 }
 /**
- * @description: 串口5初始化
+ * @description: 串口6初始化
  * @param {*}
  * !_DMA接收函数，此句一定要加，不加接收不到第一次传进来的实数据，是空的，且此时接收到的数据长度为缓存器的数据长度
  */
-void Uart5_DMA_Init(void){
-	HAL_UART_Receive_DMA(&huart5, Uart5_Str.Uart_RecvBuff, UART_BUFFSIZE);
+void Uart6_DMA_Init(void){
+	HAL_UART_Receive_DMA(&huart6, Uart6_Str.Uart_RecvBuff, UART_BUFFSIZE);
 }
-// /**
-//  * @description: 串口2初始化
-//  * @param {*}
-//  * @note://!_串口2作用于陀螺仪上报给上位机
-//  */
-// void Uart2_DMA_Init(void){
-// 	HAL_UART_Receive_DMA(&huart2, Uart2_Str.Uart_RecvBuff, UART_BUFFSIZE);
-// }
+
 /*
 函数功能：串????3DMA data send
 函数形参：Sendbuff ：data send buffer
@@ -64,7 +57,7 @@ void Uart5_DMA_Init(void){
 函数返回值：数据长度
 备注：无
 */
-short Uart5_DMA_Sent(char * Sendbuff, short Bufflens)
+short Uart6_DMA_Sent(char * Sendbuff, short Bufflens)
 {
  /**
   * @description: TODO:可以利用FreeRTOS中的Queue函数利用生产者和消费者模型
@@ -76,78 +69,33 @@ short Uart5_DMA_Sent(char * Sendbuff, short Bufflens)
 	{
 		return 0;
 	}
-	while(__HAL_DMA_GET_COUNTER(&hdma_uart5_tx));
+	while(__HAL_DMA_GET_COUNTER(&hdma_usart6_tx));
 	if(Sendbuff)
 	{
-		memcpy(Uart5_Str.Uart_SentBuff, Sendbuff, l_val);
+		memcpy(Uart6_Str.Uart_SentBuff, Sendbuff, l_val);
 	}
-	ret = HAL_UART_Transision_DMA(&huart5, Uart5_Str.Uart_SentBuff, l_val);
+	ret = HAL_UART_Transision_DMA(&huart6, Uart6_Str.Uart_SentBuff, l_val);
 	return l_val;
 }
 /*
 *函数功能：serial port 3 reseive exit function
-*@NOTE:hdma_uart5_rx.Instance->NDTR为获取DMA中未传输的数据个数
+*@NOTE:hdma_usart6_rx.Instance->NDTR为获取DMA中未传输的数据个数
 */
-void IRQ_UART5_IRQHandler(void)
+void IRQ_UART6_IRQHandler(void)
 {
-	if(__HAL_UART_GET_FLAG(&huart5, UART_FLAG_IDLE) != RESET) //获取IDLE标志位 //idle标志被置位
+	if(__HAL_UART_GET_FLAG(&huart6, UART_FLAG_IDLE) != RESET) //获取IDLE标志位 //idle标志被置位
 	{
 		/* 清除状???寄存器和串口数据寄存器 */
-		__HAL_UART_CLEAR_IDLEFLAG(&huart5);
+		__HAL_UART_CLEAR_IDLEFLAG(&huart6);
 		/* 失能DMA接收 */
-		HAL_UART_DMAStop(&huart5);
-		Uart5_Str.Uart_RecvLens  = UART_BUFFSIZE -  hdma_uart5_rx.Instance->NDTR;; // 通过DMA接收指针计算接收的字节数
-		Uart5_Str.Receive_flag = 1;
-		HAL_UART_Receive_DMA(&huart5, Uart5_Str.Uart_RecvBuff, UART_BUFFSIZE);
-		__HAL_UART_CLEAR_IDLEFLAG(&huart5);
+		HAL_UART_DMAStop(&huart6);
+		Uart6_Str.Uart_RecvLens  = UART_BUFFSIZE -  hdma_usart6_rx.Instance->NDTR;; // 通过DMA接收指针计算接收的字节数
+		Uart6_Str.Receive_flag = 1;
+		HAL_UART_Receive_DMA(&huart6, Uart6_Str.Uart_RecvBuff, UART_BUFFSIZE);
+		__HAL_UART_CLEAR_IDLEFLAG(&huart6);
 	}
 }
 
-// /*
-// 函数功能：串口2 DMA data send
-// 函数形参：Sendbuff ：data send buffer
-//           Bufflens: data length
-// 函数返回值：数据长度
-// 备注：无
-// */
-// short Uart2_DMA_Sent(char * Sendbuff, short Bufflens)
-// {
-//  /**
-//   * @description: TODO:可以利用FreeRTOS中的Queue函数利用生产者和消费者模型
-//   */   
-//  	assert(*Sendbuff != NULL);
-// 	short l_val = Bufflens > UART_BUFFSIZE ? UART_BUFFSIZE : Bufflens;
-// 	int ret = 0x00;
-// 	if(Bufflens <= 0)
-// 	{
-// 		return 0;
-// 	}
-// 	while(__HAL_DMA_GET_COUNTER(&hdma_uart2_tx));
-// 	if(Sendbuff)
-// 	{
-// 		memcpy(Uart2_Str.Uart_SentBuff, Sendbuff, l_val);
-// 	}
-// 	ret = HAL_UART_Transision_DMA(&huart2, Uart2_Str.Uart_SentBuff, l_val);
-// 	return l_val;
-// }
-// /*
-// *函数功能：serial port 3 reseive exit function
-// *@NOTE:hdma_uart2_rx.Instance->NDTR为获取DMA中未传输的数据个数
-// */
-// void IRQ_UART2_IRQHandler(void)
-// {
-// 	if(__HAL_UART_GET_FLAG(&huart2, UART_FLAG_IDLE) != RESET) //获取IDLE标志位 //idle标志被置位
-// 	{
-// 		/* 清除状???寄存器和串口数据寄存器 */
-// 		__HAL_UART_CLEAR_IDLEFLAG(&huart2);
-// 		/* 失能DMA接收 */
-// 		HAL_UART_DMAStop(&huart2);
-// 		Uart2_Str.Uart_RecvLens  = UART_BUFFSIZE -  hdma_uart2_rx.Instance->NDTR;; // 通过DMA接收指针计算接收的字节数
-// 		Uart2_Str.Receive_flag = 1;
-// 		HAL_UART_Receive_DMA(&huart2, Uart2_Str.Uart_RecvBuff, UART_BUFFSIZE);
-// 		__HAL_UART_CLEAR_IDLEFLAG(&huart2);
-// 	}
-// }
 /*
 函数功能：receive data functions
 函数形参???????* Uart_Str ??????? 串口数据缓冲结构地址
@@ -185,9 +133,9 @@ short Get_Uart_Data(USART_TypeDef* Uartx,char * RcvBuff, short RevLen)
 	/* if(Uartx == USART2){
 		return(Uart_Receive_Data(&Uart2_Str, RcvBuff, RevLen));
 	}
-	else  */if(Uartx == UART5)
+	else  */if(Uartx == USART6)
 	{
-		return(Uart_Receive_Data(&Uart5_Str, RcvBuff, RevLen));
+		return(Uart_Receive_Data(&Uart6_Str, RcvBuff, RevLen));
 	}
 	return FALSE;
 }

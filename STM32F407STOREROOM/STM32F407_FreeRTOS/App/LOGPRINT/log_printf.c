@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-01-09 16:46:05
- * @LastEditTime: 2021-01-23 11:24:53
+ * @LastEditTime: 2021-03-07 17:46:15
  * @LastEditors: HLLI8
  */
 #include "log_printf.h"
@@ -81,9 +81,9 @@ unsigned long int USMART_PRINT(const unsigned char *fmt, ...){
     return rvalue;
 }
 /********************************************************************/
-void out_char(unsigned char *ch) //!_修改输出出口
+void out_char(unsigned char *ch) //!_修改输出出口 普通log输出
 {
-	Uart5_DMA_Sent((uint8_t*)ch, 1);
+	Uart6_DMA_Sent((uint8_t*)ch, 1);
 }
 
 void PRTNT_USMART(unsigned char *ch){ //!USMART专用打印出口
