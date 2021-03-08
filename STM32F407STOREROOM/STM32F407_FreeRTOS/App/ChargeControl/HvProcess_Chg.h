@@ -3,7 +3,7 @@
  * @Autor: lihelin
  * @Date: 2021-02-24 09:20:34
  * @LastEditors: HLLI8
- * @LastEditTime: 2021-03-02 17:32:46
+ * @LastEditTime: 2021-03-08 17:08:17
  */
 /**
  * \addtogroup HvProcess 高压流程控制
@@ -132,7 +132,7 @@ HvProcess_CommandType HvProcess_Chg_GetChargeCommand(void);
 /**
  * \brief 获取当前继电器闭合状态
  */
-bool HvProcess_GetRelayStatus(void);
+bool HvProcess_GetK5K6Status(void);
 
 #endif
 

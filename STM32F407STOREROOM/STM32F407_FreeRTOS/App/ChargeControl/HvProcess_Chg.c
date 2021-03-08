@@ -3,7 +3,7 @@
  * @Autor: lihelin
  * @Date: 2021-02-24 09:20:34
  * @LastEditors: HLLI8
- * @LastEditTime: 2021-03-02 17:33:58
+ * @LastEditTime: 2021-03-08 17:07:18
  */
 #include "HvProcess_Chg.h"
 
@@ -12,10 +12,6 @@ HvProcess_ChgInnerDataType HvProcess_ChgInnerData;
 void HvProcess_ChgInit(void){
     HvProcess_ChgInnerData.State = HVPROCESS_CHG_SELFTEST;
     HvProcess_ChgInnerData.ChargeStatus = CHARGE_POWERON;
-}
-
-HvProcess_ChargeStatusType HvProcess_GetChargeStatus(void){
-    return HvProcess_ChgInnerData.ChargeStatus;
 }
 
 bool HvProcess_ChgStateStartCond(void){
@@ -43,6 +39,7 @@ void HvProcess_ChgConnectAction(void)
 {
     /*初始化清零*/
     HvProcess_ChgInnerData.ChargeStatus = CHARGE_SYSSTARTUP;
+    HvProcess_ChgInnerData.K5K6flag = false;
 }
 
 bool HvProcess_ChgDisconnectCond(void){
@@ -147,17 +144,6 @@ void HvProcess_InsulationTestAction(void){
     /* TODO:绝缘测试响应操作 */
 }
 
-bool HvProcess_ChgFaultCond(void){
-    bool res = false;
-    if (true/* 故障 */)
-    {
-        /* code */
-        /* TODO:故障状态下对应操作 */
-        res = true;
-    }
-    return res;
-}
-
 bool HvProcess_ChargeEnableCond(void){
     bool res = false;
     if (true/* TODO:判断是否可以恢复充电条件 */)
@@ -217,10 +203,21 @@ void HvProcess_SysSleep(void){
     /* TODO:系统进入休眠状态 */
 }
 
+bool HvProcess_ChgFaultCond(void){
+    bool res = false;
+    if (HvProcess_GetBmsComErrorState() != NULL) /* 故障 */
+    {
+        res = true;
+    }
+    return res;
+}
+
 void HvProcess_ChgFaultAction(void)
 {
     //充电控制设置为stopcharge
     //并且清除一些标志位
+    /* TODO：断开K5 K6继电器 */
+    HvProcess_ChgInnerData.K5K6flag = false;
 }
 
 /***************************各状态点的初始化函数****************************/
@@ -262,4 +259,13 @@ void HvProcess_StopCharging_Init(void)
 void HvProcess_SYSSleep_Init(void)
 {
     
+}
+
+/* **********************************外部接口****************************** */
+HvProcess_ChargeStatusType HvProcess_GetChargeStatus(void){
+    return HvProcess_ChgInnerData.ChargeStatus;
+}
+
+bool HvProcess_GetK5K6Status(void){
+    return HvProcess_ChgInnerData.K5K6flag;
 }

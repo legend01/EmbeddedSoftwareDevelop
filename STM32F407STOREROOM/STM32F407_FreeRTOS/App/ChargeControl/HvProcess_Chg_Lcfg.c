@@ -19,6 +19,12 @@ const HvProcess_StateInfoType HvProcess_ConnectComfirm_InfoConfig[] = {   //1
 
 const HvProcess_StateInfoType HvProcess_ShakeHandIdentity_InfoConfig[] = {  //2
     {
+        HvProcess_ChgFaultCond, /**< Cond: 条件函数指针 */ //故障状态
+        HvProcess_ChgFaultAction, /**< Action: 动作函数指针 */
+        (u16)HVPROCESS_CHG_CONNECTCONFIRM, /**< Next: 下一状态 *//**/
+    },
+    /*******************************分割线************************************/
+    {
         HvProcess_ChgDisconnectCond, /**< Cond: 条件函数指针 */ /* 检测点2电压不为6V */
         NULL, /**< Action: 动作函数指针 */
         (u16)HVPROCESS_CHG_CONNECTCONFIRM, /**< Next: 下一状态 */
