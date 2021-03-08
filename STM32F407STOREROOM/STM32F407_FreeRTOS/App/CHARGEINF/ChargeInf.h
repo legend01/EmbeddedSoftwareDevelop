@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-03 15:23:12
+ * @LastEditTime: 2021-03-03 17:10:41
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
@@ -90,6 +90,19 @@ typedef struct{
     u32 vehicleAllowMaxV_L: 8; /* 车辆最高允许总电压 */
     u32 vehicleAllowMaxV_H: 8;
 }SEND_BHM;
+
+typedef struct{
+    u32 identifyResult: 8; /* 辨识结果 */
+
+    u32 chargeNumber_L: 8; /* 充电机编号 */
+    u32 chargeNumber_M: 8;
+    u32 chargeNumber_M1: 8;
+    u32 chargeNumber_H: 8;
+
+    u32 chargeRegin_L: 8; /* 充电机区域 */
+    u32 chargeRegin_M: 8;
+    u32 chargeRegin_H: 8;
+}RCV_CRM;
 
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);

@@ -89,6 +89,39 @@ void HvProcess_SendBHM(void)
 
 }
 
+bool HvProcess_RecvCRM0x00Cond(void)
+{
+    bool res = false;
+    u8 Getmsglen = 0;
+    if (BMS_Check_Valid(CRM)&& HvProcess_BmsComInnerData.ChargeFlag.SendBHM == true)
+    {
+        //处理CRM报文中内容
+        Getmsglen = BMS_Get_message(CRM, &BMSmanager.messageData);
+        if (Getmsglen == PGNInfoRcv[CRM].dataLen)
+        {
+            Rcv_CRM.identifyResult = BMSmanager.messageData[0];
+
+            Rcv_CRM.chargeNumber_L = BMSmanager.messageData[1];
+            Rcv_CRM.chargeNumber_M = BMSmanager.messageData[2];
+            Rcv_CRM.chargeNumber_M1 = BMSmanager.messageData[3];
+            Rcv_CRM.chargeNumber_H = BMSmanager.messageData[4];
+            
+            Rcv_CRM.chargeRegin_L = BMSmanager.messageData[5];
+            Rcv_CRM.chargeRegin_M = BMSmanager.messageData[6];
+            Rcv_CRM.chargeRegin_H = BMSmanager.messageData[7];
+
+            Getmsglen = 0;
+            res = true;
+        }
+    }
+    return res;
+}
+
+void HvProcess_ReceiveCRM0x00Action(void)
+{
+    HvProcess_BmsComInnerData.Flag.RecvCRM_0x00 = true;
+}
+
 bool HvProcess_SendBRM_Cond(void)
 {
     static u32 lastime = 1;
@@ -330,16 +363,7 @@ void HvProcess_RecvCTSAction(void){
     HvProcess_BmsComInnerData.Flag.RecvCTS = true;
 }
 
-bool HvProcess_RecvCRM0x00Cond(void)
-{
-    bool res = false;
-    if (true/*判断已经接收到CRM报文*/&& HvProcess_BmsComInnerData.ChargeFlag.SendBHM == true)
-    {
-        /* code */
-        res = true;
-    }
-    return res;
-}
+
 
 void HvProcess_RecvCHMTimeOutAction(void){
     /* TODO:接收CHM超时 动作 */
@@ -423,10 +447,7 @@ void HvProcess_SendBRMAction(void)
     
 }
 
-void HvProcess_ReceiveCRM0x00Action(void)
-{
-    HvProcess_BmsComInnerData.Flag.RecvCRM_0x00 = true;
-}
+
 
 bool HvProcess_ReceiveCRM0xAA_Cond(void)
 {
