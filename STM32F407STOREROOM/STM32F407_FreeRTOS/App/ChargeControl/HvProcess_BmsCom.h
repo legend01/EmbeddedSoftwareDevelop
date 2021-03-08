@@ -25,7 +25,18 @@ typedef enum{
     HVPROCESS_BMSCOM_STATISTICS = 7,   /**< 充电统计 */
     HVPROCESS_BMSCOM_TIMEOUT = 8,   /**< 通信超时 */
     HVPROCESS_BMSCOM_STATE_MAX = 9, /**< BMS通信流程控制状态最大值 */
-}HvProcess_CmsComStateType;
+}HvProcess_BmsComStateType;
+
+typedef enum{
+    HVPROCESS_NOERROR, /* 无错误 */
+    HVPROCESS_CRM_TIMEOUT, /* 接收CRM超时 */
+    HVPROCESS_CTS_TIMEOUT, /* 接收CTS超时 */
+    HVPROCESS_CRO_TIMEOUT, /* 接收CRO超时 */
+    HVPROCESS_CCS_TIMEOUT, /* 接收CCS超时 */
+    HVPROCESS_CST_TIMEOUT, /* 接收CST超时 */
+    HVPROCESS_CSD_TIMEOUT, /* 接收CSD超时 */
+    HVPROCESS_ERROR_MAX,
+}HvProcess_BmsComErrorType;
 
 typedef __packed struct{
     u32 SysStart;
@@ -64,11 +75,12 @@ typedef __packed struct{
  * \brief 充电高压流程控制内部数据类型
  */
 typedef __packed struct{
-    HvProcess_CmsComStateType       State;         /**< 充电高压流程状态 */
+    HvProcess_BmsComStateType       State;         /**< 充电高压流程状态 */
     HvProcess_BmsComTimeTick        TimeTick;
     ComStandard                  standard;
     ReceiveFlag                  Flag;
     ChargeFlag                   ChargeFlag;
+    HvProcess_BmsComErrorType    ErrorType;
 }HvProcess_BmsComInnerDataType;
 
 extern const HvProcess_StateConfigType HvProcess_BmsComStateConfig[HVPROCESS_BMSCOM_STATE_MAX];
@@ -163,6 +175,8 @@ bool HvProcess_K5K6OpenCond(void);
 void HvProcess_K5K6OpenAction(void);
 bool HvProcess_SendBEMCond(void);
 void HvProcess_SendBEMAction(void);
+bool HvProcess_RecoveryCond(void);
+void HvProcess_RecoveryAction(void);
 
 /* ************************************************************************ */
 void HvProcess_BmsComHandshakeStart_Init(void);
@@ -173,6 +187,9 @@ void HvProcess_BmsComCharge_Init(void);
 void HvProcess_BmsComStopCharge_Init(void);
 void HvProcess_BmsComStatistics_Init(void);
 void HvProcess_BmsComTimeOut_Init(void);
+/* **********************************外部调用************************************** */
+bool HvProcess_BmsComChargeState(void);
+HvProcess_BmsComErrorType HvProcess_GetBmsComErrorState(void);
 /* ************************************************************************ */
 #endif
 

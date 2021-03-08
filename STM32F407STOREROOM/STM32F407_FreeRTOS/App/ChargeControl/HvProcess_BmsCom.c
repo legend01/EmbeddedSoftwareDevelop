@@ -4,6 +4,7 @@ HvProcess_BmsComInnerDataType HvProcess_BmsComInnerData;
 
 void HvProcess_BmsComInit(void){
     HvProcess_BmsComInnerData.State = HVPROCESS_BMSCOM_START;
+    HvProcess_BmsComInnerData.ErrorType = HVPROCESS_NOERROR;
 }
 
 bool HvProcess_LowPowerOnCond(void){
@@ -120,6 +121,22 @@ bool HvProcess_RecvCRM0x00Cond(void)
 void HvProcess_ReceiveCRM0x00Action(void)
 {
     HvProcess_BmsComInnerData.Flag.RecvCRM_0x00 = true;
+}
+
+bool HvProcess_ReceCRM0x00TimeoutCond(void){
+    bool res = false;
+    if (HvProcess_BmsComInnerData.Flag.RecvCRM_0x00 == false)
+    { /* 自收到CHM起30S或者系统启动(必须)60S */
+        if(TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.RecvCHM) >= 30000 || TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.SysStart) >=60000)
+        {
+            res = true;
+        }
+    }
+    return res;
+}
+
+void HvProcess_SetCRMError(void){
+    HvProcess_BmsComInnerData.ErrorType = HVPROCESS_CRM_TIMEOUT;
 }
 
 bool HvProcess_SendBRM_Cond(void)
@@ -369,21 +386,7 @@ void HvProcess_RecvCHMTimeOutAction(void){
     /* TODO:接收CHM超时 动作 */
 }
 
-bool HvProcess_ReceCRM0x00TimeoutCond(void){
-    bool res = false;
-    if (HvProcess_BmsComInnerData.Flag.RecvCRM_0x00 == false)
-    { /* 自收到CHM起30S或者系统启动(必须)60S */
-        if(TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.RecvCHM) >= 30000 || TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.SysStart) >=60000)
-        {
-            res = true;
-        }
-    }
-    return res;
-}
 
-void HvProcess_SetCRMError(void){
-    
-}
 
 bool HvProcess_RecvCRM0xAATimeoutCond(void){
     bool res = false;
@@ -663,22 +666,83 @@ void HvProcess_K5K6OpenAction(void){
     /* TODO:关闭辅源后操作 */
 }
 
-bool HvProcess_SendBEMCond(void){
-    bool res = false;
-    if (true/* 发送BEM */)
+
+static void TimeOut_Handler(HvProcess_BmsComErrorType ErrorType){
+    if (ErrorType >= HVPROCESS_ERROR_MAX)
     {
-        /* 发送BEM */
-        res = true;
+        return;
+    }
+    switch (ErrorType)
+    {
+    case HVPROCESS_CRM_TIMEOUT:
+        Send_BEM.CRM0x00ErrorState = ErrorType_Timeout;
+        break;
+    case HVPROCESS_CTS_TIMEOUT:
+        Send_BEM.CTSErrorState = ErrorType_Timeout;
+        break;
+    case HVPROCESS_CRO_TIMEOUT: 
+        Send_BEM.CROErrorState = ErrorType_Timeout;
+        break;
+    case HVPROCESS_CCS_TIMEOUT:
+        Send_BEM.CCSErrorState = ErrorType_Timeout;
+        break;
+    case HVPROCESS_CST_TIMEOUT:
+        Send_BEM.CSTErrorState = ErrorType_Timeout;
+        break;
+    case HVPROCESS_CSD_TIMEOUT:
+        Send_BEM.CSDErrorState = ErrorType_Timeout;
+        break;
+    default:
+        break;
+    }
+    BMSmanager.msgSendData[0] = Send_BEM.CRM0x00ErrorState & 0xff;
+    BMSmanager.msgSendData[1] = (Send_BEM.CTSErrorState | Send_BEM.CROErrorState) & 0xff;
+    BMSmanager.msgSendData[2] = (Send_BEM.CCSErrorState | Send_BEM.CSTErrorState) & 0xff;
+    BMSmanager.msgSendData[3] = (Send_BEM.CSDErrorState) & 0xff;
+
+    BMS_Send_message(BEM, BMSmanager.msgSendData);
+}
+
+bool HvProcess_SendBEMCond(void){
+    static u32 lastime = 1;
+    bool res = false;
+
+    if(lastime == 0){
+        lastime = GetTimeMs();
+    }else{
+        if(TimeAfterMs(lastime) >= 250/* BEM的发送周期 250ms */&& HvProcess_BmsComInnerData.ErrorType != NULL)
+        {
+            lastime = 0;
+            res = true;
+        }
     }
     return res;
 }
 
 void HvProcess_SendBEMAction(void){
     /* 发送BEM进行的操作 */
+    TimeOut_Handler(HvProcess_BmsComInnerData.ErrorType);
 }
+
+bool HvProcess_RecoveryCond(void){
+    bool res = false;
+    if (HvProcess_GetK5K6Status() == false)
+    {
+        res = true;
+    }
+    return res;
+}
+
+void HvProcess_RecoveryAction(void){
+    /* TODO:code */
+}
+
 /***************************各状态点的初始化函数****************************/
 void HvProcess_BmsComHandshakeStart_Init(void){
     HvProcess_BmsComInnerData.Flag.RecvCHM = false;
+    HvProcess_BmsComInnerData.ChargeFlag.SendBHM = false;
+    HvProcess_BmsComInnerData.Flag.RecvCRM_0x00 = false;
+    HvProcess_BmsComInnerData.ErrorType = HVPROCESS_NOERROR;
 }
 
 void HvProcess_BmsComHandshakeIdentify_Init(void){
@@ -721,4 +785,6 @@ bool HvProcess_BmsComChargeState(void){
     return res;
 }
 
-
+HvProcess_BmsComErrorType HvProcess_GetBmsComErrorState(void){
+    return HvProcess_BmsComInnerData.ErrorType;
+}

@@ -194,8 +194,13 @@ const HvProcess_StateInfoType HvProcess_BmsComStatistics_InfoConfig[] = { /*7 �
 const HvProcess_StateInfoType HvProcess_BmsComTimeOut_InfoConfig[] = { /*8  BMS通信超时的处理*/
     {
         HvProcess_SendBEMCond, /**< Cond: 条件函数指针 */ /*发送BEM,达到发送的周期:250ms*/
-        HvProcess_SendBEMAction, /**< Action: 动作函数指针 *//*还没想好该做什么*/
-        (u16)HVPROCESS_BMSCOM_STOPCHARGE, /**< Next: 下一状态 */
+        HvProcess_SendBEMAction, /**< Action: 动作函数指针 */
+        (u16)HVPROCESS_BMSCOM_TIMEOUT, /**< Next: 下一状态 */
+    },
+    {
+        HvProcess_RecoveryCond, /**< Cond: 条件函数指针 */ 
+        HvProcess_RecoveryAction, /**< Action: 动作函数指针 */
+        (u16)HVPROCESS_BMSCOM_HANDSHAKE_START, /**< Next: 下一状态 */
     },
 };
 
