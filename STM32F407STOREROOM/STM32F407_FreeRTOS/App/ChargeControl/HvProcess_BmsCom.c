@@ -147,9 +147,7 @@ bool HvProcess_SendBRM_Cond(void)
     if(lastime == 0)
     {
         lastime = GetTimeMs();
-    }
-    else
-    {
+    }else{
         if(TimeAfterMs(lastime) >= 250/* BRM的发送周期250ms */)
         {
             lastime = 0;
@@ -158,6 +156,17 @@ bool HvProcess_SendBRM_Cond(void)
     }
 
     return res;
+}
+
+void HvProcess_SendBRMAction(void)
+{
+    /* 发送一次BRM报文 */
+    if (HvProcess_BmsComInnerData.Flag.RecvCRM_0x00 == true)
+    {
+        HvProcess_BmsComInnerData.TimeTick.SendBRM = GetTimeMs();
+        memcpy(BMSmanager.msgSendData, Get_Send_BRM_Inf(), PGNInfoSend[BRM].dataLen);
+        BMS_Send_message(BRM, BMSmanager.msgSendData);
+    }
 }
 
 bool HvProcess_SendBROCond(void)
@@ -438,17 +447,7 @@ bool HvProcess_ReceiveCSDTimeoutCond(void){
 void HvProcess_ReceiveCSDTimeoutAction(void){
     /* TODO:充电时序结束， 充电故障级别1 */
 }
-void HvProcess_SendBRMAction(void)
-{
-    /* 发送一次BRM报文 */
-    if (HvProcess_BmsComInnerData.Flag.RecvCRM_0x00 == true)
-    {
-        /* code */
-        HvProcess_BmsComInnerData.TimeTick.SendBRM = GetTimeMs();
-        /* TODO:车辆辨识(协议版本 电池类型 容量 电池电压 VIN码等) */
-    }
-    
-}
+
 
 
 
