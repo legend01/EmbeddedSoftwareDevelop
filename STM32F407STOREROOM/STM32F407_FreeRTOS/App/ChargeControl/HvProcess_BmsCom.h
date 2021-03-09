@@ -70,6 +70,7 @@ typedef __packed struct{
     bool SendBRO_0x00;
     bool SendBRO_0xAA;
     bool CMLIsWrong;
+    bool SendBRM;
 }ChargeFlag;
 /**
  * \brief 充电高压流程控制内部数据类型

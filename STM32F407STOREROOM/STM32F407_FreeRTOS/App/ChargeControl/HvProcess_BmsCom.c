@@ -42,7 +42,6 @@ bool HvProcess_ReceiveCHMCond(void)
 }
 
 void HvProcess_RecvCHMAction(void){
-    /* TODO:接收CHM报文后 动作 */
     HvProcess_BmsComInnerData.Flag.RecvCHM = true;
     HvProcess_BmsComInnerData.TimeTick.RecvCHM = GetTimeMs();
 }
@@ -81,7 +80,6 @@ void HvProcess_SendBHM(void)
     /*发送一次BHM的内容*/
     if(HvProcess_BmsComInnerData.Flag.RecvCHM == true)
     {
-        /* TODO:发送BMS最高允许充电总电压 */
         BMSmanager.msgSendData[0] = Get_Send_BHM_Inf()->vehicleAllowMaxV_L;
         BMSmanager.msgSendData[1] = Get_Send_BHM_Inf()->vehicleAllowMaxV_H;
         BMS_Send_message(BHM, BMSmanager.msgSendData);
@@ -166,7 +164,49 @@ void HvProcess_SendBRMAction(void)
         HvProcess_BmsComInnerData.TimeTick.SendBRM = GetTimeMs();
         memcpy(BMSmanager.msgSendData, Get_Send_BRM_Inf(), PGNInfoSend[BRM].dataLen);
         BMS_Send_message(BRM, BMSmanager.msgSendData);
+        HvProcess_BmsComInnerData.ChargeFlag.SendBRM = true;
     }
+}
+
+bool HvProcess_ReceiveCRM0xAA_Cond(void)
+{
+    bool res = false;
+    u8 Getmsglen = 0;
+    if(BMS_Check_Valid(CRM)&& HvProcess_BmsComInnerData.ChargeFlag.SendBRM == true) /*从底层中读取是否有CRM0xAA报文*/
+    {
+        Getmsglen = BMS_Get_message(CRM, &BMSmanager.messageData);
+        if (Getmsglen = PGNInfoRcv[CRM].dataLen&&BMSmanager.messageData[0] == 0xAA)
+        {
+            
+            Getmsglen = 0;
+            res = true;
+        }
+    }
+    return res;
+}
+
+void HvProcess_ReceiveCRM0xAAAction(void){
+
+    HvProcess_BmsComInnerData.Flag.RecvCRM_0xAA = true;
+
+}
+
+bool HvProcess_RecvCRM0xAATimeoutCond(void){
+    bool res = false;
+    if (HvProcess_BmsComInnerData.Flag.RecvCRM_0xAA == false)
+    {
+        /* 自初次发送BRM起5S */
+        if (TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.SendBRM) >= 5000)
+        {
+            res = true;
+        }
+    }
+    return res;
+}
+
+void HvProcess_RecvCRM0xAATimeoutAction(void){
+    /* 接收CRM0xAA超时 动作 */
+    HvProcess_BmsComInnerData.ErrorType = HVPROCESS_CRM_TIMEOUT;
 }
 
 bool HvProcess_SendBROCond(void)
@@ -395,25 +435,6 @@ void HvProcess_RecvCHMTimeOutAction(void){
     /* TODO:接收CHM超时 动作 */
 }
 
-
-
-bool HvProcess_RecvCRM0xAATimeoutCond(void){
-    bool res = false;
-    if (HvProcess_BmsComInnerData.Flag.RecvCRM_0xAA == false)
-    {
-        /* code */  /* 自初次发送BRM起5S */
-        if (TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.SendBRM) >= 5000)
-        {
-            res = true;
-        }
-    }
-    return res;
-}
-
-void HvProcess_RecvCRM0xAATimeoutAction(void){
-    /* TODO: 接收CRM0xAA超时 动作 */
-}
-
 bool HvProcess_60STimeoutCond(void)
 {
     static u32 lastime = 0;
@@ -447,27 +468,6 @@ bool HvProcess_ReceiveCSDTimeoutCond(void){
 void HvProcess_ReceiveCSDTimeoutAction(void){
     /* TODO:充电时序结束， 充电故障级别1 */
 }
-
-
-
-
-bool HvProcess_ReceiveCRM0xAA_Cond(void)
-{
-    bool res = false;
-    if(true/*从底层中读取是否有CRM0xAA报文*/)
-    {
-        /* code */
-        res = true;
-    }
-    return res;
-}
-
-void HvProcess_ReceiveCRM0xAAAction(void){
-
-    HvProcess_BmsComInnerData.Flag.RecvCRM_0xAA = true;
-
-}
-
 
 bool HvProcess_ReceiveCCSCond(void)
 {
@@ -745,7 +745,9 @@ void HvProcess_BmsComHandshakeStart_Init(void){
 }
 
 void HvProcess_BmsComHandshakeIdentify_Init(void){
-
+    HvProcess_BmsComInnerData.ChargeFlag.SendBRM = false;
+    HvProcess_BmsComInnerData.Flag.RecvCRM_0xAA = false;
+    HvProcess_BmsComInnerData.ErrorType = HVPROCESS_NOERROR;
 }
 
 void HvProcess_BmsComSendBCP_Init(void)
