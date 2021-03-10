@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-10 14:10:07
+ * @LastEditTime: 2021-03-10 15:08:15
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
@@ -51,6 +51,13 @@ typedef struct {
     u16 NeedV; /* 电压需求 */
     u16 NeedI; /* 电流需求 */
     u8 ChargeMode; /* 充电模式 */
+
+    u16 BCS_MeasureVol; /* 充电电压测量值 */
+    u16 BCS_MeasureI; /* 充电电流测量值 */
+    u16 BCS_SinMaxBatVol; /* 最高单体动力蓄电池电压 */
+    u8 BCS_SinMaxBATVol_Num; /* 最高单体动力蓄电池电压组号 */
+    u8 BCS_NowSOC; /* 当前荷电状态 */
+    u16 BCS_LeftChargeTIM; /* 估算剩余充电时间 */
 }VEHICLEPARAMINF;
 
 typedef struct 
@@ -166,7 +173,8 @@ typedef struct{
     u8 TimeSyncHour:8; /* 小时 */
     u8 TimeSyncDay:8; /* 日 */
     u8 TimeSyncMonth:8; /* 月 */
-    u8 TimeSyncYear:8; /* 年 */
+    u8 TimeSyncYear_L:8; /* 年 */
+    u8 TimeSyncYear_H:8; 
 }RECV_CTS;
 
 typedef struct{
@@ -200,6 +208,23 @@ typedef struct{
 
     u8 ChargeMode:8; /* 充电模式 */
 }SEND_BCL;
+
+typedef struct{
+    u8 MeasureChargeVol_L:8; /* 充电电压测量值 */
+    u8 MeasureChargeVol_H:8; 
+
+    u8 MeasureChargeI_L:8; /* 充电电流测量值 */
+    u8 MeasureChargeI_H:8;
+
+    u8 MaxSinBatVol_L:8; /* 最高单体动力蓄电池电压 */
+    u8 MaxSinBatVol_H:4; 
+    u8 MaxSinBatVolNum:4; /* 最高单体动力蓄电池组号 */
+
+    u8 NowSOC:8; /* 当前荷电状态 */
+
+    u8 LeftChargeTime_L:8; /* 估算剩余充电时间 */
+    u8 LeftChargeTime_H:8; 
+}SEND_BCS;
 
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);

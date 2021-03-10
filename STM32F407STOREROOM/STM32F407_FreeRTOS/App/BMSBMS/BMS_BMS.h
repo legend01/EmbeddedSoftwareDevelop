@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:35
- * @LastEditTime: 2021-03-10 14:14:03
+ * @LastEditTime: 2021-03-10 15:31:30
  * @LastEditors: HLLI8
  */
 #ifndef __BMS_BMS_H__
@@ -39,6 +39,7 @@ extern RECV_CML Rcv_CML;
 extern SEND_BRO Send_BRO;
 extern RECV_CRO Rcv_CRO;
 extern SEND_BCL Send_BCL;
+extern SEND_BCS Send_BCS;
 
 int BMS_Get_message(PGNTypeRcv ePGNTypeRcv, char** messageData);
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data);
@@ -50,4 +51,5 @@ SEND_BHM* Get_Send_BHM_Inf(void);
 SEND_BRM* Get_Send_BRM_Inf(void);
 SEND_BCP* Get_Send_BCP_Inf(void);
 SEND_BCL* Get_Send_BCL_Inf(void);
+SEND_BCS* Get_Send_BCS_Inf(void);
 #endif // !__BMS_BMS_H__

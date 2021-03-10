@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:29
- * @LastEditTime: 2021-03-10 14:28:14
+ * @LastEditTime: 2021-03-10 15:40:17
  * @LastEditors: HLLI8
  */
 #include "BMS_BMS.h"
@@ -20,6 +20,7 @@ RECV_CTS Rcv_CTS;
 RECV_CML Rcv_CML;
 SEND_BRO Send_BRO;
 SEND_BCL Send_BCL;
+SEND_BCS Send_BCS;
 
 SEND_BHM* Get_Send_BHM_Inf(void){
     Send_BHM.vehicleAllowMaxV_L = Get_Vehicle_ParamInf()->vehicle_maxallow_v & 0xff;
@@ -104,6 +105,24 @@ SEND_BCL* Get_Send_BCL_Inf(void){
 
     Send_BCL.ChargeMode = Get_Vehicle_ParamInf()->ChargeMode & 0xff;
     return &Send_BCL;
+}
+
+SEND_BCS* Get_Send_BCS_Inf(void){
+    Send_BCS.MeasureChargeVol_L = Get_Vehicle_ParamInf()->BCS_MeasureVol & 0xff;
+    Send_BCS.MeasureChargeVol_H = Get_Vehicle_ParamInf()->BCS_MeasureVol >> 8 & 0xff;
+
+    Send_BCS.MeasureChargeI_L = (4000 - Get_Vehicle_ParamInf()->BCS_MeasureI) & 0xff;
+    Send_BCS.MeasureChargeI_H = (4000 - Get_Vehicle_ParamInf()->BCS_MeasureI) >> 8 & 0xff;
+
+    Send_BCS.MaxSinBatVol_L = Get_Vehicle_ParamInf()->BCS_SinMaxBatVol & 0xff;
+    Send_BCS.MaxSinBatVol_H = Get_Vehicle_ParamInf()->BCS_SinMaxBatVol >> 8 & 0xff;
+    Send_BCS.MaxSinBatVolNum = Get_Vehicle_ParamInf()->BCS_SinMaxBATVol_Num & 0xff;
+
+    Send_BCS.NowSOC = Get_Vehicle_ParamInf()->BCS_NowSOC & 0xff;
+
+    Send_BCS.LeftChargeTime_L = Get_Vehicle_ParamInf()->BCS_LeftChargeTIM & 0xff;
+    Send_BCS.LeftChargeTime_H = Get_Vehicle_ParamInf()->BCS_LeftChargeTIM >> 8 & 0xff;
+    return &Send_BCS;
 }
 
 void BMSmanager_Init(void){

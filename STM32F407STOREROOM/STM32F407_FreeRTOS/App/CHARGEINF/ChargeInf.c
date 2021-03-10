@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:20
- * @LastEditTime: 2021-03-10 14:23:29
+ * @LastEditTime: 2021-03-10 15:16:38
  * @LastEditors: HLLI8
  */
 #include "ChargeInf.h"
@@ -32,6 +32,13 @@
 #define BAT_NeedV 4500
 #define BAT_NeedI 2000
 #define BAT_ChargeMode 1 /* 1：恒压 2：恒流 */
+
+#define BCS_CheckV 3500
+#define BCS_CheckI 2965
+#define BCS_SinBATMaxVol 330
+#define BCS_SinBATMaxVol_SerialNum 1
+#define BCS_CurSOC 30
+#define BCS_TMleft 0
 
 VEHICLEPARAMINF  VehicleParamInf;
 
@@ -78,6 +85,13 @@ void ConfigureVehicleParam(void){
     vehicle_inf->NeedV = BAT_NeedV;
     vehicle_inf->NeedI = BAT_NeedI;
     vehicle_inf->ChargeMode = BAT_ChargeMode;
+
+    vehicle_inf->BCS_MeasureVol = BCS_CheckV;
+    vehicle_inf->BCS_MeasureI = BCS_CheckI;
+    vehicle_inf->BCS_SinMaxBatVol = BCS_SinBATMaxVol;
+    vehicle_inf->BCS_SinMaxBATVol_Num = BCS_SinBATMaxVol_SerialNum;
+    vehicle_inf->BCS_NowSOC = BCS_CurSOC;
+    vehicle_inf->BCS_LeftChargeTIM = BCS_TMleft;
 }
 
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void){

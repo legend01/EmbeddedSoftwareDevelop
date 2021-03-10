@@ -251,7 +251,8 @@ bool HvProcess_RecvCTSCond(void){
             Rcv_CTS.TimeSyncHour = BMSmanager.messageData[2];
             Rcv_CTS.TimeSyncDay = BMSmanager.messageData[3];
             Rcv_CTS.TimeSyncMonth = BMSmanager.messageData[4];
-            Rcv_CTS.TimeSyncYear = BMSmanager.messageData[5];
+            Rcv_CTS.TimeSyncYear_L = BMSmanager.messageData[5];
+            Rcv_CTS.TimeSyncYear_H = BMSmanager.messageData[6];
 
             Getmsglen = 0;
             res = true;
@@ -446,10 +447,9 @@ void HvProcess_SendBCLAction(void){
     /* 发送电压需求 电流需求 充电模式 */
     if (HvProcess_BmsComInnerData.Flag.RecvCRO_0xAA == true)
     {
-        memcpy(BMSmanager.msgSendData, Get_Send_BCL_Inf, PGNInfoRcv[BCL].dataLen);
+        memcpy(BMSmanager.msgSendData, Get_Send_BCL_Inf(), PGNInfoRcv[BCL].dataLen);
         BMS_Send_message(BCL, BMSmanager.msgSendData);
     }
-    
 }
 
 bool HvProcess_SendBCSCond(void){
@@ -462,7 +462,7 @@ bool HvProcess_SendBCSCond(void){
     }
     else
     {
-        if(TimeAfterMs(lastime) >= 250/* BCS的发送周期 250ms */)
+        if(TimeAfterMs(lastime) >= PGNInfoSend[BCS].period) /* BCS的发送周期 250ms */
         {
             lastime = 0;
             res = true;
@@ -472,20 +472,37 @@ bool HvProcess_SendBCSCond(void){
 }
 
 void HvProcess_SendBCSAction(void){
-    /* code */
-    /* TODO:发送电池组充电电压 充电电流等充电状态 */
+    /* 发送电池组充电电压 充电电流等充电状态 */
+    if (HvProcess_BmsComInnerData.Flag.RecvCRO_0xAA == true)
+    {
+        memcpy(BMSmanager.msgSendData, Get_Send_BCS_Inf(), PGNInfoRcv[BCS].dataLen);
+        BMS_Send_message(BCS, BMSmanager.msgSendData);
+    }
 }
 
+bool HvProcess_ReceiveCCSCond(void)
+{
+    bool res = false;
+    if(true/*从底层中读取是否有CCS报文*/)
+    {
+        //处理CCS报文中的充电机电压 电流 累计充电时间 充电允许
+        res = true;
+    }
+    return res;
+}
 
-
-
-
+void HvProcess_RecvCCSAction(void)
+{
+    /* code */
+    /* TODO:处理CCS报文 获取电压输出值 电流输出值 累计充电时间 //!_充电允许< 0:暂停 1:允许 */
+    //!_充电开始
+    HvProcess_BmsComInnerData.TimeTick.ReceCCS = GetTimeMs();
+    HvProcess_BmsComInnerData.Flag.RecvCCS = true;
+}
 
 void HvProcess_RecvCHMTimeOutAction(void){
     /* TODO:接收CHM超时 动作 */
 }
-
-
 
 bool HvProcess_ReceiveCSDTimeoutCond(void){
     bool res = false;
@@ -498,17 +515,6 @@ bool HvProcess_ReceiveCSDTimeoutCond(void){
 
 void HvProcess_ReceiveCSDTimeoutAction(void){
     /* TODO:充电时序结束， 充电故障级别1 */
-}
-
-bool HvProcess_ReceiveCCSCond(void)
-{
-    bool res = false;
-    if(true/*从底层中读取是否有CCS报文*/)
-    {
-        //处理CCS报文中的充电机电压 电流 累计充电时间 充电允许
-        res = true;
-    }
-    return res;
 }
 
 bool HvProcess_SendBSMCond(void)
@@ -673,14 +679,7 @@ void HvProcess_SendBSTAction(void)
     }
 }
 
-void HvProcess_RecvCCSAction(void)
-{
-    /* code */
-    /* TODO:处理CCS报文 获取电压输出值 电流输出值 累计充电时间 //!_充电允许< 0:暂停 1:允许 */
-    //!_充电开始
-    HvProcess_BmsComInnerData.TimeTick.ReceCCS = GetTimeMs();
-    HvProcess_BmsComInnerData.Flag.RecvCCS = true;
-}
+
 
 bool HvProcess_K5K6OpenCond(void){
     bool res = false;
