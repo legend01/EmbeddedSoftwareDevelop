@@ -240,18 +240,56 @@ void HvProcess_SendBCPAction(void){
 
 bool HvProcess_RecvCTSCond(void){
     bool res = false;
-    if (true/* 判断已经接收到CTS报文 */)
+    u8 Getmsglen = 0;
+    if (BMS_Check_Valid(CTS) && HvProcess_BmsComInnerData.ChargeFlag.SendBCP == true) /* 判断已经接收到CTS报文 */
     {
-        /* code */
-        res = true;
+        Getmsglen = BMS_Get_message(CTS, &BMSmanager.messageData);
+        if (Getmsglen == PGNInfoRcv[CTS].dataLen)
+        {
+            Rcv_CTS.TimeSyncSecond = BMSmanager.messageData[0];
+            Rcv_CTS.TimeSyncMinute = BMSmanager.messageData[1];
+            Rcv_CTS.TimeSyncHour = BMSmanager.messageData[2];
+            Rcv_CTS.TimeSyncDay = BMSmanager.messageData[3];
+            Rcv_CTS.TimeSyncMonth = BMSmanager.messageData[4];
+            Rcv_CTS.TimeSyncYear = BMSmanager.messageData[5];
+
+            Getmsglen = 0;
+            res = true;
+        }
     }
     return res;
 }
 
 void HvProcess_RecvCTSAction(void){
-    /* code  */
-    /* TODO:处理CTS报文 时间同步信息 */
     HvProcess_BmsComInnerData.Flag.RecvCTS = true;
+}
+
+bool HvProcess_RecvCMLCond(void){
+    bool res = false;
+    u8 Getmsglen = 0;
+    if (BMS_Check_Valid(CML) && HvProcess_BmsComInnerData.ChargeFlag.SendBCP == true) /* 判断已经接收到CML报文 */ 
+    {
+        Getmsglen = BMS_Get_message(CML, &BMSmanager.messageData);
+        if (Getmsglen == PGNInfoRcv[CML].dataLen)
+        {
+            Rcv_CML.MaxOutputVol_L = BMSmanager.messageData[0];
+            Rcv_CML.MaxOutputVol_H = BMSmanager.messageData[1];
+            Rcv_CML.MinOutputVol_L = BMSmanager.messageData[2];
+            Rcv_CML.MinOutputVol_H = BMSmanager.messageData[3];
+            Rcv_CML.MaxOutputI_L = BMSmanager.messageData[4];
+            Rcv_CML.MaxOutputI_H = BMSmanager.messageData[5];
+            Rcv_CML.MinOutputI_L = BMSmanager.messageData[6];
+            Rcv_CML.MinOutputI_H = BMSmanager.messageData[7];
+
+            Getmsglen = 0;
+            res = true;
+        }
+    }
+    return res;
+}
+
+void HvProcess_RecvCMLAction(void){
+    HvProcess_BmsComInnerData.Flag.RecvCML = true;
 }
 
 bool HvProcess_SendBROCond(void)
@@ -414,21 +452,6 @@ void HvProcess_SendBCSAction(void){
     /* TODO:发送电池组充电电压 充电电流等充电状态 */
 }
 
-bool HvProcess_RecvCMLCond(void){
-    bool res = false;
-    if (true/* 判断已经接收到CML报文 */)
-    {
-        /* code */
-        res = true;
-    }
-    return res;
-}
-
-void HvProcess_RecvCMLAction(void){
-    HvProcess_BmsComInnerData.Flag.RecvCML = true;
-    /* code */
-    /* TODO:处理CML报文 充电机最大输出能力 最高输出电压 最低输出电压 最大输出电流 最小输出电流 */
-}
 
 
 
@@ -755,7 +778,10 @@ void HvProcess_BmsComHandshakeIdentify_Init(void){
 
 void HvProcess_BmsComSendBCP_Init(void)
 {
-
+    HvProcess_BmsComInnerData.ChargeFlag.SendBCP = false;
+    HvProcess_BmsComInnerData.Flag.RecvCTS = false;
+    HvProcess_BmsComInnerData.Flag.RecvCML = false;
+    HvProcess_BmsComInnerData.ErrorType = HVPROCESS_NOERROR;
 }
 
 void HvProcess_BmsComConfig_Init(void)

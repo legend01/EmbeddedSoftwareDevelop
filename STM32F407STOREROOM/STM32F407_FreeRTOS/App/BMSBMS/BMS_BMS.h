@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:35
- * @LastEditTime: 2021-03-09 17:53:40
+ * @LastEditTime: 2021-03-10 09:43:14
  * @LastEditors: HLLI8
  */
 #ifndef __BMS_BMS_H__
@@ -32,6 +32,8 @@ extern RCV_CRM Rcv_CRM;
 extern SEND_BEM Send_BEM;
 extern SEND_BRM Send_BRM;
 extern SEND_BCP Send_BCP;
+extern RECV_CTS Rcv_CTS;
+extern RECV_CML Rcv_CML;
 
 int BMS_Get_message(PGNTypeRcv ePGNTypeRcv, char** messageData);
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data);

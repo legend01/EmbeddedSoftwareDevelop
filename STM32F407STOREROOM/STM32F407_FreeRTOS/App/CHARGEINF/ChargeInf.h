@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-10 08:58:56
+ * @LastEditTime: 2021-03-10 09:42:48
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
@@ -156,6 +156,28 @@ typedef struct{
     u8 CurrentVehicleBatVol_H:8;
 }SEND_BCP;
 
+typedef struct{
+    u8 TimeSyncSecond:8; /* 秒 压缩BCD */
+    u8 TimeSyncMinute:8; /* 分 */
+    u8 TimeSyncHour:8; /* 小时 */
+    u8 TimeSyncDay:8; /* 日 */
+    u8 TimeSyncMonth:8; /* 月 */
+    u8 TimeSyncYear:8; /* 年 */
+}RECV_CTS;
+
+typedef struct{
+    u8 MaxOutputVol_L:8; /* 最高输出电压 */
+    u8 MaxOutputVol_H:8; 
+
+    u8 MinOutputVol_L:8; /* 最低输出电压 */
+    u8 MinOutputVol_H:8;
+
+    u8 MaxOutputI_L:8; /* 最高输出电流 */
+    u8 MaxOutputI_H:8;
+
+    u8 MinOutputI_L:8; /* 最低输出电流 */
+    u8 MinOutputI_H:8;
+}RECV_CML;
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);
 #endif // !__CHARGEINF_H__
