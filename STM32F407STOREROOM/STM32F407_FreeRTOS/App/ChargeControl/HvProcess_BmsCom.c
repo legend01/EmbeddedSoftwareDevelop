@@ -318,7 +318,6 @@ void HvProcess_SendBROAction(void){
         if (HvProcess_GetK5K6Status()) /* BMS绝缘校验是否完成 从充电控制部分获取绝缘校验状态 */
         {
             HvProcess_BmsComInnerData.ChargeFlag.SendBRO_0xAA = true; /* 发送BRO 0xAA报文 */
-            HvProcess_BmsComInnerData.TimeTick.SendBRO_0xAA = GetTimeMs();
             BMSmanager.msgSendData[0] = 0xAA;
             BMS_Send_message(BRO, BMSmanager.msgSendData);
         }else{
@@ -372,23 +371,26 @@ void HvProcess_CMLIsWrongAction(void){
 
 bool HvProcess_RecvCROCond(void){
     bool res = false;
-    if (true/* 从底层检测是否接受到CRO报文  */&& HvProcess_BmsComInnerData.ChargeFlag.SendBRO_0xAA == true)
+    u8 Getmsglen = 0;
+    if (BMS_Check_Valid(CRO) && HvProcess_BmsComInnerData.ChargeFlag.SendBRO_0xAA == true) /* 从底层检测是否接受到CRO报文 */
     {
-        /* code */
-        res = true;
+        Getmsglen = BMS_Get_message(CRO, &BMSmanager.messageData);
+        if (Getmsglen == PGNInfoRcv[CRO].dataLen)
+        {
+            Rcv_CRO.ChargeReadyOrNot = BMSmanager.messageData[0];
+
+            Getmsglen = 0;
+            res = true;
+        }
     }
     return res;
 }
 
 void HvProcess_RecvCROAction(void){
-    /* code */ 
-    /* TODO:解析CRO报文 */
-    if (true/* CRO报文发送的是0xAA 充电机准备就绪 */)
+    if (Rcv_CRO.ChargeReadyOrNot == 0xAA) /* CRO报文发送的是0xAA 充电机准备就绪 */
     {
-        /* code */
         HvProcess_BmsComInnerData.Flag.RecvCRO_0xAA = true;
     }
-    
 }
 
 bool HvProcess_RecvCRO0xAACond(void){
@@ -402,16 +404,22 @@ bool HvProcess_RecvCRO0xAACond(void){
 
 bool HvProcess_RecvCRO0xAATimeout(void){
     bool res = false;
-    if (HvProcess_BmsComInnerData.Flag.RecvCRO_0xAA == false && TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.SendBRO_0xAA)>= 5000)
+    static u32 lastime = 0;
+    if (lastime == 0)
     {
+        lastime = GetTimeMs();
+    }
+    
+    if ((HvProcess_BmsComInnerData.Flag.RecvCRO_0xAA == false && TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.SendBRO_0xAA)>= 5000) || (TimeAfterMs(lastime) >= 60000U && HvProcess_BmsComInnerData.Flag.RecvCRO_0xAA == false))
+    {
+        lastime = 0;
         res = true;
     }
     return res;
 }
 
 void HvProcess_RecvCRO0xAATimeoutAction(void){
-    /* code */
-    /* TODO:设置故障级别3 */
+    HvProcess_BmsComInnerData.ErrorType = HVPROCESS_CRO_TIMEOUT;
 }
 
 bool HvProcess_SendBCLCond(void)
@@ -472,26 +480,7 @@ void HvProcess_RecvCHMTimeOutAction(void){
     /* TODO:接收CHM超时 动作 */
 }
 
-bool HvProcess_60STimeoutCond(void)
-{
-    static u32 lastime = 0;
-    bool res = false;
 
-    if(lastime == 0)
-    {
-        lastime = GetTimeMs();
-    }
-    else
-    {
-
-        if(TimeAfterMs(lastime) >= 60000U)
-        {
-            lastime = 0;
-            res = true;
-        }
-    }
-    return res;
-}
 
 bool HvProcess_ReceiveCSDTimeoutCond(void){
     bool res = false;
@@ -799,6 +788,10 @@ void HvProcess_BmsComConfig_Init(void)
 {
     HvProcess_BmsComInnerData.Flag.RecvCRO_0xAA = false;
     HvProcess_BmsComInnerData.TimeTick.SendBRO_0xAA = GetTimeMs();
+    HvProcess_BmsComInnerData.ChargeFlag.SendBRO_0xAA = false;
+    HvProcess_BmsComInnerData.ChargeFlag.CMLIsWrong = false;
+    HvProcess_BmsComInnerData.ChargeFlag.SendBRO_0x00 = false;
+    HvProcess_BmsComInnerData.ErrorType = HVPROCESS_NOERROR;
 }
 
 void HvProcess_BmsComCharge_Init(void){

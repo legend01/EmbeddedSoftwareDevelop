@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-10 10:09:44
+ * @LastEditTime: 2021-03-10 13:21:14
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
@@ -182,6 +182,10 @@ typedef struct{
 typedef struct{
     u8 VehicleBMSReadyOrNot:8; /* BMS是否准备好 */
 }SEND_BRO;
+
+typedef struct{
+    u8 ChargeReadyOrNot:8; /* 充电桩是否准备好 */ 
+}RECV_CRO;
 
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);
