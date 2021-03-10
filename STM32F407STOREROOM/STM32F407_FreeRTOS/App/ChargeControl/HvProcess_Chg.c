@@ -3,7 +3,7 @@
  * @Autor: lihelin
  * @Date: 2021-02-24 09:20:34
  * @LastEditors: HLLI8
- * @LastEditTime: 2021-03-08 17:07:18
+ * @LastEditTime: 2021-03-10 11:36:15
  */
 #include "HvProcess_Chg.h"
 
@@ -125,8 +125,8 @@ bool HvProcess_ParamsSuitableCond(void){
 }
 
 void HvProcess_ParamsSuitableAction(void){
-    /* code */
     /* TODO:充电桩充电参数合适动作 闭合K5 K6*/
+    HvProcess_ChgInnerData.K5K6flag = true;
 }
 
 bool HvProcess_InsulationTestCond(void){

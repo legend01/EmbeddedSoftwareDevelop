@@ -315,7 +315,7 @@ bool HvProcess_SendBROCond(void)
 void HvProcess_SendBROAction(void){
     if (HvProcess_BmsComInnerData.Flag.RecvCML == true)
     {
-        if (true/* BMS绝缘校验是否完成 从充电控制部分获取绝缘校验状态 */)
+        if (HvProcess_GetK5K6Status()) /* BMS绝缘校验是否完成 从充电控制部分获取绝缘校验状态 */
         {
             HvProcess_BmsComInnerData.ChargeFlag.SendBRO_0xAA = true; /* 发送BRO 0xAA报文 */
             HvProcess_BmsComInnerData.TimeTick.SendBRO_0xAA = GetTimeMs();
