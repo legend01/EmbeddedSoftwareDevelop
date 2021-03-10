@@ -483,10 +483,24 @@ void HvProcess_SendBCSAction(void){
 bool HvProcess_ReceiveCCSCond(void)
 {
     bool res = false;
-    if(true/*从底层中读取是否有CCS报文*/)
+    u8 Getmsglen = 0;
+    if(BMS_Check_Valid(CCS)) /*从底层中读取是否有CCS报文*/
     {
         //处理CCS报文中的充电机电压 电流 累计充电时间 充电允许
-        res = true;
+        Getmsglen = BMS_Get_message(CCS, &BMSmanager.messageData);
+        if (Getmsglen = PGNInfoRcv[CCS].dataLen)
+        {
+            Rcv_CCS.CH_VolOutput_L = BMSmanager.messageData[0];
+            Rcv_CCS.CH_VolOutput_H = BMSmanager.messageData[1];
+            Rcv_CCS.CH_IOutput_L = BMSmanager.messageData[2];
+            Rcv_CCS.CH_IOutput_H = BMSmanager.messageData[3];
+            Rcv_CCS.CH_ChargeTime_L = BMSmanager.messageData[4];
+            Rcv_CCS.CH_ChargeTime_H = BMSmanager.messageData[5];
+            Rcv_CCS.CH_ChargePermision = BMSmanager.messageData[6] & 0x03;
+
+            Getmsglen = 0;
+            res = true;
+        }
     }
     return res;
 }
@@ -494,7 +508,7 @@ bool HvProcess_ReceiveCCSCond(void)
 void HvProcess_RecvCCSAction(void)
 {
     /* code */
-    /* TODO:处理CCS报文 获取电压输出值 电流输出值 累计充电时间 //!_充电允许< 0:暂停 1:允许 */
+    /*  //!_充电允许< 0:暂停 1:允许 */
     //!_充电开始
     HvProcess_BmsComInnerData.TimeTick.ReceCCS = GetTimeMs();
     HvProcess_BmsComInnerData.Flag.RecvCCS = true;

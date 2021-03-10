@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:29
- * @LastEditTime: 2021-03-10 15:40:17
+ * @LastEditTime: 2021-03-10 16:27:07
  * @LastEditors: HLLI8
  */
 #include "BMS_BMS.h"
@@ -21,6 +21,7 @@ RECV_CML Rcv_CML;
 SEND_BRO Send_BRO;
 SEND_BCL Send_BCL;
 SEND_BCS Send_BCS;
+RECV_CCS Rcv_CCS;
 
 SEND_BHM* Get_Send_BHM_Inf(void){
     Send_BHM.vehicleAllowMaxV_L = Get_Vehicle_ParamInf()->vehicle_maxallow_v & 0xff;
@@ -138,6 +139,12 @@ void BMSmanager_Init(void){
     memset(&Send_BEM, 0, sizeof(Send_BEM));
     memset(&Send_BRM, 0, sizeof(Send_BRM));
     memset(&Send_BCP, 0, sizeof(Send_BCP));
+    memset(&Rcv_CTS, 0, sizeof(Rcv_CTS));
+    memset(&Rcv_CML, 0, sizeof(Rcv_CML));
+    memset(&Send_BRO, 0, sizeof(Send_BRO));
+    memset(&Send_BCL, 0, sizeof(Send_BCL));
+    memset(&Send_BCS, 0, sizeof(Send_BCS));
+    memset(&Rcv_CCS, 0, sizeof(Rcv_CCS));
 }
 
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data){

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-10 15:08:15
+ * @LastEditTime: 2021-03-10 16:21:24
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
@@ -225,6 +225,20 @@ typedef struct{
     u8 LeftChargeTime_L:8; /* 估算剩余充电时间 */
     u8 LeftChargeTime_H:8; 
 }SEND_BCS;
+
+typedef struct{
+    u8 CH_VolOutput_L:8; /* 电压输出 */
+    u8 CH_VolOutput_H:8; 
+
+    u8 CH_IOutput_L:8; /* 电流输出 */
+    u8 CH_IOutput_H:8;
+
+    u8 CH_ChargeTime_L:8; /* 累计充电时间 */
+    u8 CH_ChargeTime_H:8;
+
+    u8 CH_ChargePermision:2; /* 充电允许 */
+    u8 reserved:6;
+}RECV_CCS;
 
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);
