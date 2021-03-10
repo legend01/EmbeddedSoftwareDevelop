@@ -433,7 +433,7 @@ bool HvProcess_SendBCLCond(void)
     }
     else
     {
-        if(TimeAfterMs(lastime) >= 50/* BCL的发送周期 50ms */)
+        if(TimeAfterMs(lastime) >= PGNInfoSend[BCL].period) /* BCL的发送周期 50ms */
         {
             lastime = 0;
             res = true;
@@ -443,8 +443,13 @@ bool HvProcess_SendBCLCond(void)
 }
 
 void HvProcess_SendBCLAction(void){
-    /* code */
-    /* TODO:发送电压需求 电流需求 充电模式 */
+    /* 发送电压需求 电流需求 充电模式 */
+    if (HvProcess_BmsComInnerData.Flag.RecvCRO_0xAA == true)
+    {
+        memcpy(BMSmanager.msgSendData, Get_Send_BCL_Inf, PGNInfoRcv[BCL].dataLen);
+        BMS_Send_message(BCL, BMSmanager.msgSendData);
+    }
+    
 }
 
 bool HvProcess_SendBCSCond(void){

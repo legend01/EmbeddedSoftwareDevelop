@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-10 13:21:14
+ * @LastEditTime: 2021-03-10 14:10:07
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
@@ -44,9 +44,13 @@ typedef struct {
     u16 MaxAllowChargeCurrent; /* 最高允许充电电流 */
     u16 BatNominalTotalEnergy; /* 动力蓄电池标称总能量 */
     u16 MaxAllowTotalChargeVol; /* 最高允许充电总电压 */
-    u8 MaxAllowTempe:8; /* 最高允许温度 */
-    u16 VehicleBatChargeState:8; /* 整车动力蓄电池荷电状态 */
-    u16 CurrentVehicleBatVol:8; /* 整车动力蓄电池当前电池电压 */
+    u8 MaxAllowTempe; /* 最高允许温度 */
+    u16 VehicleBatChargeState; /* 整车动力蓄电池荷电状态 */
+    u16 CurrentVehicleBatVol; /* 整车动力蓄电池当前电池电压 */
+
+    u16 NeedV; /* 电压需求 */
+    u16 NeedI; /* 电流需求 */
+    u8 ChargeMode; /* 充电模式 */
 }VEHICLEPARAMINF;
 
 typedef struct 
@@ -186,6 +190,16 @@ typedef struct{
 typedef struct{
     u8 ChargeReadyOrNot:8; /* 充电桩是否准备好 */ 
 }RECV_CRO;
+
+typedef struct{
+    u8 NeedV_L:8; /* 电压需求 */
+    u8 NeedV_H:8; 
+
+    u8 NeedI_L:8; /* 电流需求 */
+    u8 NeedI_H:8; 
+
+    u8 ChargeMode:8; /* 充电模式 */
+}SEND_BCL;
 
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);

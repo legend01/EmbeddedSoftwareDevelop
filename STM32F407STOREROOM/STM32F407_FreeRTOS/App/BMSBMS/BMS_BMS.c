@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:29
- * @LastEditTime: 2021-03-10 10:10:03
+ * @LastEditTime: 2021-03-10 14:28:14
  * @LastEditors: HLLI8
  */
 #include "BMS_BMS.h"
@@ -19,6 +19,7 @@ SEND_BCP Send_BCP;
 RECV_CTS Rcv_CTS;
 RECV_CML Rcv_CML;
 SEND_BRO Send_BRO;
+SEND_BCL Send_BCL;
 
 SEND_BHM* Get_Send_BHM_Inf(void){
     Send_BHM.vehicleAllowMaxV_L = Get_Vehicle_ParamInf()->vehicle_maxallow_v & 0xff;
@@ -92,6 +93,17 @@ SEND_BCP* Get_Send_BCP_Inf(void){
     Send_BCP.CurrentVehicleBatVol_L = Get_Vehicle_ParamInf()->CurrentVehicleBatVol & 0xff;
     Send_BCP.CurrentVehicleBatVol_H = Get_Vehicle_ParamInf()->CurrentVehicleBatVol >> 8 & 0xff;
     return &Send_BCP;
+}
+
+SEND_BCL* Get_Send_BCL_Inf(void){
+    Send_BCL.NeedV_L = Get_Vehicle_ParamInf()->NeedV & 0xff;
+    Send_BCL.NeedV_H = Get_Vehicle_ParamInf()->NeedV >> 8 & 0xff;
+
+    Send_BCL.NeedI_L = (4000 - Get_Vehicle_ParamInf()->NeedI) & 0xff;
+    Send_BCL.NeedI_H = (4000 - Get_Vehicle_ParamInf()->NeedI >> 8) & 0xff;
+
+    Send_BCL.ChargeMode = Get_Vehicle_ParamInf()->ChargeMode & 0xff;
+    return &Send_BCL;
 }
 
 void BMSmanager_Init(void){

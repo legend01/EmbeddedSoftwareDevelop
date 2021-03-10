@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:20
- * @LastEditTime: 2021-03-09 17:56:21
+ * @LastEditTime: 2021-03-10 14:23:29
  * @LastEditors: HLLI8
  */
 #include "ChargeInf.h"
@@ -28,6 +28,10 @@
 #define MaxTempe 80
 #define VehicleSOC 100
 #define VehicleCurrentBatVol 4500
+
+#define BAT_NeedV 4500
+#define BAT_NeedI 2000
+#define BAT_ChargeMode 1 /* 1：恒压 2：恒流 */
 
 VEHICLEPARAMINF  VehicleParamInf;
 
@@ -71,7 +75,9 @@ void ConfigureVehicleParam(void){
     vehicle_inf->VehicleBatChargeState = VehicleSOC;
     vehicle_inf->CurrentVehicleBatVol = VehicleCurrentBatVol;
 
-
+    vehicle_inf->NeedV = BAT_NeedV;
+    vehicle_inf->NeedI = BAT_NeedI;
+    vehicle_inf->ChargeMode = BAT_ChargeMode;
 }
 
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void){
