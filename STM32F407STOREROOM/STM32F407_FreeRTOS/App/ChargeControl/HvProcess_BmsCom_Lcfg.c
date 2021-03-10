@@ -88,7 +88,7 @@ const HvProcess_StateInfoType HvProcess_BmsComConfig_InfoConfig[] = {/*4*/
     {
         HvProcess_CMLIsWrongCond, /**< Cond: 条件函数指针 */ /*CML参数不合适*/
         HvProcess_CMLIsWrongAction, /**< Action: 动作函数指针 *//*故障级别3 ，todo*/
-        (u16)NULL, /**< Next: 下一状态 */   /*这里还不知道该如何跳转*/
+        (u16)HVPROCESS_BMSCOM_CONFIG, /**< Next: 下一状态 */   
     },
     {
         HvProcess_RecvCROCond, /**< Cond: 条件函数指针 */

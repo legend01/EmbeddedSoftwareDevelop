@@ -303,7 +303,7 @@ bool HvProcess_SendBROCond(void)
     }
     else
     {
-        if(TimeAfterMs(lastime) >= 250/* BRO的发送周期 250ms*/)
+        if(TimeAfterMs(lastime) >= PGNInfoSend[BRO].period) /* BRO的发送周期 250ms*/
         {
             lastime = 0;
             res = true;
@@ -315,48 +315,59 @@ bool HvProcess_SendBROCond(void)
 void HvProcess_SendBROAction(void){
     if (HvProcess_BmsComInnerData.Flag.RecvCML == true)
     {
-        /* code */
         if (true/* BMS绝缘校验是否完成 从充电控制部分获取绝缘校验状态 */)
         {
-            /* TODO:发送BRO 0xAA报文 */
-            HvProcess_BmsComInnerData.ChargeFlag.SendBRO_0xAA = true;
+            HvProcess_BmsComInnerData.ChargeFlag.SendBRO_0xAA = true; /* 发送BRO 0xAA报文 */
             HvProcess_BmsComInnerData.TimeTick.SendBRO_0xAA = GetTimeMs();
+            BMSmanager.msgSendData[0] = 0xAA;
+            BMS_Send_message(BRO, BMSmanager.msgSendData);
         }else{
-            /* TODO:发送BRO 0x00报文 */
+            BMSmanager.msgSendData[0] = 0x00; /* 发送BRO 0x00报文 */
+            BMS_Send_message(BRO, BMSmanager.msgSendData);
             HvProcess_BmsComInnerData.ChargeFlag.SendBRO_0x00 = true;
         }
     }
-    
 }
 
 bool HvProcess_TimeSynCond(void){
     bool res = true;
     if (HvProcess_BmsComInnerData.Flag.RecvCTS == true)
     {
-        /* code */
         res = true;
     }
     return res;
 }
 
 void HvProcess_TimeSynAction(void){
-    /* TODO:时间同步处理函数 */
+    /* 时间同步处理函数 */
 }
 
 bool HvProcess_CMLIsWrongCond(void){
-    bool res = false;
-    if (true/* CML充电参数不合适 */)
-    {
-        /* code */
-        /* TODO: */
-        res = true;
-    }
-    return res;
+    // bool res = false;
+    // u16 CH_MaxV = 0;
+    // u16 CH_MaxI = 0;
+
+    // u16 VE_MaxAllowV = 0;
+    // u16 VE_MaxAllowI = 0;
+    // if (HvProcess_BmsComInnerData.Flag.RecvCML == true) /* CML充电参数不合适 */
+    // {
+    //     CH_MaxV = Rcv_CML.MinOutputVol_L | (Rcv_CML.MinOutputVol_H << 8);
+    //     CH_MaxI = Rcv_CML.MinOutputI_L | (Rcv_CML.MinOutputI_H << 8);
+
+    //     VE_MaxAllowV = Send_BCP.MaxAllowTotalChargeVol_L | (Send_BCP.MaxAllowTotalChargeVol_H << 8);
+    //     VE_MaxAllowI = Send_BCP.MaxAllowChargeCurrent_L | (Send_BCP.MaxAllowChargeCurrent_H << 8);
+    //     if (CH_MaxV > VE_MaxAllowV || CH_MaxI > VE_MaxAllowI)
+    //     {
+    //          res = true;
+    //     }
+    // }
+    // return res;
 }
 
 void HvProcess_CMLIsWrongAction(void){
-    /* TODO:解析CML报文充电参数不适合BMS */
-    HvProcess_BmsComInnerData.ChargeFlag.CMLIsWrong = true;
+    // /* 解析CML报文充电参数不适合BMS */
+    // HvProcess_BmsComInnerData.ErrorType = HVPROCESS_CMLPARAM_ERROR;
+    // HvProcess_BmsComInnerData.ChargeFlag.CMLIsWrong = true;
 }
 
 bool HvProcess_RecvCROCond(void){
@@ -735,7 +746,7 @@ bool HvProcess_SendBEMCond(void){
     if(lastime == 0){
         lastime = GetTimeMs();
     }else{
-        if(TimeAfterMs(lastime) >= 250/* BEM的发送周期 250ms */&& HvProcess_BmsComInnerData.ErrorType != NULL)
+        if(TimeAfterMs(lastime) >= PGNInfoSend[BEM].period && HvProcess_BmsComInnerData.ErrorType != NULL) /* BEM的发送周期 250ms */
         {
             lastime = 0;
             res = true;

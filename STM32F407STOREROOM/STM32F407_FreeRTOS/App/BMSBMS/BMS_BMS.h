@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:35
- * @LastEditTime: 2021-03-10 09:43:14
+ * @LastEditTime: 2021-03-10 10:43:01
  * @LastEditors: HLLI8
  */
 #ifndef __BMS_BMS_H__
@@ -18,6 +18,8 @@
 #define messageData_MAXnum 60
 
 #define SendDataLen_Max 50
+
+
 typedef struct BMS_Manage
 {
 	char* 	messageData;      //接收的PGN数据缓存
@@ -34,6 +36,7 @@ extern SEND_BRM Send_BRM;
 extern SEND_BCP Send_BCP;
 extern RECV_CTS Rcv_CTS;
 extern RECV_CML Rcv_CML;
+extern SEND_BRO Send_BRO;
 
 int BMS_Get_message(PGNTypeRcv ePGNTypeRcv, char** messageData);
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data);

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-10 09:42:48
+ * @LastEditTime: 2021-03-10 10:09:44
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
@@ -178,6 +178,11 @@ typedef struct{
     u8 MinOutputI_L:8; /* 最低输出电流 */
     u8 MinOutputI_H:8;
 }RECV_CML;
+
+typedef struct{
+    u8 VehicleBMSReadyOrNot:8; /* BMS是否准备好 */
+}SEND_BRO;
+
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);
 #endif // !__CHARGEINF_H__
