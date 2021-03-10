@@ -66,7 +66,7 @@ bool HvProcess_SendBHMCond(void)
     if(lastime == 0){
         lastime = GetTimeMs();
     }else{
-        if(TimeAfterMs(lastime) >= 250/* BHM的发送周期 250ms */&& HvProcess_BmsComInnerData.Flag.RecvCHM == true)
+        if(TimeAfterMs(lastime) >= PGNInfoSend[BHM].period/* BHM的发送周期 250ms */&& HvProcess_BmsComInnerData.Flag.RecvCHM == true)
         {
             lastime = 0;
             res = true;
@@ -146,7 +146,7 @@ bool HvProcess_SendBRM_Cond(void)
     {
         lastime = GetTimeMs();
     }else{
-        if(TimeAfterMs(lastime) >= 250/* BRM的发送周期250ms */)
+        if(TimeAfterMs(lastime) >= PGNInfoSend[BRM].period) /* BRM的发送周期250ms */
         {
             lastime = 0;
             res = true;
@@ -207,6 +207,51 @@ bool HvProcess_RecvCRM0xAATimeoutCond(void){
 void HvProcess_RecvCRM0xAATimeoutAction(void){
     /* 接收CRM0xAA超时 动作 */
     HvProcess_BmsComInnerData.ErrorType = HVPROCESS_CRM_TIMEOUT;
+}
+
+bool HvProcess_SendBCPCond(void){
+    static u32 lastime = 1;
+    bool res = false;
+
+    if(lastime == 0)
+    {
+        lastime = GetTimeMs();
+    }
+    else
+    {
+        if(TimeAfterMs(lastime) >= PGNInfoSend[BCP].period) /* BCP发送周期 500ms */
+        {
+            lastime = 0;
+            res = true;
+        }
+    }
+    return res;
+}
+
+void HvProcess_SendBCPAction(void){
+    /* 发送一次BCP报文 */
+    if (HvProcess_BmsComInnerData.Flag.RecvCRM_0xAA == true)
+    {
+        memcpy(BMSmanager.msgSendData, Get_Send_BCP_Inf(), PGNInfoSend[BCP].dataLen);
+        BMS_Send_message(BCP, BMSmanager.msgSendData);
+        HvProcess_BmsComInnerData.ChargeFlag.SendBCP = true;
+    }
+}
+
+bool HvProcess_RecvCTSCond(void){
+    bool res = false;
+    if (true/* 判断已经接收到CTS报文 */)
+    {
+        /* code */
+        res = true;
+    }
+    return res;
+}
+
+void HvProcess_RecvCTSAction(void){
+    /* code  */
+    /* TODO:处理CTS报文 时间同步信息 */
+    HvProcess_BmsComInnerData.Flag.RecvCTS = true;
 }
 
 bool HvProcess_SendBROCond(void)
@@ -369,34 +414,6 @@ void HvProcess_SendBCSAction(void){
     /* TODO:发送电池组充电电压 充电电流等充电状态 */
 }
 
-bool HvProcess_SendBCPCond(void){
-    static u32 lastime = 1;
-    bool res = false;
-
-    if(lastime == 0)
-    {
-        lastime = GetTimeMs();
-    }
-    else
-    {
-        if(TimeAfterMs(lastime) >= 500/* BCP发送周期 500ms */)
-        {
-            lastime = 0;
-            res = true;
-        }
-    }
-    return res;
-}
-
-void HvProcess_SendBCPAction(void){
-    /* 发送一次BCP报文 */
-    if (HvProcess_BmsComInnerData.Flag.RecvCRM_0xAA == true)
-    {
-        /* code */
-        /* 发送BCP报文 */
-    }
-}
-
 bool HvProcess_RecvCMLCond(void){
     bool res = false;
     if (true/* 判断已经接收到CML报文 */)
@@ -413,21 +430,7 @@ void HvProcess_RecvCMLAction(void){
     /* TODO:处理CML报文 充电机最大输出能力 最高输出电压 最低输出电压 最大输出电流 最小输出电流 */
 }
 
-bool HvProcess_RecvCTSCond(void){
-    bool res = false;
-    if (true/* 判断已经接收到CTS报文 */)
-    {
-        /* code */
-        res = true;
-    }
-    return res;
-}
 
-void HvProcess_RecvCTSAction(void){
-    /* code  */
-    /* TODO:处理CTS报文 时间同步信息 */
-    HvProcess_BmsComInnerData.Flag.RecvCTS = true;
-}
 
 
 

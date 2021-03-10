@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:20
- * @LastEditTime: 2021-03-09 14:37:16
+ * @LastEditTime: 2021-03-09 17:56:21
  * @LastEditors: HLLI8
  */
 #include "ChargeInf.h"
@@ -21,6 +21,14 @@
 #define BMSSoftV_Year_L 0x07
 #define BMSSoftV_Year_H 0xDF
 #define RESERVED 0xFF
+#define SingleBATMaxAllowV 2400
+#define MaxAllowCurrent 4000
+#define BatNominalTotalEn 1000
+#define MaxAllowChargeVol 5000
+#define MaxTempe 80
+#define VehicleSOC 100
+#define VehicleCurrentBatVol 4500
+
 VEHICLEPARAMINF  VehicleParamInf;
 
 void ConfigureVehicleParam(void){
@@ -55,7 +63,15 @@ void ConfigureVehicleParam(void){
     vehicle_inf->BMSSoftVersion[6] = RESERVED;
     vehicle_inf->BMSSoftVersion[7] = RESERVED;
 
-    
+    vehicle_inf->SingleBatMaxAllowVoltage = SingleBATMaxAllowV;
+    vehicle_inf->MaxAllowChargeCurrent = MaxAllowCurrent;
+    vehicle_inf->BatNominalTotalEnergy = BatNominalTotalEn;
+    vehicle_inf->MaxAllowTotalChargeVol = MaxAllowChargeVol;
+    vehicle_inf->MaxAllowTempe = MaxTempe;
+    vehicle_inf->VehicleBatChargeState = VehicleSOC;
+    vehicle_inf->CurrentVehicleBatVol = VehicleCurrentBatVol;
+
+
 }
 
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void){

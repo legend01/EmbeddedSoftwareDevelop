@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:29
- * @LastEditTime: 2021-03-09 15:47:25
+ * @LastEditTime: 2021-03-10 08:41:50
  * @LastEditors: HLLI8
  */
 #include "BMS_BMS.h"
@@ -15,6 +15,7 @@ SEND_BHM Send_BHM;
 RCV_CRM Rcv_CRM;
 SEND_BEM Send_BEM;
 SEND_BRM Send_BRM;
+SEND_BCP Send_BCP;
 
 SEND_BHM* Get_Send_BHM_Inf(void){
     Send_BHM.vehicleAllowMaxV_L = Get_Vehicle_ParamInf()->vehicle_maxallow_v & 0xff;
@@ -35,10 +36,10 @@ SEND_BRM* Get_Send_BRM_Inf(void){
     Send_BRM.VehicleBatterySysRatedVoltage_L = Get_Vehicle_ParamInf()->VehicleBatterySysRatedVoltage & 0xff;
     Send_BRM.VehicleBatterySysRatedVoltage_H = Get_Vehicle_ParamInf()->VehicleBatterySysRatedVoltage >> 8 & 0xff; 
 
-    Send_BRM.BatteryManufacturers_L = Get_Vehicle_ParamInf()->BatteryManufacturers[0];
-    Send_BRM.BatteryManufacturers_M1 = Get_Vehicle_ParamInf()->BatteryManufacturers[1];
-    Send_BRM.BatteryManufacturers_M2 = Get_Vehicle_ParamInf()->BatteryManufacturers[2];
-    Send_BRM.BatteryManufacturers_H = Get_Vehicle_ParamInf()->BatteryManufacturers[3];
+    for (u8 m = 0; m < 4; m++)
+    {
+        Send_BRM.BatteryManufacturers[m] = Get_Vehicle_ParamInf()->BatteryManufacturers[m];
+    }
     
     Send_BRM.BatterySerialNum_L = Get_Vehicle_ParamInf()->BatterySerialNum & 0xff;
     Send_BRM.BatterySerialNum_M1 = Get_Vehicle_ParamInf()->BatterySerialNum >> 8 & 0xff;
@@ -67,6 +68,29 @@ SEND_BRM* Get_Send_BRM_Inf(void){
     return &Send_BRM;
 }
 
+SEND_BCP* Get_Send_BCP_Inf(void){
+    Send_BCP.SingleBatMaxAllowVoltage_L = Get_Vehicle_ParamInf()->SingleBatMaxAllowVoltage & 0xff;
+    Send_BCP.SingleBatMaxAllowVoltage_H = Get_Vehicle_ParamInf()->SingleBatMaxAllowVoltage >> 8 & 0xff;
+
+    Send_BCP.MaxAllowChargeCurrent_L = Get_Vehicle_ParamInf()->MaxAllowChargeCurrent & 0xff;
+    Send_BCP.MaxAllowChargeCurrent_H = Get_Vehicle_ParamInf()->MaxAllowChargeCurrent >> 8 & 0xff;
+
+    Send_BCP.BatNominalTotalEnergy_L = Get_Vehicle_ParamInf()->BatNominalTotalEnergy & 0xff;
+    Send_BCP.BatNominalTotalEnergy_H = Get_Vehicle_ParamInf()->BatNominalTotalEnergy >> 8 & 0xff;
+    
+    Send_BCP.MaxAllowTotalChargeVol_L = Get_Vehicle_ParamInf()->MaxAllowTotalChargeVol & 0xff;
+    Send_BCP.MaxAllowTotalChargeVol_H = Get_Vehicle_ParamInf()->MaxAllowTotalChargeVol >> 8 & 0xff;
+
+    Send_BCP.MaxAllowTempe = Get_Vehicle_ParamInf()->MaxAllowTempe & 0xff;
+
+    Send_BCP.VehicleBatChargeState_L = Get_Vehicle_ParamInf()->VehicleBatChargeState & 0xff;
+    Send_BCP.VehicleBatChargeState_H = Get_Vehicle_ParamInf()->VehicleBatChargeState >> 8 & 0xff;
+
+    Send_BCP.CurrentVehicleBatVol_L = Get_Vehicle_ParamInf()->CurrentVehicleBatVol & 0xff;
+    Send_BCP.CurrentVehicleBatVol_H = Get_Vehicle_ParamInf()->CurrentVehicleBatVol >> 8 & 0xff;
+    return &Send_BCP;
+}
+
 void BMSmanager_Init(void){
     Ringbuff_setEmpty();
     J1939_connect_send_clear();
@@ -78,18 +102,15 @@ void BMSmanager_Init(void){
     memset(&Send_BHM, 0, sizeof(Send_BHM));
     memset(&Rcv_CRM, 0, sizeof(Rcv_CRM));
     memset(&Send_BEM, 0, sizeof(Send_BEM));
+    memset(&Send_BRM, 0, sizeof(Send_BRM));
+    memset(&Send_BCP, 0, sizeof(Send_BCP));
 }
 
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data){
     if(data != NULL)
     {
-        for (int i = 0; i < PGNInfoSend[ePGNTypeSend].dataLen; i++)
-        {
-            BMSmanager.msgSendData[i] = data[i] & 0xff;
-        }
-        PushMsgToRBUFF(ePGNTypeSend, BMSmanager.msgSendData);
+        PushMsgToRBUFF(ePGNTypeSend, data);
     }
-    
 }
 /***************************************************************************
 功能: 通过PGN的索引号读取得到的实际值PGN的数据部分

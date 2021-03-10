@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:35
- * @LastEditTime: 2021-03-09 15:15:21
+ * @LastEditTime: 2021-03-09 17:53:40
  * @LastEditors: HLLI8
  */
 #ifndef __BMS_BMS_H__
@@ -31,6 +31,7 @@ extern SEND_BHM Send_BHM;
 extern RCV_CRM Rcv_CRM;
 extern SEND_BEM Send_BEM;
 extern SEND_BRM Send_BRM;
+extern SEND_BCP Send_BCP;
 
 int BMS_Get_message(PGNTypeRcv ePGNTypeRcv, char** messageData);
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data);
@@ -40,4 +41,5 @@ bool BMS_Check_Valid(PGNTypeRcv ePGNTypeRcv);
 
 SEND_BHM* Get_Send_BHM_Inf(void);
 SEND_BRM* Get_Send_BRM_Inf(void);
+SEND_BCP* Get_Send_BCP_Inf(void);
 #endif // !__BMS_BMS_H__

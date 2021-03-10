@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-09 15:12:05
+ * @LastEditTime: 2021-03-10 08:58:56
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
@@ -39,6 +39,14 @@ typedef struct {
     u8 BatteryPropertyIden; /* 电池组产权标识 */
     u8 VehicleVIN[16]; /* 车辆识别码 */
     u8 BMSSoftVersion[7]; /* BMS软件版本号 */
+
+    u16 SingleBatMaxAllowVoltage; /* 单体动力蓄电池最高允许充电电压 */
+    u16 MaxAllowChargeCurrent; /* 最高允许充电电流 */
+    u16 BatNominalTotalEnergy; /* 动力蓄电池标称总能量 */
+    u16 MaxAllowTotalChargeVol; /* 最高允许充电总电压 */
+    u8 MaxAllowTempe:8; /* 最高允许温度 */
+    u16 VehicleBatChargeState:8; /* 整车动力蓄电池荷电状态 */
+    u16 CurrentVehicleBatVol:8; /* 整车动力蓄电池当前电池电压 */
 }VEHICLEPARAMINF;
 
 typedef struct 
@@ -102,10 +110,7 @@ typedef struct{
     u8 VehicleBatterySysRatedVoltage_L:8; /* 整车动力蓄电池系统额定电压 */
     u8 VehicleBatterySysRatedVoltage_H:8;
 
-    u8 BatteryManufacturers_L:8; /* 电池生产厂商名称 */
-    u8 BatteryManufacturers_M1:8;
-    u8 BatteryManufacturers_M2:8;
-    u8 BatteryManufacturers_H:8;
+    u8 BatteryManufacturers[3]; /* 电池生产厂商名称 */
 
     u8 BatterySerialNum_L:8; /* 电池组序号 */
     u8 BatterySerialNum_M1:8;
@@ -128,6 +133,28 @@ typedef struct{
 
     u8 BMSSoftVersion[8]; /* BMS软件版本号 */
 }SEND_BRM;
+
+typedef struct{
+    u8 SingleBatMaxAllowVoltage_L:8; /* 单体动力蓄电池最高允许充电电压 */
+    u8 SingleBatMaxAllowVoltage_H:8;
+
+    u8 MaxAllowChargeCurrent_L:8; /* 最高允许充电电流 */
+    u8 MaxAllowChargeCurrent_H:8; 
+
+    u8 BatNominalTotalEnergy_L:8; /* 动力蓄电池标称总能量 */
+    u8 BatNominalTotalEnergy_H:8;
+
+    u8 MaxAllowTotalChargeVol_L:8; /* 最高允许充电总电压 */
+    u8 MaxAllowTotalChargeVol_H:8;
+
+    u8 MaxAllowTempe:8; /* 最高允许温度 */
+
+    u8 VehicleBatChargeState_L:8; /* 整车动力蓄电池荷电状态 */
+    u8 VehicleBatChargeState_H:8;
+
+    u8 CurrentVehicleBatVol_L:8; /* 整车动力蓄电池当前电池电压 */
+    u8 CurrentVehicleBatVol_H:8;
+}SEND_BCP;
 
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);
