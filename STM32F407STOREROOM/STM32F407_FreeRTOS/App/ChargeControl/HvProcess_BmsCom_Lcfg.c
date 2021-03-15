@@ -130,7 +130,7 @@ const HvProcess_StateInfoType HvProcess_BmsComCharge_InfoConfig[] = {/*5*/
     },
     {
         HvProcess_RecvCCSTimeoutCond, /**< Cond: 条件函数指针 */
-        HvProcess_ChgFaultAction, /**< Action: 动作函数指针 *//* 充电时序结束 故障级别3 error */
+        HvProcess_RecvCCSTimeoutAction, /**< Action: 动作函数指针 *//* 充电时序结束 故障级别3 error */
         (u16)HVPROCESS_BMSCOM_TIMEOUT, /**< Next: 下一状态 */
     },
     {

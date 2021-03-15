@@ -179,7 +179,7 @@ bool HvProcess_SendBEMCond(void);
 void HvProcess_SendBEMAction(void);
 bool HvProcess_RecoveryCond(void);
 void HvProcess_RecoveryAction(void);
-
+void HvProcess_RecvCCSTimeoutAction(void);
 /* ************************************************************************ */
 void HvProcess_BmsComHandshakeStart_Init(void);
 void HvProcess_BmsComHandshakeIdentify_Init(void);
