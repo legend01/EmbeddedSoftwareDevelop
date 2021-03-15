@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:20
- * @LastEditTime: 2021-03-15 13:54:23
+ * @LastEditTime: 2021-03-15 17:49:18
  * @LastEditors: HLLI8
  */
 #include "ChargeInf.h"
@@ -139,6 +139,21 @@ void ConfigureVehicleParam(void){
     vehicle_inf->BSM_BatInsulationStatus = BSM_InsulationStatus;
     vehicle_inf->BSM_BatPackOutputConnectStatus = BSM_BatPackLinkerStatus;
     vehicle_inf->BSM_VehicleChargePermission = BSM_ChargePermission;
+
+    vehicle_inf->BST_ReachSOCTargetAbort = ReachTargetValue;
+    vehicle_inf->BST_ReachVolTargetAbort = ReachTargetValue;
+    vehicle_inf->BST_ReachSinVolTargetAbort = ReachTargetValue;
+    vehicle_inf->BST_ChargeActiveAbort = Normal;
+    vehicle_inf->BST_InsulationFault = Normal;
+    vehicle_inf->BST_OutputLinkerOverTempFault = Normal;
+    vehicle_inf->BST_BMSComponentOverTempFault = Normal;
+    vehicle_inf->BST_ChargeLinkerFault = Normal;
+    vehicle_inf->BST_BatPackOverTempFault = Normal;
+    vehicle_inf->BST_HighVolRelayFault = Normal;
+    vehicle_inf->BST_CheckPoint2VolFault = Normal;
+    vehicle_inf->BST_ElseFault = Normal;
+    vehicle_inf->BST_IOverHighError = Normal;
+    vehicle_inf->BST_VolAbnormalError = Normal;
 
     ConfigChargeCalculationParam();
 }

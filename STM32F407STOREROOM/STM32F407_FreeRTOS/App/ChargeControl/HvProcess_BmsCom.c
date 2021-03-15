@@ -58,6 +58,10 @@ bool HvProcess_ReceiveCHMTimeOut(void){
     return res;    
 }
 
+void HvProcess_RecvCHMTimeOutAction(void){
+    
+}
+
 bool HvProcess_SendBHMCond(void)
 {
     static u32 lastime = 1;
@@ -596,7 +600,7 @@ bool HvProcess_BmsStopChargeCond(void){
 }
 
 void HvProcess_BmsStopChargeAction(void){
-    /* TODO:停止充电操作 */
+
 }
 
 bool HvProcess_ReceiveCSTCond(void)
@@ -635,8 +639,33 @@ void HvProcess_ReceiveCSTAction(void){
     HvProcess_BmsComInnerData.Flag.RecvCST = true;
 }
 
-void HvProcess_RecvCHMTimeOutAction(void){
-    /* TODO:接收CHM超时 动作 */
+bool HvProcess_SendBSTCond(void){
+    static u32 lastime = 1;
+    bool res = false;
+    if (HvProcess_BmsComInnerData.Flag.RecvCST == true)
+    {
+        if(lastime == 0)
+        {
+            lastime = GetTimeMs();
+        }else{
+            if(TimeAfterMs(lastime) >= PGNInfoSend[BST].period) /* BST的发送周期 10ms*/
+            {
+                lastime = 0;
+                res = true;
+            }
+        }
+    }
+    return res;
+}
+void HvProcess_SendBSTAction(void)
+{
+    /* 发送BST报文 发送BMS中止充电原因 BMS中止充电故障原因 BMS中止充电错误原因 */
+    memcpy(BMSmanager.msgSendData, Get_Send_BST_Inf(), PGNInfoSend[BST].dataLen);
+    BMS_Send_message(BST, BMSmanager.msgSendData);
+    if(HvProcess_BmsComInnerData.TimeTick.SendBST == 0)
+    {
+        HvProcess_BmsComInnerData.TimeTick.SendBST = GetTimeMs();
+    }
 }
 
 bool HvProcess_ReceiveCSDTimeoutCond(void){
@@ -648,26 +677,6 @@ bool HvProcess_ReceiveCSDTimeoutCond(void){
     return res;
 }
 
-void HvProcess_ReceiveCSDTimeoutAction(void){
-    /* TODO:充电时序结束， 充电故障级别1 */
-}
-
-bool HvProcess_SendBSTCond(void){
-    static u32 lastime = 1;
-    bool res = false;
-    if(lastime == 0)
-    {
-        lastime = GetTimeMs();
-    }else{
-        if(TimeAfterMs(lastime) >= 10/* BST的发送周期 10ms*/)
-        {
-            lastime = 0;
-            res = true;
-        }
-    }
-    return res;
-}
-
 bool HvProcess_SendBSDCond(void){
     static u32 lastime = 1;
     bool res = false;
@@ -675,7 +684,7 @@ bool HvProcess_SendBSDCond(void){
     {
         lastime = GetTimeMs();
     }else{
-        if(TimeAfterMs(lastime) >= 250/* BSD的发送周期 250ms*/)
+        if(TimeAfterMs(lastime) >= PGNInfoSend[BSD].period) /* BSD的发送周期 250ms*/
         {
             lastime = 0;
             res = true;
@@ -688,6 +697,11 @@ void HvProcess_SendBSDAction(void){
     /* code */
     /* TODO:BMS发送本次充电过程的充电统计数据 */
 }
+
+void HvProcess_ReceiveCSDTimeoutAction(void){
+    /* TODO:充电时序结束， 充电故障级别1 */
+}
+
 
 bool ChargeStatisticCond(void){
     bool res = false;
@@ -722,7 +736,6 @@ bool HvProcess_ChargeStatisticCond(void){
 }
 
 
-
 bool HvProcess_ReceCSTTimeoutCond(void)
 {
     bool res = false;
@@ -736,18 +749,6 @@ bool HvProcess_ReceCSTTimeoutCond(void)
     }
     return res;
 }
-
-void HvProcess_SendBSTAction(void)
-{
-    /* code */
-    /* TODO:发送BST报文 发送BMS中止充电原因 BMS中止充电故障原因 BMS中止充电错误原因 */
-    if(HvProcess_BmsComInnerData.TimeTick.SendBST == 0)
-    {
-        HvProcess_BmsComInnerData.TimeTick.SendBST = GetTimeMs();
-    }
-}
-
-
 
 bool HvProcess_K5K6OpenCond(void){
     bool res = false;
@@ -874,7 +875,7 @@ void HvProcess_BmsComCharge_Init(void)
 }
 
 void HvProcess_BmsComStopCharge_Init(void){
-
+    HvProcess_BmsComInnerData.TimeTick.SendBST = 0;
 }
 
 void HvProcess_BmsComStatistics_Init(void){

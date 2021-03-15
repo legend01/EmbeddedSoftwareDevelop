@@ -2,13 +2,22 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-15 15:53:31
+ * @LastEditTime: 2021-03-15 17:35:47
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
 #define __CHARGEINF_H__
 #include "pub_data.h"
+typedef enum{
+    UnReachTargetValue = 0x00, /* 未达到目标值 */
+    ReachTargetValue = 0x01, /* 达到目标值 */
+    Unbelive = 0x02, /* 不可信状态 */
+}AbortReasonEnu;
 
+typedef enum{
+    Normal = 0x00, /* 正常 */
+    Fault = 0x01, /* 故障 */
+}FaultReasonEnu;
 typedef enum{
     SUSPEND, /* 暂停 */
     ALLOWED, /* 允许 */
@@ -76,6 +85,21 @@ typedef struct {
     u8 BSM_BatInsulationStatus; /* 动力蓄电池绝缘状态 */
     u8 BSM_BatPackOutputConnectStatus; /* 动力蓄电池组输出连接器连接状态 */
     u8 BSM_VehicleChargePermission; /* 充电允许 */
+
+    u8 BST_ReachSOCTargetAbort; /* 达到所需求的SOC目标值 */
+    u8 BST_ReachVolTargetAbort; /* 达到总电压的设定值 */
+    u8 BST_ReachSinVolTargetAbort; /* 达到单体电压的设定值 */
+    u8 BST_ChargeActiveAbort; /* 充电机主动中止 */
+    u8 BST_InsulationFault; /* 绝缘故障 */
+    u8 BST_OutputLinkerOverTempFault; /* 输出连接器故障 */
+    u8 BST_BMSComponentOverTempFault; /* BMS元件 输出连接器过温 */
+    u8 BST_ChargeLinkerFault; /* 充电连接器故障 */
+    u8 BST_BatPackOverTempFault; /* 电池组过温故障 */
+    u8 BST_HighVolRelayFault; /* 高压继电器故障 */
+    u8 BST_CheckPoint2VolFault; /* 检测点2电压检测故障 */
+    u8 BST_ElseFault; /* 其他故障 */
+    u8 BST_IOverHighError; /* 电流过大 */
+    u8 BST_VolAbnormalError; /* 电压异常 */
 }VEHICLEPARAMINF;
 
 typedef struct{
@@ -300,6 +324,27 @@ typedef struct{
     u8 VoltageMismatchError:2; /* 电压不匹配 */
     u8 reserved:2; 
 }RECV_CST;
+
+typedef struct{
+    u8 ReachSOCTargetAbort:2; /* 达到所需求的SOC目标值 */
+    u8 ReachVolTargetAbort:2; /* 达到总电压的设定值 */
+    u8 ReachSinVolTargetAbort:2; /* 达到单体电压的设定值 */
+    u8 ChargeActiveAbort:2; /* 充电机主动中止 */
+
+    u8 InsulationFault:2; /* 绝缘故障 */
+    u8 OutputLinkerOverTempFault:2; /* 输出连接器故障 */
+    u8 BMSComponentOverTempFault:2; /* BMS元件 输出连接器过温 */
+    u8 ChargeLinkerFault:2; /* 充电连接器故障 */
+
+    u8 BatPackOverTempFault:2; /* 电池组过温故障 */
+    u8 HighVolRelayFault:2; /* 高压继电器故障 */
+    u8 CheckPoint2VolFault:2; /* 检测点2电压检测故障 */
+    u8 ElseFault:2; /* 其他故障 */
+
+    u8 IOverHighError:2; /* 电流过大 */
+    u8 VolAbnormalError:2; /* 电压异常 */
+    u8 reserved:4;
+}SEND_BST;
 
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);

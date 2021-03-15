@@ -140,7 +140,7 @@ const HvProcess_StateInfoType HvProcess_BmsComCharge_InfoConfig[] = {/*5*/
     },
     {
         HvProcess_BmsStopChargeCond, /**< Cond: 条件函数指针 *//*充电结束条件成立，可以是正常停止充电，也可以是故障停止*/
-        HvProcess_BmsStopChargeAction, /**< Action: 动作函数指针 *//*暂时没想好该做什么*/
+        HvProcess_BmsStopChargeAction, /**< Action: 动作函数指针 */
         (u16)HVPROCESS_BMSCOM_STOPCHARGE, /**< Next: 下一状态 */
     },
     {

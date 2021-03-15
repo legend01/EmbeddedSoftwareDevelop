@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:35
- * @LastEditTime: 2021-03-15 15:53:17
+ * @LastEditTime: 2021-03-15 18:03:43
  * @LastEditors: HLLI8
  */
 #ifndef __BMS_BMS_H__
@@ -52,5 +52,6 @@ SEND_BRM* Get_Send_BRM_Inf(void);
 SEND_BCP* Get_Send_BCP_Inf(void);
 SEND_BCL* Get_Send_BCL_Inf(void);
 SEND_BCS* Get_Send_BCS_Inf(void);
-SEND_BSM *Get_Sind_BSM_Inf(void);
+SEND_BSM *Get_Send_BSM_Inf(void);
+SEND_BST *Get_Send_BST_Inf(void);
 #endif // !__BMS_BMS_H__

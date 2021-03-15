@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:29
- * @LastEditTime: 2021-03-15 15:53:02
+ * @LastEditTime: 2021-03-15 18:03:23
  * @LastEditors: HLLI8
  */
 #include "BMS_BMS.h"
@@ -24,6 +24,7 @@ SEND_BCS Send_BCS;
 RECV_CCS Rcv_CCS;
 SEND_BSM Send_BSM;
 RECV_CST Rcv_CST;
+SEND_BST Send_BST;
 
 SEND_BHM* Get_Send_BHM_Inf(void){
     Send_BHM.vehicleAllowMaxV_L = Get_Vehicle_ParamInf()->vehicle_maxallow_v & 0xff;
@@ -128,7 +129,7 @@ SEND_BCS* Get_Send_BCS_Inf(void){
     return &Send_BCS;
 }
 
-SEND_BSM *Get_Sind_BSM_Inf(void){
+SEND_BSM *Get_Send_BSM_Inf(void){
     Send_BSM.SinBatMaxVolNum = Get_Vehicle_ParamInf()->BSM_SinBatMaxVolNum;
     Send_BSM.BatMaxTemp = Get_Vehicle_ParamInf()->BSM_BatMaxTemp;
     Send_BSM.BatMinTemp = Get_Vehicle_ParamInf()->BSM_BatMaxTempCheckNum;
@@ -142,6 +143,28 @@ SEND_BSM *Get_Sind_BSM_Inf(void){
     Send_BSM.VehicleChargePermission = Get_Vehicle_ParamInf()->BSM_VehicleChargePermission;
 
     return &Send_BSM;
+}
+
+SEND_BST *Get_Send_BST_Inf(void){
+    Send_BST.ReachSOCTargetAbort = Get_Vehicle_ParamInf()->BST_ReachSOCTargetAbort;
+    Send_BST.ReachVolTargetAbort = Get_Vehicle_ParamInf()->BST_ReachVolTargetAbort;
+    Send_BST.ReachSinVolTargetAbort = Get_Vehicle_ParamInf()->BST_ReachSinVolTargetAbort;
+    Send_BST.ChargeActiveAbort = Get_Vehicle_ParamInf()->BST_ChargeActiveAbort;
+
+    Send_BST.InsulationFault = Get_Vehicle_ParamInf()->BST_InsulationFault;
+    Send_BST.OutputLinkerOverTempFault = Get_Vehicle_ParamInf()->BST_OutputLinkerOverTempFault;
+    Send_BST.BMSComponentOverTempFault = Get_Vehicle_ParamInf()->BST_BMSComponentOverTempFault;
+    Send_BST.ChargeLinkerFault = Get_Vehicle_ParamInf()->BST_ChargeLinkerFault;
+
+    Send_BST.BatPackOverTempFault = Get_Vehicle_ParamInf()->BST_BatPackOverTempFault;
+    Send_BST.HighVolRelayFault = Get_Vehicle_ParamInf()->BST_HighVolRelayFault;
+    Send_BST.CheckPoint2VolFault = Get_Vehicle_ParamInf()->BST_CheckPoint2VolFault;
+    Send_BST.ElseFault = Get_Vehicle_ParamInf()->BST_ElseFault;
+
+    Send_BST.IOverHighError = Get_Vehicle_ParamInf()->BST_IOverHighError;
+    Send_BST.VolAbnormalError = Get_Vehicle_ParamInf()->BST_VolAbnormalError;
+    
+    return &Send_BST;
 }
 
 void BMSmanager_Init(void){
@@ -164,6 +187,7 @@ void BMSmanager_Init(void){
     memset(&Send_BCS, 0, sizeof(Send_BCS));
     memset(&Rcv_CCS, 0, sizeof(Rcv_CCS));
     memset(&Send_BSM, 0, sizeof(Send_BSM));
+    memset(&Send_BST, 0, sizeof(Send_BST));
 }
 
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data){
