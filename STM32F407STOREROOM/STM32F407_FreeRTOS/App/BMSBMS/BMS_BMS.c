@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:29
- * @LastEditTime: 2021-03-10 16:27:07
+ * @LastEditTime: 2021-03-15 09:32:03
  * @LastEditors: HLLI8
  */
 #include "BMS_BMS.h"
@@ -22,6 +22,7 @@ SEND_BRO Send_BRO;
 SEND_BCL Send_BCL;
 SEND_BCS Send_BCS;
 RECV_CCS Rcv_CCS;
+SEND_BSM Send_BSM;
 
 SEND_BHM* Get_Send_BHM_Inf(void){
     Send_BHM.vehicleAllowMaxV_L = Get_Vehicle_ParamInf()->vehicle_maxallow_v & 0xff;
@@ -126,6 +127,22 @@ SEND_BCS* Get_Send_BCS_Inf(void){
     return &Send_BCS;
 }
 
+SEND_BSM *Get_Sind_BSM_Inf(void){
+    Send_BSM.SinBatMaxVolNum = Get_Vehicle_ParamInf()->BSM_SinBatMaxVolNum;
+    Send_BSM.BatMaxTemp = Get_Vehicle_ParamInf()->BSM_BatMaxTemp;
+    Send_BSM.BatMinTemp = Get_Vehicle_ParamInf()->BSM_BatMaxTempCheckNum;
+    Send_BSM.BatMinTempCheckNum = Get_Vehicle_ParamInf()->BSM_BatMinTemp;
+    Send_BSM.SinBatVolHighOrLow = Get_Vehicle_ParamInf()->BSM_BatMinTempCheckNum;
+    Send_BSM.VehicleBatSOCHightOrLow = Get_Vehicle_ParamInf()->BSM_SinBatVolHighOrLow;
+    Send_BSM.VehicleBatChargeOvercurrent = Get_Vehicle_ParamInf()->BSM_VehicleBatChargeOvercurrent;
+    Send_BSM.BatTempTooHight = Get_Vehicle_ParamInf()->BSM_BatTempTooHight;
+    Send_BSM.BatInsulationStatus = Get_Vehicle_ParamInf()->BSM_BatInsulationStatus;
+    Send_BSM.BatPackOutputConnectStatus = Get_Vehicle_ParamInf()->BSM_BatPackOutputConnectStatus;
+    Send_BSM.VehicleChargePermission = Get_Vehicle_ParamInf()->BSM_VehicleChargePermission;
+
+    return &Send_BSM;
+}
+
 void BMSmanager_Init(void){
     Ringbuff_setEmpty();
     J1939_connect_send_clear();
@@ -145,6 +162,7 @@ void BMSmanager_Init(void){
     memset(&Send_BCL, 0, sizeof(Send_BCL));
     memset(&Send_BCS, 0, sizeof(Send_BCS));
     memset(&Rcv_CCS, 0, sizeof(Rcv_CCS));
+    memset(&Send_BSM, 0, sizeof(Send_BSM));
 }
 
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data){

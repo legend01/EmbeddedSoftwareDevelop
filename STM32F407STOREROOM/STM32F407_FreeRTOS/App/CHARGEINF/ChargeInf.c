@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:20
- * @LastEditTime: 2021-03-10 15:16:38
+ * @LastEditTime: 2021-03-15 09:46:22
  * @LastEditors: HLLI8
  */
 #include "ChargeInf.h"
@@ -39,6 +39,19 @@
 #define BCS_SinBATMaxVol_SerialNum 1
 #define BCS_CurSOC 30
 #define BCS_TMleft 0
+
+#define BSM_SinMaxVolNum 1
+#define BSM_MaxTemp 78
+#define BSM_MaxTempCheckNum 1
+#define BSM_MinTemp 74
+#define BSM_MinTempNum 2
+#define BSM_SinVolStatus 0x00
+#define BSM_SOCStatus 0x00
+#define BSM_ChargeOverI 0x00
+#define BSM_TempHighStatus 0x00
+#define BSM_InsulationStatus 0x00
+#define BSM_BatPackLinkerStatus 0x00
+#define BSM_ChargePermission 0x01
 
 VEHICLEPARAMINF  VehicleParamInf;
 
@@ -92,6 +105,19 @@ void ConfigureVehicleParam(void){
     vehicle_inf->BCS_SinMaxBATVol_Num = BCS_SinBATMaxVol_SerialNum;
     vehicle_inf->BCS_NowSOC = BCS_CurSOC;
     vehicle_inf->BCS_LeftChargeTIM = BCS_TMleft;
+
+    vehicle_inf->BSM_SinBatMaxVolNum = BSM_SinMaxVolNum;
+    vehicle_inf->BSM_BatMaxTemp = BSM_MaxTemp;
+    vehicle_inf->BSM_BatMaxTempCheckNum = BSM_MaxTempCheckNum;
+    vehicle_inf->BSM_BatMinTemp = BSM_MinTemp;  
+    vehicle_inf->BSM_BatMinTempCheckNum = BSM_MinTempNum;  
+    vehicle_inf->BSM_SinBatVolHighOrLow = BSM_SinVolStatus; 
+    vehicle_inf->BSM_VehicleBatSOCHighOrLow = BSM_SOCStatus; 
+    vehicle_inf->BSM_VehicleBatChargeOvercurrent = BSM_ChargeOverI;
+    vehicle_inf->BSM_BatTempTooHight = BSM_TempHighStatus;
+    vehicle_inf->BSM_BatInsulationStatus = BSM_InsulationStatus;
+    vehicle_inf->BSM_BatPackOutputConnectStatus = BSM_BatPackLinkerStatus;
+    vehicle_inf->BSM_VehicleChargePermission = BSM_ChargePermission;
 }
 
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void){

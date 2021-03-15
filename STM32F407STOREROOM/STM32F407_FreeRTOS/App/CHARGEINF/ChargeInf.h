@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-10 16:21:24
+ * @LastEditTime: 2021-03-15 09:42:12
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
@@ -58,6 +58,19 @@ typedef struct {
     u8 BCS_SinMaxBATVol_Num; /* 最高单体动力蓄电池电压组号 */
     u8 BCS_NowSOC; /* 当前荷电状态 */
     u16 BCS_LeftChargeTIM; /* 估算剩余充电时间 */
+
+    u8 BSM_SinBatMaxVolNum; /* 最高单体动力蓄电池电压所在编号 */
+    u8 BSM_BatMaxTemp; /* 最高动力蓄电池温度 */
+    u8 BSM_BatMaxTempCheckNum; /* 最高温度检测点编号 */
+    u8 BSM_BatMinTemp; /* 最低动力蓄电池温度 */
+    u8 BSM_BatMinTempCheckNum; /* 最低动力蓄电池温度检测点编号 */
+    u8 BSM_SinBatVolHighOrLow; /* 单体动力蓄电池电压过高/过低 */
+    u8 BSM_VehicleBatSOCHighOrLow; /* 整车动力蓄电池荷电状态SOC过高/过低 */
+    u8 BSM_VehicleBatChargeOvercurrent; /* 动力蓄电池充电过电流 */
+    u8 BSM_BatTempTooHight; /* 动力蓄电池温度过高 */
+    u8 BSM_BatInsulationStatus; /* 动力蓄电池绝缘状态 */
+    u8 BSM_BatPackOutputConnectStatus; /* 动力蓄电池组输出连接器连接状态 */
+    u8 BSM_VehicleChargePermission; /* 充电允许 */
 }VEHICLEPARAMINF;
 
 typedef struct 
@@ -239,6 +252,24 @@ typedef struct{
     u8 CH_ChargePermision:2; /* 充电允许 */
     u8 reserved:6;
 }RECV_CCS;
+
+typedef struct{
+    u8 SinBatMaxVolNum:8; /* 最高单体动力蓄电池电压所在编号 */
+    u8 BatMaxTemp:8; /* 最高动力蓄电池温度 */
+    u8 BatMaxTempCheckNum:8; /* 最高温度监测点编号 */
+    u8 BatMinTemp:8; /* 最低动力蓄电池温度 */
+    u8 BatMinTempCheckNum:8; /* 最低动力蓄电池温度检测点编号 */
+
+    u8 SinBatVolHighOrLow:2; /* 单体动力蓄电池电压过高/过低 */
+    u8 VehicleBatSOCHightOrLow:2; /* 整车动力蓄电池荷电状态SOC过高/过低 */
+    u8 VehicleBatChargeOvercurrent:2; /* 动力蓄电池充电过电流 */
+    u8 BatTempTooHight:2; /* 动力蓄电池温度过高 */
+    
+    u8 BatInsulationStatus:2; /* 动力蓄电池绝缘状态 */
+    u8 BatPackOutputConnectStatus:2; /* 动力蓄电池组输出连接器连接状态 */
+    u8 VehicleChargePermission:2; /* 充电允许 */
+    u8 reserved:2;
+}SEND_BSM;
 
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);
