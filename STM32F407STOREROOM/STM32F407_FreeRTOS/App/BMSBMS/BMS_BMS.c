@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:29
- * @LastEditTime: 2021-03-15 09:32:03
+ * @LastEditTime: 2021-03-15 15:53:02
  * @LastEditors: HLLI8
  */
 #include "BMS_BMS.h"
@@ -23,6 +23,7 @@ SEND_BCL Send_BCL;
 SEND_BCS Send_BCS;
 RECV_CCS Rcv_CCS;
 SEND_BSM Send_BSM;
+RECV_CST Rcv_CST;
 
 SEND_BHM* Get_Send_BHM_Inf(void){
     Send_BHM.vehicleAllowMaxV_L = Get_Vehicle_ParamInf()->vehicle_maxallow_v & 0xff;

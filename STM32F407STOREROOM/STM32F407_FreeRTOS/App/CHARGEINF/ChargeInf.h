@@ -2,12 +2,17 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-15 13:42:36
+ * @LastEditTime: 2021-03-15 15:53:31
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
 #define __CHARGEINF_H__
 #include "pub_data.h"
+
+typedef enum{
+    SUSPEND, /* 暂停 */
+    ALLOWED, /* 允许 */
+}ChargePermissionEnu;
 
 typedef enum{
     LeadAcidCell = 0x01, /* 铅酸电池 */
@@ -278,6 +283,23 @@ typedef struct{
     u8 VehicleChargePermission:2; /* 充电允许 */
     u8 reserved:2;
 }SEND_BSM;
+
+typedef struct{
+    u8 ReachConditionAbort:2; /* 达到充电机设定的条件中止 */
+    u8 ManualAbort:2; /* 人工中止 */
+    u8 FailureAbort:2; /* 故障中止 */
+    u8 BMSActiveAbort:2; /* BMS主动中止 */
+
+    u8 COverTempFault:2; /* 充电机过温故障 */
+    u8 CLinkerFault:2; /* 充电机连接器故障 */
+    u8 CInnerOverTempFault:2; /* 充电机连接器故障 */
+    u8 RequirePowerDeliverFault:2; /* 所需电量不能传送 */
+    
+    u8 CStopFault:2; /* 充电机急停故障 */
+    u8 CurrentMismatchError:2; /* 电流不匹配 */
+    u8 VoltageMismatchError:2; /* 电压不匹配 */
+    u8 reserved:2; 
+}RECV_CST;
 
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);

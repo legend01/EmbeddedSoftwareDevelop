@@ -502,7 +502,7 @@ bool HvProcess_ReceiveCCSCond(void)
     {
         //处理CCS报文中的充电机电压 电流 累计充电时间 充电允许
         Getmsglen = BMS_Get_message(CCS, &BMSmanager.messageData);
-        if (Getmsglen = PGNInfoRcv[CCS].dataLen)
+        if (Getmsglen == PGNInfoRcv[CCS].dataLen)
         {
             Rcv_CCS.CH_VolOutput_L = BMSmanager.messageData[0];
             Rcv_CCS.CH_VolOutput_H = BMSmanager.messageData[1];
@@ -587,6 +587,54 @@ void HvProcess_SendBSMAction(void){
     }
 }
 
+bool HvProcess_BmsStopChargeCond(void){
+    bool res = false;
+    if(HvProcess_BmsComInnerData.Flag.RecvCST == true){ /* 达到充电结束条件 */
+        res = true;
+    }
+    return res;
+}
+
+void HvProcess_BmsStopChargeAction(void){
+    /* TODO:停止充电操作 */
+}
+
+bool HvProcess_ReceiveCSTCond(void)
+{
+    bool res = false;
+    u8 Getmsglen = 0;
+    if(BMS_Check_Valid(CST)) /*从底层中读取是否有CST报文*/
+    {
+        //处理CST中的停止充电信息
+        //这里最好不要直接置stopcharge，统一由充电管理模块来设置停止充电
+        Getmsglen = BMS_Get_message(CST, &BMSmanager.messageData);
+        if (Getmsglen == PGNInfoRcv[CST].dataLen)
+        {
+            Rcv_CST.ReachConditionAbort = BMSmanager.messageData[0] & 0x03;
+            Rcv_CST.ManualAbort = BMSmanager.messageData[0] & 0x0C;
+            Rcv_CST.FailureAbort = BMSmanager.messageData[0] & 0x30;
+            Rcv_CST.BMSActiveAbort = BMSmanager.messageData[0] & 0xC0;
+
+            Rcv_CST.COverTempFault = BMSmanager.messageData[1] & 0x03;
+            Rcv_CST.CLinkerFault = BMSmanager.messageData[1] & 0x0C;
+            Rcv_CST.CInnerOverTempFault = BMSmanager.messageData[1] & 0x30;
+            Rcv_CST.RequirePowerDeliverFault = BMSmanager.messageData[1] & 0xC0;
+
+            Rcv_CST.CStopFault = BMSmanager.messageData[2] & 0x03;
+            Rcv_CST.CurrentMismatchError = BMSmanager.messageData[2] & 0x0C;
+            Rcv_CST.VoltageMismatchError = BMSmanager.messageData[2] & 0x30;
+
+            Getmsglen = 0;
+            res = true;
+        }
+    }
+    return res;
+}
+
+void HvProcess_ReceiveCSTAction(void){
+    HvProcess_BmsComInnerData.Flag.RecvCST = true;
+}
+
 void HvProcess_RecvCHMTimeOutAction(void){
     /* TODO:接收CHM超时 动作 */
 }
@@ -603,22 +651,6 @@ bool HvProcess_ReceiveCSDTimeoutCond(void){
 void HvProcess_ReceiveCSDTimeoutAction(void){
     /* TODO:充电时序结束， 充电故障级别1 */
 }
-
-
-
-bool HvProcess_BmsStopChargeCond(void){
-    bool res = false;
-    if(true/* 达到充电结束条件 */){
-        res = true;
-        /* TODO:达到结束充电时间操作 */
-    }
-    return res;
-}
-
-void HvProcess_BmsStopChargeAction(void){
-    /* TODO:停止充电操作 */
-}
-
 
 bool HvProcess_SendBSTCond(void){
     static u32 lastime = 1;
@@ -655,22 +687,6 @@ bool HvProcess_SendBSDCond(void){
 void HvProcess_SendBSDAction(void){
     /* code */
     /* TODO:BMS发送本次充电过程的充电统计数据 */
-}
-
-bool HvProcess_ReceiveCSTCond(void)
-{
-    bool res = false;
-    if(true/*从底层中读取是否有CST报文*/)
-    {
-        //处理CST中的停止充电信息
-        //这里最好不要直接置stopcharge，统一由充电管理模块来设置停止充电
-        res = true;
-    }
-    return res;
-}
-
-void HvProcess_RefrushRecvCSTTime(void){
-    HvProcess_BmsComInnerData.Flag.RecvCST = true;
 }
 
 bool ChargeStatisticCond(void){
@@ -850,8 +866,11 @@ void HvProcess_BmsComConfig_Init(void)
     HvProcess_BmsComInnerData.ErrorType = HVPROCESS_NOERROR;
 }
 
-void HvProcess_BmsComCharge_Init(void){
-
+void HvProcess_BmsComCharge_Init(void)
+{
+    HvProcess_BmsComInnerData.Flag.RecvCCS = false;
+    HvProcess_BmsComInnerData.ErrorType = HVPROCESS_NOERROR;
+    HvProcess_BmsComInnerData.Flag.RecvCST = false;
 }
 
 void HvProcess_BmsComStopCharge_Init(void){
@@ -877,4 +896,13 @@ bool HvProcess_BmsComChargeState(void){
 
 HvProcess_BmsComErrorType HvProcess_GetBmsComErrorState(void){
     return HvProcess_BmsComInnerData.ErrorType;
+}
+
+bool HvProcess_BmsComChargeAllowStatus(void){
+    if (Rcv_CCS.CH_ChargePermision == SUSPEND)
+    {
+        return false;
+    }else{
+        return true;
+    }
 }
