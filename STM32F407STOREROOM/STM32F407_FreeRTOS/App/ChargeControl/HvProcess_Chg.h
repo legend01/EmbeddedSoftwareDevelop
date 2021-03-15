@@ -3,7 +3,7 @@
  * @Autor: lihelin
  * @Date: 2021-02-24 09:20:34
  * @LastEditors: HLLI8
- * @LastEditTime: 2021-03-08 17:08:17
+ * @LastEditTime: 2021-03-15 15:06:12
  */
 /**
  * \addtogroup HvProcess 高压流程控制
@@ -43,7 +43,7 @@ typedef enum{
 }HvProcess_ChgStateType;
 
 typedef __packed struct{
-    u32 InsulationVoltageUpper;
+    u32 ChargePermission;
 }HvProcess_ChgTimeTick;
 
 /**
@@ -92,6 +92,7 @@ void HvProcess_ChgFaultAction(void);
 bool HvProcess_InsulationTestCond(void);
 void HvProcess_InsulationTestAction(void);
 bool HvProcess_ChargeForbiddenCond(void);
+void HvProcess_ChargeForbiddenAction(void);
 bool HvProcess_StopChargeCond(void);
 void HvProcess_StopChargeActon(void);
 bool HvProcess_ChargeSuspendTimeOutCond(void);

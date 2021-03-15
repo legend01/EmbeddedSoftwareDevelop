@@ -3,7 +3,7 @@
  * @Autor: lihelin
  * @Date: 2021-02-24 09:20:34
  * @LastEditors: HLLI8
- * @LastEditTime: 2021-03-10 11:36:15
+ * @LastEditTime: 2021-03-15 15:23:17
  */
 #include "HvProcess_Chg.h"
 
@@ -78,14 +78,17 @@ bool HvProcess_InsulationVoltageIsOKCond(void)
 bool HvProcess_ChargeForbiddenCond(void)
 {
     bool res = false;
-    if (true/* 充电桩是否发送禁止充电报文 */)
+    if (HvProcess_BmsComChargeAllowStatus() != true) /* 充电桩是否发送禁止充电报文 */
     {
-        /* TODO：响应操作 */
         res = true;
     }
     return res;
     //BSM报文中的内容
     //接收到充电桩发来的停止充电标志位
+}
+
+void HvProcess_ChargeForbiddenAction(void){
+    
 }
 
 bool HvProcess_StopChargeCond(void){
@@ -104,14 +107,13 @@ void HvProcess_StopChargeActon(void){
 }
 bool HvProcess_ChargeSuspendTimeOutCond(void)
 {
-    bool res = false;
-    if (true/* TODO:判断暂停充电时间是否超时 */)
+    bool res = false; /*暂停充电超时10min*/
+    if (TimeAfterMs(HvProcess_ChgInnerData.TimeTick.ChargePermission) >= 600000) /* 判断暂停充电时间是否超时 */
     {
-        /* TODO:暂停充电操作 */
         res = true;
     }
     return res;
-    /*暂停充电超时10min*/
+    
 }
 
 bool HvProcess_ParamsSuitableCond(void){
@@ -146,9 +148,8 @@ void HvProcess_InsulationTestAction(void){
 
 bool HvProcess_ChargeEnableCond(void){
     bool res = false;
-    if (true/* TODO:判断是否可以恢复充电条件 */)
+    if (HvProcess_BmsComChargeAllowStatus()) /* 判断是否可以恢复充电条件 */
     {
-        /* TODO：响应操作 */
         res = true;
     }
     return res;
@@ -243,7 +244,7 @@ void HvProcess_Charging_Init(void)
 
 void HvProcess_ChargingSuspend_Init(void)
 {
-
+    HvProcess_ChgInnerData.TimeTick.ChargePermission = GetTimeMs();
 }
 
 void HvProcess_PreStopCharging_Init(void)

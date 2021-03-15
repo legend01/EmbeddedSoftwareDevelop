@@ -59,7 +59,7 @@ const HvProcess_StateInfoType HvProcess_Charging_InfoConfig[] = {  //4
     /*******************************分割线************************************/
     {
         HvProcess_ChargeForbiddenCond, /**< Cond: 条件函数指针 */ /*充电禁止标志位ON*/
-        NULL, /**< Action: 动作函数指针 */   
+        HvProcess_ChargeForbiddenAction, /**< Action: 动作函数指针 */   
         (u16)HVPROCESS_CHG_CHARGING_SUSPEND, /**< Next: 下一状态 */
     },
     {
@@ -73,7 +73,7 @@ const HvProcess_StateInfoType HvProcess_ChargingSuspend_InfoConfig[] = {  //5
     {
         HvProcess_ChargeSuspendTimeOutCond, /**< Cond: 条件函数指针 */ /*暂停充电超时（10min）*/
         NULL, /**< Action: 动作函数指针 */   /*todo*/
-        (u16)HVPROCESS_CHG_STOP_CHARGING, /**< Next: 下一状态 *//*todo不确定超时是不是就是停止充电*/
+        (u16)HVPROCESS_CHG_STOP_CHARGING, /**< Next: 下一状态 */
     },
     {
         HvProcess_ChargeEnableCond, /**< Cond: 条件函数指针 */

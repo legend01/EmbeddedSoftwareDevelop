@@ -163,7 +163,7 @@ void HvProcess_SendBSMAction(void);
 bool HvProcess_BmsStopChargeCond(void);
 void HvProcess_BmsStopChargeAction(void);
 bool HvProcess_ReceiveCSTCond(void);
-void HvProcess_RefrushRecvCSTTime(void);
+void HvProcess_ReceiveCSTAction(void);
 bool HvProcess_SendBSTCond(void);
 void HvProcess_SendBSTAction(void);
 bool HvProcess_ReceCSTTimeoutCond(void);
@@ -192,6 +192,7 @@ void HvProcess_BmsComTimeOut_Init(void);
 /* **********************************外部调用************************************** */
 bool HvProcess_BmsComChargeState(void);
 HvProcess_BmsComErrorType HvProcess_GetBmsComErrorState(void);
+bool HvProcess_BmsComChargeAllowStatus(void);
 /* ************************************************************************ */
 #endif
 
