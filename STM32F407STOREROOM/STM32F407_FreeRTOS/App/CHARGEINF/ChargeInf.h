@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-15 09:42:12
+ * @LastEditTime: 2021-03-15 13:42:36
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
@@ -72,6 +72,14 @@ typedef struct {
     u8 BSM_BatPackOutputConnectStatus; /* 动力蓄电池组输出连接器连接状态 */
     u8 BSM_VehicleChargePermission; /* 充电允许 */
 }VEHICLEPARAMINF;
+
+typedef struct{
+    u8 BCS_SocGoal; /* 蓄电池目标值 */
+    u8 BCS_ChargeTime; /* 充电时间设定值 */
+    u16 BCS_StartTime; /* 起始充电时间 */
+    u16 BCS_CurrentTime; /* 当前充电时间 */
+    u16 BCS_DurTime; /* 累计充电时间 分钟 */
+}VEHICLECHARGECALCULATION; 
 
 typedef struct 
 {
@@ -273,4 +281,6 @@ typedef struct{
 
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);
+VEHICLECHARGECALCULATION* Get_ChargeCalculation_ParamInf(void);
+VEHICLECHARGECALCULATION* Set_ChargeCalculation_ParamInf(void);
 #endif // !__CHARGEINF_H__

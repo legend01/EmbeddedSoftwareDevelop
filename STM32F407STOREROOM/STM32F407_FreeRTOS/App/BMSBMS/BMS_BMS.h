@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:35
- * @LastEditTime: 2021-03-15 09:32:21
+ * @LastEditTime: 2021-03-15 11:07:07
  * @LastEditors: HLLI8
  */
 #ifndef __BMS_BMS_H__
@@ -11,9 +11,6 @@
 #include "BMS_J1939x.h"
 #include "pub_data.h"
 #include "ChargeInf.h"
-
-#define _SEND_BRM_VEHICLEVIN(x) Send_BRM.VehicleVIN_M##x
-#define SEND_BRM_VEHICLEVIN(x) _SEND_BRM_VEHICLEVIN(x)
 
 #define messageData_MAXnum 60
 

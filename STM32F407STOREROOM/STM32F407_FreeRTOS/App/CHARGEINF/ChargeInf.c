@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:20
- * @LastEditTime: 2021-03-15 09:46:22
+ * @LastEditTime: 2021-03-15 13:54:23
  * @LastEditors: HLLI8
  */
 #include "ChargeInf.h"
@@ -53,7 +53,28 @@
 #define BSM_BatPackLinkerStatus 0x00
 #define BSM_ChargePermission 0x01
 
+#define BCS_soc_goal 100
+#define BCS_charge_time 60 
+#define BCS_start_time 0xFFFF
+
 VEHICLEPARAMINF  VehicleParamInf;
+VEHICLECHARGECALCULATION ChargeCalculationParamInf;
+
+static void ConfigChargeCalculationParam(void){
+    VEHICLECHARGECALCULATION *Calcu_inf = &ChargeCalculationParamInf;
+    
+    Calcu_inf->BCS_SocGoal = BCS_soc_goal;
+    Calcu_inf->BCS_ChargeTime = BCS_charge_time;
+    Calcu_inf->BCS_StartTime = BCS_start_time;
+}
+
+VEHICLECHARGECALCULATION* Get_ChargeCalculation_ParamInf(void){
+    return &ChargeCalculationParamInf;
+}
+
+VEHICLECHARGECALCULATION* Set_ChargeCalculation_ParamInf(void){
+    return &ChargeCalculationParamInf;
+}
 
 void ConfigureVehicleParam(void){
     VEHICLEPARAMINF *vehicle_inf = &VehicleParamInf;
@@ -118,6 +139,8 @@ void ConfigureVehicleParam(void){
     vehicle_inf->BSM_BatInsulationStatus = BSM_InsulationStatus;
     vehicle_inf->BSM_BatPackOutputConnectStatus = BSM_BatPackLinkerStatus;
     vehicle_inf->BSM_VehicleChargePermission = BSM_ChargePermission;
+
+    ConfigChargeCalculationParam();
 }
 
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void){

@@ -475,8 +475,22 @@ void HvProcess_SendBCSAction(void){
     /* 发送电池组充电电压 充电电流等充电状态 */
     if (HvProcess_BmsComInnerData.Flag.RecvCRO_0xAA == true)
     {
-        memcpy(BMSmanager.msgSendData, Get_Send_BCS_Inf(), PGNInfoRcv[BCS].dataLen);
-        BMS_Send_message(BCS, BMSmanager.msgSendData);
+        if(HvProcess_BmsComInnerData.Flag.RecvCCS == false){
+            memcpy(BMSmanager.msgSendData, Get_Send_BCS_Inf(), PGNInfoRcv[BCS].dataLen);
+            BMS_Send_message(BCS, BMSmanager.msgSendData);
+        }else{
+            BMSmanager.msgSendData[0] = Rcv_CCS.CH_VolOutput_L;
+            BMSmanager.msgSendData[1] = Rcv_CCS.CH_VolOutput_H;
+            BMSmanager.msgSendData[2] = 4000 - Rcv_CCS.CH_IOutput_L;
+            BMSmanager.msgSendData[3] = 4000 - Rcv_CCS.CH_IOutput_H;
+            BMSmanager.msgSendData[4] = Get_Send_BCS_Inf()->MaxSinBatVol_L;
+            BMSmanager.msgSendData[5] = (Get_Send_BCS_Inf()->MaxSinBatVolNum << 4 & 0xf0) | (Get_Send_BCS_Inf()->MaxSinBatVol_H & 0x0f);
+            BMSmanager.msgSendData[6] = Get_Send_BCS_Inf()->NowSOC + ((Get_ChargeCalculation_ParamInf()->BCS_SocGoal - Get_Send_BCS_Inf()->NowSOC)/Get_ChargeCalculation_ParamInf()->BCS_ChargeTime)*Get_ChargeCalculation_ParamInf()->BCS_DurTime;
+            BMSmanager.msgSendData[7] = Get_ChargeCalculation_ParamInf()->BCS_ChargeTime - Get_ChargeCalculation_ParamInf()->BCS_DurTime & 0xff;
+            BMSmanager.msgSendData[8] = Get_ChargeCalculation_ParamInf()->BCS_ChargeTime - Get_ChargeCalculation_ParamInf()->BCS_DurTime >> 8 & 0xff;
+            BMS_Send_message(BCS, BMSmanager.msgSendData);
+        }
+       
     }
 }
 
@@ -500,6 +514,18 @@ bool HvProcess_ReceiveCCSCond(void)
 
             Getmsglen = 0;
             res = true;
+
+            if (Get_ChargeCalculation_ParamInf()->BCS_StartTime == 0xFFFF)
+            {
+                Set_ChargeCalculation_ParamInf()->BCS_StartTime = Rcv_CCS.CH_ChargeTime_L | Rcv_CCS.CH_ChargeTime_H << 8;
+            }else{
+                Set_ChargeCalculation_ParamInf()->BCS_CurrentTime = Rcv_CCS.CH_ChargeTime_L | Rcv_CCS.CH_ChargeTime_H << 8;
+            }
+            if (Get_ChargeCalculation_ParamInf()->BCS_CurrentTime > Get_ChargeCalculation_ParamInf()->BCS_StartTime)
+            {
+                Set_ChargeCalculation_ParamInf()->BCS_DurTime = Set_ChargeCalculation_ParamInf()->BCS_CurrentTime - Set_ChargeCalculation_ParamInf()->BCS_StartTime;
+            }
+            
         }
     }
     return res;
