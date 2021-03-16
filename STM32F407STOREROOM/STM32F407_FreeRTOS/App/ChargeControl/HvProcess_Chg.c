@@ -3,9 +3,10 @@
  * @Autor: lihelin
  * @Date: 2021-02-24 09:20:34
  * @LastEditors: HLLI8
- * @LastEditTime: 2021-03-15 15:23:17
+ * @LastEditTime: 2021-03-16 10:08:01
  */
 #include "HvProcess_Chg.h"
+#include "HvProcess_BmsCom.h"
 
 HvProcess_ChgInnerDataType HvProcess_ChgInnerData;
 
@@ -93,9 +94,9 @@ void HvProcess_ChargeForbiddenAction(void){
 
 bool HvProcess_StopChargeCond(void){
     bool res = false;
-    if (true/* 是否达到充电结束条件 */)
+    if (HvProcess_BmsComState() == HVPROCESS_BMSCOM_STOPCHARGE)  /* 是否达到充电结束条件 */
     {
-        /* TODO:停止充电操作 */
+        /* 停止充电操作 */
         res = true;
     }
     return res;
@@ -103,7 +104,7 @@ bool HvProcess_StopChargeCond(void){
 }
 
 void HvProcess_StopChargeActon(void){
-    /* TODO:停止充电响应操作 */
+    /* 停止充电响应操作 */
 }
 bool HvProcess_ChargeSuspendTimeOutCond(void)
 {
@@ -157,10 +158,10 @@ bool HvProcess_ChargeEnableCond(void){
 
 bool HvProcess_BMSStatisticsCond(void){
     bool res = false;
-    if (true/* TODO:判断是否进入到统计阶段 */)
+    if (HvProcess_BmsComState() == HVPROCESS_BMSCOM_STATISTICS) /* 判断是否进入到统计阶段 */
     {
         res = true;
-        /* TODO：响应操作 */
+        /* 响应操作 */
     }
     return res;
 }
@@ -188,6 +189,7 @@ bool HvProcess_CurrentBelow5A(void){
 
 void HvProcess_OpenK5K6(void){
     /* 断开K5 K6继电器 */
+    HvProcess_ChgInnerData.K5K6flag = false;
 }
 
 bool HvProcess_Wait1SCond(void){

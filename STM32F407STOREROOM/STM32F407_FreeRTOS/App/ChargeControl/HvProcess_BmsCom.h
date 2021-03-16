@@ -62,6 +62,7 @@ typedef __packed struct{
     bool RecvCCS;
     bool RecvCST;
     bool RecvCSTConfirm;
+    bool RecvCSD;
 }ReceiveFlag;
 
 typedef __packed struct{
@@ -199,6 +200,7 @@ void HvProcess_BmsComTimeOut_Init(void);
 bool HvProcess_BmsComChargeState(void);
 HvProcess_BmsComErrorType HvProcess_GetBmsComErrorState(void);
 bool HvProcess_BmsComChargeAllowStatus(void);
+HvProcess_BmsComStateType HvProcess_BmsComState(void);
 /* ************************************************************************ */
 #endif
 

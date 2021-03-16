@@ -181,8 +181,8 @@ const HvProcess_StateInfoType HvProcess_BmsComStatistics_InfoConfig[] = { /*7 �
     },
     {
         HvProcess_ReceiveCSDCond, /**< Cond: 条件函数指针 */ /*查询是否收到CSD*/
-        HvProcess_ReceiveCSDAction, /**< Action: 动作函数指针 *//*还没想好该做什么*/
-        (u16)HVPROCESS_BMSCOM_STATISTICS, /**< Next: 下一状态 *//**/
+        HvProcess_ReceiveCSDAction, /**< Action: 动作函数指针 */
+        (u16)HVPROCESS_BMSCOM_STATISTICS, /**< Next: 下一状态 */
     },
     {
         HvProcess_ReceiveCSDTimeoutCond, /**< Cond: 条件函数指针 */ 
@@ -191,7 +191,7 @@ const HvProcess_StateInfoType HvProcess_BmsComStatistics_InfoConfig[] = { /*7 �
     },
     {
         HvProcess_K5K6OpenCond, /**< Cond: 条件函数指针 */ /*辅助电源已经关闭了*/
-        HvProcess_K5K6OpenAction, /**< Action: 动作函数指针 *//*还没想好可以做什么*/
+        HvProcess_K5K6OpenAction, /**< Action: 动作函数指针 */
         (u16)HVPROCESS_BMSCOM_START, /**< Next: 下一状态 *//*回到最开头的部分*/
     },
 };

@@ -722,14 +722,7 @@ bool HvProcess_ChargeStatisticCond(void){
     return res;
 }
 
-bool HvProcess_ReceiveCSDTimeoutCond(void){
-    bool res = false;
-    if (TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.SendBST)>=10000)
-    {
-        res = true;
-    }
-    return res;
-}
+
 
 bool HvProcess_SendBSDCond(void){
     static u32 lastime = 1;
@@ -760,8 +753,50 @@ void HvProcess_SendBSDAction(void){
     BMS_Send_message(BSD, BMSmanager.msgSendData);
 }
 
+bool HvProcess_ReceiveCSDCond(void){
+    bool res = false;
+    u8 Getmsglen = 0;
+    if (HvProcess_GetK5K6Status() == false)
+    {
+        if (BMS_Check_Valid(CSD)) /* 从底层读取是否有CSD报文 */
+        {
+            Getmsglen = BMS_Get_message(CSD, &BMSmanager.messageData);
+            if (Getmsglen == PGNInfoRcv[CSD].dataLen)
+            {
+                Rcv_CSD.TotalChargeTime_L = BMSmanager.messageData[0];
+                Rcv_CSD.TotalChargeTime_H = BMSmanager.messageData[1];
+                Rcv_CSD.OutputPower_L = BMSmanager.messageData[2];
+                Rcv_CSD.OutputPower_H = BMSmanager.messageData[3];
+                Rcv_CSD.ChargeNumber_L = BMSmanager.messageData[4];
+                Rcv_CSD.ChargeNumber_M1 = BMSmanager.messageData[5];
+                Rcv_CSD.ChargeNumber_M2 = BMSmanager.messageData[6];
+                Rcv_CSD.ChargeNumber_H = BMSmanager.messageData[7];
+
+                Getmsglen = 0;
+                res = true;
+            }
+        }
+    }
+    
+    return res;
+}
+
+void HvProcess_ReceiveCSDAction(void){
+    HvProcess_BmsComInnerData.Flag.RecvCSD = true;
+}
+
+bool HvProcess_ReceiveCSDTimeoutCond(void){
+    bool res = false;
+    if (TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.SendBST)>=10000 && HvProcess_BmsComInnerData.Flag.RecvCSD == false)
+    {
+        res = true;
+    }
+    return res;
+}
+
 void HvProcess_ReceiveCSDTimeoutAction(void){
-    /* TODO:充电时序结束， 充电故障级别1 */
+    /* 充电时序结束， 充电故障级别1 */
+    HvProcess_BmsComInnerData.ErrorType = HVPROCESS_CSD_TIMEOUT;
 }
 
 
@@ -774,36 +809,18 @@ bool ChargeStatisticCond(void){
     return res;
 }
 
-bool HvProcess_ReceiveCSDCond(void){
-    bool res = false;
-    if (true/* 从底层读取是否有CSD报文 */)
-    {
-        //处理CSD中的充电统计数据
-        res = true;
-    }
-    return res;
-}
-
-void HvProcess_ReceiveCSDAction(void){
-    /* 处理CSD报文统计数据 累计充电时间 输出能量 充电机编号 */
-}
-
-
-
-
-
 bool HvProcess_K5K6OpenCond(void){
     bool res = false;
-    if (true/* 判断辅助电源K5 K6是否关闭 */)
+    if (HvProcess_K5K6OpenCond() == false && HvProcess_BmsComInnerData.Flag.RecvCSD == true) /* 判断辅助电源K5 K6是否关闭 */
     {
-        /* TODO: 辅助电源关闭后操作 */
+        /* 辅助电源关闭后操作 */
         res = true;
     }
     return res;
 }
 
 void HvProcess_K5K6OpenAction(void){
-    /* TODO:关闭辅源后操作 */
+    /* 关闭辅源后操作 */
 }
 
 
@@ -874,7 +891,7 @@ bool HvProcess_RecoveryCond(void){
 }
 
 void HvProcess_RecoveryAction(void){
-    /* TODO:code */
+    /* code */
 }
 
 /***************************各状态点的初始化函数****************************/
@@ -923,7 +940,8 @@ void HvProcess_BmsComStopCharge_Init(void){
 }
 
 void HvProcess_BmsComStatistics_Init(void){
-
+    HvProcess_BmsComInnerData.Flag.RecvCSD = false;
+    HvProcess_BmsComInnerData.ErrorType = HVPROCESS_NOERROR;
 }
 
 void HvProcess_BmsComTimeOut_Init(void){
@@ -950,4 +968,8 @@ bool HvProcess_BmsComChargeAllowStatus(void){
     }else{
         return true;
     }
+}
+
+HvProcess_BmsComStateType HvProcess_BmsComState(void){
+    return HvProcess_BmsComInnerData.State;
 }

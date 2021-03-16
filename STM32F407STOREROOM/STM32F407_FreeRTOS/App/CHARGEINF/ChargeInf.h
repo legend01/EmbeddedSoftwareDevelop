@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-16 09:11:29
+ * @LastEditTime: 2021-03-16 10:19:36
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
@@ -364,6 +364,19 @@ typedef struct{
     u8 BatMinTemp:8; /* 动力蓄电池最低温度 */
     u8 BatMaxTemp:8; /* 动力蓄电池最高温度 */
 }SEND_BSD;
+
+typedef struct{
+    u8 TotalChargeTime_L:8; /* 累计充电时间min */
+    u8 TotalChargeTime_H:8;
+
+    u8 OutputPower_L:8; /* 输出能量kw/h */
+    u8 OutputPower_H:8; 
+
+    u8 ChargeNumber_L:8; /* 充电机编号 */
+    u8 ChargeNumber_M1:8; 
+    u8 ChargeNumber_M2:8;
+    u8 ChargeNumber_H:8;
+}RECV_CSD;
 
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);
