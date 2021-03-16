@@ -489,7 +489,13 @@ void HvProcess_SendBCSAction(void){
             BMSmanager.msgSendData[3] = 4000 - Rcv_CCS.CH_IOutput_H;
             BMSmanager.msgSendData[4] = Get_Send_BCS_Inf()->MaxSinBatVol_L;
             BMSmanager.msgSendData[5] = (Get_Send_BCS_Inf()->MaxSinBatVolNum << 4 & 0xf0) | (Get_Send_BCS_Inf()->MaxSinBatVol_H & 0x0f);
-            BMSmanager.msgSendData[6] = Get_Send_BCS_Inf()->NowSOC + ((Get_ChargeCalculation_ParamInf()->BCS_SocGoal - Get_Send_BCS_Inf()->NowSOC)/Get_ChargeCalculation_ParamInf()->BCS_ChargeTime)*Get_ChargeCalculation_ParamInf()->BCS_DurTime;
+            Set_ChargeCalculation_ParamInf()->BCS_ChargeSOC = Get_Send_BCS_Inf()->NowSOC + ((Get_ChargeCalculation_ParamInf()->BCS_SocGoal - Get_Send_BCS_Inf()->NowSOC)/Get_ChargeCalculation_ParamInf()->BCS_ChargeTime)*Get_ChargeCalculation_ParamInf()->BCS_DurTime;
+            if (Get_ChargeCalculation_ParamInf()->BCS_ChargeSOC >= 100)
+            {
+                Set_ChargeCalculation_ParamInf()->BCS_ChargeSOC = 100;
+            }
+            
+            BMSmanager.msgSendData[6] = Get_ChargeCalculation_ParamInf()->BCS_ChargeSOC;
             BMSmanager.msgSendData[7] = Get_ChargeCalculation_ParamInf()->BCS_ChargeTime - Get_ChargeCalculation_ParamInf()->BCS_DurTime & 0xff;
             BMSmanager.msgSendData[8] = Get_ChargeCalculation_ParamInf()->BCS_ChargeTime - Get_ChargeCalculation_ParamInf()->BCS_DurTime >> 8 & 0xff;
             BMS_Send_message(BCS, BMSmanager.msgSendData);
@@ -742,8 +748,16 @@ bool HvProcess_SendBSDCond(void){
 }
 
 void HvProcess_SendBSDAction(void){
-    /* code */
-    /* TODO:BMS发送本次充电过程的充电统计数据 */
+    /* BMS发送本次充电过程的充电统计数据 */
+    BMSmanager.msgSendData[0] = Get_ChargeCalculation_ParamInf()->BCS_ChargeSOC;
+    BMSmanager.msgSendData[1] = Get_Send_BSD_Inf()->SinBatMinVol_L;
+    BMSmanager.msgSendData[2] = Get_Send_BSD_Inf()->SinBatMinVol_H;
+    BMSmanager.msgSendData[3] = Get_Send_BSD_Inf()->SinBatMaxVol_L;
+    BMSmanager.msgSendData[4] = Get_Send_BSD_Inf()->SinBatMaxVol_H;
+    BMSmanager.msgSendData[5] = Get_Send_BSD_Inf()->BatMinTemp;
+    BMSmanager.msgSendData[6] = Get_Send_BSD_Inf()->BatMaxTemp;
+
+    BMS_Send_message(BSD, BMSmanager.msgSendData);
 }
 
 void HvProcess_ReceiveCSDTimeoutAction(void){

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:20
- * @LastEditTime: 2021-03-15 17:49:18
+ * @LastEditTime: 2021-03-16 09:25:33
  * @LastEditors: HLLI8
  */
 #include "ChargeInf.h"
@@ -56,6 +56,11 @@
 #define BCS_soc_goal 100
 #define BCS_charge_time 60 
 #define BCS_start_time 0xFFFF
+
+#define BSD_sinBatMinVol 333
+#define BSD_sinBatMaxVol 355
+#define BSD_batMinTemp 55
+#define BSD_batMaxTemp 60
 
 VEHICLEPARAMINF  VehicleParamInf;
 VEHICLECHARGECALCULATION ChargeCalculationParamInf;
@@ -154,6 +159,11 @@ void ConfigureVehicleParam(void){
     vehicle_inf->BST_ElseFault = Normal;
     vehicle_inf->BST_IOverHighError = Normal;
     vehicle_inf->BST_VolAbnormalError = Normal;
+
+    vehicle_inf->BSD_SinBatMinVol = BSD_sinBatMinVol;
+    vehicle_inf->BSD_SinBatMaxVol = BSD_sinBatMaxVol;
+    vehicle_inf->BSD_BatMinTemp = BSD_batMinTemp;
+    vehicle_inf->BSD_BatMaxTemp = BSD_batMaxTemp;
 
     ConfigChargeCalculationParam();
 }

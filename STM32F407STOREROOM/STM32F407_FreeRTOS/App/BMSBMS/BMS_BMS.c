@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:29
- * @LastEditTime: 2021-03-15 18:03:23
+ * @LastEditTime: 2021-03-16 09:30:12
  * @LastEditors: HLLI8
  */
 #include "BMS_BMS.h"
@@ -25,6 +25,7 @@ RECV_CCS Rcv_CCS;
 SEND_BSM Send_BSM;
 RECV_CST Rcv_CST;
 SEND_BST Send_BST;
+SEND_BSD Send_BSD;
 
 SEND_BHM* Get_Send_BHM_Inf(void){
     Send_BHM.vehicleAllowMaxV_L = Get_Vehicle_ParamInf()->vehicle_maxallow_v & 0xff;
@@ -167,6 +168,19 @@ SEND_BST *Get_Send_BST_Inf(void){
     return &Send_BST;
 }
 
+SEND_BSD * Get_Send_BSD_Inf(void){
+    Send_BSD.SinBatMinVol_L = Get_Vehicle_ParamInf()->BSD_SinBatMinVol & 0xff;
+    Send_BSD.SinBatMinVol_H = Get_Vehicle_ParamInf()->BSD_SinBatMinVol >> 8 & 0xff;
+
+    Send_BSD.SinBatMaxVol_L = Get_Vehicle_ParamInf()->BSD_SinBatMaxVol & 0xff;
+    Send_BSD.SinBatMaxVol_H = Get_Vehicle_ParamInf()->BSD_SinBatMaxVol >> 8 & 0xff;
+
+    Send_BSD.BatMinTemp = Get_Vehicle_ParamInf()->BSD_BatMinTemp & 0xff;
+    Send_BSD.BatMaxTemp = Get_Vehicle_ParamInf()->BSD_BatMaxTemp & 0xff;
+
+    return &Send_BSD;
+}
+
 void BMSmanager_Init(void){
     Ringbuff_setEmpty();
     J1939_connect_send_clear();
@@ -188,6 +202,7 @@ void BMSmanager_Init(void){
     memset(&Rcv_CCS, 0, sizeof(Rcv_CCS));
     memset(&Send_BSM, 0, sizeof(Send_BSM));
     memset(&Send_BST, 0, sizeof(Send_BST));
+    memset(&Send_BSD, 0, sizeof(Send_BSD));
 }
 
 void BMS_Send_message(PGNTypeSend ePGNTypeSend, char *data){

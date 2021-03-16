@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:32
- * @LastEditTime: 2021-03-15 17:35:47
+ * @LastEditTime: 2021-03-16 09:11:29
  * @LastEditors: HLLI8
  */
 #ifndef __CHARGEINF_H__
@@ -100,6 +100,11 @@ typedef struct {
     u8 BST_ElseFault; /* 其他故障 */
     u8 BST_IOverHighError; /* 电流过大 */
     u8 BST_VolAbnormalError; /* 电压异常 */
+
+    u16 BSD_SinBatMinVol; /* 动力蓄电池单体最低电压 */
+    u16 BSD_SinBatMaxVol; /* 动力蓄电池单体最高电压 */
+    u8 BSD_BatMinTemp; /* 动力蓄电池最低温度 */
+    u8 BSD_BatMaxTemp; /* 动力蓄电池最高温度 */
 }VEHICLEPARAMINF;
 
 typedef struct{
@@ -108,6 +113,7 @@ typedef struct{
     u16 BCS_StartTime; /* 起始充电时间 */
     u16 BCS_CurrentTime; /* 当前充电时间 */
     u16 BCS_DurTime; /* 累计充电时间 分钟 */
+    u16 BCS_ChargeSOC; /* 当前SOC实际值 */
 }VEHICLECHARGECALCULATION; 
 
 typedef struct 
@@ -345,6 +351,19 @@ typedef struct{
     u8 VolAbnormalError:2; /* 电压异常 */
     u8 reserved:4;
 }SEND_BST;
+
+typedef struct{
+    u8 STOPSOC:8; /* 中止荷电状态SOC */
+
+    u8 SinBatMinVol_L:8; /* 动力蓄电池单体最低电压 */
+    u8 SinBatMinVol_H:8;
+    
+    u8 SinBatMaxVol_L:8; /* 动力蓄电池单体最高电压 */
+    u8 SinBatMaxVol_H:8;
+
+    u8 BatMinTemp:8; /* 动力蓄电池最低温度 */
+    u8 BatMaxTemp:8; /* 动力蓄电池最高温度 */
+}SEND_BSD;
 
 void ConfigureVehicleParam(void);
 VEHICLEPARAMINF* Get_Vehicle_ParamInf(void);
