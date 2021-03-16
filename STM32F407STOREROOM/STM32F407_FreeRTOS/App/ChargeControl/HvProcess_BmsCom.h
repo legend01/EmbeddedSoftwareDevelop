@@ -61,7 +61,7 @@ typedef __packed struct{
     bool RecvCRO_0xAA;
     bool RecvCCS;
     bool RecvCST;
-
+    bool RecvCSTConfirm;
 }ReceiveFlag;
 
 typedef __packed struct{
@@ -166,7 +166,13 @@ bool HvProcess_ReceiveCSTCond(void);
 void HvProcess_ReceiveCSTAction(void);
 bool HvProcess_SendBSTCond(void);
 void HvProcess_SendBSTAction(void);
+
+bool HvProcess_ReceiveCSTConfirmCond(void);
+void HvProcess_ReceiveCSTConfirmAction(void);
+
 bool HvProcess_ReceCSTTimeoutCond(void);
+void HvProcess_ReceCSTTimeoutAction(void);
+
 bool HvProcess_ChargeStatisticCond(void);
 bool HvProcess_SendBSDCond(void);
 void HvProcess_SendBSDAction(void);

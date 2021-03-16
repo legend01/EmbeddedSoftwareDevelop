@@ -639,6 +639,27 @@ void HvProcess_ReceiveCSTAction(void){
     HvProcess_BmsComInnerData.Flag.RecvCST = true;
 }
 
+bool HvProcess_ReceiveCSTConfirmCond(void){
+    bool res = false;
+    u8 Getmsglen = 0;
+    if(BMS_Check_Valid(CST)) /*从底层中读取是否有CST报文*/
+    {
+        //处理CST中的停止充电信息
+        //这里最好不要直接置stopcharge，统一由充电管理模块来设置停止充电
+        Getmsglen = BMS_Get_message(CST, &BMSmanager.messageData);
+        if (Getmsglen == PGNInfoRcv[CST].dataLen)
+        {
+            Getmsglen = 0;
+            res = true;
+        }
+    }
+    return res;
+}
+
+void HvProcess_ReceiveCSTConfirmAction(void){
+    HvProcess_BmsComInnerData.Flag.RecvCSTConfirm = true;
+}
+
 bool HvProcess_SendBSTCond(void){
     static u32 lastime = 1;
     bool res = false;
@@ -666,6 +687,33 @@ void HvProcess_SendBSTAction(void)
     {
         HvProcess_BmsComInnerData.TimeTick.SendBST = GetTimeMs();
     }
+}
+
+bool HvProcess_ReceCSTTimeoutCond(void)
+{
+    bool res = false;
+
+    if(HvProcess_BmsComInnerData.TimeTick.SendBST != 0U)
+    {
+        if(TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.SendBST) >= 5000U && HvProcess_BmsComInnerData.Flag.RecvCSTConfirm != true)
+        {
+            res = true;
+        }
+    }
+    return res;
+}
+
+void HvProcess_ReceCSTTimeoutAction(void){
+    HvProcess_BmsComInnerData.ErrorType = HVPROCESS_CST_TIMEOUT;
+}
+
+bool HvProcess_ChargeStatisticCond(void){
+    bool res = false;
+    if (HvProcess_BmsComInnerData.Flag.RecvCSTConfirm == true) /* 接收到CST报文 */
+    {
+        res = true;
+    }
+    return res;
 }
 
 bool HvProcess_ReceiveCSDTimeoutCond(void){
@@ -726,29 +774,9 @@ void HvProcess_ReceiveCSDAction(void){
     /* 处理CSD报文统计数据 累计充电时间 输出能量 充电机编号 */
 }
 
-bool HvProcess_ChargeStatisticCond(void){
-    bool res = false;
-    if (HvProcess_BmsComInnerData.Flag.RecvCTS == true/* 接收到CST报文 */)
-    {
-        res = true;
-    }
-    return res;
-}
 
 
-bool HvProcess_ReceCSTTimeoutCond(void)
-{
-    bool res = false;
 
-    if(HvProcess_BmsComInnerData.TimeTick.SendBST != 0U)
-    {
-        if(TimeAfterMs(HvProcess_BmsComInnerData.TimeTick.SendBST) >= 5000U && HvProcess_BmsComInnerData.Flag.RecvCST != true)
-        {
-            res = true;
-        }
-    }
-    return res;
-}
 
 bool HvProcess_K5K6OpenCond(void){
     bool res = false;
@@ -876,6 +904,8 @@ void HvProcess_BmsComCharge_Init(void)
 
 void HvProcess_BmsComStopCharge_Init(void){
     HvProcess_BmsComInnerData.TimeTick.SendBST = 0;
+    HvProcess_BmsComInnerData.Flag.RecvCSTConfirm = false;
+    HvProcess_BmsComInnerData.ErrorType = HVPROCESS_NOERROR;
 }
 
 void HvProcess_BmsComStatistics_Init(void){

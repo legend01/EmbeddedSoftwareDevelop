@@ -157,8 +157,13 @@ const HvProcess_StateInfoType HvProcess_BmsComStopCharge_InfoConfig[] = { /*6 �
         (u16)HVPROCESS_BMSCOM_STOPCHARGE, /**< Next: 下一状态 */
     },
     {
+        HvProcess_ReceiveCSTConfirmCond, /**< Cond: 条件函数指针 */
+        HvProcess_ReceiveCSTConfirmAction, /**< Action: 动作函数指针 */
+        (u16)HVPROCESS_BMSCOM_STOPCHARGE, /**< Next: 下一状态 */
+    },
+    {
         HvProcess_ReceCSTTimeoutCond, /**< Cond: 条件函数指针 *//*接收CST报文超时5S*/
-        HvProcess_ChgFaultAction, /**< Action: 动作函数指针 *//*故障级别3，error 超时次数加一*/
+        HvProcess_ReceCSTTimeoutAction, /**< Action: 动作函数指针 *//*故障级别3，error 超时次数加一*/
         (u16)HVPROCESS_BMSCOM_TIMEOUT, /**< Next: 下一状态 */
     },
     {
