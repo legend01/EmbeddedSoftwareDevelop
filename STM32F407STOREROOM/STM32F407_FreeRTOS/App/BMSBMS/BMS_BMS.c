@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:29
- * @LastEditTime: 2021-03-16 10:20:54
+ * @LastEditTime: 2021-03-16 14:39:19
  * @LastEditors: HLLI8
  */
 #include "BMS_BMS.h"
@@ -83,8 +83,8 @@ SEND_BCP* Get_Send_BCP_Inf(void){
     Send_BCP.SingleBatMaxAllowVoltage_L = Get_Vehicle_ParamInf()->SingleBatMaxAllowVoltage & 0xff;
     Send_BCP.SingleBatMaxAllowVoltage_H = Get_Vehicle_ParamInf()->SingleBatMaxAllowVoltage >> 8 & 0xff;
 
-    Send_BCP.MaxAllowChargeCurrent_L = Get_Vehicle_ParamInf()->MaxAllowChargeCurrent & 0xff;
-    Send_BCP.MaxAllowChargeCurrent_H = Get_Vehicle_ParamInf()->MaxAllowChargeCurrent >> 8 & 0xff;
+    Send_BCP.MaxAllowChargeCurrent_L = 4000 - Get_Vehicle_ParamInf()->MaxAllowChargeCurrent & 0xff;
+    Send_BCP.MaxAllowChargeCurrent_H = 4000 - Get_Vehicle_ParamInf()->MaxAllowChargeCurrent >> 8 & 0xff;
 
     Send_BCP.BatNominalTotalEnergy_L = Get_Vehicle_ParamInf()->BatNominalTotalEnergy & 0xff;
     Send_BCP.BatNominalTotalEnergy_H = Get_Vehicle_ParamInf()->BatNominalTotalEnergy >> 8 & 0xff;
@@ -92,10 +92,10 @@ SEND_BCP* Get_Send_BCP_Inf(void){
     Send_BCP.MaxAllowTotalChargeVol_L = Get_Vehicle_ParamInf()->MaxAllowTotalChargeVol & 0xff;
     Send_BCP.MaxAllowTotalChargeVol_H = Get_Vehicle_ParamInf()->MaxAllowTotalChargeVol >> 8 & 0xff;
 
-    Send_BCP.MaxAllowTempe = Get_Vehicle_ParamInf()->MaxAllowTempe & 0xff;
+    Send_BCP.MaxAllowTempe = (Get_Vehicle_ParamInf()->MaxAllowTempe + 50) & 0xff;
 
-    Send_BCP.VehicleBatChargeState_L = Get_Vehicle_ParamInf()->VehicleBatChargeState & 0xff;
-    Send_BCP.VehicleBatChargeState_H = Get_Vehicle_ParamInf()->VehicleBatChargeState >> 8 & 0xff;
+    Send_BCP.VehicleBatChargeState_L = (Get_Vehicle_ParamInf()->VehicleBatChargeState * 10) & 0xff;
+    Send_BCP.VehicleBatChargeState_H = (Get_Vehicle_ParamInf()->VehicleBatChargeState * 10) >> 8 & 0xff;
 
     Send_BCP.CurrentVehicleBatVol_L = Get_Vehicle_ParamInf()->CurrentVehicleBatVol & 0xff;
     Send_BCP.CurrentVehicleBatVol_H = Get_Vehicle_ParamInf()->CurrentVehicleBatVol >> 8 & 0xff;

@@ -47,11 +47,6 @@ typedef __packed struct{
     u32 SendBST;
 }HvProcess_BmsComTimeTick;
 
-typedef enum{
-    standard_15,
-    standard_11,
-} ComStandard;
-
 typedef __packed struct{
     bool RecvCHM;
     bool RecvCRM_0x00;
@@ -80,7 +75,6 @@ typedef __packed struct{
 typedef __packed struct{
     HvProcess_BmsComStateType       State;         /**< 充电高压流程状态 */
     HvProcess_BmsComTimeTick        TimeTick;
-    ComStandard                  standard;
     ReceiveFlag                  Flag;
     ChargeFlag                   ChargeFlag;
     HvProcess_BmsComErrorType    ErrorType;

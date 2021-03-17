@@ -2,18 +2,20 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:20
- * @LastEditTime: 2021-03-16 09:25:33
+ * @LastEditTime: 2021-03-16 14:36:45
  * @LastEditors: HLLI8
  */
 #include "ChargeInf.h"
+
 #define vehiclemaxallowv 5000
+
 #define BMSProtocalVersion 0x000101
 #define VehicleBAT_CAP 4000 /* 0.1AH/位 */
 #define VehicleBAT_EV 0 /* 0.1V/位 */
 #define BSerialNum 0x12345678
-#define BManufactureData_Year 0x01
+#define BManufactureData_Year 0x24
 #define BManufactureData_Month 0x02
-#define BManufactureData_Day 0x03
+#define BManufactureData_Day 0x10
 #define BChargeTime 0x123456
 #define BMSSoftV_SerialNum 0x10 
 #define BMSSoftV_Day 0x01
@@ -21,12 +23,13 @@
 #define BMSSoftV_Year_L 0x07
 #define BMSSoftV_Year_H 0xDF
 #define RESERVED 0xFF
-#define SingleBATMaxAllowV 2400
+
+#define SingleBATMaxAllowV 360
 #define MaxAllowCurrent 4000
 #define BatNominalTotalEn 1000
 #define MaxAllowChargeVol 5000
 #define MaxTempe 80
-#define VehicleSOC 100
+#define VehicleSOC 30
 #define VehicleCurrentBatVol 4500
 
 #define BAT_NeedV 4500
@@ -87,7 +90,7 @@ void ConfigureVehicleParam(void){
     vehicle_inf->vehicle_maxallow_v = vehiclemaxallowv;
     
     vehicle_inf->BMSComProtocolVersion = BMSProtocalVersion;
-    vehicle_inf->BatteryType = LeadAcidCell;
+    vehicle_inf->BatteryType = LithiumIronPhosphateBattery;
     vehicle_inf->VehicleBatterySysRatedCapacity = VehicleBAT_CAP;
     vehicle_inf->VehicleBatterySysRatedVoltage = VehicleBAT_EV;
     vehicle_inf->BatteryManufacturers[0] = 'C';
