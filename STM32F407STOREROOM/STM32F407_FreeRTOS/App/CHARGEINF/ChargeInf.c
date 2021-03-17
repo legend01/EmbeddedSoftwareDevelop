@@ -2,14 +2,14 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-02 14:41:20
- * @LastEditTime: 2021-03-16 14:36:45
+ * @LastEditTime: 2021-03-17 13:49:29
  * @LastEditors: HLLI8
  */
 #include "ChargeInf.h"
 
-#define vehiclemaxallowv 5000
+#define vehiclemaxallowv 5000       //BHM
 
-#define BMSProtocalVersion 0x000101
+#define BMSProtocalVersion 0x000101         //BRM
 #define VehicleBAT_CAP 4000 /* 0.1AH/位 */
 #define VehicleBAT_EV 0 /* 0.1V/位 */
 #define BSerialNum 0x12345678
@@ -24,7 +24,7 @@
 #define BMSSoftV_Year_H 0xDF
 #define RESERVED 0xFF
 
-#define SingleBATMaxAllowV 360
+#define SingleBATMaxAllowV 360          //BCP
 #define MaxAllowCurrent 4000
 #define BatNominalTotalEn 1000
 #define MaxAllowChargeVol 5000
@@ -32,35 +32,35 @@
 #define VehicleSOC 30
 #define VehicleCurrentBatVol 4500
 
-#define BAT_NeedV 4500
+#define BAT_NeedV 4500 //BCL
 #define BAT_NeedI 2000
 #define BAT_ChargeMode 1 /* 1：恒压 2：恒流 */
 
-#define BCS_CheckV 3500
+#define BCS_CheckV 3500 //BCS
 #define BCS_CheckI 2965
 #define BCS_SinBATMaxVol 330
 #define BCS_SinBATMaxVol_SerialNum 1
 #define BCS_CurSOC 30
 #define BCS_TMleft 0
 
-#define BSM_SinMaxVolNum 1
+#define BSM_SinMaxVolNum 1      //BSM
 #define BSM_MaxTemp 78
 #define BSM_MaxTempCheckNum 1
 #define BSM_MinTemp 74
 #define BSM_MinTempNum 2
 #define BSM_SinVolStatus 0x00
-#define BSM_SOCStatus 0x00
+#define BSM_SOCStatus 0x00              //0x00正常
 #define BSM_ChargeOverI 0x00
 #define BSM_TempHighStatus 0x00
 #define BSM_InsulationStatus 0x00
 #define BSM_BatPackLinkerStatus 0x00
-#define BSM_ChargePermission 0x01
+#define BSM_ChargePermission 0x01       //车辆允许充电
 
 #define BCS_soc_goal 100
 #define BCS_charge_time 60 
 #define BCS_start_time 0xFFFF
 
-#define BSD_sinBatMinVol 333
+#define BSD_sinBatMinVol 333        //BST
 #define BSD_sinBatMaxVol 355
 #define BSD_batMinTemp 55
 #define BSD_batMaxTemp 60

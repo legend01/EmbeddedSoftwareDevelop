@@ -987,14 +987,14 @@ HvProcess_BmsComErrorType HvProcess_GetBmsComErrorState(void){
     return HvProcess_BmsComInnerData.ErrorType;
 }
 
-bool HvProcess_BmsComChargeAllowStatus(void){
-    if (Rcv_CCS.CH_ChargePermision == SUSPEND)
-    {
-        return false;
-    }else{
-        return true;
-    }
-}
+// bool HvProcess_BmsComChargeAllowStatus(void){
+//     if (Rcv_CCS.CH_ChargePermision == SUSPEND)
+//     {
+//         return false;
+//     }else{
+//         return true;
+//     }
+// }
 
 HvProcess_BmsComStateType HvProcess_BmsComState(void){
     return HvProcess_BmsComInnerData.State;

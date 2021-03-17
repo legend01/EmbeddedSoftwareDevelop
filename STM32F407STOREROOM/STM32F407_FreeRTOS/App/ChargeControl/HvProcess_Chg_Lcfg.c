@@ -67,11 +67,11 @@ const HvProcess_StateInfoType HvProcess_Charging_InfoConfig[] = {  //4
         (u16)HVPROCESS_CHG_STOP_CHARGING, /**< Next: 下一状态 *//**/
     },
     /*******************************分割线************************************/
-    {
-        HvProcess_ChargeForbiddenCond, /**< Cond: 条件函数指针 */ /*充电禁止标志位ON*/
-        HvProcess_ChargeForbiddenAction, /**< Action: 动作函数指针 */   
-        (u16)HVPROCESS_CHG_CHARGING_SUSPEND, /**< Next: 下一状态 */
-    },
+    // {
+    //     HvProcess_ChargeForbiddenCond, /**< Cond: 条件函数指针 */ /*充电禁止标志位ON*/
+    //     HvProcess_ChargeForbiddenAction, /**< Action: 动作函数指针 */   
+    //     (u16)HVPROCESS_CHG_CHARGING_SUSPEND, /**< Next: 下一状态 */
+    // },
     {
         HvProcess_StopChargeCond, /**< Cond: 条件函数指针 */ /*充电command为stop*/
         HvProcess_StopChargeActon, /**< Action: 动作函数指针 */   
@@ -79,20 +79,25 @@ const HvProcess_StateInfoType HvProcess_Charging_InfoConfig[] = {  //4
     },
 };
 
-const HvProcess_StateInfoType HvProcess_ChargingSuspend_InfoConfig[] = {  //5
-    {
-        HvProcess_ChargeSuspendTimeOutCond, /**< Cond: 条件函数指针 */ /*暂停充电超时（10min）*/
-        NULL, /**< Action: 动作函数指针 */   /*todo*/
-        (u16)HVPROCESS_CHG_STOP_CHARGING, /**< Next: 下一状态 */
-    },
-    {
-        HvProcess_ChargeEnableCond, /**< Cond: 条件函数指针 */
-        NULL, /**< Action: 动作函数指针 */   
-        (u16)HVPROCESS_CHG_CHARGING, /**< Next: 下一状态 */
-    },
-};
+// const HvProcess_StateInfoType HvProcess_ChargingSuspend_InfoConfig[] = {  //5
+//     {
+//         HvProcess_ChargeSuspendTimeOutCond, /**< Cond: 条件函数指针 */ /*暂停充电超时（10min）*/
+//         NULL, /**< Action: 动作函数指针 */   /*todo*/
+//         (u16)HVPROCESS_CHG_STOP_CHARGING, /**< Next: 下一状态 */
+//     },
+//     {
+//         HvProcess_ChargeEnableCond, /**< Cond: 条件函数指针 */
+//         NULL, /**< Action: 动作函数指针 */   
+//         (u16)HVPROCESS_CHG_CHARGING, /**< Next: 下一状态 */
+//     },
+// };
 
-const HvProcess_StateInfoType HvProcess_PreStopCharging_InfoConfig[] = {  //6
+const HvProcess_StateInfoType HvProcess_PreStopCharging_InfoConfig[] = {  //5
+    {
+        HvProcess_ChgFaultCond, /**< Cond: 条件函数指针 */ //故障状态
+        HvProcess_ChgFaultAction, /**< Action: 动作函数指针 */
+        (u16)HVPROCESS_CHG_STOP_CHARGING, /**< Next: 下一状态 *//**/
+    },
     {
         HvProcess_BMSStatisticsCond, /**< Cond: 条件函数指针 */ /*接收到充电桩发来的CST报文,也就是进入了统计阶段*/
         NULL, /**< Action: 动作函数指针 */  
@@ -100,7 +105,7 @@ const HvProcess_StateInfoType HvProcess_PreStopCharging_InfoConfig[] = {  //6
     },
 };
 
-const HvProcess_StateInfoType HvProcess_StopCharging_InfoConfig[] = {  //7
+const HvProcess_StateInfoType HvProcess_StopCharging_InfoConfig[] = {  //6
     {
         HvProcess_CurrentBelove5ATimeoutCond, /**< Cond: 条件函数指针 */ /* 自发送BST起Timeout时间10S */
         HvProcess_ChgFaultAction, /**< Action: 动作函数指针 */   /* 充电时序结束 充电故障级别1 */
@@ -114,11 +119,11 @@ const HvProcess_StateInfoType HvProcess_StopCharging_InfoConfig[] = {  //7
 };
 
 
-const HvProcess_StateInfoType HvProcess_SYSSleep_InfoConfig[] = {  //8 
+const HvProcess_StateInfoType HvProcess_SYSSleep_InfoConfig[] = {  //7
     {
         HvProcess_Wait1SCond, /**< Cond: 条件函数指针 */ 
         HvProcess_SysSleep, /**< Action: 动作函数指针 *//*系统休眠*/
-        (u16)HVPROCESS_CHG_CONNECTCONFIRM, /**< Next: 下一状态 */
+        (u16)HVPROCESS_CHG_SELFTEST, /**< Next: 下一状态 */
     },
 };
 
@@ -148,11 +153,11 @@ const HvProcess_StateConfigType HvProcess_ChgStateConfig[HVPROCESS_CHG_STATE_MAX
         HvProcess_Charging_InfoConfig, /**< State: 状态信息指针 */
         HvProcess_Charging_Init,
     },
-    {
-        (u8)ARRAY_SIZE(HvProcess_ChargingSuspend_InfoConfig), /**< Num: 状态配置个数 *///5
-        HvProcess_ChargingSuspend_InfoConfig, /**< State: 状态信息指针 */
-        HvProcess_ChargingSuspend_Init,
-    },
+    // {
+    //     (u8)ARRAY_SIZE(HvProcess_ChargingSuspend_InfoConfig), /**< Num: 状态配置个数 *///5
+    //     HvProcess_ChargingSuspend_InfoConfig, /**< State: 状态信息指针 */
+    //     HvProcess_ChargingSuspend_Init,
+    // },
     {
         (u8)ARRAY_SIZE(HvProcess_PreStopCharging_InfoConfig), /**< Num: 状态配置个数 *///6
         HvProcess_PreStopCharging_InfoConfig, /**< State: 状态信息指针 */

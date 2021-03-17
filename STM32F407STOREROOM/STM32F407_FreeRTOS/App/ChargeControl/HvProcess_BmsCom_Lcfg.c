@@ -153,7 +153,7 @@ const HvProcess_StateInfoType HvProcess_BmsComCharge_InfoConfig[] = {/*5*/
         HvProcess_ReceiveCSTAction, /**< Action: 动作函数指针 */
         (u16)HVPROCESS_BMSCOM_CHARGE, /**< Next: 下一状态 *//*这里不直接进行状态跳转*/
     },
-};
+}; 
 
 const HvProcess_StateInfoType HvProcess_BmsComStopCharge_InfoConfig[] = { /*6 停止充电，发送停止充电报文*/
    {
@@ -210,7 +210,7 @@ const HvProcess_StateInfoType HvProcess_BmsComTimeOut_InfoConfig[] = { /*8  BMS�
     {
         HvProcess_RecoveryCond, /**< Cond: 条件函数指针 */ 
         HvProcess_RecoveryAction, /**< Action: 动作函数指针 */
-        (u16)HVPROCESS_BMSCOM_HANDSHAKE_START, /**< Next: 下一状态 */
+        (u16)HVPROCESS_BMSCOM_START, /**< Next: 下一状态 */
     },
 };
 
