@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: HLLI8
+ * @Date: 2021-03-02 16:29:22
+ * @LastEditTime: 2021-03-17 14:06:33
+ * @LastEditors: HLLI8
+ */
 #include "HvProcess_Types.h"
 
 
@@ -16,6 +23,7 @@ void HVProcess_Process(const HvProcess_ProcessDataType *Process)
 		if(state < Process ->StateNum)
 		{
 			Process-> Poll();
+			Process->Init();
 			config = &Process->Config[state];
 
 			for(i = 0U; i < config->Num; i++)
