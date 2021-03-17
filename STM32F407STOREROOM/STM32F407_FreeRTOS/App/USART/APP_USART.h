@@ -2,7 +2,7 @@
  * @Description: 串口处理函数
  * @Author: HLLI8
  * @Date: 2020-12-06 19:56:26
- * @LastEditTime: 2021-03-07 17:44:57
+ * @LastEditTime: 2021-03-17 22:21:28
  * @LastEditors: HLLI8
  */
 #ifndef __APP_USART_H__
@@ -13,8 +13,7 @@
 extern DMA_HandleTypeDef hdma_usart1_rx;
 extern DMA_HandleTypeDef hdma_usart1_tx;
 
-extern DMA_HandleTypeDef hdma_usart6_rx;
-extern DMA_HandleTypeDef hdma_usart6_tx;
+extern DMA_HandleTypeDef hdma_usart3_rx;
 
 #define UART_BUFFSIZE    200   
 typedef struct
@@ -37,7 +36,7 @@ short Uart1_DMA_Sent(char * Sendbuff, short Bufflens);
 short Get_Uart_Data(USART_TypeDef* Uartx,char * RcvBuff, short RevLen);
 void IRQ_USART1_IRQHandler(void);
 
-void Uart6_DMA_Init(void);
-short Uart6_DMA_Sent(char * Sendbuff, short Bufflens);
-void IRQ_UART6_IRQHandler(void);
+void Uart3_DMA_Init(void);
+short Uart3_DMA_Sent(char * Sendbuff, short Bufflens);
+void IRQ_UART3_IRQHandler(void);
 #endif // !__USART_H__

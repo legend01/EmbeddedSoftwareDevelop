@@ -4,15 +4,21 @@
 #include "stdio.h"
 #include "assert.h"
 
-UART_STR   Uart1_Str,Uart6_Str;  
+UART_STR   Uart1_Str,Uart3_Str;  
 
 static void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
   huart->gState = HAL_UART_STATE_READY;
 }
-static int HAL_UART_Transision_DMA(UART_HandleTypeDef *huart, char* buf, short buf_size){
+static int HAL_UART_Transmission_DMA(UART_HandleTypeDef *huart, char* buf, short buf_size){
   int ret = HAL_UART_Transmit_DMA(huart, (uint8_t*)buf, buf_size);
   HAL_UART_TxCpltCallback(huart);
   return ret;
+}
+
+static int HAL_UART_Transmission(UART_HandleTypeDef *huart, char* buf, short buf_size){
+	int ret = HAL_UART_Transmit(huart, (uint8_t*)buf, buf_size, 0xffffff);
+	HAL_UART_TxCpltCallback(huart);
+	return ret;
 }
 /*
 函数功能：串????3DMA data send
@@ -38,16 +44,16 @@ short Uart1_DMA_Sent(char * Sendbuff, short Bufflens)
 	{
 		memcpy(Uart1_Str.Uart_SentBuff, Sendbuff, l_val);
 	}
-	ret = HAL_UART_Transision_DMA(&huart1, Uart1_Str.Uart_SentBuff, l_val);
+	ret = HAL_UART_Transmission_DMA(&huart1, Uart1_Str.Uart_SentBuff, l_val);
 	return l_val;
 }
 /**
- * @description: 串口6初始化
+ * @description: 串口3初始化
  * @param {*}
  * !_DMA接收函数，此句一定要加，不加接收不到第一次传进来的实数据，是空的，且此时接收到的数据长度为缓存器的数据长度
  */
-void Uart6_DMA_Init(void){
-	HAL_UART_Receive_DMA(&huart6, Uart6_Str.Uart_RecvBuff, UART_BUFFSIZE);
+void Uart3_DMA_Init(void){
+	HAL_UART_Receive_DMA(&huart3, Uart3_Str.Uart_RecvBuff, UART_BUFFSIZE);
 }
 
 /*
@@ -57,42 +63,29 @@ void Uart6_DMA_Init(void){
 函数返回值：数据长度
 备注：无
 */
-short Uart6_DMA_Sent(char * Sendbuff, short Bufflens)
-{
- /**
-  * @description: TODO:可以利用FreeRTOS中的Queue函数利用生产者和消费者模型
-  */   
+short Uart3_DMA_Sent(char * Sendbuff, short Bufflens)
+{ 	
+	uint8_t ret = 0;
  	assert(*Sendbuff != NULL);
-	short l_val = Bufflens > UART_BUFFSIZE ? UART_BUFFSIZE : Bufflens;
-	int ret = 0x00;
-	if(Bufflens <= 0)
-	{
-		return 0;
-	}
-	while(__HAL_DMA_GET_COUNTER(&hdma_usart6_tx));
-	if(Sendbuff)
-	{
-		memcpy(Uart6_Str.Uart_SentBuff, Sendbuff, l_val);
-	}
-	ret = HAL_UART_Transision_DMA(&huart6, Uart6_Str.Uart_SentBuff, l_val);
-	return l_val;
+	ret = HAL_UART_Transmission(&huart3, Sendbuff, Bufflens);
+	return ret;
 }
 /*
 *函数功能：serial port 3 reseive exit function
-*@NOTE:hdma_usart6_rx.Instance->NDTR为获取DMA中未传输的数据个数
+*@NOTE:hdma_usart3_rx.Instance->NDTR为获取DMA中未传输的数据个数
 */
-void IRQ_UART6_IRQHandler(void)
+void IRQ_UART3_IRQHandler(void)
 {
-	if(__HAL_UART_GET_FLAG(&huart6, UART_FLAG_IDLE) != RESET) //获取IDLE标志位 //idle标志被置位
+	if(__HAL_UART_GET_FLAG(&huart3, UART_FLAG_IDLE) != RESET) //获取IDLE标志位 //idle标志被置位
 	{
 		/* 清除状???寄存器和串口数据寄存器 */
-		__HAL_UART_CLEAR_IDLEFLAG(&huart6);
+		__HAL_UART_CLEAR_IDLEFLAG(&huart3);
 		/* 失能DMA接收 */
-		HAL_UART_DMAStop(&huart6);
-		Uart6_Str.Uart_RecvLens  = UART_BUFFSIZE -  hdma_usart6_rx.Instance->NDTR;; // 通过DMA接收指针计算接收的字节数
-		Uart6_Str.Receive_flag = 1;
-		HAL_UART_Receive_DMA(&huart6, Uart6_Str.Uart_RecvBuff, UART_BUFFSIZE);
-		__HAL_UART_CLEAR_IDLEFLAG(&huart6);
+		HAL_UART_DMAStop(&huart3);
+		Uart3_Str.Uart_RecvLens  = UART_BUFFSIZE -  hdma_usart3_rx.Instance->NDTR;; // 通过DMA接收指针计算接收的字节数
+		Uart3_Str.Receive_flag = 1;
+		HAL_UART_Receive_DMA(&huart3, Uart3_Str.Uart_RecvBuff, UART_BUFFSIZE);
+		__HAL_UART_CLEAR_IDLEFLAG(&huart3);
 	}
 }
 
@@ -133,9 +126,9 @@ short Get_Uart_Data(USART_TypeDef* Uartx,char * RcvBuff, short RevLen)
 	/* if(Uartx == USART2){
 		return(Uart_Receive_Data(&Uart2_Str, RcvBuff, RevLen));
 	}
-	else  */if(Uartx == USART6)
+	else  */if(Uartx == USART3)
 	{
-		return(Uart_Receive_Data(&Uart6_Str, RcvBuff, RevLen));
+		return(Uart_Receive_Data(&Uart3_Str, RcvBuff, RevLen));
 	}
 	return FALSE;
 }

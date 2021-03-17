@@ -137,7 +137,7 @@ int main(void)
   MX_TIM1_Init();
   MX_FSMC_Init();
   MX_I2S2_Init();
-  MX_USART6_UART_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */

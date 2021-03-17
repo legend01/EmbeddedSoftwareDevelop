@@ -2,7 +2,7 @@
  * @Description: RTC时钟 设置时间 获取时间
  * @Author: HLLI8
  * @Date: 2021-01-09 14:54:49
- * @LastEditTime: 2021-03-07 17:42:41
+ * @LastEditTime: 2021-03-17 22:23:37
  * @LastEditors: HLLI8
  */
 #include "app_rtc.h"
@@ -55,7 +55,7 @@ void RTC_Get_SysTime(void){
     
     sys_sprintf(OutPutInfo_Container.Time_Info, "20%02d-%02d-%02d_%02d:%02d:%02d>>>", RTC_DateStruct.Year, RTC_DateStruct.Month, RTC_DateStruct.Date, RTC_TimeStruct.Hours, RTC_TimeStruct.Minutes, RTC_TimeStruct.Seconds);
 
-    Uart6_DMA_Sent(OutPutInfo_Container.Time_Info, sizeof(OutPutInfo_Container.Time_Info)/sizeof(OutPutInfo_Container.Time_Info[0]));
+    Uart3_DMA_Sent(OutPutInfo_Container.Time_Info, sizeof(OutPutInfo_Container.Time_Info)/sizeof(OutPutInfo_Container.Time_Info[0]));
 }
 
 //设置闹钟时间(按星期闹铃,24小时制)

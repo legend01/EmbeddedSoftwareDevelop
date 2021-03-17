@@ -184,7 +184,7 @@ void StartDefaultTask(void const * argument)
   Hal_TimStart_Init();
   // TPAD_Init();
   usmart_init();
-  Uart6_DMA_Init();
+  Uart3_DMA_Init();
   RTC_WakeUp_Init();
   Ringbuff_init();
   CAN_Filter_Config();
