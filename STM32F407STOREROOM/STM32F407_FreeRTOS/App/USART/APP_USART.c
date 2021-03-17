@@ -9,11 +9,6 @@ UART_STR   Uart1_Str,Uart3_Str;
 static void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
   huart->gState = HAL_UART_STATE_READY;
 }
-static int HAL_UART_Transmission_DMA(UART_HandleTypeDef *huart, char* buf, short buf_size){
-  int ret = HAL_UART_Transmit_DMA(huart, (uint8_t*)buf, buf_size);
-  HAL_UART_TxCpltCallback(huart);
-  return ret;
-}
 
 static int HAL_UART_Transmission(UART_HandleTypeDef *huart, char* buf, short buf_size){
 	int ret = HAL_UART_Transmit(huart, (uint8_t*)buf, buf_size, 0xffffff);
@@ -29,23 +24,10 @@ static int HAL_UART_Transmission(UART_HandleTypeDef *huart, char* buf, short buf
 */
 short Uart1_DMA_Sent(char * Sendbuff, short Bufflens)
 {
- /**
-  * @description: TODO:可以利用FreeRTOS中的Queue函数利用生产者和消费者模型
-  */   
+	uint8_t ret = 0;
  	assert(*Sendbuff != NULL);
-	short l_val = Bufflens > UART_BUFFSIZE ? UART_BUFFSIZE : Bufflens;
-	int ret = 0x00;
-	if(Bufflens <= 0)
-	{
-		return 0;
-	}
-	while(__HAL_DMA_GET_COUNTER(&hdma_usart1_tx));
-	if(Sendbuff)
-	{
-		memcpy(Uart1_Str.Uart_SentBuff, Sendbuff, l_val);
-	}
-	ret = HAL_UART_Transmission_DMA(&huart1, Uart1_Str.Uart_SentBuff, l_val);
-	return l_val;
+	ret = HAL_UART_Transmission(&huart1, Sendbuff, Bufflens);
+	return ret;
 }
 /**
  * @description: 串口3初始化
