@@ -106,6 +106,11 @@ const HvProcess_StateInfoType HvProcess_BmsComConfig_InfoConfig[] = {/*4*/
         (u16)HVPROCESS_BMSCOM_CHARGE, /**< Next: 下一状态 */ /* 进入充电阶段 */
     },
     {
+        HvProcess_RecvCRO0xFFCond, /**< Cond: 条件函数指针 */
+        HvProcess_RecvCRO0xFFAction, /**< Action: 动作函数指针 */
+        (u16)HVPROCESS_BMSCOM_START, /**< Next: 下一状态 */ /* 接收到CRO报文为0xff 充电机不允许充电 进入初始状态 */
+    },
+    {
         HvProcess_RecvCRO0xAATimeout, /**< Cond: 条件函数指针 */
         HvProcess_RecvCRO0xAATimeoutAction, /**< Action: 动作函数指针 */ /* 充电时序结束 故障级别3 error */
         (u16)HVPROCESS_BMSCOM_TIMEOUT, /**< Next: 下一状态 */

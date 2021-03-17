@@ -3,7 +3,7 @@
  * @Autor: lihelin
  * @Date: 2021-02-24 09:20:34
  * @LastEditors: HLLI8
- * @LastEditTime: 2021-03-16 10:08:01
+ * @LastEditTime: 2021-03-17 10:39:50
  */
 #include "HvProcess_Chg.h"
 #include "HvProcess_BmsCom.h"
@@ -145,6 +145,24 @@ bool HvProcess_InsulationTestCond(void){
 
 void HvProcess_InsulationTestAction(void){
     /* TODO:绝缘测试响应操作 */
+}
+
+bool HvProcess_JudgeChargeReadyCond(void){
+    bool res = false;
+    if (HvProcess_BmsComChargeNotReadyStatus())
+    {
+        res = true;
+    }
+    return res;
+}
+
+bool HvProcess_WaitChgPrepareCond(void){
+    bool res = false;
+    if (HvProcess_BmsComChargePrepareStatus())
+    {
+        res = true;
+    }
+    return res;
 }
 
 bool HvProcess_ChargeEnableCond(void){

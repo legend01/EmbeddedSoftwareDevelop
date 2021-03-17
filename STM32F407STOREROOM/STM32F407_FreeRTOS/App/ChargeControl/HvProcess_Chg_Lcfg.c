@@ -42,10 +42,20 @@ const HvProcess_StateInfoType HvProcess_InsulationTest_InfoConfig[] = {  //3
         HvProcess_ChgFaultAction, /**< Action: 动作函数指针 */
         (u16)HVPROCESS_CHG_STOP_CHARGING, /**< Next: 下一状态 *//**/
     },
+    {
+        HvProcess_JudgeChargeReadyCond, /**< Cond: 条件函数指针 */
+        NULL, /**< Action: 动作函数指针 */
+        (u16)HVPROCESS_CHG_SELFTEST, /**< Next: 下一状态 */
+    },
     /*******************************分割线************************************/
     {
         HvProcess_InsulationTestCond, /**< Cond: 条件函数指针 */ 
         HvProcess_InsulationTestAction, /**< Action: 动作函数指针 */
+        (u16)HVPROCESS_CHG_INSULATION_TEST_GET, /**< Next: 下一状态 */
+    },
+    {
+        HvProcess_WaitChgPrepareCond, /**< Cond: 条件函数指针 */ 
+        NULL, /**< Action: 动作函数指针 */
         (u16)HVPROCESS_CHG_CHARGING, /**< Next: 下一状态 */
     },
 };

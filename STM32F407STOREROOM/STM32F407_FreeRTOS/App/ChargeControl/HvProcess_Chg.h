@@ -3,7 +3,7 @@
  * @Autor: lihelin
  * @Date: 2021-02-24 09:20:34
  * @LastEditors: HLLI8
- * @LastEditTime: 2021-03-15 15:06:12
+ * @LastEditTime: 2021-03-17 10:38:52
  */
 /**
  * \addtogroup HvProcess 高压流程控制
@@ -103,6 +103,8 @@ bool HvProcess_CurrentBelow5A(void);
 void HvProcess_OpenK5K6(void);
 bool HvProcess_Wait1SCond(void);
 void HvProcess_SysSleep(void);
+bool HvProcess_JudgeChargeReadyCond(void);
+bool HvProcess_WaitChgPrepareCond(void);
 
 
 void HvProcess_Start_Insulation_test_Init(void);

@@ -420,6 +420,18 @@ bool HvProcess_RecvCRO0xAACond(void){
     return res;
 }
 
+bool HvProcess_RecvCRO0xFFCond(void){
+    bool res = false;
+    if(Rcv_CRO.ChargeReadyOrNot == 0xFF){ /* 充电机发送无效 不允许充电 */
+        res = true;
+    }
+    return res;
+}
+
+void HvProcess_RecvCRO0xFFAction(void){
+    HvProcess_BmsComInnerData.Flag.RecvCRO_0xFF = true;
+}
+
 bool HvProcess_RecvCRO0xAATimeout(void){
     bool res = false;
     static u32 lastime = 0;
@@ -936,6 +948,7 @@ void HvProcess_BmsComConfig_Init(void)
     HvProcess_BmsComInnerData.ChargeFlag.SendBRO_0xAA = false;
     HvProcess_BmsComInnerData.ChargeFlag.CMLIsWrong = false;
     HvProcess_BmsComInnerData.ChargeFlag.SendBRO_0x00 = false;
+    HvProcess_BmsComInnerData.Flag.RecvCRO_0xFF = false;
     HvProcess_BmsComInnerData.ErrorType = HVPROCESS_NOERROR;
 }
 
@@ -985,4 +998,16 @@ bool HvProcess_BmsComChargeAllowStatus(void){
 
 HvProcess_BmsComStateType HvProcess_BmsComState(void){
     return HvProcess_BmsComInnerData.State;
+}
+
+bool HvProcess_BmsComChargeNotReadyStatus(void){
+    return HvProcess_BmsComInnerData.Flag.RecvCRO_0xFF;
+}
+
+bool HvProcess_BmsComChargePrepareStatus(void){
+    if(HvProcess_BmsComInnerData.Flag.RecvCRO_0xAA == true && HvProcess_BmsComInnerData.ChargeFlag.SendBRO_0xAA == true){
+        return true;
+    }else{
+        return false;
+    }
 }

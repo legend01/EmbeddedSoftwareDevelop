@@ -54,6 +54,7 @@ typedef __packed struct{
     bool RecvCML;
     bool RecvCTS;
     bool RecvCRO_0xAA;
+    bool RecvCRO_0xFF;
     bool RecvCCS;
     bool RecvCST;
     bool RecvCSTConfirm;
@@ -121,6 +122,10 @@ void HvProcess_CMLIsWrongAction(void);
 bool HvProcess_RecvCROCond(void);
 void HvProcess_RecvCROAction(void);
 bool HvProcess_RecvCRO0xAACond(void);
+
+bool HvProcess_RecvCRO0xFFCond(void);
+void HvProcess_RecvCRO0xFFAction(void);
+
 bool HvProcess_RecvCRO0xAATimeout(void);
 void HvProcess_RecvCRO0xAATimeoutAction(void);
 bool HvProcess_SendBCLCond(void);
@@ -198,6 +203,8 @@ bool HvProcess_BmsComChargeState(void);
 HvProcess_BmsComErrorType HvProcess_GetBmsComErrorState(void);
 bool HvProcess_BmsComChargeAllowStatus(void);
 HvProcess_BmsComStateType HvProcess_BmsComState(void);
+bool HvProcess_BmsComChargeNotReadyStatus(void);
+bool HvProcess_BmsComChargePrepareStatus(void);
 /* ************************************************************************ */
 #endif
 
