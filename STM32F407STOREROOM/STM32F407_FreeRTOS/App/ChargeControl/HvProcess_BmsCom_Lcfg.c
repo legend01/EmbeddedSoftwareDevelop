@@ -70,7 +70,12 @@ const HvProcess_StateInfoType HvProcess_BmsComSendBCP_InfoConfig[] = { //3
     {
         HvProcess_RecvCMLCond, /**< Cond: 条件函数指针 */
         HvProcess_RecvCMLAction, /**< Action: 动作函数指针 */
-        (u16)HVPROCESS_BMSCOM_CONFIG, /**< Next: 下一状态 */   
+        (u16)HVPROCESS_BMSCOM_SEND_BCP, /**< Next: 下一状态 */   
+    },
+    {
+        HvProcess_RcvCTSCMLTransitionCond, /**< Cond: 条件函数指针 */
+        HvProcess_RcvCTSCMLTransitionAction, /**< Action: 动作函数指针 */
+        (u16)HVPROCESS_BMSCOM_CONFIG, /**< Next: 下一状态 */
     },
 };
 
@@ -80,16 +85,16 @@ const HvProcess_StateInfoType HvProcess_BmsComConfig_InfoConfig[] = {/*4*/
         HvProcess_SendBROAction, /**< Action: 动作函数指针 *//*发送报文*/
         (u16)HVPROCESS_BMSCOM_CONFIG, /**< Next: 下一状态 */
     },
-    {
-        HvProcess_TimeSynCond, /**< Cond: 条件函数指针 */ /* 处理CTS报文 进行时间同步处理 */
-        HvProcess_TimeSynAction, /**< Action: 动作函数指针 */ 
-        (u16)HVPROCESS_BMSCOM_CONFIG, /**< Next: 下一状态 */
-    },
-    {
-        HvProcess_CMLIsWrongCond, /**< Cond: 条件函数指针 */ /*CML参数不合适*/
-        HvProcess_CMLIsWrongAction, /**< Action: 动作函数指针 *//*故障级别3 ，todo*/
-        (u16)HVPROCESS_BMSCOM_CONFIG, /**< Next: 下一状态 */   
-    },
+    // {
+    //     HvProcess_TimeSynCond, /**< Cond: 条件函数指针 */ /* 处理CTS报文 进行时间同步处理 */
+    //     HvProcess_TimeSynAction, /**< Action: 动作函数指针 */ 
+    //     (u16)HVPROCESS_BMSCOM_CONFIG, /**< Next: 下一状态 */
+    // },
+    // {
+    //     HvProcess_CMLIsWrongCond, /**< Cond: 条件函数指针 */ /*CML参数不合适*/
+    //     HvProcess_CMLIsWrongAction, /**< Action: 动作函数指针 *//*故障级别3 ，todo*/
+    //     (u16)HVPROCESS_BMSCOM_CONFIG, /**< Next: 下一状态 */   
+    // },
     {
         HvProcess_RecvCROCond, /**< Cond: 条件函数指针 */
         HvProcess_RecvCROAction, /**< Action: 动作函数指针 */
@@ -103,11 +108,6 @@ const HvProcess_StateInfoType HvProcess_BmsComConfig_InfoConfig[] = {/*4*/
     {
         HvProcess_RecvCRO0xAATimeout, /**< Cond: 条件函数指针 */
         HvProcess_RecvCRO0xAATimeoutAction, /**< Action: 动作函数指针 */ /* 充电时序结束 故障级别3 error */
-        (u16)HVPROCESS_BMSCOM_TIMEOUT, /**< Next: 下一状态 */
-    },
-    {
-        HvProcess_60STimeoutCond, /**< Cond: 条件函数指针 *//*60s未收到CRO(0xAA)报文，即在此状态停留超过60S*/
-        HvProcess_ChgFaultAction, /**< Action: 动作函数指针 *//*充电时序结束 故障级别3 error */
         (u16)HVPROCESS_BMSCOM_TIMEOUT, /**< Next: 下一状态 */
     },
 };

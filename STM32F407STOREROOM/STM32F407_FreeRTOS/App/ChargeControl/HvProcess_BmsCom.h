@@ -131,6 +131,10 @@ bool HvProcess_SendBCPCond(void);
 void HvProcess_SendBCPAction(void);
 bool HvProcess_RecvCMLCond(void);
 void HvProcess_RecvCMLAction(void);
+
+bool HvProcess_RcvCTSCMLTransitionCond(void);
+void HvProcess_RcvCTSCMLTransitionAction(void);
+
 bool HvProcess_RecvCTSCond(void);
 void HvProcess_RecvCTSAction(void);
 bool HvProcess_RecvCRM0x00Cond(void);
@@ -139,7 +143,6 @@ void  HvProcess_RecvCHMTimeOutAction(void);
 bool HvProcess_RecvCRM0xAATimeoutCond(void);
 void HvProcess_RecvCRM0xAATimeoutAction(void);
 void HvProcess_LowPowerOnAction(void);
-bool HvProcess_60STimeoutCond(void);
 bool HvProcess_ReceiveCSDTimeoutCond(void);
 void HvProcess_SendBRMAction(void);
 void HvProcess_ReceiveCRM0x00Action(void);

@@ -281,10 +281,10 @@ bool HvProcess_RecvCMLCond(void){
             Rcv_CML.MaxOutputVol_H = BMSmanager.messageData[1];
             Rcv_CML.MinOutputVol_L = BMSmanager.messageData[2];
             Rcv_CML.MinOutputVol_H = BMSmanager.messageData[3];
-            Rcv_CML.MaxOutputI_L = BMSmanager.messageData[4];
-            Rcv_CML.MaxOutputI_H = BMSmanager.messageData[5];
-            Rcv_CML.MinOutputI_L = BMSmanager.messageData[6];
-            Rcv_CML.MinOutputI_H = BMSmanager.messageData[7];
+            Rcv_CML.MaxOutputI_L = 4000 - BMSmanager.messageData[4];
+            Rcv_CML.MaxOutputI_H = 4000 - BMSmanager.messageData[5];
+            Rcv_CML.MinOutputI_L = 4000 - BMSmanager.messageData[6];
+            Rcv_CML.MinOutputI_H = 4000 - BMSmanager.messageData[7];
 
             Getmsglen = 0;
             res = true;
@@ -295,6 +295,19 @@ bool HvProcess_RecvCMLCond(void){
 
 void HvProcess_RecvCMLAction(void){
     HvProcess_BmsComInnerData.Flag.RecvCML = true;
+}
+
+bool HvProcess_RcvCTSCMLTransitionCond(void){
+    bool res = false;
+    if (HvProcess_BmsComInnerData.Flag.RecvCML && HvProcess_BmsComInnerData.Flag.RecvCTS)
+    {
+        res = true;
+    }
+    return res;
+}
+
+void HvProcess_RcvCTSCMLTransitionAction(void){
+
 }
 
 bool HvProcess_SendBROCond(void)
