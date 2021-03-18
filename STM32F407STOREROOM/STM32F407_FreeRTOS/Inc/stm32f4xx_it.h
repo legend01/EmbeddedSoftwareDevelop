@@ -76,6 +76,7 @@ void TIM7_IRQHandler(void);
 void DMA2_Stream0_IRQHandler(void);
 void DMA2_Stream2_IRQHandler(void);
 void DMA2_Stream4_IRQHandler(void);
+void ETH_IRQHandler(void);
 void HASH_RNG_IRQHandler(void);
 
 #ifdef __cplusplus

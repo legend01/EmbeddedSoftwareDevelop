@@ -55,6 +55,7 @@
 #include "dac.h"
 #include "dma.h"
 #include "i2s.h"
+#include "lwip.h"
 #include "rng.h"
 #include "rtc.h"
 #include "tim.h"
