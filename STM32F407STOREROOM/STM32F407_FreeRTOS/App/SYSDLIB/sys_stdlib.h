@@ -17,7 +17,7 @@
  ********************************************************************/
 #define UNIX_DEBUG
 
-#define u16_t unsigned int
+// #define u16_t unsigned int
 #define NULL 0
 #define TRUE 1
 #define FALSE 0
@@ -34,7 +34,7 @@ unsigned long int sys_strcasecmp (const unsigned char *, const unsigned char *);
 
 unsigned long int sys_strncasecmp (const unsigned char *, const unsigned char *, unsigned long int);
 
-unsigned long int strtoul (unsigned char *, unsigned char **, short int );
+unsigned long int sys_strtoul (unsigned char *, unsigned char **, short int );
 
 unsigned long int sys_strlen (const unsigned char *);
 
@@ -60,7 +60,7 @@ void * memcpy (void *, const void *, unsigned);
 
 void * sys_memset (void *, unsigned long int, unsigned);
 
-u16_t atoi_my(const unsigned char * str);
+unsigned int atoi_my(const unsigned char * str);
 
 /********************************************************************/
 /********************************************************************/

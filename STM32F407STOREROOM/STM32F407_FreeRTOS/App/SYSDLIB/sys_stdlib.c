@@ -125,7 +125,7 @@ unsigned long int sys_strncasecmp (const unsigned char *s1, const unsigned char 
 			字符指针由ptr返回。
 	@retval:返回转换后的长整型数，否则返回ERANGE并将错误代码存入errno中。
 */
-unsigned long int strtoul (unsigned char *str, unsigned char **ptr, short int base)
+unsigned long int sys_strtoul (unsigned char *str, unsigned char **ptr, short int base)
 {
     unsigned long int rvalue;
     unsigned long int c, err, neg;
@@ -311,9 +311,9 @@ unsigned char * sys_strncat (unsigned char *dest, const unsigned char *src, unsi
 	@NOTICE:每个函数返回 int 值，此值由将输入字符作为数字解析而生成。 
 			如果该输入无法转换为该类型的值，则atoi的返回值为 0。
 */
-u16_t atoi_my(const unsigned char *str)
+unsigned int atoi_my(const unsigned char *str)
 {
-	u16_t s = 0;
+	unsigned int s = 0;
 	unsigned long int flag = FALSE;
 
 	while(*str == ' ')
