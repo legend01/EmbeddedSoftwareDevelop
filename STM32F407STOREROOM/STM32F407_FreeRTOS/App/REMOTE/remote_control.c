@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-02-21 19:16:05
- * @LastEditTime: 2021-02-21 19:32:02
+ * @LastEditTime: 2021-03-20 11:45:55
  * @LastEditors: HLLI8
  */
 #include "remote_control.h"
@@ -10,6 +10,7 @@
 #include "log_printf.h"
 #include "beep.h"
 #include "pwm.h"
+#include "lwip_comm.h"
 
 void Remote_control(void){
     uint8_t sta = 0;
@@ -42,5 +43,8 @@ void Remote_control(void){
     }
     if(sta != 0){
         LOG_PRINTF("REMOTE Light Recognize: %s \r\n", str);
+        ExternalConditionJudgeUseDHCP(OPEN);
+    }else{
+        ExternalConditionJudgeUseDHCP(CLOSE);
     }
 }
