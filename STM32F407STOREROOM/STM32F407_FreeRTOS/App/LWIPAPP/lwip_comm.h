@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-19 22:24:49
- * @LastEditTime: 2021-03-20 12:23:00
+ * @LastEditTime: 2021-03-21 10:13:01
  * @LastEditors: HLLI8
  */
 #ifndef __LWIP_COMM_H__
@@ -47,5 +47,13 @@ typedef struct
 }__lwip_dhcp;
 extern __lwip_dhcp lwip_dhcp;
 
+void lwip_periodic_handle(void);
+void lwip_dhcp_process_handle(void);
+
 void ExternalConditionJudgeUseDHCP(LWIP_ENU opt);
+
+u8 lwip_comm_init(void);
+void lwip_dhcp_process(void);
+void lwip_net_inf(void);
+
 #endif // !__LWIP_COMM_H__

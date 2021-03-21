@@ -76,6 +76,7 @@
 #include "remote_control.h"
 #include "XMRAM.h"
 #include "BMS_BMS.h"
+#include "lwip_comm.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -196,6 +197,15 @@ void StartDefaultTask(void const * argument)
   uint16_t w25qxxID = W25QXX_ReadID();
   LOG_PRINTF("W25QXX ID:0x%x \r\n", w25qxxID);
   XmRamInit(); /* 初始化XMRAM */
+
+  while (lwip_comm_init())
+  {
+    LOG_PRINTF("LWIP Init Falied \r\n");
+    delay_ms(500);
+    LOG_PRINTF("Retrying ...\r\n");
+  }
+  lwip_dhcp_process();
+
   for (;;)
   {
     char receive_buf[200];

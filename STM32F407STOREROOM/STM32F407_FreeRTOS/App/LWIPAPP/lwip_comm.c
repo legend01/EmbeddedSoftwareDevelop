@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-19 22:07:40
- * @LastEditTime: 2021-03-20 13:03:31
+ * @LastEditTime: 2021-03-21 10:09:33
  * @LastEditors: HLLI8
  */
 #include "lwip_comm.h"
@@ -11,9 +11,13 @@
 #include "ethernetif.h"
 #include "tcpip.h"
 #include "lwip.h"
+#include "lan8720.h"
 
 __lwip_dev lwipdev;						//lwip控制结构体 
 __lwip_dhcp lwip_dhcp; /* 开启DHCP服务结构体 */
+
+__IO u32 DHCPfineTimer = 0; //DHCP精细处理计时器
+__IO u32 DHCPcoarseTimer = 0; //DHCP粗糙处理计时器
 
 //lwip 默认IP设置
 //lwipx:lwip控制结构体指针
@@ -90,10 +94,10 @@ u8 lwip_comm_init(void){
 		IP4_ADDR(&ipaddr,lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);
 		IP4_ADDR(&netmask,lwipdev.conf_netmask[0],lwipdev.conf_netmask[1] ,lwipdev.conf_netmask[2],lwipdev.conf_netmask[3]);
 		IP4_ADDR(&gw,lwipdev.gateway[0],lwipdev.gateway[1],lwipdev.gateway[2],lwipdev.gateway[3]);
-		printf("网卡en的MAC地址为:................%d.%d.%d.%d.%d.%d\r\n",lwipdev.mac[0],lwipdev.mac[1],lwipdev.mac[2],lwipdev.mac[3],lwipdev.mac[4],lwipdev.mac[5]);
-		printf("静态IP地址........................%d.%d.%d.%d\r\n",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);
-		printf("子网掩码..........................%d.%d.%d.%d\r\n",lwipdev.conf_netmask[0],lwipdev.conf_netmask[1],lwipdev.conf_netmask[2],lwipdev.conf_netmask[3]);
-		printf("默认网关..........................%d.%d.%d.%d\r\n",lwipdev.gateway[0],lwipdev.gateway[1],lwipdev.gateway[2],lwipdev.gateway[3]);
+		LOG_PRINTF("网卡en的MAC地址为:................%d.%d.%d.%d.%d.%d\r\n",lwipdev.mac[0],lwipdev.mac[1],lwipdev.mac[2],lwipdev.mac[3],lwipdev.mac[4],lwipdev.mac[5]);
+		LOG_PRINTF("静态IP地址........................%d.%d.%d.%d\r\n",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);
+		LOG_PRINTF("子网掩码..........................%d.%d.%d.%d\r\n",lwipdev.conf_netmask[0],lwipdev.conf_netmask[1],lwipdev.conf_netmask[2],lwipdev.conf_netmask[3]);
+		LOG_PRINTF("默认网关..........................%d.%d.%d.%d\r\n",lwipdev.gateway[0],lwipdev.gateway[1],lwipdev.gateway[2],lwipdev.gateway[3]);
 	}
 	Netif_Init_Flag = netif_add(&gnetif, &ipaddr, &netmask, &gw, NULL, &ethernetif_init, &tcpip_input); //向网卡列表中添加一个网口
 	
@@ -107,4 +111,115 @@ u8 lwip_comm_init(void){
 		netif_set_up(&gnetif); //打开netif网口
 	}
 	return SUCCESS;
+}
+
+void lwip_dhcp_process(void){
+	if (lwip_dhcp.useDHCPorNot)
+	{
+		while ((lwipdev.dhcpstatus != GET_ADDR_SUCCESS) && (lwipdev.dhcpstatus != GET_ADDR_FAILD))
+		{
+			lwip_periodic_handle(); //定时处理函数
+		}
+	}
+}
+
+//LWIP轮询任务
+void lwip_periodic_handle(void)
+{
+	if (lwip_dhcp.useDHCPorNot)
+	{
+		//每500ms调用一次dhcp_fine_tmr()
+		if (sys_now() - DHCPfineTimer >= DHCP_FINE_TIMER_MSECS)
+		{
+			DHCPfineTimer =  sys_now();
+			dhcp_fine_tmr();
+			if ((lwipdev.dhcpstatus != 2)&&(lwipdev.dhcpstatus != 0XFF))
+			{ 
+			lwip_dhcp_process_handle();  //DHCP处理
+			}
+		}
+
+		//每60s执行一次DHCP粗糙处理
+		if (sys_now() - DHCPcoarseTimer >= DHCP_COARSE_TIMER_MSECS)
+		{
+			DHCPcoarseTimer =  sys_now();
+			dhcp_coarse_tmr();
+		}  
+	}
+}
+
+//DHCP处理任务
+void lwip_dhcp_process_handle(void)
+{
+	u32 ip=0,netmask=0,gw=0;
+	switch(lwipdev.dhcpstatus)
+	{
+		case 0: 	//开启DHCP
+			dhcp_start(&gnetif);
+			lwipdev.dhcpstatus = 1;		//等待通过DHCP获取到的地址
+			LOG_PRINTF("正在查找DHCP服务器,请稍等...........\r\n");  
+			break;
+		case 1:		//等待获取到IP地址
+		{
+			ip=gnetif.ip_addr.addr;		//读取新IP地址
+			netmask=gnetif.netmask.addr;//读取子网掩码
+			gw=gnetif.gw.addr;			//读取默认网关 
+			
+			if(ip!=0)			//正确获取到IP地址的时候
+			{
+				lwipdev.dhcpstatus=2;	//DHCP成功
+				LOG_PRINTF("网卡en的MAC地址为:................%d.%d.%d.%d.%d.%d\r\n",lwipdev.mac[0],lwipdev.mac[1],lwipdev.mac[2],lwipdev.mac[3],lwipdev.mac[4],lwipdev.mac[5]);
+				//解析出通过DHCP获取到的IP地址
+				lwipdev.ip[3]=(uint8_t)(ip>>24); 
+				lwipdev.ip[2]=(uint8_t)(ip>>16);
+				lwipdev.ip[1]=(uint8_t)(ip>>8);
+				lwipdev.ip[0]=(uint8_t)(ip);
+				LOG_PRINTF("通过DHCP获取到IP地址..............%d.%d.%d.%d\r\n",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);
+				//解析通过DHCP获取到的子网掩码地址
+				lwipdev.conf_netmask[3]=(uint8_t)(netmask>>24);
+				lwipdev.conf_netmask[2]=(uint8_t)(netmask>>16);
+				lwipdev.conf_netmask[1]=(uint8_t)(netmask>>8);
+				lwipdev.conf_netmask[0]=(uint8_t)(netmask);
+				LOG_PRINTF("通过DHCP获取到子网掩码............%d.%d.%d.%d\r\n",lwipdev.conf_netmask[0],lwipdev.conf_netmask[1],lwipdev.conf_netmask[2],lwipdev.conf_netmask[3]);
+				//解析出通过DHCP获取到的默认网关
+				lwipdev.gateway[3]=(uint8_t)(gw>>24);
+				lwipdev.gateway[2]=(uint8_t)(gw>>16);
+				lwipdev.gateway[1]=(uint8_t)(gw>>8);
+				lwipdev.gateway[0]=(uint8_t)(gw);
+				LOG_PRINTF("通过DHCP获取到的默认网关..........%d.%d.%d.%d\r\n",lwipdev.gateway[0],lwipdev.gateway[1],lwipdev.gateway[2],lwipdev.gateway[3]);
+			}else if(netif_dhcp_data(&gnetif)->tries>LWIP_MAX_DHCP_TRIES) //通过DHCP服务获取IP地址失败,且超过最大尝试次数
+			{
+				lwipdev.dhcpstatus=0XFF;//DHCP超时失败.
+				//使用静态IP地址
+				IP4_ADDR(&(gnetif.ip_addr),lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);
+				IP4_ADDR(&(gnetif.netmask),lwipdev.conf_netmask[0],lwipdev.conf_netmask[1],lwipdev.conf_netmask[2],lwipdev.conf_netmask[3]);
+				IP4_ADDR(&(gnetif.gw),lwipdev.gateway[0],lwipdev.gateway[1],lwipdev.gateway[2],lwipdev.gateway[3]);
+				LOG_PRINTF("DHCP服务超时,使用静态IP地址!\r\n");
+				LOG_PRINTF("网卡en的MAC地址为:................%d.%d.%d.%d.%d.%d\r\n",lwipdev.mac[0],lwipdev.mac[1],lwipdev.mac[2],lwipdev.mac[3],lwipdev.mac[4],lwipdev.mac[5]);
+				LOG_PRINTF("静态IP地址........................%d.%d.%d.%d\r\n",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);
+				LOG_PRINTF("子网掩码..........................%d.%d.%d.%d\r\n",lwipdev.conf_netmask[0],lwipdev.conf_netmask[1],lwipdev.conf_netmask[2],lwipdev.conf_netmask[3]);
+				LOG_PRINTF("默认网关..........................%d.%d.%d.%d\r\n",lwipdev.gateway[0],lwipdev.gateway[1],lwipdev.gateway[2],lwipdev.gateway[3]);
+			}
+		}
+		break;
+		default : break;
+	}
+}
+
+void lwip_net_inf(void){
+	u8 speed = 0;
+	if (lwipdev.dhcpstatus == GET_ADDR_SUCCESS)
+	{
+		LOG_PRINTF("DHCP IP:%d.%d.%d.%d \r\n", lwipdev.ip[0], lwipdev.ip[1], lwipdev.ip[2], lwipdev.ip[3]);
+	}else{
+		LOG_PRINTF("Static IP:%d.%d.%d.%d \r\n", lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);
+	}
+	speed = LAN8720_Get_Speed(); /* 获取网速 */
+	if (speed&1 << 1)
+	{
+		LOG_PRINTF("Ethernet Speed: 100M \r\n");
+	}else{
+		LOG_PRINTF("Ethernet Speed: 10M \r\n");
+	}
+	
 }
