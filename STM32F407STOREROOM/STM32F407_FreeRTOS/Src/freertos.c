@@ -195,6 +195,7 @@ void StartDefaultTask(void const * argument)
   // TPAD_Init();
   usmart_init();
   Uart3_DMA_Init();
+  Uart4_DMA_Init();
   RTC_WakeUp_Init();
   Ringbuff_init();
   CAN_Filter_Config();

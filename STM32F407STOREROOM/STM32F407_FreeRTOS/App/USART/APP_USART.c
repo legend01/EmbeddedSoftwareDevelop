@@ -4,7 +4,7 @@
 #include "stdio.h"
 #include "assert.h"
 
-UART_STR   Uart1_Str,Uart3_Str;  
+UART_STR   Uart1_Str,Uart3_Str,Uart4_Str;  
 
 static void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
   huart->gState = HAL_UART_STATE_READY;
@@ -70,7 +70,46 @@ void IRQ_UART3_IRQHandler(void)
 		__HAL_UART_CLEAR_IDLEFLAG(&huart3);
 	}
 }
-
+/**
+ * @description: 串口4初始化
+ * @param {*}
+ * !_DMA接收函数，此句一定要加，不加接收不到第一次传进来的实数据，是空的，且此时接收到的数据长度为缓存器的数据长度
+ */
+void Uart4_DMA_Init(void){
+	HAL_UART_Receive_DMA(&huart4, Uart4_Str.Uart_RecvBuff, UART_BUFFSIZE);
+}
+/*
+函数功能：Uart4DMA data send
+函数形参：Sendbuff ：data send buffer
+          Bufflens: data length
+函数返回值：数据长度
+备注：无
+*/
+short Uart4_DMA_Sent(char * Sendbuff, short Bufflens)
+{ 	
+	uint8_t ret = 0;
+ 	assert(*Sendbuff != NULL);
+	ret = HAL_UART_Transmission(&huart4, Sendbuff, Bufflens);
+	return ret;
+}
+/*
+*函数功能：serial port 4 reseive exit function
+*@NOTE:hdma_usart4_rx.Instance->NDTR为获取DMA中未传输的数据个数
+*/
+void IRQ_UART4_IRQHandler(void)
+{
+	if(__HAL_UART_GET_FLAG(&huart4, UART_FLAG_IDLE) != RESET) //获取IDLE标志位 //idle标志被置位
+	{
+		/* 清除状???寄存器和串口数据寄存器 */
+		__HAL_UART_CLEAR_IDLEFLAG(&huart4);
+		/* 失能DMA接收 */
+		HAL_UART_DMAStop(&huart4);
+		Uart4_Str.Uart_RecvLens  = UART_BUFFSIZE -  hdma_uart4_rx.Instance->NDTR;; // 通过DMA接收指针计算接收的字节数
+		Uart4_Str.Receive_flag = 1;
+		HAL_UART_Receive_DMA(&huart4, Uart4_Str.Uart_RecvBuff, UART_BUFFSIZE);
+		__HAL_UART_CLEAR_IDLEFLAG(&huart4);
+	}
+}
 /*
 函数功能：receive data functions
 函数形参???????* Uart_Str ??????? 串口数据缓冲结构地址

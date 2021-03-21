@@ -101,6 +101,10 @@
 #define CAN1_RX_GPIO_Port GPIOA
 #define CAN1_TX_Pin GPIO_PIN_12
 #define CAN1_TX_GPIO_Port GPIOA
+#define UART4_TX_Pin GPIO_PIN_10
+#define UART4_TX_GPIO_Port GPIOC
+#define UART4_RX_Pin GPIO_PIN_11
+#define UART4_RX_GPIO_Port GPIOC
 #define SPI1_SCK_Pin GPIO_PIN_3
 #define SPI1_SCK_GPIO_Port GPIOB
 #define SPI1_MISO_Pin GPIO_PIN_4
