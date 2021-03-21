@@ -102,6 +102,7 @@ osThreadId defaultTaskHandle;
 osThreadId ThreadTask02Handle;
 osThreadId ThreadTask03Handle;
 osThreadId ThreadTask04Handle;
+osThreadId ThreadTask05Handle;
 osMessageQId USMARTQueueHandle;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -113,6 +114,7 @@ void StartDefaultTask(void const * argument);
 void USART1ManageFuc(void const * argument);
 void USMARTManageFuc(void const * argument);
 void J1939ManageFuc(void const * argument);
+void LwipManageFuc(void const * argument);
 
 extern void MX_LWIP_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -155,6 +157,10 @@ void MX_FREERTOS_Init(void) {
   /* definition and creation of ThreadTask04 */
   osThreadDef(ThreadTask04, J1939ManageFuc, osPriorityIdle, 0, 128);
   ThreadTask04Handle = osThreadCreate(osThread(ThreadTask04), NULL);
+
+  /* definition and creation of ThreadTask05 */
+  osThreadDef(ThreadTask05, LwipManageFuc, osPriorityIdle, 0, 128);
+  ThreadTask05Handle = osThreadCreate(osThread(ThreadTask05), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -292,6 +298,24 @@ void J1939ManageFuc(void const * argument)
     osDelay(1);
   }
   /* USER CODE END J1939ManageFuc */
+}
+
+/* USER CODE BEGIN Header_LwipManageFuc */
+/**
+* @brief Function implementing the myTask05 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_LwipManageFuc */
+void LwipManageFuc(void const * argument)
+{
+  /* USER CODE BEGIN LwipManageFuc */
+  /* Infinite loop */
+  for(;;)
+  {
+    osDelay(1);
+  }
+  /* USER CODE END LwipManageFuc */
 }
 
 /* Private application code --------------------------------------------------*/
