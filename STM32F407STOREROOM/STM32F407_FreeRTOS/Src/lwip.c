@@ -56,7 +56,8 @@
 #endif /* MDK ARM Compiler */
 
 /* USER CODE BEGIN 0 */
-
+#include "lwip_comm.h"
+#include "log_printf.h"
 /* USER CODE END 0 */
 /* Private function prototypes -----------------------------------------------*/
 /* ETH Variables initialization ----------------------------------------------*/
@@ -67,10 +68,10 @@ void _Error_Handler(char * file, int line);
 /* USER CODE END 1 */
 
 /* Variables Initialization */
-struct netif gnetif;
-ip4_addr_t ipaddr;
-ip4_addr_t netmask;
-ip4_addr_t gw;
+// struct netif gnetif;
+// ip4_addr_t ipaddr;
+// ip4_addr_t netmask;
+// ip4_addr_t gw;
 
 /* USER CODE BEGIN 2 */
 
@@ -85,29 +86,38 @@ void MX_LWIP_Init(void)
   tcpip_init( NULL, NULL );
 
   /* IP addresses initialization with DHCP (IPv4) */
-  ipaddr.addr = 0;
-  netmask.addr = 0;
-  gw.addr = 0;
+  // ipaddr.addr = 0;
+  // netmask.addr = 0;
+  // gw.addr = 0;
 
   /* add the network interface (IPv4/IPv6) with RTOS */
-  netif_add(&gnetif, &ipaddr, &netmask, &gw, NULL, &ethernetif_init, &tcpip_input);
+  // netif_add(&gnetif, &ipaddr, &netmask, &gw, NULL, &ethernetif_init, &tcpip_input);
 
   /* Registers the default network interface */
-  netif_set_default(&gnetif);
+  // netif_set_default(&gnetif);
 
-  if (netif_is_link_up(&gnetif))
+  // if (netif_is_link_up(&gnetif))
   {
     /* When the netif is fully configured this function must be called */
-    netif_set_up(&gnetif);
+    // netif_set_up(&gnetif);
   }
-  else
+  //else
   {
     /* When the netif link is down this function must be called */
-    netif_set_down(&gnetif);
+    // netif_set_down(&gnetif);
   }
 
-/* USER CODE BEGIN 3 */
+  /* Start DHCP negotiation for a network interface (IPv4) */
+  // dhcp_start(&gnetif);
 
+/* USER CODE BEGIN 3 */
+  while (!lwip_comm_init())
+  {
+    LOG_PRINTF("LWIP Init Falied \r\n");
+    delay_ms(500);
+    LOG_PRINTF("Retrying ...\r\n");
+  }
+  lwip_dhcp_process();
 /* USER CODE END 3 */
 }
 

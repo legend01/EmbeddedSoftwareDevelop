@@ -70,10 +70,10 @@
 #endif /* WITH_RTOS */
 
 /* USER CODE BEGIN 0 */
-extern struct netif gnetif;
-extern ip4_addr_t ipaddr;
-extern ip4_addr_t netmask;
-extern ip4_addr_t gw;
+// extern struct netif gnetif;
+// extern ip4_addr_t ipaddr;
+// extern ip4_addr_t netmask;
+// extern ip4_addr_t gw;
 /* USER CODE END 0 */
 
 /* Global Variables ----------------------------------------------------------*/
