@@ -77,6 +77,7 @@
 #include "XMRAM.h"
 #include "BMS_BMS.h"
 #include "lwip_comm.h"
+#include "tcp_client.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -187,10 +188,18 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void const * argument)
 {
   /* init code for LWIP */
-  MX_LWIP_Init();
+  // MX_LWIP_Init();
 
   /* USER CODE BEGIN StartDefaultTask */
   /* Infinite loop */
+  while (lwip_comm_init())
+  {
+    LOG_PRINTF("LWIP Init Falied \r\n");
+    delay_ms(500);
+    LOG_PRINTF("Retrying ...\r\n");
+  }
+  lwip_dhcp_process();
+  
   Hal_TimStart_Init();
   // TPAD_Init();
   usmart_init();
@@ -205,13 +214,6 @@ void StartDefaultTask(void const * argument)
   LOG_PRINTF("W25QXX ID:0x%x \r\n", w25qxxID);
   XmRamInit(); /* 初始化XMRAM */
 
-  while (lwip_comm_init())
-  {
-    LOG_PRINTF("LWIP Init Falied \r\n");
-    delay_ms(500);
-    LOG_PRINTF("Retrying ...\r\n");
-  }
-  lwip_dhcp_process();
 
   for (;;)
   {
@@ -311,9 +313,11 @@ void J1939ManageFuc(void const * argument)
 void LwipManageFuc(void const * argument)
 {
   /* USER CODE BEGIN LwipManageFuc */
+  tcp_client_connect_config();
   /* Infinite loop */
   for(;;)
   {
+    tcp_client_fun();
     osDelay(1);
   }
   /* USER CODE END LwipManageFuc */

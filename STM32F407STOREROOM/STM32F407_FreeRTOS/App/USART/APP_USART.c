@@ -159,9 +159,9 @@ int fputc(int ch, FILE *f)
 {
 	if(ch != NULL){
 		/* 发???一个字节数据到USART1 */
-		Uart1_DMA_Sent((uint8_t*)&ch, 1);
+		Uart4_DMA_Sent((uint8_t*)&ch, 1);
 		/* 等待发送完成 */
-		while (HAL_UART_GetState(&huart1) == HAL_UART_STATE_RESET);
+		while (HAL_UART_GetState(&huart4) == HAL_UART_STATE_RESET);
 	}
 	return (ch);
 }

@@ -2,7 +2,7 @@
  * @Description: 日志打印
  * @Author: HLLI8
  * @Date: 2021-01-09 16:46:53
- * @LastEditTime: 2021-03-21 11:41:37
+ * @LastEditTime: 2021-03-21 18:21:10
  * @LastEditors: HLLI8
  */
 #ifndef __LOG_PRINTF_H__
@@ -10,7 +10,7 @@
 #include "sys_stdlib.h"
 #define LOG_PRINTF(...) log_printf(__VA_ARGS__)
 #define USMART_RETURN(...) USMART_PRINT(__VA_ARGS__)
-#define LWIPMESSAGE_PRINTF(...) LWIP_PRINTF(__VA_ARGS__)
+#define LWIPMESSAGE_PRINTF(...) LWIP_PRINT(__VA_ARGS__)
 
 typedef struct{
     char SimpLog_Info[200];
