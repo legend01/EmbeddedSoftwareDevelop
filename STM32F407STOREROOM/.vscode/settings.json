@@ -9,6 +9,8 @@
         "log_printf.h": "c",
         "hvprocess_bmscom.h": "c",
         "bms_bms.h": "c",
-        "hvprocess_chg.h": "c"
+        "hvprocess_chg.h": "c",
+        "tcp_client.h": "c",
+        "lwip_comm.h": "c"
     }
 }

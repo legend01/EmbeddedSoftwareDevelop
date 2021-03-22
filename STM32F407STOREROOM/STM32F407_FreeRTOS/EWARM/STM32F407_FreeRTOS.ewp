@@ -409,6 +409,7 @@
           <state>$PROJ_DIR$/../Middlewares/Third_Party/LwIP/system/arch</state>
           <state>$PROJ_DIR$/../App/LAN8720/</state>
           <state>$PROJ_DIR$/../App/LWIPAPP/</state>
+          <state>$PROJ_DIR$/../App/TCPCLIENT/</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -1304,6 +1305,12 @@
         <name>SYSDLIB</name>
         <file>
           <name>$PROJ_DIR$\..\App\SYSDLIB\sys_stdlib.c</name>
+        </file>
+      </group>
+      <group>
+        <name>TCPCLIENT</name>
+        <file>
+          <name>$PROJ_DIR$\..\App\TCPCLIENT\tcp_client.c</name>
         </file>
       </group>
       <group>

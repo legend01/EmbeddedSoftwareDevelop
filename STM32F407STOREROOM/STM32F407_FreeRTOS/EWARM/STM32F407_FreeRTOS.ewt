@@ -1397,6 +1397,12 @@
                 </file>
             </group>
             <group>
+                <name>TCPCLIENT</name>
+                <file>
+                    <name>$PROJ_DIR$\..\App\TCPCLIENT\tcp_client.c</name>
+                </file>
+            </group>
+            <group>
                 <name>TPAD</name>
                 <file>
                     <name>$PROJ_DIR$\..\App\TPAD\tpad.c</name>
