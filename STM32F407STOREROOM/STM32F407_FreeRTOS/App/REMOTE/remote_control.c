@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-02-21 19:16:05
- * @LastEditTime: 2021-03-20 11:45:55
+ * @LastEditTime: 2021-03-21 19:21:56
  * @LastEditors: HLLI8
  */
 #include "remote_control.h"
@@ -11,6 +11,9 @@
 #include "beep.h"
 #include "pwm.h"
 #include "lwip_comm.h"
+#include "tcp_client.h"
+
+extern struct tcp_pcb *tcppcb;
 
 void Remote_control(void){
     uint8_t sta = 0;
@@ -19,8 +22,8 @@ void Remote_control(void){
     sta = Remote_Scan();
     switch(sta)
     {
-        case 0:str="ERROR";break;			   
-        case 162:str="POWER";break;	    
+        case 0:str="ERROR"; tcp_client_usersent(tcppcb, str); break;			   
+        case 162:str="POWER";tcp_client_usersent(tcppcb, str);break;	    
         case 98:str="UP";break;	    
         case 2:str="PLAY";break;		 
         case 226:str="ALIENTEK";break;		  
