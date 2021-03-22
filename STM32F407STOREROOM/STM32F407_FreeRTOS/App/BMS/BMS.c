@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-02-20 08:59:56
- * @LastEditTime: 2021-03-02 08:49:51
+ * @LastEditTime: 2021-03-22 08:42:21
  * @LastEditors: HLLI8
  */
 #if BMS_BMS
@@ -67,5 +67,14 @@ int BMS_Get_message(PGNTypeRcv ePGNTypeRcv, char** messageData)
         PGN_MessageRcv[ePGNTypeRcv].valid = 1; //数据读取成功后有效
     
     return PGNInfoRcv[ePGNTypeRcv].dataLen;
+}
+
+bool BMS_Check_Valid(PGNTypeRcv ePGNTypeRcv){
+    if (PGN_MessageRcv[ePGNTypeRcv].valid == 1)
+    {
+        return true;
+    }else{
+        return false;
+    }
 }
 #endif
