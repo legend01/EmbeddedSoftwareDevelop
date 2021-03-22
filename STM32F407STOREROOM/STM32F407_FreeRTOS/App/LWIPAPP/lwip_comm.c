@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-19 22:07:40
- * @LastEditTime: 2021-03-21 10:09:33
+ * @LastEditTime: 2021-03-22 20:44:47
  * @LastEditors: HLLI8
  */
 #include "lwip_comm.h"
@@ -10,8 +10,13 @@
 #include "log_printf.h"
 #include "ethernetif.h"
 #include "tcpip.h"
-#include "lwip.h"
 #include "lan8720.h"
+#include "dhcp.h"
+
+struct netif gnetif;
+ip4_addr_t ipaddr;
+ip4_addr_t netmask;
+ip4_addr_t gw;
 
 __lwip_dev lwipdev;						//lwip控制结构体 
 __lwip_dhcp lwip_dhcp; /* 开启DHCP服务结构体 */
@@ -28,8 +33,8 @@ static void lwip_comm_default_ip_set(__lwip_dev *lwipx)
 	//默认远端IP为:192.168.1.100
 	lwipx->remoteip[0]=192;	
 	lwipx->remoteip[1]=168;
-	lwipx->remoteip[2]=1;
-	lwipx->remoteip[3]=11;
+	lwipx->remoteip[2]=0;
+	lwipx->remoteip[3]=101;
 	//MAC地址设置(高三字节固定为:2.0.0,低三字节用STM32唯一ID)
 	lwipx->mac[0]=2;//高三字节(IEEE称之为组织唯一ID,OUI)地址固定为:2.0.0
 	lwipx->mac[1]=0;
@@ -40,7 +45,7 @@ static void lwip_comm_default_ip_set(__lwip_dev *lwipx)
 	//默认本地IP为:192.168.1.30
 	lwipx->ip[0]=192;	
 	lwipx->ip[1]=168;
-	lwipx->ip[2]=1;
+	lwipx->ip[2]=0;
 	lwipx->ip[3]=30;
 	//默认子网掩码:255.255.255.0
 	lwipx->conf_netmask[0]=255;	
@@ -50,7 +55,7 @@ static void lwip_comm_default_ip_set(__lwip_dev *lwipx)
 	//默认网关:192.168.1.1
 	lwipx->gateway[0]=192;	
 	lwipx->gateway[1]=168;
-	lwipx->gateway[2]=1;
+	lwipx->gateway[2]=0;
 	lwipx->gateway[3]=1;	
 	lwipx->dhcpstatus=0;//没有DHCP	
 } 
@@ -67,7 +72,7 @@ static void lwip_dhcp_config(void){
 	{
 		retry++;
 		LOG_PRINTF("Search whether open dhcp function time: %d \r\n", retry);
-		if (retry > 50)
+		if (retry > 500)
 		{
 			LOG_PRINTF("Search over, Don't open dhcp function \r\n");
 			retry = 0;
@@ -85,7 +90,8 @@ u8 lwip_comm_init(void){
 	struct netif *Netif_Init_Flag; //调用netif_add()函数时返回值,判断网络初始化是否成功
 	lwip_comm_default_ip_set(&lwipdev); //设置默认IP等信息
 	lwip_dhcp_config();  /* 等待是否配置DHCP功能 */
-	if (!lwip_dhcp.useDHCPorNot)
+	
+	if (lwip_dhcp.useDHCPorNot)
 	{
 		ipaddr.addr = 0;
 		netmask.addr = 0;
@@ -94,10 +100,10 @@ u8 lwip_comm_init(void){
 		IP4_ADDR(&ipaddr,lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);
 		IP4_ADDR(&netmask,lwipdev.conf_netmask[0],lwipdev.conf_netmask[1] ,lwipdev.conf_netmask[2],lwipdev.conf_netmask[3]);
 		IP4_ADDR(&gw,lwipdev.gateway[0],lwipdev.gateway[1],lwipdev.gateway[2],lwipdev.gateway[3]);
-		LOG_PRINTF("网卡en的MAC地址为:................%d.%d.%d.%d.%d.%d\r\n",lwipdev.mac[0],lwipdev.mac[1],lwipdev.mac[2],lwipdev.mac[3],lwipdev.mac[4],lwipdev.mac[5]);
-		LOG_PRINTF("静态IP地址........................%d.%d.%d.%d\r\n",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);
-		LOG_PRINTF("子网掩码..........................%d.%d.%d.%d\r\n",lwipdev.conf_netmask[0],lwipdev.conf_netmask[1],lwipdev.conf_netmask[2],lwipdev.conf_netmask[3]);
-		LOG_PRINTF("默认网关..........................%d.%d.%d.%d\r\n",lwipdev.gateway[0],lwipdev.gateway[1],lwipdev.gateway[2],lwipdev.gateway[3]);
+		LOG_PRINTF("MAC:................%d.%d.%d.%d.%d.%d\r\n",lwipdev.mac[0],lwipdev.mac[1],lwipdev.mac[2],lwipdev.mac[3],lwipdev.mac[4],lwipdev.mac[5]);
+		LOG_PRINTF("Static IP:........................%d.%d.%d.%d\r\n",lwipdev.ip[0],lwipdev.ip[1],lwipdev.ip[2],lwipdev.ip[3]);
+		LOG_PRINTF("NetMask:..........................%d.%d.%d.%d\r\n",lwipdev.conf_netmask[0],lwipdev.conf_netmask[1],lwipdev.conf_netmask[2],lwipdev.conf_netmask[3]);
+		LOG_PRINTF("Gateway:..........................%d.%d.%d.%d\r\n",lwipdev.gateway[0],lwipdev.gateway[1],lwipdev.gateway[2],lwipdev.gateway[3]);
 	}
 	Netif_Init_Flag = netif_add(&gnetif, &ipaddr, &netmask, &gw, NULL, &ethernetif_init, &tcpip_input); //向网卡列表中添加一个网口
 	
