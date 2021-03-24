@@ -101,7 +101,7 @@ void MX_LWIP_Init(void)
     /* When the netif is fully configured this function must be called */
     // netif_set_up(&gnetif);
   }
-  //else
+  // else
   {
     /* When the netif link is down this function must be called */
     // netif_set_down(&gnetif);

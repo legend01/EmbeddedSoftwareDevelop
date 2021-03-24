@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-19 22:07:40
- * @LastEditTime: 2021-03-22 20:44:47
+ * @LastEditTime: 2021-03-22 21:05:30
  * @LastEditors: HLLI8
  */
 #include "lwip_comm.h"
@@ -12,6 +12,7 @@
 #include "tcpip.h"
 #include "lan8720.h"
 #include "dhcp.h"
+#include "remote_control.h"
 
 struct netif gnetif;
 ip4_addr_t ipaddr;
@@ -65,12 +66,13 @@ void ExternalConditionJudgeUseDHCP(LWIP_ENU opt){
 }
 
 static void lwip_dhcp_config(void){
-	u8 retry = 0;
+	u16 retry = 0;
 	LOG_PRINTF("If open dhcp function \r\n");
 	LOG_PRINTF("wiating.....\r\n");
 	while (!lwip_dhcp.useDHCPorNot)
 	{
 		retry++;
+		Remote_control();
 		LOG_PRINTF("Search whether open dhcp function time: %d \r\n", retry);
 		if (retry > 500)
 		{
