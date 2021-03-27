@@ -2,6 +2,7 @@
 #include "app_can.h"
 #include "log_printf.h"
 
+#if 0
 sJ1939_transfeManger J1939_connect;
 sJ1939_transfeManger J1939_connect_send;
 
@@ -665,3 +666,4 @@ void J1939_connect_send_clear(void)
 	J1939_connect_send.num_packet	 = 0;
 	J1939_connect_send.PGNindex		 = PGN_MAX_Send;
 }
+#endif

@@ -2,7 +2,7 @@
  * @Description: TCP客户端
  * @Author: HLLI8
  * @Date: 2021-03-21 12:01:08
- * @LastEditTime: 2021-03-21 19:12:05
+ * @LastEditTime: 2021-03-27 10:29:37
  * @LastEditors: HLLI8
  */
 #ifndef __TCP_CLIENT_H__
@@ -15,8 +15,8 @@
 
 #define TCP_CLIENT_RX_BUFSIZE	200		//定义tcp client最大接收数据长度
 #define TCP_CLIENT_TX_BUFSIZE	200		//tcp client发送数据长度
-#define	TCP_CLIENT_PORT			8087	//定义tcp client要连接的远端端口
-
+#define	TCP_SERVER_PORT			8087	//定义tcp client要连接的远端端口
+#define LOCAL_PORT 8088
 //tcp服务器连接状态
 enum tcp_client_states
 {

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-02-21 19:16:05
- * @LastEditTime: 2021-03-22 22:09:46
+ * @LastEditTime: 2021-03-24 22:21:45
  * @LastEditors: HLLI8
  */
 #include "remote_control.h"
@@ -46,7 +46,7 @@ void Remote_control(void){
     }
     if(sta != 0){
         LOG_PRINTF("REMOTE Light Recognize: %s \r\n", str);
-        ExternalConditionJudgeUseDHCP(OPEN);
+        // ExternalConditionJudgeUseDHCP(OPEN);
     }else{
         // ExternalConditionJudgeUseDHCP(CLOSE);
     }

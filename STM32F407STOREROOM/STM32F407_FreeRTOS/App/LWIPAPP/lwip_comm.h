@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-19 22:24:49
- * @LastEditTime: 2021-03-21 10:13:01
+ * @LastEditTime: 2021-03-24 22:23:11
  * @LastEditors: HLLI8
  */
 #ifndef __LWIP_COMM_H__
@@ -55,5 +55,5 @@ void ExternalConditionJudgeUseDHCP(LWIP_ENU opt);
 u8 lwip_comm_init(void);
 void lwip_dhcp_process(void);
 void lwip_net_inf(void);
-
+void lwip_comm_default_ip_set(__lwip_dev *lwipx);
 #endif // !__LWIP_COMM_H__

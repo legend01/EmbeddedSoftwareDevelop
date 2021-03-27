@@ -28,7 +28,7 @@
         <EnableCache>1</EnableCache>
     </ArmDriver>
     <DebugChecksum>
-        <Checksum>1829668305</Checksum>
+        <Checksum>3306699056</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -101,10 +101,13 @@
         <Bp2>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\App\LWIPAPP\lwip_comm.c}.94.2" 0 0 1 "" 0 "" 0</Bp2>
         <Bp3>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\App\LWIPAPP\lwip_comm.c}.122.3" 0 0 1 "" 0 "" 0</Bp3>
         <Bp4>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\App\LWIPAPP\lwip_comm.c}.111.2" 0 0 1 "" 0 "" 0</Bp4>
-        <Bp5>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\App\TCPCLIENT\tcp_client.c}.53.9" 0 0 1 "" 0 "" 0</Bp5>
-        <Bp6>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\App\TCPCLIENT\tcp_client.c}.84.1" 0 0 1 "" 0 "" 0</Bp6>
-        <Bp7>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\App\TCPCLIENT\tcp_client.c}.51.5" 0 0 1 "" 0 "" 0</Bp7>
-        <Count>8</Count>
+        <Bp5>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\App\TCPCLIENT\tcp_client.c}.49.1" 0 0 1 "" 0 "" 0</Bp5>
+        <Bp6>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\App\TCPCLIENT\tcp_client.c}.49.1" 0 0 1 "" 0 "" 0</Bp6>
+        <Bp7>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\App\TCPCLIENT\tcp_client.c}.49.1" 0 0 1 "" 0 "" 0</Bp7>
+        <Bp8>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\App\TCPCLIENT\tcp_client.c}.28.9" 0 0 1 "" 0 "" 0</Bp8>
+        <Bp9>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\api\api_lib.c}.129.3" 0 0 1 "" 0 "" 0</Bp9>
+        <Bp10>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Middlewares\Third_Party\LwIP\src\api\api_msg.c}.653.3" 0 0 1 "" 0 "" 0</Bp10>
+        <Count>11</Count>
     </Breakpoints2>
     <Aliases>
         <Count>0</Count>

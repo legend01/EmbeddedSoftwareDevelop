@@ -2,12 +2,12 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-01 11:10:29
- * @LastEditTime: 2021-03-16 14:39:19
+ * @LastEditTime: 2021-03-27 10:39:33
  * @LastEditors: HLLI8
  */
 #include "BMS_BMS.h"
 
-
+#if 0
 
 sBMS_Manage BMSmanager;
 RCV_CHM Rcv_CHM;
@@ -254,3 +254,4 @@ bool BMS_Check_Valid(PGNTypeRcv ePGNTypeRcv){
         return false;
     }
 }
+#endif

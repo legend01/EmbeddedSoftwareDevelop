@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: HLLI8
  * @Date: 2021-03-19 22:07:40
- * @LastEditTime: 2021-03-22 21:05:30
+ * @LastEditTime: 2021-03-27 10:43:14
  * @LastEditors: HLLI8
  */
 #include "lwip_comm.h"
@@ -13,12 +13,14 @@
 #include "lan8720.h"
 #include "dhcp.h"
 #include "remote_control.h"
+#include "tcpip.h"
 
+#if 0
 struct netif gnetif;
 ip4_addr_t ipaddr;
 ip4_addr_t netmask;
 ip4_addr_t gw;
-
+#endif
 __lwip_dev lwipdev;						//lwip控制结构体 
 __lwip_dhcp lwip_dhcp; /* 开启DHCP服务结构体 */
 
@@ -27,15 +29,15 @@ __IO u32 DHCPcoarseTimer = 0; //DHCP粗糙处理计时器
 
 //lwip 默认IP设置
 //lwipx:lwip控制结构体指针
-static void lwip_comm_default_ip_set(__lwip_dev *lwipx)
+void lwip_comm_default_ip_set(__lwip_dev *lwipx)
 {
 	u32 sn0;
 	sn0=*(vu32*)(0x1FFF7A10);//获取STM32的唯一ID的前24位作为MAC地址后三字节
-	//默认远端IP为:192.168.1.100
+	//默认远端IP为:192.168.1.102
 	lwipx->remoteip[0]=192;	
 	lwipx->remoteip[1]=168;
 	lwipx->remoteip[2]=0;
-	lwipx->remoteip[3]=101;
+	lwipx->remoteip[3]=102;
 	//MAC地址设置(高三字节固定为:2.0.0,低三字节用STM32唯一ID)
 	lwipx->mac[0]=2;//高三字节(IEEE称之为组织唯一ID,OUI)地址固定为:2.0.0
 	lwipx->mac[1]=0;
@@ -43,7 +45,7 @@ static void lwip_comm_default_ip_set(__lwip_dev *lwipx)
 	lwipx->mac[3]=(sn0>>16)&0XFF;//低三字节用STM32的唯一ID
 	lwipx->mac[4]=(sn0>>8)&0XFFF;
 	lwipx->mac[5]=sn0&0XFF; 
-	//默认本地IP为:192.168.1.30
+	//默认本地IP为:192.168.0.30
 	lwipx->ip[0]=192;	
 	lwipx->ip[1]=168;
 	lwipx->ip[2]=0;
@@ -53,7 +55,7 @@ static void lwip_comm_default_ip_set(__lwip_dev *lwipx)
 	lwipx->conf_netmask[1]=255;
 	lwipx->conf_netmask[2]=255;
 	lwipx->conf_netmask[3]=0;
-	//默认网关:192.168.1.1
+	//默认网关:192.168.0.1
 	lwipx->gateway[0]=192;	
 	lwipx->gateway[1]=168;
 	lwipx->gateway[2]=0;
@@ -61,6 +63,7 @@ static void lwip_comm_default_ip_set(__lwip_dev *lwipx)
 	lwipx->dhcpstatus=0;//没有DHCP	
 } 
 
+#if 0
 void ExternalConditionJudgeUseDHCP(LWIP_ENU opt){
 	lwip_dhcp.useDHCPorNot = opt;
 }
@@ -91,7 +94,7 @@ static void lwip_dhcp_config(void){
 u8 lwip_comm_init(void){
 	struct netif *Netif_Init_Flag; //调用netif_add()函数时返回值,判断网络初始化是否成功
 	lwip_comm_default_ip_set(&lwipdev); //设置默认IP等信息
-	lwip_dhcp_config();  /* 等待是否配置DHCP功能 */
+	// lwip_dhcp_config();  /* 等待是否配置DHCP功能 */
 	
 	if (lwip_dhcp.useDHCPorNot)
 	{
@@ -109,14 +112,23 @@ u8 lwip_comm_init(void){
 	}
 	Netif_Init_Flag = netif_add(&gnetif, &ipaddr, &netmask, &gw, NULL, &ethernetif_init, &tcpip_input); //向网卡列表中添加一个网口
 	
-	if(lwip_dhcp.useDHCPorNot){
+	if(lwip_dhcp.useDHCPorNot)
+    {
 		lwipdev.dhcpstatus = NOT_GET_ADDR; 
 		dhcp_start(&gnetif);
 	}
 	if(Netif_Init_Flag == NULL) return ADD_NETCONFIG_FAILD; //添加网卡失败
 	else{
 		netif_set_default(&gnetif); //设置netif为默认网口
-		netif_set_up(&gnetif); //打开netif网口
+		// netif_set_up(&gnetif); //打开netif网口
+		if (netif_is_link_up(&gnetif))
+		{
+			/* When the netif is fully configured this function must be called */
+			netif_set_up(&gnetif);
+		}else{
+			/* When the netif link is down this function must be called */
+			netif_set_down(&gnetif);
+		}
 	}
 	return SUCCESS;
 }
@@ -131,30 +143,6 @@ void lwip_dhcp_process(void){
 	}
 }
 
-//LWIP轮询任务
-void lwip_periodic_handle(void)
-{
-	if (lwip_dhcp.useDHCPorNot)
-	{
-		//每500ms调用一次dhcp_fine_tmr()
-		if (sys_now() - DHCPfineTimer >= DHCP_FINE_TIMER_MSECS)
-		{
-			DHCPfineTimer =  sys_now();
-			dhcp_fine_tmr();
-			if ((lwipdev.dhcpstatus != 2)&&(lwipdev.dhcpstatus != 0XFF))
-			{ 
-			lwip_dhcp_process_handle();  //DHCP处理
-			}
-		}
-
-		//每60s执行一次DHCP粗糙处理
-		if (sys_now() - DHCPcoarseTimer >= DHCP_COARSE_TIMER_MSECS)
-		{
-			DHCPcoarseTimer =  sys_now();
-			dhcp_coarse_tmr();
-		}  
-	}
-}
 
 //DHCP处理任务
 void lwip_dhcp_process_handle(void)
@@ -195,7 +183,8 @@ void lwip_dhcp_process_handle(void)
 				lwipdev.gateway[1]=(uint8_t)(gw>>8);
 				lwipdev.gateway[0]=(uint8_t)(gw);
 				LOG_PRINTF("通过DHCP获取到的默认网关..........%d.%d.%d.%d\r\n",lwipdev.gateway[0],lwipdev.gateway[1],lwipdev.gateway[2],lwipdev.gateway[3]);
-			}else if(netif_dhcp_data(&gnetif)->tries>LWIP_MAX_DHCP_TRIES) //通过DHCP服务获取IP地址失败,且超过最大尝试次数
+			}
+                        //else if(netif_dhcp_data(&gnetif)->tries>LWIP_MAX_DHCP_TRIES) //通过DHCP服务获取IP地址失败,且超过最大尝试次数
 			{
 				lwipdev.dhcpstatus=0XFF;//DHCP超时失败.
 				//使用静态IP地址
@@ -231,3 +220,4 @@ void lwip_net_inf(void){
 	}
 	
 }
+#endif
